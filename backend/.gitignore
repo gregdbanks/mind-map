@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+.env
+.env.test
+.env.production
+*.log
+.DS_Store
+.vscode
+.idea
+prisma/migrations/dev*

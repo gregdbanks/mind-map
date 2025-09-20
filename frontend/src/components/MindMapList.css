@@ -1,0 +1,273 @@
+.mind-map-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.list-header h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.list-header button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.list-header button:hover {
+  background-color: #0052a3;
+}
+
+/* Create Form */
+.create-form {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.create-form > div {
+  margin-bottom: 1rem;
+}
+
+.create-form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.create-form input,
+.create-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.create-form input:focus,
+.create-form textarea:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.create-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.form-actions button[type="submit"] {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.form-actions button[type="submit"]:hover {
+  background-color: #0052a3;
+}
+
+.form-actions button[type="button"] {
+  background-color: #fff;
+  color: #666;
+  border: 1px solid #ccc;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.form-actions button[type="button"]:hover {
+  background-color: #f8f9fa;
+  border-color: #999;
+}
+
+/* Mind Map Grid */
+.mind-maps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.mind-map-item {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mind-map-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.mind-map-item:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.3);
+}
+
+.mind-map-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.mind-map-content p {
+  margin: 0 0 1rem 0;
+  color: #666;
+  line-height: 1.5;
+}
+
+.mind-map-content small {
+  color: #999;
+  font-size: 0.875rem;
+}
+
+.mind-map-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.mind-map-actions button {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mind-map-actions button:hover {
+  background-color: #f8f9fa;
+  border-color: #999;
+}
+
+.mind-map-actions button[aria-label*="Delete"] {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.mind-map-actions button[aria-label*="Delete"]:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Loading and Error States */
+.loading,
+.error,
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.loading {
+  color: #666;
+  font-size: 1.125rem;
+}
+
+.error {
+  background-color: #fff5f5;
+  border: 1px solid #feb2b2;
+  border-radius: 0.5rem;
+  color: #c53030;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.error p:first-child {
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.empty-state p {
+  font-size: 1.125rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.empty-state button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.empty-state button:hover {
+  background-color: #0052a3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mind-map-list {
+    padding: 1rem;
+  }
+
+  .list-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .list-header button {
+    width: 100%;
+  }
+
+  .mind-maps {
+    grid-template-columns: 1fr;
+  }
+}
