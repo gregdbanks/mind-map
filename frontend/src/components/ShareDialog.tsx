@@ -110,9 +110,9 @@ export function ShareDialog({ mindMap, nodes, onClose }: ShareDialogProps) {
     {
       id: 'json',
       title: '💾 JSON File',
-      description: 'Export data file for backup (import coming soon)',
+      description: 'Export data file for backup or import into another mind map',
       action: handleJSONExport,
-      badge: 'BACKUP'
+      badge: 'BACKUP/IMPORT'
     },
     {
       id: 'email',

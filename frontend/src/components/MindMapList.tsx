@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useMindMap } from '../store/MindMapContext'
 import type { MindMap } from '../types'
 import './MindMapList.css'
@@ -14,6 +14,7 @@ export function MindMapList({ onSelect }: MindMapListProps) {
   const [newTitle, setNewTitle] = useState('')
   const [newDescription, setNewDescription] = useState('')
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     actions.fetchMindMaps()
@@ -41,6 +42,53 @@ export function MindMapList({ onSelect }: MindMapListProps) {
       setDeleteConfirm(null)
     } catch (err) {
       console.error('Failed to delete mind map:', err)
+    }
+  }
+
+  const handleImportClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  const handleImportFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    try {
+      // Use FileReader for better compatibility
+      const text = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = (e) => resolve(e.target?.result as string)
+        reader.onerror = reject
+        reader.readAsText(file)
+      })
+      const data = JSON.parse(text)
+
+      // Validate the JSON structure
+      if (!data.version || !data.mindMap || !data.nodes) {
+        throw new Error('Invalid mind map file format')
+      }
+
+      // Create the mind map with the imported data
+      const createdMindMap = await actions.createMindMap({
+        title: data.mindMap.title || 'Imported Mind Map',
+        description: data.mindMap.description
+      })
+
+      // Import all nodes
+      if (data.nodes && data.nodes.length > 0) {
+        await actions.importNodes(createdMindMap.id, data.nodes)
+      }
+
+      // Refresh the mind maps list
+      await actions.fetchMindMaps()
+
+      // Clear the file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+    } catch (err) {
+      console.error('Failed to import mind map:', err)
+      actions.setError(err instanceof Error ? err.message : 'Failed to import mind map')
     }
   }
 
@@ -92,7 +140,17 @@ export function MindMapList({ onSelect }: MindMapListProps) {
     <div className="mind-map-list">
       <div className="list-header">
         <h2>My Mind Maps</h2>
-        <button onClick={() => setShowCreateForm(true)}>Create New</button>
+        <div className="header-actions">
+          <button onClick={() => setShowCreateForm(true)}>Create New</button>
+          <button onClick={handleImportClick}>Import JSON</button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json,application/json"
+            onChange={handleImportFile}
+            style={{ display: 'none' }}
+          />
+        </div>
       </div>
 
       {showCreateForm && (

@@ -129,6 +129,7 @@ interface MindMapContextType {
     updateNode: (id: string, data: UpdateNodeDto) => Promise<void>
     deleteNode: (id: string) => Promise<void>
     batchUpdateNodes: (updates: { id: string; positionX?: number; positionY?: number }[]) => Promise<void>
+    importNodes: (mindMapId: string, nodes: any[]) => Promise<void>
 
     // Canvas actions
     fetchCanvas: (mindMapId: string) => Promise<void>
@@ -329,6 +330,40 @@ export function MindMapProvider({ children }: { children: ReactNode }) {
         })
       } catch (error: any) {
         dispatch({ type: 'SET_ERROR', payload: error.message })
+      }
+    },
+
+    importNodes: async (mindMapId: string, nodes: any[]) => {
+      try {
+        // Create nodes in the correct order (parents before children)
+        const nodeMap = new Map<string, string>() // Map old IDs to new IDs
+        const sortedNodes = [...nodes].sort((a, b) => {
+          // Root nodes first
+          if (!a.parentId && b.parentId) return -1
+          if (a.parentId && !b.parentId) return 1
+          return 0
+        })
+
+        for (const node of sortedNodes) {
+          const parentId = node.parentId ? nodeMap.get(node.parentId) : null
+          
+          const createdNode = await robustCachedNodeApi.create(mindMapId, {
+            text: node.text,
+            parentId: parentId || undefined,
+            positionX: node.positionX,
+            positionY: node.positionY,
+            color: node.color,
+          })
+          
+          // Map old ID to new ID for children
+          nodeMap.set(node.id, createdNode.id)
+        }
+
+        // Refresh nodes after import
+        await actions.fetchNodes(mindMapId)
+      } catch (error: any) {
+        dispatch({ type: 'SET_ERROR', payload: error.message })
+        throw error
       }
     },
 

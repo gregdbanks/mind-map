@@ -18,7 +18,13 @@
   color: #1a1a1a;
 }
 
-.list-header button {
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.list-header button,
+.header-actions button {
   background-color: #0066cc;
   color: white;
   border: none;
@@ -30,7 +36,8 @@
   transition: background-color 0.2s;
 }
 
-.list-header button:hover {
+.list-header button:hover,
+.header-actions button:hover {
   background-color: #0052a3;
 }
 
