@@ -59,16 +59,36 @@ export function ShareDialog({ mindMap, nodes, onClose }: ShareDialogProps) {
     setTimeout(() => setActiveMethod(null), 2000)
   }
 
-  const handleEmailShare = () => {
+  const handleEmailShare = async () => {
+    // First download the HTML file
+    const blob = await ExportService.exportAsInteractiveHTML(mindMap, nodes)
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${mindMap.title}-mindmap.html`
+    a.click()
+    URL.revokeObjectURL(url)
+    
+    // Then open email client
     const subject = encodeURIComponent(`Mind Map: ${mindMap.title}`)
     const body = encodeURIComponent(
-      `I've shared a mind map with you: "${mindMap.title}"\n\n` +
-      `${mindMap.description || ''}\n\n` +
-      `You can:\n` +
-      `1. Download the attached file and open it at ${window.location.origin}\n` +
-      `2. Or view it directly using this link: ${shareUrl || 'Generate a share link first'}`
+      `I'd like to share this mind map with you:\n\n` +
+      `Title: ${mindMap.title}\n` +
+      `${mindMap.description ? `Description: ${mindMap.description}\n` : ''}` +
+      `\nI've downloaded the HTML file - please attach it to this email.\n\n` +
+      `Instructions for viewing:\n` +
+      `1. Save the attached HTML file\n` +
+      `2. Drag it into any web browser (or right-click → Open with → Browser)\n` +
+      `3. Use mouse to pan/zoom and interact\n\n` +
+      `It's a self-contained file that works offline!`
     )
-    window.location.href = `mailto:?subject=${subject}&body=${body}`
+    
+    setTimeout(() => {
+      window.location.href = `mailto:?subject=${subject}&body=${body}`
+    }, 100)
+    
+    setActiveMethod('email')
+    setTimeout(() => setActiveMethod(null), 2000)
   }
 
   const shareMethods = [
@@ -77,28 +97,29 @@ export function ShareDialog({ mindMap, nodes, onClose }: ShareDialogProps) {
       title: '🌐 Interactive HTML',
       description: 'Download a self-contained HTML file that works offline',
       action: handleInteractiveHTML,
-      badge: 'BEST FOR VIEWING'
+      badge: 'WORKS OFFLINE'
     },
-    {
-      id: 'url',
-      title: '🔗 Share Link',
-      description: 'Create a link that opens the mind map directly',
-      action: handleShareURL,
-      badge: 'QUICKEST'
-    },
+    // URL sharing will be enabled after deployment
+    // {
+    //   id: 'url',
+    //   title: '🔗 Share Link',
+    //   description: 'Create a link that opens the mind map directly',
+    //   action: handleShareURL,
+    //   badge: 'QUICKEST'
+    // },
     {
       id: 'json',
       title: '💾 JSON File',
-      description: 'Export data file for import or backup',
+      description: 'Export data file for backup (import coming soon)',
       action: handleJSONExport,
-      badge: 'MOST COMPATIBLE'
+      badge: 'BACKUP'
     },
     {
       id: 'email',
       title: '📧 Email',
-      description: 'Share via email with instructions',
+      description: 'Share HTML file via email with instructions',
       action: handleEmailShare,
-      badge: 'EASIEST'
+      badge: 'EASY SHARING'
     }
   ]
 
