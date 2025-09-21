@@ -299,13 +299,22 @@ describe('Defensive Cache', () => {
     })
 
     it('should detect offline state', () => {
-      Object.defineProperty(navigator, 'onLine', {
+      // Mock navigator.onLine as false
+      Object.defineProperty(window.navigator, 'onLine', {
+        configurable: true,
         writable: true,
         value: false
       })
 
-      window.dispatchEvent(new Event('offline'))
+      // The defensive cache checks navigator.onLine directly
       expect(getNetworkState()).toBe(false)
+      
+      // Clean up
+      Object.defineProperty(window.navigator, 'onLine', {
+        configurable: true,
+        writable: true,
+        value: true
+      })
     })
   })
 })

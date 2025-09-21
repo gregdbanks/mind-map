@@ -278,11 +278,11 @@ describe('Robust Cached API', () => {
   describe('Offline handling', () => {
     it('should provide helpful offline message', async () => {
       // Mock offline state
-      Object.defineProperty(navigator, 'onLine', {
+      Object.defineProperty(window.navigator, 'onLine', {
+        configurable: true,
         writable: true,
         value: false
       })
-      window.dispatchEvent(new Event('offline'))
 
       const notificationSpy = vi.fn()
       apiNotifications.addEventListener('notification', notificationSpy)
@@ -291,11 +291,14 @@ describe('Robust Cached API', () => {
 
       await expect(
         robustCachedMindMapApi.create({ title: 'Test' })
-      ).rejects.toThrow('Cannot create mind map while offline')
+      ).rejects.toThrow('Cannot create mind map while offline. Please check your connection.')
 
       // Reset online state
-      Object.defineProperty(navigator, 'onLine', { value: true })
-      window.dispatchEvent(new Event('online'))
+      Object.defineProperty(window.navigator, 'onLine', { 
+        configurable: true,
+        writable: true,
+        value: true 
+      })
     })
   })
 })

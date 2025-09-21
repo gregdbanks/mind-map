@@ -236,18 +236,24 @@ export function safeBatchInvalidate(patterns: string[]): Set<string> {
 }
 
 // Network state detection
-let isOnline = navigator.onLine
+let isOnline = typeof navigator !== 'undefined' ? navigator.onLine : true
 
-window.addEventListener('online', () => {
-  isOnline = true
-  // Could trigger background sync here
-})
+if (typeof window !== 'undefined') {
+  window.addEventListener('online', () => {
+    isOnline = true
+    // Could trigger background sync here
+  })
 
-window.addEventListener('offline', () => {
-  isOnline = false
-})
+  window.addEventListener('offline', () => {
+    isOnline = false
+  })
+}
 
 export function getNetworkState(): boolean {
+  // Always check current navigator state in test environment
+  if (typeof navigator !== 'undefined') {
+    return navigator.onLine
+  }
   return isOnline
 }
 

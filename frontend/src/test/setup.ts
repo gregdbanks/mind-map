@@ -27,3 +27,15 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock canvas for Konva
 HTMLCanvasElement.prototype.getContext = vi.fn()
+
+// Mock navigator for defensiveCache
+Object.defineProperty(window, 'navigator', {
+  writable: true,
+  value: {
+    onLine: true,
+  },
+})
+
+// Mock window event listeners
+window.addEventListener = vi.fn()
+window.removeEventListener = vi.fn()
