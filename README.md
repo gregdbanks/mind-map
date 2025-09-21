@@ -2,7 +2,7 @@
 
 A powerful web-based mind mapping application with a smooth, intuitive interface for organizing thoughts and ideas. Built with React, TypeScript, and PostgreSQL.
 
-![Mind Map Demo](assets/mindmap-demo.gif)
+![Mind Map Demo](assets/mindmap-share-demo.gif)
 
 ## Features
 
@@ -18,6 +18,11 @@ A powerful web-based mind mapping application with a smooth, intuitive interface
 - 🎪 **Collapsible/expandable** branches for better organization
 - 💾 **Auto-save** with optimistic updates and caching
 - 🚀 **High performance** - handles hundreds of nodes smoothly
+- 📤 **Multiple sharing options**:
+  - **Interactive HTML**: Self-contained file that works offline
+  - **URL Sharing**: Compressed links for quick sharing
+  - **JSON Export**: Portable data format for backups
+  - **Email Integration**: Share with instructions
 
 ## Tech Stack
 
@@ -110,6 +115,15 @@ npm run dev
 - **Delete**: Select nodes and press Delete
 - **Drag**: Click and drag any node to reposition
 - **Style**: Right-click for context menu (coming soon)
+
+### Sharing Your Mind Map
+
+1. Click the **Share** button in the top controls
+2. Choose from 4 sharing methods:
+   - **🌐 Interactive HTML**: Download a fully functional offline viewer
+   - **🔗 Share Link**: Get a URL that opens directly in the app
+   - **💾 JSON File**: Export for backup or import elsewhere
+   - **📧 Email**: Pre-formatted email with instructions
 
 ## Development
 

@@ -330,10 +330,7 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
         <button onClick={handleZoomIn} aria-label="Zoom in">+</button>
         <button onClick={handleZoomOut} aria-label="Zoom out">-</button>
         <button onClick={handleResetView} aria-label="Reset view">Reset</button>
-        <button onClick={() => {
-          console.log('Share button clicked', { showShareDialog, currentMindMap, mindMapId, selectedMindMap })
-          setShowShareDialog(true)
-        }} aria-label="Share mind map">Share</button>
+        <button onClick={() => setShowShareDialog(true)} aria-label="Share mind map">Share</button>
       </div>
 
       <Stage
