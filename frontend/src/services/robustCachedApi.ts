@@ -30,16 +30,18 @@ const handleNetworkError = (error: Error, operation: string) => {
 // Robust Cached Mind Map API
 export const robustCachedMindMapApi = {
   getAll: async (): Promise<MindMap[]> => {
-    return safeCache(
+    const result = await safeCache(
       cacheKeys.mindMaps.all(),
       async () => {
-        return retryWithBackoff(
+        const response = await retryWithBackoff(
           () => mindMapApi.getAll(),
           { maxRetries: 3 }
         )
+        return Array.isArray(response) ? response : response.data
       },
       { ttl: 5 * 60 * 1000 }
     )
+    return result as MindMap[]
   },
 
   getById: async (id: string, includes?: string[]): Promise<MindMap> => {
@@ -220,9 +222,9 @@ export const robustCachedNodeApi = {
     
     return defensiveOptimisticUpdate(
       key,
-      (currentNodes: Node[]) => {
+      (currentNodes: any) => {
         const updateMap = new Map(updates.map(u => [u.id, u]))
-        return currentNodes.map(node => {
+        return currentNodes.map((node: any) => {
           const update = updateMap.get(node.id)
           if (update) {
             return {
@@ -272,7 +274,7 @@ export const robustCachedCanvasApi = {
     // Don't retry canvas updates - they're frequent and non-critical
     return defensiveOptimisticUpdate(
       key,
-      (current) => ({
+      (current: any) => ({
         ...current,
         ...data,
         updatedAt: new Date().toISOString()

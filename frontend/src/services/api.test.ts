@@ -34,7 +34,7 @@ describe('API Service', () => {
 
       const result = await mindMapApi.getAll()
       
-      expect(mockFetch).toHaveBeenCalledWith('/api/mindmaps', {
+      expect(mockFetch).toHaveBeenCalledWith('http://localhost:3001/api/mindmaps', {
         headers: { 'Content-Type': 'application/json' },
       })
       expect(result).toEqual(mockMindMaps)
@@ -58,7 +58,7 @@ describe('API Service', () => {
 
       const result = await mindMapApi.getById('1', ['nodes', 'canvas'])
       
-      expect(mockFetch).toHaveBeenCalledWith('/api/mindmaps/1?include=nodes%2Ccanvas', {
+      expect(mockFetch).toHaveBeenCalledWith('http://localhost:3001/api/mindmaps/1?include=nodes%2Ccanvas', {
         headers: { 'Content-Type': 'application/json' },
       })
       expect(result).toEqual(mockMindMap)
@@ -81,7 +81,7 @@ describe('API Service', () => {
 
       const result = await mindMapApi.create(createData)
       
-      expect(mockFetch).toHaveBeenCalledWith('/api/mindmaps', {
+      expect(mockFetch).toHaveBeenCalledWith('http://localhost:3001/api/mindmaps', {
         method: 'POST',
         body: JSON.stringify(createData),
         headers: { 'Content-Type': 'application/json' },
@@ -106,7 +106,7 @@ describe('API Service', () => {
 
       const result = await mindMapApi.update('1', updateData)
       
-      expect(mockFetch).toHaveBeenCalledWith('/api/mindmaps/1', {
+      expect(mockFetch).toHaveBeenCalledWith('http://localhost:3001/api/mindmaps/1', {
         method: 'PUT',
         body: JSON.stringify(updateData),
         headers: { 'Content-Type': 'application/json' },
@@ -122,7 +122,7 @@ describe('API Service', () => {
 
       await mindMapApi.delete('1')
       
-      expect(mockFetch).toHaveBeenCalledWith('/api/mindmaps/1', {
+      expect(mockFetch).toHaveBeenCalledWith('http://localhost:3001/api/mindmaps/1', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
       })
@@ -160,7 +160,7 @@ describe('API Service', () => {
 
       const result = await nodeApi.getAll('1', true)
       
-      expect(mockFetch).toHaveBeenCalledWith('/api/mindmaps/1/nodes?hierarchical=true', {
+      expect(mockFetch).toHaveBeenCalledWith('http://localhost:3001/api/mindmaps/1/nodes?hierarchical=true', {
         headers: { 'Content-Type': 'application/json' },
       })
       expect(result).toEqual(mockNodes)
@@ -189,7 +189,7 @@ describe('API Service', () => {
 
       const result = await nodeApi.create('1', createData)
       
-      expect(mockFetch).toHaveBeenCalledWith('/api/mindmaps/1/nodes', {
+      expect(mockFetch).toHaveBeenCalledWith('http://localhost:3001/api/mindmaps/1/nodes', {
         method: 'POST',
         body: JSON.stringify(createData),
         headers: { 'Content-Type': 'application/json' },
@@ -210,7 +210,7 @@ describe('API Service', () => {
 
       await nodeApi.batchUpdate('1', updates)
       
-      expect(mockFetch).toHaveBeenCalledWith('/api/mindmaps/1/nodes/batch-update', {
+      expect(mockFetch).toHaveBeenCalledWith('http://localhost:3001/api/mindmaps/1/nodes/batch-update', {
         method: 'POST',
         body: JSON.stringify({ updates }),
         headers: { 'Content-Type': 'application/json' },
@@ -237,7 +237,7 @@ describe('API Service', () => {
 
       const result = await canvasApi.get('1')
       
-      expect(mockFetch).toHaveBeenCalledWith('/api/mindmaps/1/canvas', {
+      expect(mockFetch).toHaveBeenCalledWith('http://localhost:3001/api/mindmaps/1/canvas', {
         headers: { 'Content-Type': 'application/json' },
       })
       expect(result).toEqual(mockCanvas)
@@ -251,7 +251,7 @@ describe('API Service', () => {
 
       await canvasApi.reset('1', true)
       
-      expect(mockFetch).toHaveBeenCalledWith('/api/mindmaps/1/canvas/reset', {
+      expect(mockFetch).toHaveBeenCalledWith('http://localhost:3001/api/mindmaps/1/canvas/reset', {
         method: 'POST',
         body: JSON.stringify({ centerOnNodes: true }),
         headers: { 'Content-Type': 'application/json' },

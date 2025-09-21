@@ -1,5 +1,4 @@
-import { apiCache, cacheKeys } from './cache'
-import type { MindMap, Node, CanvasState } from '../types'
+import { apiCache } from './cache'
 
 export interface CacheMetadata {
   version: number
@@ -213,7 +212,7 @@ export async function defensiveOptimisticUpdate<T extends { version?: number }>(
 }
 
 // Batch invalidation with safety checks
-export function safeBatchInvalidate(patterns: string[]): void {
+export function safeBatchInvalidate(patterns: string[]): Set<string> {
   const invalidatedKeys = new Set<string>()
   
   patterns.forEach(pattern => {

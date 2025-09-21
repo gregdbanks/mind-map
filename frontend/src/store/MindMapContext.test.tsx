@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { MindMapProvider, useMindMap } from './MindMapContext'
 import { NotificationProvider } from '../components/NotificationProvider'
 import type { MindMap, Node, CanvasState } from '../types'

@@ -246,7 +246,9 @@ describe('MindMapList', () => {
 
     // Focus first mind map
     const firstMindMap = screen.getByText('Mind Map 1').closest('[role="button"]')!
-    firstMindMap.focus()
+    if (firstMindMap instanceof HTMLElement) {
+      firstMindMap.focus()
+    }
 
     // Press Enter to select
     fireEvent.keyDown(firstMindMap, { key: 'Enter', code: 'Enter' })

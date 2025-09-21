@@ -3,6 +3,7 @@ import { MindMapProvider } from './store/MindMapContext'
 import { NotificationProvider } from './components/NotificationProvider'
 import MindMapList from './components/MindMapList'
 import { MindMapCanvas } from './components/MindMapCanvas'
+import { SharedMindMapViewer } from './components/SharedMindMapViewer'
 import './App.css'
 
 function AppContent() {
@@ -23,6 +24,9 @@ function AppContent() {
         } />
         <Route path="/mindmap/:id" element={
           <MindMapView />
+        } />
+        <Route path="/view/:data" element={
+          <SharedMindMapViewer />
         } />
       </Routes>
     </div>

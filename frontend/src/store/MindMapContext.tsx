@@ -1,4 +1,5 @@
-import { createContext, useContext, useReducer, ReactNode, useEffect } from 'react'
+import { createContext, useContext, useReducer, useEffect } from 'react'
+import type { ReactNode } from 'react'
 import { 
   robustCachedMindMapApi, 
   robustCachedNodeApi, 
@@ -165,8 +166,7 @@ export function MindMapProvider({ children }: { children: ReactNode }) {
       dispatch({ type: 'SET_LOADING', payload: true })
       dispatch({ type: 'SET_ERROR', payload: null })
       try {
-        const data = await robustCachedMindMapApi.getAll()
-        const mindMaps = Array.isArray(data) ? data : data.data
+        const mindMaps = await robustCachedMindMapApi.getAll()
         dispatch({ type: 'SET_MINDMAPS', payload: mindMaps })
       } catch (error: any) {
         dispatch({ type: 'SET_ERROR', payload: error.message })
@@ -278,9 +278,10 @@ export function MindMapProvider({ children }: { children: ReactNode }) {
       if (!state.selectedMindMap) {
         throw new Error('No mind map selected')
       }
+      const mindMapId = state.selectedMindMap.id
       try {
         const node = await wrapWithNotifications(
-          () => robustCachedNodeApi.create(state.selectedMindMap.id, data),
+          () => robustCachedNodeApi.create(mindMapId, data),
           'Node created successfully',
           'Failed to create node'
         )()

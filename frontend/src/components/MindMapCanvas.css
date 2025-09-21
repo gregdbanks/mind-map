@@ -35,13 +35,31 @@
   justify-content: center;
 }
 
+.canvas-controls button:last-child {
+  width: auto;
+  padding: 0 16px;
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  font-size: 0.875rem;
+}
+
 .canvas-controls button:hover {
   background-color: #f8f9fa;
   border-color: #999;
 }
 
+.canvas-controls button:last-child:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
 .canvas-controls button:active {
   background-color: #e9ecef;
+}
+
+.canvas-controls button:last-child:active {
+  background-color: #1d4ed8;
 }
 
 /* Empty State */

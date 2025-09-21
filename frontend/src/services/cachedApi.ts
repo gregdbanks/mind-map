@@ -21,7 +21,8 @@ export const cachedMindMapApi = {
       return cached.data
     }
 
-    const data = await mindMapApi.getAll()
+    const response = await mindMapApi.getAll()
+    const data = Array.isArray(response) ? response : response.data
     apiCache.set(cacheKey, data, { ttl: 5 * 60 * 1000 }) // 5 min cache
     return data
   },

@@ -1,9 +1,10 @@
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Stage, Layer, Line } from 'react-konva'
 import { useMindMap } from '../store/MindMapContext'
 import { Node } from './Node'
 import type { Node as NodeType } from '../types'
 import type Konva from 'konva'
+import { ShareDialog } from './ShareDialog'
 import './MindMapCanvas.css'
 
 interface MindMapCanvasProps {
@@ -23,7 +24,8 @@ interface ContextMenu {
 
 export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
   const { state, actions } = useMindMap()
-  const { nodes, canvasState, loading, error } = state
+  const { nodes, canvasState, loading, error, mindMaps } = state
+  const currentMindMap = mindMaps.find(m => m.id === mindMapId)
   
   const [selectedNodes, setSelectedNodes] = useState<Set<string>>(new Set())
   const [editingNode, setEditingNode] = useState<EditingNode | null>(null)
@@ -31,8 +33,9 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
   const [isPanning, setIsPanning] = useState(false)
   const [lastPointerPosition, setLastPointerPosition] = useState<{ x: number; y: number } | null>(null)
   const stageRef = useRef<Konva.Stage>(null)
-  const [isDragging, setIsDragging] = useState(false)
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
+  const [showShareDialog, setShowShareDialog] = useState(false)
+  const [_isDragging, setIsDragging] = useState(false)
+  const [_dragStart, setDragStart] = useState({ x: 0, y: 0 })
 
   // Load mind map data
   useEffect(() => {
@@ -206,7 +209,7 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
     }
   }
 
-  const handleMouseDown = (e: any) => {
+  const handleMouseDown = () => {
     if (isPanning) {
       const stage = stageRef.current
       if (!stage) return
@@ -217,7 +220,7 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
     }
   }
 
-  const handleMouseMove = (e: any) => {
+  const handleMouseMove = () => {
     if (isPanning && lastPointerPosition) {
       const stage = stageRef.current
       if (!stage) return
@@ -241,7 +244,7 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
     }
   }
 
-  const handleMouseUp = (e: any) => {
+  const handleMouseUp = () => {
     if (isPanning) {
       setLastPointerPosition(null)
       document.body.style.cursor = 'grab'
@@ -327,6 +330,7 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
         <button onClick={handleZoomIn} aria-label="Zoom in">+</button>
         <button onClick={handleZoomOut} aria-label="Zoom out">-</button>
         <button onClick={handleResetView} aria-label="Reset view">Reset</button>
+        <button onClick={() => setShowShareDialog(true)} aria-label="Share mind map">Share</button>
       </div>
 
       <Stage
@@ -405,6 +409,15 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
             setContextMenu(null)
           }}>Delete</button>
         </div>
+      )}
+
+      {/* Share dialog */}
+      {showShareDialog && currentMindMap && (
+        <ShareDialog
+          mindMap={currentMindMap}
+          nodes={nodes}
+          onClose={() => setShowShareDialog(false)}
+        />
       )}
     </div>
   )
