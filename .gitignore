@@ -37,3 +37,11 @@ lerna-debug.log*
 
 # Database
 postgres_data/
+
+# Playwright test artifacts
+frontend/playwright-report/
+frontend/test-results/
+frontend/playwright/.cache/
+*.webm
+*.mp4
+share-demo-trace.zip
