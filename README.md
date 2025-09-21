@@ -2,7 +2,7 @@
 
 A powerful web-based mind mapping application with a smooth, intuitive interface for organizing thoughts and ideas. Built with React, TypeScript, and PostgreSQL.
 
-![Mind Map Demo](assets/mindmap-share-demo.gif)
+![Mind Map Demo](assets/mindmap-demo.gif)
 
 ## Features
 
