@@ -24,8 +24,8 @@ interface ContextMenu {
 
 export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
   const { state, actions } = useMindMap()
-  const { nodes, canvasState, loading, error, mindMaps } = state
-  const currentMindMap = mindMaps.find(m => m.id === mindMapId)
+  const { nodes, canvasState, loading, error, selectedMindMap } = state
+  const currentMindMap = selectedMindMap
   
   const [selectedNodes, setSelectedNodes] = useState<Set<string>>(new Set())
   const [editingNode, setEditingNode] = useState<EditingNode | null>(null)
@@ -330,7 +330,10 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
         <button onClick={handleZoomIn} aria-label="Zoom in">+</button>
         <button onClick={handleZoomOut} aria-label="Zoom out">-</button>
         <button onClick={handleResetView} aria-label="Reset view">Reset</button>
-        <button onClick={() => setShowShareDialog(true)} aria-label="Share mind map">Share</button>
+        <button onClick={() => {
+          console.log('Share button clicked', { showShareDialog, currentMindMap, mindMapId, selectedMindMap })
+          setShowShareDialog(true)
+        }} aria-label="Share mind map">Share</button>
       </div>
 
       <Stage
