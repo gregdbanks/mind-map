@@ -38,9 +38,9 @@
 .canvas-controls button:last-child {
   width: auto;
   padding: 0 16px;
-  background-color: #3b82f6;
+  background-color: #0066cc;
   color: white;
-  border-color: #3b82f6;
+  border-color: #0066cc;
   font-size: 0.875rem;
 }
 
@@ -50,8 +50,8 @@
 }
 
 .canvas-controls button:last-child:hover {
-  background-color: #2563eb;
-  border-color: #2563eb;
+  background-color: #0052a3;
+  border-color: #0052a3;
 }
 
 .canvas-controls button:active {
@@ -59,7 +59,7 @@
 }
 
 .canvas-controls button:last-child:active {
-  background-color: #1d4ed8;
+  background-color: #004080;
 }
 
 /* Empty State */

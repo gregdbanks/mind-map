@@ -47,13 +47,13 @@
 }
 
 .import-button {
-  background: #3b82f6 !important;
+  background: #0066cc !important;
   color: white !important;
-  border-color: #3b82f6 !important;
+  border-color: #0066cc !important;
 }
 
 .import-button:hover {
-  background: #2563eb !important;
+  background: #0052a3 !important;
 }
 
 .home-button:hover {
@@ -128,7 +128,7 @@
 
 .shared-viewer-error button {
   padding: 0.75rem 2rem;
-  background: #3b82f6;
+  background: #0066cc;
   color: white;
   border: none;
   border-radius: 0.375rem;
@@ -139,7 +139,7 @@
 }
 
 .shared-viewer-error button:hover {
-  background: #2563eb;
+  background: #0052a3;
 }
 
 /* Loading State */

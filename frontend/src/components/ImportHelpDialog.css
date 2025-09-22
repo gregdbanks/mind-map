@@ -76,7 +76,7 @@
 }
 
 .primary-button {
-  background-color: #3b82f6;
+  background-color: #0066cc;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -87,7 +87,7 @@
 }
 
 .primary-button:hover {
-  background-color: #2563eb;
+  background-color: #0052a3;
 }
 
 .prompt-template {

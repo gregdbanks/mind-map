@@ -36,7 +36,7 @@ export class ExportService {
             padding: 8px 16px;
             border: none;
             border-radius: 4px;
-            background: #3b82f6;
+            background: #0066cc;
             color: white;
             cursor: pointer;
             font-size: 14px;
@@ -107,7 +107,7 @@ export class ExportService {
         const NODE_HEIGHT = 50;
         const NODE_PADDING = 10;
         const CONNECTION_COLOR = '#666';
-        const NODE_COLOR = '#3b82f6';
+        const NODE_COLOR = '#0066cc';
         const NODE_TEXT_COLOR = '#fff';
         const SELECTED_COLOR = '#f59e0b';
         

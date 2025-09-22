@@ -276,10 +276,22 @@ export function MindMapProvider({ children }: { children: ReactNode }) {
     },
 
     createNode: async (data: CreateNodeDto) => {
-      if (!state.selectedMindMap) {
+      // Get mindMapId from state or from the current route
+      let mindMapId = state.selectedMindMap?.id
+      
+      // If no selectedMindMap yet, try to get from the current URL
+      if (!mindMapId) {
+        const path = window.location.pathname
+        const match = path.match(/\/mindmap\/([^\/]+)/)
+        if (match && match[1]) {
+          mindMapId = match[1]
+        }
+      }
+      
+      if (!mindMapId) {
         throw new Error('No mind map selected')
       }
-      const mindMapId = state.selectedMindMap.id
+      
       try {
         const node = await wrapWithNotifications(
           () => robustCachedNodeApi.create(mindMapId, data),

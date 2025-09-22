@@ -98,7 +98,7 @@
 }
 
 .share-method:hover {
-  border-color: #3b82f6;
+  border-color: #0066cc;
   transform: translateY(-2px);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
@@ -198,13 +198,13 @@
 
 .url-container input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
 }
 
 .url-container button {
   padding: 8px 16px;
-  background: #3b82f6;
+  background: #0066cc;
   color: white;
   border: none;
   border-radius: 6px;
@@ -216,7 +216,7 @@
 }
 
 .url-container button:hover {
-  background: #2563eb;
+  background: #0052a3;
 }
 
 .qr-code-container {
@@ -297,7 +297,7 @@
   }
 
   .share-method:hover {
-    border-color: #3b82f6;
+    border-color: #0066cc;
     background: #1f2937;
   }
 

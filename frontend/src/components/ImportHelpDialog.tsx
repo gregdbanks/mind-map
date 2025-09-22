@@ -50,7 +50,7 @@ export function ImportHelpDialog({ onClose, onProceedToImport }: ImportHelpDialo
       "text": "[main topic]",
       "positionX": 500,
       "positionY": 300,
-      "color": "#3b82f6"
+      "color": "#0066cc"
     },
     {
       "id": "[unique-id]",
@@ -58,7 +58,7 @@ export function ImportHelpDialog({ onClose, onProceedToImport }: ImportHelpDialo
       "parentId": "[parent id]",
       "positionX": [number],
       "positionY": [number],
-      "color": "#3b82f6"
+      "color": "#0066cc"
     }
   ]
 }`}
