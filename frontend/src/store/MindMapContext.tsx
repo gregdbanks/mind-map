@@ -364,6 +364,8 @@ export function MindMapProvider({ children }: { children: ReactNode }) {
             parentId: parentId || undefined,
             positionX: node.positionX,
             positionY: node.positionY,
+            backgroundColor: node.backgroundColor || node.color || '#0066cc',
+            textColor: node.textColor || '#ffffff',
           })
           
           // Map old ID to new ID for children

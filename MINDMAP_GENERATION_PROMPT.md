@@ -31,7 +31,8 @@ OUTPUT FORMAT:
       "text": "[Central concept]",
       "positionX": 500,
       "positionY": 300,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     },
     {
       "id": "[unique-id]",
@@ -39,7 +40,8 @@ OUTPUT FORMAT:
       "parentId": "[parent's id or null]",
       "positionX": [number],
       "positionY": [number],
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     }
   ]
 }
@@ -47,12 +49,17 @@ OUTPUT FORMAT:
 POSITIONING GUIDELINES:
 - Root node: center (500, 300)
 - First-level nodes: arrange in circle around root, 300px radius
-- Second-level nodes: 250px from parent, angled outward
+  - For 6 nodes: angles at 0°, 60°, 120°, 180°, 240°, 300°
+  - For 4 nodes: angles at 45°, 135°, 225°, 315°
+  - Position: x = 500 + 300 * cos(angle), y = 300 + 300 * sin(angle)
+- Second-level nodes: 250px from parent, spread in arc
+  - Angle range: ±45° from parent's angle
+  - Equal spacing within the arc
 - Third-level nodes: 200px from parent
 - Fourth-level nodes: 150px from parent
 - Fifth-level nodes: 120px from parent
-- Avoid overlapping - maintain 100px minimum between siblings
-- Spread nodes wider for better readability
+- CRITICAL: Siblings must be at least 150px apart
+- Use radial layout, not linear positioning
 
 ANALYSIS APPROACH:
 1. Identify the main theme/topic
@@ -137,11 +144,34 @@ Create a comprehensive mind map for this certification content. Requirements:
 - Create at least 4-5 levels of hierarchy
 - Include implementation details at leaf nodes
 
-For example, if the topic mentions "monitoring", create child nodes for:
-- Specific monitoring services (CloudWatch, Datadog, etc.)
-- Types of metrics
-- Alert configurations
-- Best practices
+DEPTH EXAMPLE for AWS Security content:
+Domain 1: Threat Detection
+├── Design incident response
+│   ├── AWS Services
+│   │   ├── GuardDuty
+│   │   │   ├── Threat intelligence
+│   │   │   └── Finding types
+│   │   ├── Security Hub
+│   │   │   ├── Compliance standards
+│   │   │   └── Integration partners
+│   │   └── Detective
+│   │       ├── Graph analysis
+│   │       └── Investigation workflows
+│   ├── Incident Types
+│   │   ├── Credential compromise
+│   │   ├── Data exfiltration
+│   │   └── Malware infection
+│   └── Response Procedures
+│       ├── Isolation techniques
+│       ├── Evidence collection
+│       └── Root cause analysis
+
+COLOR CODING:
+- Domains: #0066cc (blue)
+- Tasks/Concepts: #00a86b (green)
+- AWS Services: #ff6b6b (red)
+- Features/Details: #4ecdc4 (teal)
+- Best Practices: #95a99c (gray)
 
 [PASTE CERTIFICATION/EXAM CONTENT]
 ```
@@ -164,7 +194,8 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "text": "AWS Security",
       "positionX": 500,
       "positionY": 300,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     },
     {
       "id": "iam",
@@ -172,7 +203,8 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "root",
       "positionX": 200,
       "positionY": 100,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     },
     {
       "id": "iam-1",
@@ -180,7 +212,8 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "iam",
       "positionX": -50,
       "positionY": 0,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     },
     {
       "id": "iam-1-1",
@@ -188,7 +221,8 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "iam-1",
       "positionX": -250,
       "positionY": -50,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     },
     {
       "id": "iam-1-1-1",
@@ -196,7 +230,8 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "iam-1-1",
       "positionX": -400,
       "positionY": -100,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     },
     {
       "id": "iam-1-1-2",
@@ -204,7 +239,8 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "iam-1-1",
       "positionX": -400,
       "positionY": 0,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     },
     {
       "id": "iam-2",
@@ -212,7 +248,8 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "iam",
       "positionX": -50,
       "positionY": 100,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     },
     {
       "id": "iam-2-1",
@@ -220,7 +257,8 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "iam-2",
       "positionX": -250,
       "positionY": 50,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     },
     {
       "id": "iam-2-2",
@@ -228,7 +266,8 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "iam-2",
       "positionX": -250,
       "positionY": 150,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     },
     {
       "id": "network",
@@ -236,7 +275,8 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "root",
       "positionX": 700,
       "positionY": 200,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     },
     {
       "id": "data",
@@ -244,7 +284,8 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "root",
       "positionX": 700,
       "positionY": 400,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     },
     {
       "id": "monitoring",
@@ -252,7 +293,8 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "root",
       "positionX": 300,
       "positionY": 400,
-      "color": "#0066cc"
+      "backgroundColor": "#0066cc",
+      "textColor": "#ffffff"
     }
   ]
 }
