@@ -13,7 +13,9 @@ REQUIREMENTS:
 3. Use concise phrases (2-5 words ideal, max 10 words)
 4. Ensure balanced distribution - aim for 3-7 child nodes per parent
 5. Position nodes thoughtfully in 2D space for visual clarity
-6. Maximum depth of 4 levels to maintain readability
+6. IMPORTANT: Create at least 4-5 levels of depth for complex topics
+7. Include specific examples, tools, or services at the leaf nodes
+8. When technical content mentions specific tools/services, include them as separate nodes
 
 OUTPUT FORMAT:
 {
@@ -29,7 +31,7 @@ OUTPUT FORMAT:
       "text": "[Central concept]",
       "positionX": 500,
       "positionY": 300,
-      "color": "#3b82f6"
+      "color": "#0066cc"
     },
     {
       "id": "[unique-id]",
@@ -37,17 +39,20 @@ OUTPUT FORMAT:
       "parentId": "[parent's id or null]",
       "positionX": [number],
       "positionY": [number],
-      "color": "#3b82f6"
+      "color": "#0066cc"
     }
   ]
 }
 
 POSITIONING GUIDELINES:
 - Root node: center (500, 300)
-- First-level nodes: arrange in circle around root, 200px radius
-- Second-level nodes: 150px from parent, angled outward
-- Third-level nodes: 120px from parent
-- Avoid overlapping - maintain 50px minimum between siblings
+- First-level nodes: arrange in circle around root, 300px radius
+- Second-level nodes: 250px from parent, angled outward
+- Third-level nodes: 200px from parent
+- Fourth-level nodes: 150px from parent
+- Fifth-level nodes: 120px from parent
+- Avoid overlapping - maintain 100px minimum between siblings
+- Spread nodes wider for better readability
 
 ANALYSIS APPROACH:
 1. Identify the main theme/topic
@@ -121,6 +126,26 @@ Create a project mind map. Include:
 [PASTE PROJECT DETAILS]
 ```
 
+### For Technical Certifications/Exams
+```
+Create a comprehensive mind map for this certification content. Requirements:
+- Main topic as root
+- Major domains/sections as primary branches
+- Key concepts and objectives as sub-branches
+- IMPORTANT: Include specific tools, services, and technologies as individual nodes
+- For each concept, add practical examples or use cases
+- Create at least 4-5 levels of hierarchy
+- Include implementation details at leaf nodes
+
+For example, if the topic mentions "monitoring", create child nodes for:
+- Specific monitoring services (CloudWatch, Datadog, etc.)
+- Types of metrics
+- Alert configurations
+- Best practices
+
+[PASTE CERTIFICATION/EXAM CONTENT]
+```
+
 ## Example Output
 
 Here's a sample output for a mind map about "AWS Security Best Practices":
@@ -139,31 +164,71 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "text": "AWS Security",
       "positionX": 500,
       "positionY": 300,
-      "color": "#3b82f6"
+      "color": "#0066cc"
     },
     {
       "id": "iam",
       "text": "Identity & Access",
       "parentId": "root",
-      "positionX": 300,
-      "positionY": 200,
-      "color": "#3b82f6"
+      "positionX": 200,
+      "positionY": 100,
+      "color": "#0066cc"
     },
     {
       "id": "iam-1",
       "text": "Least Privilege",
       "parentId": "iam",
-      "positionX": 150,
-      "positionY": 150,
-      "color": "#3b82f6"
+      "positionX": -50,
+      "positionY": 0,
+      "color": "#0066cc"
+    },
+    {
+      "id": "iam-1-1",
+      "text": "IAM Policies",
+      "parentId": "iam-1",
+      "positionX": -250,
+      "positionY": -50,
+      "color": "#0066cc"
+    },
+    {
+      "id": "iam-1-1-1",
+      "text": "AWS Managed",
+      "parentId": "iam-1-1",
+      "positionX": -400,
+      "positionY": -100,
+      "color": "#0066cc"
+    },
+    {
+      "id": "iam-1-1-2",
+      "text": "Customer Managed",
+      "parentId": "iam-1-1",
+      "positionX": -400,
+      "positionY": 0,
+      "color": "#0066cc"
     },
     {
       "id": "iam-2",
       "text": "MFA Required",
       "parentId": "iam",
-      "positionX": 150,
-      "positionY": 250,
-      "color": "#3b82f6"
+      "positionX": -50,
+      "positionY": 100,
+      "color": "#0066cc"
+    },
+    {
+      "id": "iam-2-1",
+      "text": "Virtual MFA",
+      "parentId": "iam-2",
+      "positionX": -250,
+      "positionY": 50,
+      "color": "#0066cc"
+    },
+    {
+      "id": "iam-2-2",
+      "text": "Hardware MFA",
+      "parentId": "iam-2",
+      "positionX": -250,
+      "positionY": 150,
+      "color": "#0066cc"
     },
     {
       "id": "network",
@@ -171,7 +236,7 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "root",
       "positionX": 700,
       "positionY": 200,
-      "color": "#3b82f6"
+      "color": "#0066cc"
     },
     {
       "id": "data",
@@ -179,7 +244,7 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "root",
       "positionX": 700,
       "positionY": 400,
-      "color": "#3b82f6"
+      "color": "#0066cc"
     },
     {
       "id": "monitoring",
@@ -187,7 +252,7 @@ Here's a sample output for a mind map about "AWS Security Best Practices":
       "parentId": "root",
       "positionX": 300,
       "positionY": 400,
-      "color": "#3b82f6"
+      "color": "#0066cc"
     }
   ]
 }
