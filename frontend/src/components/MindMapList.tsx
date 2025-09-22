@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useMindMap } from '../store/MindMapContext'
 import type { MindMap } from '../types'
+import { ImportHelpDialog } from './ImportHelpDialog'
 import './MindMapList.css'
 
 interface MindMapListProps {
@@ -14,6 +15,7 @@ export function MindMapList({ onSelect }: MindMapListProps) {
   const [newTitle, setNewTitle] = useState('')
   const [newDescription, setNewDescription] = useState('')
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
+  const [showImportHelp, setShowImportHelp] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -46,6 +48,11 @@ export function MindMapList({ onSelect }: MindMapListProps) {
   }
 
   const handleImportClick = () => {
+    setShowImportHelp(true)
+  }
+
+  const handleProceedToImport = () => {
+    setShowImportHelp(false)
     fileInputRef.current?.click()
   }
 
@@ -223,6 +230,13 @@ export function MindMapList({ onSelect }: MindMapListProps) {
           </div>
         ))}
       </div>
+
+      {showImportHelp && (
+        <ImportHelpDialog
+          onClose={() => setShowImportHelp(false)}
+          onProceedToImport={handleProceedToImport}
+        />
+      )}
     </div>
   )
 }
