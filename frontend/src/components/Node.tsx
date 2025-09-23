@@ -1,3 +1,4 @@
+import { memo, useMemo } from 'react'
 import { Group, Rect, Text } from 'react-konva'
 import type { Node as NodeType } from '../types'
 
@@ -11,7 +12,7 @@ interface NodeProps {
   onContextMenu: (nodeId: string, e: any) => void
 }
 
-export function Node({
+export const Node = memo(function Node({
   node,
   isSelected,
   onClick,
@@ -20,21 +21,27 @@ export function Node({
   onDoubleClick,
   onContextMenu,
 }: NodeProps) {
-  // Calculate text metrics for dynamic node sizing
+  // Constants
   const padding = 20
-  const minWidth = 120
-  const minHeight = 50
   const fontSize = 14
-  const lineHeight = 1.2
   
-  // Estimate text dimensions (rough approximation)
-  const textLines = node.text.split('\n')
-  const maxLineLength = Math.max(...textLines.map(line => line.length))
-  const estimatedWidth = Math.max(maxLineLength * fontSize * 0.6 + padding * 2, minWidth)
-  const estimatedHeight = Math.max(textLines.length * fontSize * lineHeight + padding * 2, minHeight)
-  
-  const width = Math.min(estimatedWidth, 200) // Max width
-  const height = estimatedHeight
+  // Calculate text metrics for dynamic node sizing
+  const { width, height } = useMemo(() => {
+    const minWidth = 120
+    const minHeight = 50
+    const lineHeight = 1.2
+    
+    // Estimate text dimensions (rough approximation)
+    const textLines = node.text.split('\n')
+    const maxLineLength = Math.max(...textLines.map(line => line.length))
+    const estimatedWidth = Math.max(maxLineLength * fontSize * 0.6 + padding * 2, minWidth)
+    const estimatedHeight = Math.max(textLines.length * fontSize * lineHeight + padding * 2, minHeight)
+    
+    return {
+      width: Math.min(estimatedWidth, 200), // Max width
+      height: estimatedHeight
+    }
+  }, [node.text]) // Only recalculate when text changes
 
   return (
     <Group
@@ -124,4 +131,15 @@ export function Node({
       />
     </Group>
   )
-}
+}, (prevProps, nextProps) => {
+  // Custom equality check for memo
+  return (
+    prevProps.node.id === nextProps.node.id &&
+    prevProps.node.text === nextProps.node.text &&
+    prevProps.node.positionX === nextProps.node.positionX &&
+    prevProps.node.positionY === nextProps.node.positionY &&
+    prevProps.node.backgroundColor === nextProps.node.backgroundColor &&
+    prevProps.node.textColor === nextProps.node.textColor &&
+    prevProps.isSelected === nextProps.isSelected
+  )
+})

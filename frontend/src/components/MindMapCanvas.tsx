@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import { Stage, Layer, Line } from 'react-konva'
 import { useMindMap } from '../store/MindMapContext'
 import { Node } from './Node'
 import type { Node as NodeType } from '../types'
 import type Konva from 'konva'
 import { ShareDialog } from './ShareDialog'
+import { throttle } from '../utils/throttle'
 import './MindMapCanvas.css'
 
 interface MindMapCanvasProps {
@@ -36,11 +37,44 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
   const [showShareDialog, setShowShareDialog] = useState(false)
   const [_isDragging, setIsDragging] = useState(false)
   const [_dragStart, setDragStart] = useState({ x: 0, y: 0 })
+  
+  // Local pan state for smooth panning
+  const [localPan, setLocalPan] = useState({ x: 0, y: 0 })
+  
+  // Create parent lookup map for O(1) access
+  const nodeParentMap = useMemo(() => {
+    const map = new Map<string, NodeType>()
+    nodes.forEach(node => {
+      if (node.id) {
+        map.set(node.id, node)
+      }
+    })
+    return map
+  }, [nodes])
+  
+  // Throttled canvas update function
+  const throttledUpdateCanvas = useMemo(
+    () => throttle((panX: number, panY: number) => {
+      actions.updateCanvas({
+        zoom: canvasState?.zoom || 1,
+        panX,
+        panY,
+      })
+    }, 16), // ~60fps
+    [actions, canvasState?.zoom]
+  )
 
   // Load mind map data
   useEffect(() => {
     actions.selectMindMap(mindMapId)
   }, [mindMapId])
+  
+  // Sync local pan with canvas state
+  useEffect(() => {
+    if (canvasState) {
+      setLocalPan({ x: canvasState.panX, y: canvasState.panY })
+    }
+  }, [canvasState?.panX, canvasState?.panY])
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -87,31 +121,33 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
     }
   }, [selectedNodes, nodes, actions, editingNode, isPanning])
 
-  const handleNodeClick = (nodeId: string, e: any) => {
+  const handleNodeClick = useCallback((nodeId: string, e: any) => {
     if (e.cancelBubble !== undefined) e.cancelBubble = true
     const evt = e.evt || e
     if (evt.ctrlKey || evt.metaKey) {
-      const newSelection = new Set(selectedNodes)
-      if (newSelection.has(nodeId)) {
-        newSelection.delete(nodeId)
-      } else {
-        newSelection.add(nodeId)
-      }
-      setSelectedNodes(newSelection)
+      setSelectedNodes(prev => {
+        const newSelection = new Set(prev)
+        if (newSelection.has(nodeId)) {
+          newSelection.delete(nodeId)
+        } else {
+          newSelection.add(nodeId)
+        }
+        return newSelection
+      })
     } else {
       setSelectedNodes(new Set([nodeId]))
     }
-  }
+  }, [])
 
-  const handleNodeDragStart = (nodeId: string) => {
+  const handleNodeDragStart = useCallback((nodeId: string) => {
     setIsDragging(true)
-    const node = nodes.find((n: NodeType) => n.id === nodeId)
+    const node = nodeParentMap.get(nodeId)
     if (node) {
       setDragStart({ x: node.positionX, y: node.positionY })
     }
-  }
+  }, [nodeParentMap])
 
-  const handleNodeDragEnd = (nodeId: string, e: any) => {
+  const handleNodeDragEnd = useCallback((nodeId: string, e: any) => {
     setIsDragging(false)
     const target = e.target || e.currentTarget
     const newX = typeof target.x === 'function' ? target.x() : target.x || 100
@@ -122,13 +158,13 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
       positionX: newX,
       positionY: newY,
     }])
-  }
+  }, [actions])
 
-  const handleNodeDoubleClick = (node: NodeType) => {
+  const handleNodeDoubleClick = useCallback((node: NodeType) => {
     setEditingNode({ id: node.id, text: node.text })
-  }
+  }, [])
 
-  const handleNodeRightClick = (nodeId: string, e: any) => {
+  const handleNodeRightClick = useCallback((nodeId: string, e: any) => {
     if (e.cancelBubble !== undefined) e.cancelBubble = true
     const evt = e.evt || e
     if (evt.preventDefault) evt.preventDefault()
@@ -151,7 +187,7 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
         y: 100,
       })
     }
-  }
+  }, [])
 
   const handleStageDoubleClick = (e: any) => {
     const target = e.target || e.currentTarget
@@ -220,7 +256,7 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
     }
   }
 
-  const handleMouseMove = () => {
+  const handleMouseMove = useCallback(() => {
     if (isPanning && lastPointerPosition) {
       const stage = stageRef.current
       if (!stage) return
@@ -231,18 +267,19 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
       const dx = pos.x - lastPointerPosition.x
       const dy = pos.y - lastPointerPosition.y
 
-      const newPanX = (canvasState?.panX || 0) + dx
-      const newPanY = (canvasState?.panY || 0) + dy
+      const newPanX = localPan.x + dx
+      const newPanY = localPan.y + dy
 
-      actions.updateCanvas({
-        zoom: canvasState?.zoom || 1,
-        panX: newPanX,
-        panY: newPanY,
-      })
+      // Update local state immediately for smooth panning
+      setLocalPan({ x: newPanX, y: newPanY })
+      stage.position({ x: newPanX, y: newPanY })
+      
+      // Throttle the global state update
+      throttledUpdateCanvas(newPanX, newPanY)
 
       setLastPointerPosition(pos)
     }
-  }
+  }, [isPanning, lastPointerPosition, localPan, throttledUpdateCanvas])
 
   const handleMouseUp = () => {
     if (isPanning) {
@@ -344,14 +381,14 @@ export function MindMapCanvas({ mindMapId }: MindMapCanvasProps) {
         onMouseUp={handleMouseUp}
         scaleX={canvasState?.zoom || 1}
         scaleY={canvasState?.zoom || 1}
-        x={canvasState?.panX || 0}
-        y={canvasState?.panY || 0}
+        x={localPan.x}
+        y={localPan.y}
       >
         <Layer>
           {/* Render connections first */}
           {nodes.map(node => {
             if (node.parentId) {
-              const parent = nodes.find(n => n.id === node.parentId)
+              const parent = nodeParentMap.get(node.parentId)
               if (parent) {
                 return renderConnection(parent, node)
               }
