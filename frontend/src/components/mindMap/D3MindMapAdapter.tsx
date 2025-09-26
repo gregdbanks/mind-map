@@ -14,6 +14,40 @@ export const D3MindMapAdapter: React.FC<D3MindMapAdapterProps> = ({ mindMapId })
   const { selectedMindMap, nodes, loading, error } = state
   const { selectMindMap, createNode, updateNode, deleteNode } = actions
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; nodeId?: string } | null>(null)
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null)
+  
+  // Helper function to find orphaned nodes
+  const findOrphanedNodes = () => {
+    const nodeMap = new Map(nodes.map(n => [n.id, n]))
+    const visited = new Set<string>()
+    const orphans: string[] = []
+    
+    // Find root nodes (nodes without parents)
+    const rootNodes = nodes.filter(n => !n.parentId)
+    
+    // Traverse from each root to mark all connected nodes
+    const traverse = (nodeId: string) => {
+      if (visited.has(nodeId)) return
+      visited.add(nodeId)
+      
+      // Find all children of this node
+      nodes.filter(n => n.parentId === nodeId).forEach(child => {
+        traverse(child.id)
+      })
+    }
+    
+    // Start traversal from all root nodes
+    rootNodes.forEach(root => traverse(root.id))
+    
+    // Any node not visited is an orphan
+    nodes.forEach(node => {
+      if (!visited.has(node.id)) {
+        orphans.push(node.id)
+      }
+    })
+    
+    return orphans
+  }
 
   // Load mind map if needed
   useEffect(() => {
@@ -33,10 +67,13 @@ export const D3MindMapAdapter: React.FC<D3MindMapAdapterProps> = ({ mindMapId })
         const renderer = new D3Renderer()
         await renderer.initialize(containerRef.current!)
         rendererRef.current = renderer
+        // Make renderer available globally for testing
+        ;(window as any).rendererRef = rendererRef
 
         // Setup event handlers
         renderer.on('nodeClick', (event: any) => {
           console.log('Node clicked:', event.nodeId)
+          setSelectedNodeId(event.nodeId)
         })
 
         renderer.on('nodeDoubleClick', (event: any) => {
@@ -130,6 +167,30 @@ export const D3MindMapAdapter: React.FC<D3MindMapAdapterProps> = ({ mindMapId })
     }
   }, [loading, mindMapId]) // Removed nodes, createNode, updateNode from dependencies
 
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.key === 'Delete' || event.key === 'Backspace') && selectedNodeId) {
+        event.preventDefault()
+        
+        // Don't delete if user is typing in an input
+        const target = event.target as HTMLElement
+        if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+          return
+        }
+        
+        // Confirm deletion for safety
+        if (window.confirm('Delete this node and all its children?')) {
+          deleteNode(selectedNodeId)
+          setSelectedNodeId(null)
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedNodeId, deleteNode])
+
   // Sync nodes with renderer
   useEffect(() => {
     const renderer = rendererRef.current
@@ -199,7 +260,7 @@ export const D3MindMapAdapter: React.FC<D3MindMapAdapterProps> = ({ mindMapId })
     <div ref={containerRef} className="w-full h-full relative" style={{ minHeight: '100%' }}>
       {/* Help text */}
       <div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm">
-        <div>Double-click to add child node • Click to select</div>
+        <div>Double-click to add child • Right-click or Delete key to remove</div>
         <div>Space + drag to pan • Scroll to zoom • Drag to move</div>
       </div>
       {/* Zoom controls */}
@@ -246,6 +307,42 @@ export const D3MindMapAdapter: React.FC<D3MindMapAdapterProps> = ({ mindMapId })
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+        </button>
+        <div className="h-px bg-gray-300 my-1" />
+        {selectedNodeId && (
+          <button
+            className="bg-red-500 text-white rounded-lg shadow-md p-2 hover:bg-red-600 transition-colors"
+            onClick={() => {
+              if (window.confirm('Delete this node and all its children?')) {
+                deleteNode(selectedNodeId)
+                setSelectedNodeId(null)
+              }
+            }}
+            title="Delete Selected Node"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+        )}
+        <div className="h-px bg-gray-300 my-1" />
+        <button
+          className="bg-yellow-500 text-white rounded-lg shadow-md p-2 hover:bg-yellow-600 transition-colors"
+          onClick={() => {
+            const orphans = findOrphanedNodes()
+            if (orphans.length > 0) {
+              if (window.confirm(`Found ${orphans.length} disconnected nodes. Delete them?`)) {
+                orphans.forEach(nodeId => deleteNode(nodeId))
+              }
+            } else {
+              alert('No disconnected nodes found!')
+            }
+          }}
+          title="Clean Up Disconnected Nodes"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1zM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7z" />
           </svg>
         </button>
         <div className="h-px bg-gray-300 my-1" />
