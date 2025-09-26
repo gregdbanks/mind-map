@@ -1,0 +1,298 @@
+openapi: 3.0.3
+info:
+  title: PixiJS Canvas Renderer API
+  description: Internal API contract for PixiJS renderer integration with React mind map
+  version: 1.0.0
+
+paths:
+  # Note: These are not HTTP endpoints but TypeScript method contracts
+  # formatted as OpenAPI for consistency and tooling support
+
+components:
+  schemas:
+    Point:
+      type: object
+      required: [x, y]
+      properties:
+        x:
+          type: number
+          description: X coordinate
+        y:
+          type: number
+          description: Y coordinate
+
+    Rectangle:
+      type: object
+      required: [x, y, width, height]
+      properties:
+        x:
+          type: number
+        y:
+          type: number
+        width:
+          type: number
+          minimum: 0
+        height:
+          type: number
+          minimum: 0
+
+    Color:
+      type: string
+      pattern: '^#[0-9A-Fa-f]{6}$'
+      description: Hex color value
+      example: "#3B82F6"
+
+    Node:
+      type: object
+      required: [id, text, positionX, positionY]
+      properties:
+        id:
+          type: string
+          format: uuid
+        text:
+          type: string
+          minLength: 1
+          maxLength: 1000
+        positionX:
+          type: number
+          minimum: -50000
+          maximum: 50000
+        positionY:
+          type: number
+          minimum: -50000
+          maximum: 50000
+        backgroundColor:
+          $ref: '#/components/schemas/Color'
+          default: "#FFFFFF"
+        textColor:
+          $ref: '#/components/schemas/Color'
+          default: "#333333"
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+
+    Viewport:
+      type: object
+      required: [x, y, zoom, width, height]
+      properties:
+        x:
+          type: number
+          description: Center X in world coordinates
+        y:
+          type: number
+          description: Center Y in world coordinates
+        zoom:
+          type: number
+          minimum: 0.1
+          maximum: 10
+          default: 1
+        width:
+          type: number
+          minimum: 1
+          description: Viewport width in pixels
+        height:
+          type: number
+          minimum: 1
+          description: Viewport height in pixels
+
+    InteractionEvent:
+      type: object
+      required: [type, worldPosition, screenPosition, timestamp]
+      properties:
+        type:
+          type: string
+          enum: [click, drag, hover, rightclick, doubleclick]
+        nodeId:
+          type: string
+          format: uuid
+          nullable: true
+        worldPosition:
+          $ref: '#/components/schemas/Point'
+        screenPosition:
+          $ref: '#/components/schemas/Point'
+        modifiers:
+          type: object
+          properties:
+            ctrl:
+              type: boolean
+              default: false
+            shift:
+              type: boolean
+              default: false
+            alt:
+              type: boolean
+              default: false
+        timestamp:
+          type: number
+          description: Unix timestamp in milliseconds
+
+    PerformanceMetrics:
+      type: object
+      required: [fps, frameTime, drawCalls, nodeCount, visibleNodeCount]
+      properties:
+        fps:
+          type: number
+          minimum: 0
+          maximum: 144
+        frameTime:
+          type: number
+          minimum: 0
+          description: Milliseconds per frame
+        drawCalls:
+          type: integer
+          minimum: 0
+        nodeCount:
+          type: integer
+          minimum: 0
+        visibleNodeCount:
+          type: integer
+          minimum: 0
+        memoryUsage:
+          type: number
+          minimum: 0
+          description: Estimated GPU memory in MB
+
+    RendererOptions:
+      type: object
+      properties:
+        antialias:
+          type: boolean
+          default: true
+        resolution:
+          type: number
+          minimum: 1
+          default: 2
+          description: Device pixel ratio
+        backgroundColor:
+          $ref: '#/components/schemas/Color'
+          default: "#F9F9F9"
+        cullingPadding:
+          type: number
+          default: 100
+          description: Pixels outside viewport to keep rendering
+        maxNodes:
+          type: integer
+          default: 10000
+        enableWebGL:
+          type: boolean
+          default: true
+
+    # Method contracts (not HTTP operations)
+    InitializeRenderer:
+      type: object
+      required: [container, options]
+      properties:
+        container:
+          type: string
+          description: DOM element ID or HTMLElement
+        options:
+          $ref: '#/components/schemas/RendererOptions'
+      x-returns:
+        type: object
+        properties:
+          success:
+            type: boolean
+          rendererId:
+            type: string
+          error:
+            type: string
+            nullable: true
+
+    UpdateNodes:
+      type: object
+      required: [nodes]
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Node'
+          maxItems: 10000
+      x-returns:
+        type: object
+        properties:
+          updated:
+            type: integer
+            description: Number of nodes updated
+          errors:
+            type: array
+            items:
+              type: object
+              properties:
+                nodeId:
+                  type: string
+                error:
+                  type: string
+
+    UpdateViewport:
+      type: object
+      required: [viewport]
+      properties:
+        viewport:
+          $ref: '#/components/schemas/Viewport'
+        animate:
+          type: boolean
+          default: false
+        duration:
+          type: number
+          default: 300
+          description: Animation duration in ms
+      x-returns:
+        type: boolean
+        description: Success status
+
+    HandleInteraction:
+      type: object
+      required: [event]
+      properties:
+        event:
+          $ref: '#/components/schemas/InteractionEvent'
+      x-returns:
+        type: object
+        properties:
+          handled:
+            type: boolean
+          propagate:
+            type: boolean
+            default: true
+
+    GetPerformanceMetrics:
+      type: object
+      properties: {}
+      x-returns:
+        $ref: '#/components/schemas/PerformanceMetrics'
+
+    ExportCanvas:
+      type: object
+      required: [format]
+      properties:
+        format:
+          type: string
+          enum: [png, jpeg, webp]
+        quality:
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 0.92
+        backgroundColor:
+          $ref: '#/components/schemas/Color'
+          nullable: true
+      x-returns:
+        type: object
+        properties:
+          dataUrl:
+            type: string
+            format: uri
+          blob:
+            type: string
+            format: binary
+          error:
+            type: string
+            nullable: true
+
+    Destroy:
+      type: object
+      properties: {}
+      x-returns:
+        type: boolean
+        description: Cleanup success status

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate, useParams } from '
 import { MindMapProvider } from './store/MindMapContext'
 import { NotificationProvider } from './components/NotificationProvider'
 import MindMapList from './components/MindMapList'
-import { MindMapCanvas } from './components/MindMapCanvas'
+import { MindMapRenderer } from './components/mindMap/MindMapRenderer'
 import { SharedMindMapViewer } from './components/SharedMindMapViewer'
 import './App.css'
 
@@ -48,7 +48,11 @@ function MindMapView() {
         </button>
         <h1>Mind Map Editor</h1>
       </header>
-      {id && <MindMapCanvas mindMapId={id} />}
+      {id && (
+        <>
+          <MindMapRenderer mindMapId={id} />
+        </>
+      )}
     </>
   )
 }
