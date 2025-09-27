@@ -132,6 +132,9 @@ export class D3Renderer implements RendererAPI {
     this.canvas.style.left = '0'
     this.canvas.style.pointerEvents = 'auto'
     this.canvas.style.zIndex = '1'
+    
+    // Important: parent container should have pointer-events: none
+    // so UI elements above can be clicked
     container.appendChild(this.canvas)
     
     // Get context without scaling yet
