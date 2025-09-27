@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useMindMap } from '../../store/MindMapContext'
 import { D3Renderer } from '../../renderer/D3Renderer'
+import { HelpPanel } from './HelpPanel'
 import { Node } from '../../types'
 
 interface D3MindMapAdapterProps {
@@ -15,6 +16,19 @@ export const D3MindMapAdapter: React.FC<D3MindMapAdapterProps> = ({ mindMapId })
   const { selectMindMap, createNode, updateNode, deleteNode } = actions
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; nodeId?: string } | null>(null)
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+  
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches || 
+                   'ontouchstart' in window ||
+                   navigator.maxTouchPoints > 0)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
   
   // Helper function to find orphaned nodes
   const findOrphanedNodes = () => {
@@ -90,6 +104,14 @@ export const D3MindMapAdapter: React.FC<D3MindMapAdapterProps> = ({ mindMapId })
 
         renderer.on('canvasClick', (event: any) => {
           setContextMenu(null)
+        })
+        
+        renderer.on('nodeContextMenu', (event: any) => {
+          setContextMenu({
+            x: event.position.x,
+            y: event.position.y,
+            nodeId: event.nodeId
+          })
         })
 
         renderer.on('canvasDoubleClick', async (event: any) => {
@@ -258,11 +280,16 @@ export const D3MindMapAdapter: React.FC<D3MindMapAdapterProps> = ({ mindMapId })
 
   return (
     <div ref={containerRef} className="w-full h-full relative" style={{ minHeight: '100%' }}>
-      {/* Help text */}
-      <div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm">
-        <div>Double-click to add child • Right-click or Delete key to remove</div>
-        <div>Space + drag to pan • Scroll to zoom • Drag to move</div>
-      </div>
+      {/* Help text - hide on mobile */}
+      {!isMobile && (
+        <div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm">
+          <div>Double-click to add child • Right-click or Delete key to remove</div>
+          <div>Space + drag to pan • Scroll to zoom • Drag to move</div>
+        </div>
+      )}
+      
+      {/* Help panel */}
+      <HelpPanel isMobile={isMobile} />
       {/* Zoom controls */}
       <div className="absolute top-4 right-4 flex flex-col gap-2 z-40">
         <button

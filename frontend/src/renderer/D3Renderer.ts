@@ -163,6 +163,9 @@ export class D3Renderer implements RendererAPI {
     // Setup keyboard events
     this.setupKeyboardEvents()
     
+    // Setup touch events for mobile
+    this.setupTouchEvents()
+    
     // Handle resize
     window.addEventListener('resize', this.handleResize)
     
@@ -198,6 +201,9 @@ export class D3Renderer implements RendererAPI {
   
   private handleKeyDown: ((event: KeyboardEvent) => void) | null = null
   private handleKeyUp: ((event: KeyboardEvent) => void) | null = null
+  private touchStartTime: number = 0
+  private touchStartPos: { x: number, y: number } | null = null
+  private longPressTimeout: number | null = null
 
   private setupInteractions(): void {
     const canvasSelection = d3.select(this.canvas)
@@ -339,6 +345,91 @@ export class D3Renderer implements RendererAPI {
               originalEvent: event
             })
           }, 250)
+        }
+      }
+    })
+  }
+
+  private setupTouchEvents(): void {
+    if (!('ontouchstart' in window)) return
+    
+    const canvasSelection = d3.select(this.canvas)
+    
+    // Handle touch start for long press
+    canvasSelection.on('touchstart', (event) => {
+      event.preventDefault()
+      const touch = event.touches[0]
+      const rect = this.canvas.getBoundingClientRect()
+      const x = touch.clientX - rect.left
+      const y = touch.clientY - rect.top
+      const node = this.getNodeAtPosition(x, y)
+      
+      this.touchStartTime = Date.now()
+      this.touchStartPos = { x, y }
+      
+      // Long press detection
+      if (node) {
+        this.longPressTimeout = window.setTimeout(() => {
+          // Trigger context menu on long press
+          this.emit('nodeContextMenu', {
+            nodeId: node.id,
+            position: { x: touch.clientX, y: touch.clientY },
+            originalEvent: event
+          })
+        }, 500) as unknown as number
+      }
+    })
+    
+    // Handle touch end for tap/double tap
+    canvasSelection.on('touchend', (event) => {
+      event.preventDefault()
+      
+      // Clear long press timeout
+      if (this.longPressTimeout) {
+        clearTimeout(this.longPressTimeout)
+        this.longPressTimeout = null
+      }
+      
+      const touchDuration = Date.now() - this.touchStartTime
+      const touchEndPos = this.touchStartPos
+      
+      if (touchDuration < 200 && touchEndPos) { // Quick tap
+        const [x, y] = [touchEndPos.x, touchEndPos.y]
+        const node = this.getNodeAtPosition(x, y)
+        
+        // Handle double tap
+        if (this.clickTimeout) {
+          clearTimeout(this.clickTimeout)
+          this.clickTimeout = null
+          
+          if (node) {
+            // Double tap on node
+            this.emit('nodeDoubleClick', {
+              nodeId: node.id,
+              position: { x, y },
+              originalEvent: event
+            })
+          } else {
+            // Double tap on canvas - create node
+            const [worldX, worldY] = this.transform.invert([x, y])
+            this.emit('canvasDoubleClick', {
+              position: { x: worldX, y: worldY },
+              originalEvent: event
+            })
+          }
+        } else {
+          // Single tap
+          this.clickTimeout = window.setTimeout(() => {
+            this.clickTimeout = null
+            if (node) {
+              this.selectNode(node.id)
+              this.emit('nodeClick', {
+                nodeId: node.id,
+                position: { x, y },
+                originalEvent: event
+              })
+            }
+          }, 300) as unknown as number
         }
       }
     })
