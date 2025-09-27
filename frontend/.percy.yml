@@ -1,9 +1,0 @@
-version: 2
-snapshot:
-  widths: [375, 768, 1280, 1920]
-  min-height: 1024
-  enable-javascript: true
-discovery:
-  allowed-hostnames: []
-  disable-cache: false
-  concurrency: 5
