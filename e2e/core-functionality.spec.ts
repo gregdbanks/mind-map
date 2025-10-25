@@ -9,7 +9,7 @@ test.describe('Mind Map Core Functionality', () => {
   test('should render canvas and toolbar', async ({ page }) => {
     // Basic smoke test - app loads without crashing
     await expect(page.locator('[data-testid="toolbar"]')).toBeVisible();
-    await expect(page.locator('svg')).toHaveCount(7); // 6 icon SVGs + 1 main canvas
+    await expect(page.locator('svg')).toHaveCount(6); // 5 icon SVGs + 1 main canvas
   });
 
   test('should load demo map', async ({ page }) => {
@@ -62,8 +62,7 @@ test.describe('Mind Map Core Functionality', () => {
     await expect(toolbar.locator('button[title="Load Demo Map"]')).toBeVisible();
     await expect(toolbar.locator('button[title="Fit all nodes in viewport"]')).toBeVisible();
     await expect(toolbar.locator('button[title="Export as JSON"]')).toBeVisible();
-    await expect(toolbar.locator('button[title="Export as PNG"]')).toBeVisible();
-    await expect(toolbar.locator('label[title="Import JSON file"]')).toBeVisible();
+    await expect(toolbar.locator('button[title="Import JSON data"]')).toBeVisible();
     
     // Test one button interaction
     await toolbar.locator('button[title="Load Demo Map"]').click();

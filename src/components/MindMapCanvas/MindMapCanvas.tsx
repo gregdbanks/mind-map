@@ -4,7 +4,7 @@ import { useMindMap } from '../../context/MindMapContext';
 import { useMindMapPersistence } from '../../hooks/useMindMapPersistence';
 import { useMindMapOperations } from '../../hooks/useMindMapOperations';
 import type { Node, Link } from '../../types/mindMap';
-import { exportToJSON, exportToPNG, importFromJSON } from '../../utils/exportUtils';
+import { exportToJSON, importFromJSON, importFromJSONText } from '../../utils/exportUtils';
 import { createHierarchicalLayout } from '../../utils/hierarchicalLayout';
 import { createImprovedClusterLayout } from '../../utils/improvedClusterLayout';
 import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties } from '../../utils/nodeHierarchy';
@@ -12,6 +12,7 @@ import { isAWSService } from '../../utils/awsServices';
 import { demoNodes, demoLinks } from '../../data/demoMindMap';
 import { NodeTooltip } from '../NodeTooltip';
 import { NodeEditModal } from '../NodeEditModal';
+import { ImportModal } from '../ImportModal';
 import styles from './MindMapCanvas.module.css';
 
 // Simplified to single layout mode for MVP consistency
@@ -26,6 +27,7 @@ export const MindMapCanvas: React.FC = () => {
   const [svgElement, setSvgElement] = useState<SVGSVGElement | null>(null);
   const [lastNodeCount, setLastNodeCount] = useState(0);
   const [hasPositions, setHasPositions] = useState(false);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isPanMode, setIsPanMode] = useState(false);
@@ -40,6 +42,20 @@ export const MindMapCanvas: React.FC = () => {
 
   const { loading } = useMindMapPersistence();
   const operations = useMindMapOperations();
+
+  const handleImport = (jsonText: string) => {
+    const importedState = importFromJSONText(jsonText);
+    if (importedState) {
+      const nodes = Array.from(importedState.nodes.values());
+      dispatch({ type: 'LOAD_MINDMAP', payload: { nodes, links: importedState.links } });
+      // Force persistence by updating lastModified after a brief delay
+      setTimeout(() => {
+        dispatch({ type: 'UPDATE_LAST_MODIFIED' });
+        fitToViewport();
+      }, 100);
+      setIsImportModalOpen(false);
+    }
+  };
 
   // Convert state to arrays
   const nodes = Array.from(state.nodes.values());
@@ -272,6 +288,11 @@ export const MindMapCanvas: React.FC = () => {
         return getNodeVisualProperties(depth).radius;
       })
       .attr('fill', (d: Node) => {
+        // Use custom color if specified
+        if (d.color) {
+          return d.color;
+        }
+        
         if (isAWSService(d.text)) {
           return '#FF9900'; // AWS orange for services
         }
@@ -638,7 +659,7 @@ export const MindMapCanvas: React.FC = () => {
         } else if (e.key === 'p') {
           e.preventDefault();
           if (svgRef.current) {
-            exportToPNG(svgRef.current);
+            // PNG export removed due to quality issues
           }
         }
       }
@@ -754,43 +775,16 @@ export const MindMapCanvas: React.FC = () => {
           </svg>
         </button>
         
+        
         <button 
           className={styles.iconButton}
-          onClick={() => svgRef.current && exportToPNG(svgRef.current)}
-          title="Export as PNG"
+          onClick={() => setIsImportModalOpen(true)}
+          title="Import JSON data"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z"/>
-          </svg>
-        </button>
-        
-        <label className={styles.iconButton} title="Import JSON file">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"/>
           </svg>
-          <input 
-            type="file" 
-            accept=".json" 
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                importFromJSON(file).then(importedState => {
-                  if (importedState) {
-                    const nodes = Array.from(importedState.nodes.values());
-                    dispatch({ type: 'LOAD_MINDMAP', payload: { nodes, links: importedState.links } });
-                    // Force persistence by updating lastModified after a brief delay
-                    setTimeout(() => {
-                      dispatch({ type: 'UPDATE_LAST_MODIFIED' });
-                      fitToViewport();
-                    }, 100);
-                  }
-                });
-              }
-              e.target.value = '';
-            }}
-            style={{ display: 'none' }}
-          />
-        </label>
+        </button>
       </div>
 
       <div className={styles.canvasContainer}>
@@ -839,6 +833,12 @@ export const MindMapCanvas: React.FC = () => {
         }}
       />
       </div>
+
+      <ImportModal
+        isOpen={isImportModalOpen}
+        onImport={handleImport}
+        onCancel={() => setIsImportModalOpen(false)}
+      />
     </>
   );
 };
