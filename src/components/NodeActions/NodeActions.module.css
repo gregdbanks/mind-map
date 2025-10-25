@@ -1,0 +1,32 @@
+.nodeActions {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.nodeActions.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.actionButton {
+  fill: #ffffff;
+  stroke: #666;
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.actionButton:hover {
+  fill: #f0f0f0;
+  stroke: #333;
+  stroke-width: 2;
+  transform: scale(1.1);
+}
+
+.actionIcon {
+  font-size: 14px;
+  font-weight: bold;
+  fill: #333;
+  user-select: none;
+}

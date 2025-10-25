@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Node Operations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    
+    .test-section {
+      margin: 20px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    
+    button {
+      margin: 5px;
+      padding: 5px 10px;
+    }
+    
+    #status {
+      margin-top: 20px;
+      padding: 10px;
+      background: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Node Operations Test</h1>
+  
+  <div class="test-section">
+    <h2>Instructions:</h2>
+    <ol>
+      <li>Open the mind map app at http://localhost:3001</li>
+      <li>Load the demo map</li>
+      <li>Test each operation below and verify it works</li>
+    </ol>
+  </div>
+  
+  <div class="test-section">
+    <h2>1. Add Node</h2>
+    <p>✓ Hover over any node - action buttons should appear</p>
+    <p>✓ Click the green "+" button - a new child node should be created</p>
+    <p>✓ Select a node and press Enter - a new child node should be created</p>
+  </div>
+  
+  <div class="test-section">
+    <h2>2. Edit Node</h2>
+    <p>✓ Hover and click the blue "✎" button - editor should appear</p>
+    <p>✓ Select a node and press F2 - editor should appear</p>
+    <p>✓ Type new text and press Enter - node text should update</p>
+    <p>✓ Press Escape while editing - changes should be cancelled</p>
+  </div>
+  
+  <div class="test-section">
+    <h2>3. Delete Node</h2>
+    <p>✓ Hover and click the red "×" button - confirm dialog should appear</p>
+    <p>✓ Click OK in confirm dialog - node and children should be deleted</p>
+    <p>✓ Select a node and press Delete key - node should be deleted</p>
+  </div>
+  
+  <div class="test-section">
+    <h2>4. Visual Feedback</h2>
+    <p>✓ Action buttons only visible on hover</p>
+    <p>✓ Action buttons hidden during drag</p>
+    <p>✓ Tooltip shows on hover (not during edit)</p>
+  </div>
+  
+  <div class="test-section">
+    <h2>5. Undo/Redo</h2>
+    <p>✓ Ctrl+Z undoes last action</p>
+    <p>✓ Ctrl+Y redoes undone action</p>
+  </div>
+  
+  <div id="status">
+    <h3>Manual Test Status:</h3>
+    <p>Complete each test manually and verify all features work correctly.</p>
+  </div>
+</body>
+</html>

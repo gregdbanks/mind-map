@@ -1,0 +1,103 @@
+.nodeCircle {
+  fill: #ffffff;
+  stroke: #333333;
+  stroke-width: 2;
+  cursor: grab;
+  transition: all 0.2s ease;
+}
+
+.nodeCircle:active {
+  cursor: grabbing;
+}
+
+.nodeCircle:hover {
+  fill: #f0f0f0;
+}
+
+.nodeCircle.selected {
+  stroke: #0066cc;
+  stroke-width: 3;
+}
+
+.selected {
+  stroke: #0066cc;
+  stroke-width: 3;
+}
+
+.nodeText {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  fill: #333333;
+  user-select: none;
+}
+
+.foreignObject {
+  overflow: visible;
+}
+
+.editInput {
+  width: 100%;
+  height: 100%;
+  padding: 4px 8px;
+  border: 2px solid #0066cc;
+  border-radius: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  text-align: center;
+  outline: none;
+  background: #ffffff;
+  color: #333333;
+  box-sizing: border-box;
+}
+
+.collapseButton {
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.collapseButtonCircle {
+  fill: #ffffff;
+  stroke: #666666;
+  stroke-width: 1.5;
+  transition: all 0.2s ease;
+}
+
+.collapseButton:hover .collapseButtonCircle {
+  fill: #f0f0f0;
+}
+
+.collapseButtonText {
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: bold;
+  fill: #666666;
+  user-select: none;
+}
+
+.deleteButton {
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.deleteButtonCircle {
+  fill: #ffffff;
+  stroke: #dc3545;
+  stroke-width: 1.5;
+  transition: all 0.2s ease;
+}
+
+.deleteButton:hover .deleteButtonCircle {
+  fill: #dc3545;
+}
+
+.deleteButtonText {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  fill: #dc3545;
+  user-select: none;
+}
+
+.deleteButton:hover .deleteButtonText {
+  fill: #ffffff;
+}
