@@ -1,68 +1,59 @@
-# Mind Map Application
+# Mind Map - Think Visually, Work Freely
 
-Interactive mind mapping with React, TypeScript, and D3.js. Create and organize ideas with smooth drag-and-drop interactions.
+**No accounts. No cloud. No limits.** Just pure mind mapping in your browser.
 
 ![Mind Map Demo](demo.gif)
 
-## Features
+## Why Choose Mind Map?
 
-- **Node Management**: Create, edit, and delete nodes with hover actions
-- **Smart Navigation**: Spacebar + drag to pan, mouse wheel to zoom  
-- **Multiple Layouts**: Switch between tree and cluster arrangements
-- **Export/Import**: Save as JSON or PNG, load from files
-- **Auto-Save**: Persistent storage with IndexedDB
-- **Modern UI**: Icon toolbar, visual hierarchy, smooth animations
+### 🔒 **Your Data, Your Control**
+- **100% Offline** - Works completely in your browser
+- **No Sign-ups** - Start mapping immediately  
+- **Local Storage** - Your ideas never leave your device
+- **Export Anytime** - Download as JSON or PNG, own your data
 
-## Quick Start
+### ⚡ **Built for Speed**
+- **Instant Start** - No loading screens or account setup
+- **Smooth Performance** - 60fps interactions, even with large maps
+- **Smart Navigation** - Spacebar to pan, mouse wheel to zoom
+- **Quick Actions** - Hover over nodes to create, edit, or delete
 
-```bash
-git clone https://github.com/gregdbanks/mind-map.git
-cd mind-map
-npm install
-npm run dev
-```
+### 🎨 **Designed for Clarity**  
+- **Visual Hierarchy** - Nodes automatically styled by importance
+- **Multiple Layouts** - Switch between tree and cluster views
+- **Clean Interface** - Icon-based toolbar stays out of your way
+- **Responsive Design** - Works on any screen size
 
-## Controls
+### 🚀 **Professional Grade**
+- **Auto-Save** - Never lose your work with persistent storage
+- **Export Options** - Share as images or structured data
+- **Keyboard Shortcuts** - Power user friendly
+- **Reliable** - 100% test coverage ensures it just works
 
-| Action | Method |
-|--------|--------|
-| Create node | Hover over node → green + button |
-| Edit text | Hover over node → blue edit button |
-| Delete node | Hover over node → red × button |
-| Pan canvas | **Spacebar** + drag |
-| Zoom | Mouse wheel |
+## Perfect For
 
-## Testing
+- **Students** planning projects and taking notes
+- **Professionals** organizing ideas and workflows  
+- **Creatives** brainstorming and connecting concepts
+- **Teams** sharing visual project structures
+- **Anyone** who thinks better with diagrams
 
-All core functionality is tested with 100% pass rate:
+## Get Started in 30 Seconds
 
-```bash
-npm test          # Unit tests
-npm run test:e2e  # E2E tests (9/9 passing)
-```
+1. **Clone & Run**
+   ```bash
+   git clone https://github.com/gregdbanks/mind-map.git
+   cd mind-map && npm install && npm start
+   ```
 
-**What we test:**
-- ✅ Canvas rendering and toolbar functionality
-- ✅ Demo map loading and node creation
-- ✅ Icon button interactions
-- ✅ Export/import features
-- ✅ Node operations (Enter/Delete keys)
-- ✅ Layout switching
-- ✅ Runtime error detection
+2. **Or Try the Demo** - Click "Load Demo Map" to see it in action
 
-## Tech Stack
+3. **Start Creating** - Hover over any node and click the + button
 
-- **Frontend**: React 18, TypeScript, CSS Modules
-- **Visualization**: D3.js for SVG rendering
-- **State**: Zustand with reducer pattern
-- **Storage**: IndexedDB with debounced saves
-- **Testing**: Jest, Playwright E2E
-- **Build**: Vite
+## Why Open Source?
 
-## Recent Improvements
+Because **your thinking tools should be yours**. No vendor lock-in, no subscription fees, no privacy concerns. Fork it, modify it, use it however you need.
 
-- Fixed action button positioning during fast drags
-- Spacebar-only panning mode (no accidental canvas dragging)
-- Icon-based toolbar with tooltips
-- Debounced persistence (prevents IndexedDB bottlenecks)
-- 100% test coverage with reliable E2E tests
+---
+
+**Ready to think visually?** [Get Started](DEVELOPMENT.md) • [Testing Guide](DEVELOPMENT.md#testing) • [View Demo](demo.gif)
