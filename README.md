@@ -20,7 +20,7 @@
 
 ### 🎨 **Designed for Clarity**  
 - **Visual Hierarchy** - Nodes automatically styled by importance
-- **Multiple Layouts** - Switch between tree and cluster views
+- **Intelligent Layout** - Automatic positioning that respects your manual adjustments
 - **Clean Interface** - Icon-based toolbar stays out of your way
 - **Responsive Design** - Works on any screen size
 

@@ -11,17 +11,17 @@ import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties }
 import { isAWSService } from '../../utils/awsServices';
 import { demoNodes, demoLinks } from '../../data/demoMindMap';
 import { NodeTooltip } from '../NodeTooltip';
-import { NodeEditor } from '../NodeEditor';
+import { NodeEditModal } from '../NodeEditModal';
 import styles from './MindMapCanvas.module.css';
 
-type LayoutMode = 'tree' | 'cluster';
+// Simplified to single layout mode for MVP consistency
 
 export const MindMapCanvas: React.FC = () => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
   const zoomBehaviorRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
   
-  const [layoutMode, setLayoutMode] = useState<LayoutMode>('cluster');
+  // Removed layout mode state - using single cluster layout for consistency
   const [isInitialized, setIsInitialized] = useState(false);
   const [svgElement, setSvgElement] = useState<SVGSVGElement | null>(null);
   const [lastNodeCount, setLastNodeCount] = useState(0);
@@ -96,7 +96,6 @@ export const MindMapCanvas: React.FC = () => {
         }
         // Only allow mouse drag when in pan mode (spacebar held)
         if (event.type === 'mousedown' || event.type === 'mousemove') {
-          console.log(`D3 filter: ${event.type}, isPanMode: ${isPanMode}`);
           return isPanMode;
         }
         return true;
@@ -162,7 +161,14 @@ export const MindMapCanvas: React.FC = () => {
       .attr('cursor', 'pointer')
       .attr('data-testid', 'mind-map-node');
 
+    // Add background stroke for visual separation from lines
     nodeEnter.append('circle')
+      .attr('class', 'node-background')
+      .style('cursor', 'pointer');
+    
+    // Add main node circle
+    nodeEnter.append('circle')
+      .attr('class', 'node-main')
       .style('cursor', 'pointer');
     
     nodeEnter.append('text')
@@ -244,8 +250,23 @@ export const MindMapCanvas: React.FC = () => {
     // Update all nodes
     const nodeUpdate = nodeEnter.merge(node);
 
-    // Apply visual hierarchy to circles
-    nodeUpdate.select('circle')
+    // Apply background stroke for visual separation from lines
+    // Apply to both new and existing nodes to ensure consistency
+    nodeUpdate.selectAll('.node-background')
+      .attr('r', (d: Node) => {
+        const depth = nodeDepths.get(d.id) || 0;
+        const radius = getNodeVisualProperties(depth).radius;
+        // Use proportional buffer: 6px for root nodes, 4px for others
+        const buffer = depth === 0 ? 6 : 4;
+        return radius + buffer;
+      })
+      .attr('fill', '#f9f9f9') // Match canvas background color
+      .attr('stroke', '#f9f9f9')
+      .attr('stroke-width', 4)
+      .style('pointer-events', 'none'); // Ensure background doesn't interfere with interactions
+
+    // Apply visual hierarchy to main circles
+    nodeUpdate.select('.node-main')
       .attr('r', (d: Node) => {
         const depth = nodeDepths.get(d.id) || 0;
         return getNodeVisualProperties(depth).radius;
@@ -309,70 +330,33 @@ export const MindMapCanvas: React.FC = () => {
         return getNodeVisualProperties(depth).strokeColor;
       });
 
-    // Setup or update layout
-    if (layoutMode === 'tree') {
-      // Tree layout
-      const positions = createHierarchicalLayout(state.nodes, window.innerWidth, window.innerHeight);
+    // Apply cluster layout - only to nodes without positions (preserves IndexedDB and user drags)
+    const nodesWithoutPositions = nodes.filter(n => n.x === undefined || n.y === undefined);
+    
+    if (nodesWithoutPositions.length > 0) {
+      const positions = createImprovedClusterLayout(state.nodes, window.innerWidth, window.innerHeight);
       
-      nodeUpdate
-        .attr('transform', (d: Node) => {
-          const pos = positions.get(d.id);
-          if (pos) {
-            d.x = pos.x;
-            d.y = pos.y;
-            return `translate(${pos.x},${pos.y})`;
-          }
-          return `translate(${d.x || 0},${d.y || 0})`;
-        });
+      // Only update positions for nodes that don't have them
+      nodesWithoutPositions.forEach(node => {
+        const pos = positions.get(node.id);
+        if (pos) {
+          node.x = pos.x;
+          node.y = pos.y;
+          node.fx = pos.x;  // Fix position
+          node.fy = pos.y;
+        }
+      });
+      
+      setLastNodeCount(nodes.length);
+      setHasPositions(true);
+    }
+    
+    // Apply positions to all nodes
+    nodeUpdate
+      .attr('transform', (d: Node) => `translate(${d.x || 0},${d.y || 0})`);
 
-      linkUpdate
-        .attr('x1', (d: any) => {
-          const source = nodes.find(n => n.id === (typeof d.source === 'string' ? d.source : d.source.id));
-          return source?.x || 0;
-        })
-        .attr('y1', (d: any) => {
-          const source = nodes.find(n => n.id === (typeof d.source === 'string' ? d.source : d.source.id));
-          return source?.y || 0;
-        })
-        .attr('x2', (d: any) => {
-          const target = nodes.find(n => n.id === (typeof d.target === 'string' ? d.target : d.target.id));
-          return target?.x || 0;
-        })
-        .attr('y2', (d: any) => {
-          const target = nodes.find(n => n.id === (typeof d.target === 'string' ? d.target : d.target.id));
-          return target?.y || 0;
-        });
-    } else if (layoutMode === 'cluster') {
-      // Cluster layout - fixed positions, no simulation
-      
-      // Only recalculate positions if nodes changed or we don't have positions yet
-      const needsLayout = nodes.length !== lastNodeCount || !hasPositions || 
-                         nodes.some(n => n.x === undefined || n.y === undefined);
-      
-      if (needsLayout) {
-        const positions = createImprovedClusterLayout(state.nodes, window.innerWidth, window.innerHeight);
-        
-        // Update node positions
-        nodes.forEach(node => {
-          const pos = positions.get(node.id);
-          if (pos) {
-            node.x = pos.x;
-            node.y = pos.y;
-            node.fx = pos.x;  // Fix position
-            node.fy = pos.y;
-          }
-        });
-        
-        setLastNodeCount(nodes.length);
-        setHasPositions(true);
-      }
-      
-      // Apply positions
-      nodeUpdate
-        .attr('transform', (d: Node) => `translate(${d.x || 0},${d.y || 0})`);
-
-      // Update links
-      linkUpdate
+    // Update link positions
+    linkUpdate
         .attr('x1', (d: any) => {
           const source = nodes.find(n => n.id === (typeof d.source === 'string' ? d.source : d.source.id));
           return source?.x || 0;
@@ -390,6 +374,8 @@ export const MindMapCanvas: React.FC = () => {
           return target?.y || 0;
         });
 
+    // Setup drag behavior
+    {
       // Simple drag
       const drag = d3.drag<SVGGElement, Node>()
         .on('start', (event, d) => {
@@ -509,7 +495,6 @@ export const MindMapCanvas: React.FC = () => {
           } else if (i === 1) { // Edit button
             button.on('click', function(event: MouseEvent) {
               event.stopPropagation();
-              console.log('Edit button clicked for node:', d.id);
               startEditing(d.id);
             });
           } else if (i === 2) { // Delete button
@@ -528,7 +513,7 @@ export const MindMapCanvas: React.FC = () => {
     attachActionHandlers(nodeEnter);
     attachActionHandlers(nodeUpdate);
 
-  }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, layoutMode, isInitialized, selectNode, startEditing, state.nodes, isDragging, operations]);
+  }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, isDragging, operations]);
 
   // Hide all action buttons when editing starts
   useEffect(() => {
@@ -636,7 +621,6 @@ export const MindMapCanvas: React.FC = () => {
       // Handle spacebar for pan mode
       if (e.code === 'Space' && !isPanMode) {
         e.preventDefault();
-        console.log('Activating pan mode');
         setIsPanMode(true);
         return;
       }
@@ -679,7 +663,6 @@ export const MindMapCanvas: React.FC = () => {
     const handleKeyUp = (e: KeyboardEvent) => {
       // Release pan mode when spacebar is released
       if (e.code === 'Space') {
-        console.log('Deactivating pan mode');
         setIsPanMode(false);
       }
     };
@@ -738,23 +721,6 @@ export const MindMapCanvas: React.FC = () => {
         
         <button 
           className={styles.iconButton}
-          onClick={() => {
-            setLayoutMode(layoutMode === 'tree' ? 'cluster' : 'tree');
-            setHasPositions(false);
-          }}
-          title={`Switch to ${layoutMode === 'tree' ? 'Cluster' : 'Tree'} Layout`}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            {layoutMode === 'tree' ? (
-              <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-            ) : (
-              <path d="M22,7V1H16V4H13L10,1H4V7H1V23H7V20H10L13,23H19V17H22V7ZM5,5H9L11,7H15V9H17V15H15V17H9L7,15H3V9H5V5Z"/>
-            )}
-          </svg>
-        </button>
-        
-        <button 
-          className={styles.iconButton}
           onClick={() => exportToJSON(state)}
           title="Export as JSON"
         >
@@ -787,7 +753,11 @@ export const MindMapCanvas: React.FC = () => {
                   if (importedState) {
                     const nodes = Array.from(importedState.nodes.values());
                     dispatch({ type: 'LOAD_MINDMAP', payload: { nodes, links: importedState.links } });
-                    setTimeout(fitToViewport, 500);
+                    // Force persistence by updating lastModified after a brief delay
+                    setTimeout(() => {
+                      dispatch({ type: 'UPDATE_LAST_MODIFIED' });
+                      fitToViewport();
+                    }, 100);
                   }
                 });
               }
@@ -808,11 +778,10 @@ export const MindMapCanvas: React.FC = () => {
         )}
 
         {editingNode && (
-          <NodeEditor
+          <NodeEditModal
             nodeId={editingNode.id}
             initialText={editingNode.text}
-            x={editingNode.x || 0}
-            y={editingNode.y || 0}
+            isOpen={!!state.editingNodeId}
             onSave={(nodeId, text) => {
               operations.updateNodeText(nodeId, text);
               stopEditing();

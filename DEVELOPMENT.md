@@ -21,7 +21,7 @@ Open http://localhost:3000 to start mapping!
 | Pan canvas | **Spacebar** + drag |
 | Zoom | Mouse wheel |
 | Fit to view | Toolbar fit icon |
-| Switch layouts | Toolbar layout icon |
+| Intelligent positioning | Auto-layout with manual override |
 | Export/Import | Toolbar icons |
 
 ## Testing
@@ -39,7 +39,7 @@ npm run test:e2e  # E2E tests (9/9 passing)
 - ✅ Icon button interactions
 - ✅ Export/import features
 - ✅ Node operations (Enter/Delete keys)
-- ✅ Layout switching
+- ✅ Consistent positioning with manual override
 - ✅ Runtime error detection
 
 ## Tech Stack

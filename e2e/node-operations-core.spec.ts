@@ -40,17 +40,21 @@ test.describe('Node Operations Core', () => {
     await expect(nodes).toHaveCount(1);
   });
 
-  test('should change layouts', async ({ page }) => {
-    // Load demo map
+  test('should maintain consistent positioning', async ({ page }) => {
+    // Load demo map twice to test positioning consistency
     await page.click('button[title="Load Demo Map"]');
     await page.waitForTimeout(1000);
     
-    // Click layout toggle button
-    await page.click('button[title*="Layout"]');
+    // Get position of first node
+    const firstNode = page.locator('[data-testid="mind-map-node"]').first();
+    const initialTransform = await firstNode.getAttribute('transform');
+    
+    // Load demo again
+    await page.click('button[title="Load Demo Map"]');
     await page.waitForTimeout(1000);
     
-    // Nodes should still be visible
-    const nodes = page.locator('[data-testid="mind-map-node"]');
-    await expect(nodes.first()).toBeVisible();
+    // Position should be the same (consistent positioning)
+    const finalTransform = await firstNode.getAttribute('transform');
+    expect(finalTransform).toBe(initialTransform);
   });
 });

@@ -8,7 +8,8 @@ export type MindMapAction =
   | { type: 'SELECT_NODE'; payload: { id: string | null } }
   | { type: 'START_EDITING'; payload: { id: string } }
   | { type: 'STOP_EDITING' }
-  | { type: 'LOAD_MINDMAP'; payload: { nodes: Node[]; links: Link[] } };
+  | { type: 'LOAD_MINDMAP'; payload: { nodes: Node[]; links: Link[] } }
+  | { type: 'UPDATE_LAST_MODIFIED' };
 
 // Create initial node in center of typical viewport
 const initialNodeId = 'root-node';
@@ -176,6 +177,13 @@ export function mindMapReducer(
         ...state,
         nodes: nodeMap,
         links,
+        lastModified: new Date(),
+      };
+    }
+    
+    case 'UPDATE_LAST_MODIFIED': {
+      return {
+        ...state,
         lastModified: new Date(),
       };
     }
