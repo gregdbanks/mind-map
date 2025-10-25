@@ -9,7 +9,7 @@ test.describe('Mind Map Core Functionality', () => {
   test('should render canvas and toolbar', async ({ page }) => {
     // Basic smoke test - app loads without crashing
     await expect(page.locator('[data-testid="toolbar"]')).toBeVisible();
-    await expect(page.locator('svg')).toHaveCount(6); // 5 icon SVGs + 1 main canvas
+    await expect(page.locator('svg')).toHaveCount(7); // 6 icon SVGs + 1 main canvas
   });
 
   test('should load demo map', async ({ page }) => {

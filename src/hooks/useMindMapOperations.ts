@@ -359,6 +359,7 @@ export const useMindMapOperations = () => {
     createNode,
     deleteNode,
     deleteNodes,
+    updateNode,
     updateNodeText,
     updateNodePosition,
     duplicateNode,

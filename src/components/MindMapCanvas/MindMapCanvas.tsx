@@ -721,6 +721,31 @@ export const MindMapCanvas: React.FC = () => {
         
         <button 
           className={styles.iconButton}
+          onClick={() => {
+            // Clear all existing positions and force intelligent auto-layout
+            const nodeUpdates = new Map<string, Partial<Node>>();
+            nodes.forEach(node => {
+              nodeUpdates.set(node.id, { x: undefined, y: undefined, fx: undefined, fy: undefined });
+            });
+            
+            // Apply the position clearing
+            nodeUpdates.forEach((updates, nodeId) => {
+              operations.updateNode(nodeId, updates);
+            });
+            
+            // Force layout recalculation on next render
+            setHasPositions(false);
+            setLastNodeCount(0);
+          }}
+          title="Auto-arrange all nodes with optimal spacing"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7.27C13.6,7.61 14,8.26 14,9A2,2 0 0,1 12,11A2,2 0 0,1 10,9C10,8.26 10.4,7.61 11,7.27V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M12,6A1,1 0 0,0 11,7A1,1 0 0,0 12,8A1,1 0 0,0 13,7A1,1 0 0,0 12,6M20,10A2,2 0 0,1 22,12C22,12.74 21.6,13.39 21,13.73V15.27C21.6,15.61 22,16.26 22,17A2,2 0 0,1 20,19A2,2 0 0,1 18,17C18,16.26 18.4,15.61 19,15.27V13.73C18.4,13.39 18,12.74 18,12A2,2 0 0,1 20,10M20,14A1,1 0 0,0 19,15A1,1 0 0,0 20,16A1,1 0 0,0 21,15A1,1 0 0,0 20,14M4,10A2,2 0 0,1 6,12C6,12.74 5.6,13.39 5,13.73V15.27C5.6,15.61 6,16.26 6,17A2,2 0 0,1 4,19A2,2 0 0,1 2,17C2,16.26 2.4,15.61 3,15.27V13.73C2.4,13.39 2,12.74 2,12A2,2 0 0,1 4,10M4,14A1,1 0 0,0 3,15A1,1 0 0,0 4,16A1,1 0 0,0 5,15A1,1 0 0,0 4,14M12,10A2,2 0 0,1 14,12C14,12.74 13.6,13.39 13,13.73V15.27C13.6,15.61 14,16.26 14,17A2,2 0 0,1 12,19A2,2 0 0,1 10,17C10,16.26 10.4,15.61 11,15.27V13.73C10.4,13.39 10,12.74 10,12A2,2 0 0,1 12,10M12,14A1,1 0 0,0 11,15A1,1 0 0,0 12,16A1,1 0 0,0 13,15A1,1 0 0,0 12,14Z"/>
+          </svg>
+        </button>
+        
+        <button 
+          className={styles.iconButton}
           onClick={() => exportToJSON(state)}
           title="Export as JSON"
         >
