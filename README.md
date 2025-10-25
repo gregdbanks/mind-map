@@ -2,7 +2,6 @@
 
 Interactive mind mapping with React, TypeScript, and D3.js. Create and organize ideas with smooth drag-and-drop interactions.
 
-<!-- Add your GIF here -->
 ![Mind Map Demo](demo.gif)
 
 ## Features
