@@ -95,47 +95,20 @@ export const exportToPNG = (svgElement: SVGSVGElement): void => {
 export const importFromJSON = async (file: File): Promise<MindMapState | null> => {
   try {
     const text = await file.text();
+    return importFromJSONText(text);
+  } catch (error) {
+    console.error('Failed to import mind map:', error);
+    return null;
+  }
+};
+
+export const importFromJSONText = (text: string): MindMapState | null => {
+  try {
     const data = JSON.parse(text);
     
-    // Check if it's the AWS security JSON format
-    if (data.version && data.mindMap && data.nodes) {
-      // Convert AWS format to standard format
-      const nodes = new Map<string, Node>();
-      const links: Link[] = [];
-      
-      // Convert nodes
-      data.nodes.forEach((node: any) => {
-        const convertedNode: Node = {
-          id: node.id,
-          text: node.text,
-          x: node.positionX || node.x || 0,
-          y: node.positionY || node.y || 0,
-          collapsed: false,
-          parent: node.parentId || null
-        };
-        nodes.set(node.id, convertedNode);
-        
-        // Create links from parent-child relationships
-        if (node.parentId) {
-          links.push({
-            source: node.parentId,
-            target: node.id
-          });
-        }
-      });
-      
-      return {
-        nodes,
-        links,
-        selectedNodeId: null,
-        editingNodeId: null,
-        lastModified: new Date()
-      };
-    }
-    
-    // Validate standard format
+    // Validate required structure
     if (!data.nodes || !Array.isArray(data.nodes) || !data.links || !Array.isArray(data.links)) {
-      throw new Error('Invalid mind map file format');
+      throw new Error('Invalid mind map file format - missing nodes or links array');
     }
     
     // Convert nodes array back to Map with proper typing
