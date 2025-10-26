@@ -4,19 +4,22 @@ import styles from './NodeEditModal.module.css';
 interface NodeEditModalProps {
   nodeId: string;
   initialText: string;
+  initialColor?: string;
   isOpen: boolean;
-  onSave: (nodeId: string, text: string) => void;
+  onSave: (nodeId: string, text: string, color?: string) => void;
   onCancel: () => void;
 }
 
 export const NodeEditModal: React.FC<NodeEditModalProps> = ({
   nodeId,
   initialText,
+  initialColor,
   isOpen,
   onSave,
   onCancel
 }) => {
   const [text, setText] = useState(initialText);
+  const [color, setColor] = useState(initialColor || '');
   const inputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -30,13 +33,14 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
 
   useEffect(() => {
     setText(initialText);
-  }, [initialText]);
+    setColor(initialColor || '');
+  }, [initialText, initialColor]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const trimmedText = text.trim();
     if (trimmedText) {
-      onSave(nodeId, trimmedText);
+      onSave(nodeId, trimmedText, color || undefined);
     } else {
       onCancel();
     }
@@ -66,15 +70,39 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
       <div className={styles.modalContent}>
         <h3 className={styles.modalTitle}>Edit Node</h3>
         <form onSubmit={handleSubmit} className={styles.modalForm}>
-          <input
-            ref={inputRef}
-            type="text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className={styles.textInput}
-            placeholder="Enter node text..."
-          />
+          <div className={styles.inputGroup}>
+            <label className={styles.inputLabel}>Node Text</label>
+            <input
+              ref={inputRef}
+              type="text"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className={styles.textInput}
+              placeholder="Enter node text..."
+            />
+          </div>
+          
+          <div className={styles.inputGroup}>
+            <label className={styles.inputLabel}>Node Color</label>
+            <div className={styles.colorPickerContainer}>
+              <input
+                type="color"
+                value={color || '#4A90E2'}
+                onChange={(e) => setColor(e.target.value)}
+                className={styles.colorInput}
+              />
+              <button
+                type="button"
+                onClick={() => setColor('')}
+                className={styles.resetColorButton}
+                title="Reset to default color"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+          
           <div className={styles.buttonGroup}>
             <button 
               type="submit" 

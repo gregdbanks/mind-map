@@ -14,6 +14,7 @@ export interface Node {
   fy?: number | null; // Fixed y position (for dragging)
   collapsed: boolean;
   parent: string | null;
+  color?: string; // Optional background color (hex, rgb, or CSS color name)
 }
 
 export interface Link {

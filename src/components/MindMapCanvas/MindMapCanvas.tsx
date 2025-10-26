@@ -4,8 +4,7 @@ import { useMindMap } from '../../context/MindMapContext';
 import { useMindMapPersistence } from '../../hooks/useMindMapPersistence';
 import { useMindMapOperations } from '../../hooks/useMindMapOperations';
 import type { Node, Link } from '../../types/mindMap';
-import { exportToJSON, importFromJSON, importFromJSONText } from '../../utils/exportUtils';
-import { createHierarchicalLayout } from '../../utils/hierarchicalLayout';
+import { exportToJSON, importFromJSONText } from '../../utils/exportUtils';
 import { createImprovedClusterLayout } from '../../utils/improvedClusterLayout';
 import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties } from '../../utils/nodeHierarchy';
 import { isAWSService } from '../../utils/awsServices';
@@ -13,6 +12,7 @@ import { demoNodes, demoLinks } from '../../data/demoMindMap';
 import { NodeTooltip } from '../NodeTooltip';
 import { NodeEditModal } from '../NodeEditModal';
 import { ImportModal } from '../ImportModal';
+import { SearchBar } from '../SearchBar';
 import styles from './MindMapCanvas.module.css';
 
 // Simplified to single layout mode for MVP consistency
@@ -25,9 +25,8 @@ export const MindMapCanvas: React.FC = () => {
   // Removed layout mode state - using single cluster layout for consistency
   const [isInitialized, setIsInitialized] = useState(false);
   const [svgElement, setSvgElement] = useState<SVGSVGElement | null>(null);
-  const [lastNodeCount, setLastNodeCount] = useState(0);
-  const [hasPositions, setHasPositions] = useState(false);
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+  const [searchHighlightNodeId, setSearchHighlightNodeId] = useState<string | null>(null);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isPanMode, setIsPanMode] = useState(false);
@@ -82,6 +81,33 @@ export const MindMapCanvas: React.FC = () => {
     const svg = d3.select(svgRef.current);
     svg.transition()
       .duration(750)
+      .call(
+        zoomBehaviorRef.current.transform as any,
+        d3.zoomIdentity.translate(translateX, translateY).scale(scale)
+      );
+  };
+
+  // Pan to specific node
+  const panToNode = (nodeId: string) => {
+    if (!svgRef.current || !gRef.current || !zoomBehaviorRef.current) return;
+
+    const node = nodes.find(n => n.id === nodeId);
+    if (!node || node.x === undefined || node.y === undefined) return;
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const scale = 1.2; // Slight zoom for better focus
+    const translateX = width / 2 - scale * node.x;
+    const translateY = height / 2 - scale * node.y;
+
+    // Highlight the node briefly
+    setSearchHighlightNodeId(nodeId);
+    setTimeout(() => setSearchHighlightNodeId(null), 2000);
+
+    const svg = d3.select(svgRef.current);
+    svg.transition()
+      .duration(800)
+      .ease(d3.easeCubicInOut)
       .call(
         zoomBehaviorRef.current.transform as any,
         d3.zoomIdentity.translate(translateX, translateY).scale(scale)
@@ -269,8 +295,9 @@ export const MindMapCanvas: React.FC = () => {
     // Apply background stroke for visual separation from lines
     // Apply to both new and existing nodes to ensure consistency
     nodeUpdate.selectAll('.node-background')
-      .attr('r', (d: Node) => {
-        const depth = nodeDepths.get(d.id) || 0;
+      .attr('r', (d: any) => {
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
         const radius = getNodeVisualProperties(depth).radius;
         // Use proportional buffer: 6px for root nodes, 4px for others
         const buffer = depth === 0 ? 6 : 4;
@@ -283,48 +310,58 @@ export const MindMapCanvas: React.FC = () => {
 
     // Apply visual hierarchy to main circles
     nodeUpdate.select('.node-main')
-      .attr('r', (d: Node) => {
-        const depth = nodeDepths.get(d.id) || 0;
+      .attr('r', (d: any) => {
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
         return getNodeVisualProperties(depth).radius;
       })
-      .attr('fill', (d: Node) => {
+      .attr('fill', (d: any) => {
+        const node = d as Node;
         // Use custom color if specified
-        if (d.color) {
-          return d.color;
+        if (node.color) {
+          return node.color;
         }
         
-        if (isAWSService(d.text)) {
+        if (isAWSService(node.text)) {
           return '#FF9900'; // AWS orange for services
         }
-        const depth = nodeDepths.get(d.id) || 0;
+        const depth = nodeDepths.get(node.id) || 0;
         return getNodeVisualProperties(depth).fillColor;
       })
-      .attr('stroke', (d: Node) => {
-        if (state.selectedNodeId === d.id) {
+      .attr('stroke', (d: any) => {
+        const node = d as Node;
+        if (state.selectedNodeId === node.id) {
           return '#0066cc'; // Selected color overrides hierarchy
         }
-        if (isAWSService(d.text)) {
+        if (isAWSService(node.text)) {
           return '#232F3E'; // AWS dark blue for service borders
         }
-        const depth = nodeDepths.get(d.id) || 0;
+        const depth = nodeDepths.get(node.id) || 0;
         return getNodeVisualProperties(depth).strokeColor;
       })
-      .attr('stroke-width', (d: Node) => {
-        const depth = nodeDepths.get(d.id) || 0;
+      .attr('stroke-width', (d: any) => {
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
         const baseWidth = getNodeVisualProperties(depth).strokeWidth;
         
-        if (isAWSService(d.text)) {
+        // Thicker border for search highlight
+        if (node.id === searchHighlightNodeId) {
+          return baseWidth * 2.5;
+        }
+        
+        if (isAWSService(node.text)) {
           return baseWidth * 1.5; // Thicker borders for AWS services
         }
         
-        if (state.selectedNodeId === d.id) {
+        if (state.selectedNodeId === node.id) {
           return baseWidth + 2; // Even thicker when selected
         }
         
         return baseWidth + 1; // Slightly thicker overall
       })
-      .style('filter', (d: Node) => {
-        const depth = nodeDepths.get(d.id) || 0;
+      .style('filter', (d: any) => {
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
         // Add subtle shadow for higher level nodes
         if (depth === 0) return 'drop-shadow(0px 2px 4px rgba(0,0,0,0.2))';
         if (depth === 1) return 'drop-shadow(0px 1px 2px rgba(0,0,0,0.1))';
@@ -333,20 +370,23 @@ export const MindMapCanvas: React.FC = () => {
 
     // Apply visual hierarchy to text
     nodeUpdate.select('text')
-      .text((d: Node) => d.text)
-      .style('font-size', (d: Node) => {
-        const depth = nodeDepths.get(d.id) || 0;
+      .text((d: any) => (d as Node).text)
+      .style('font-size', (d: any) => {
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
         return `${getNodeVisualProperties(depth).fontSize}px`;
       })
-      .style('font-weight', (d: Node) => {
-        const depth = nodeDepths.get(d.id) || 0;
+      .style('font-weight', (d: any) => {
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
         return getNodeVisualProperties(depth).fontWeight;
       })
-      .attr('fill', (d: Node) => {
-        if (isAWSService(d.text)) {
+      .attr('fill', (d: any) => {
+        const node = d as Node;
+        if (isAWSService(node.text)) {
           return '#FFFFFF'; // White text for AWS services (good contrast with orange)
         }
-        const depth = nodeDepths.get(d.id) || 0;
+        const depth = nodeDepths.get(node.id) || 0;
         // Text color matches the stroke color for consistency
         return getNodeVisualProperties(depth).strokeColor;
       });
@@ -367,14 +407,14 @@ export const MindMapCanvas: React.FC = () => {
           node.fy = pos.y;
         }
       });
-      
-      setLastNodeCount(nodes.length);
-      setHasPositions(true);
     }
     
     // Apply positions to all nodes
     nodeUpdate
-      .attr('transform', (d: Node) => `translate(${d.x || 0},${d.y || 0})`);
+      .attr('transform', (d: any) => {
+        const node = d as Node;
+        return `translate(${node.x || 0},${node.y || 0})`;
+      });
 
     // Update link positions
     linkUpdate
@@ -399,7 +439,7 @@ export const MindMapCanvas: React.FC = () => {
     {
       // Simple drag
       const drag = d3.drag<SVGGElement, Node>()
-        .on('start', (event, d) => {
+        .on('start', (_event, d) => {
           setIsDragging(true);
           setHoveredNodeId(null); // Clear hover during drag
           // Hide action buttons immediately when drag starts - find correct node by data
@@ -666,13 +706,7 @@ export const MindMapCanvas: React.FC = () => {
 
       // Add 'c' for cluster layout, 't' for tree
       if (!modifiers.ctrlKey && !modifiers.shiftKey && !modifiers.altKey) {
-        if (e.key === 'c') {
-          e.preventDefault();
-          setLayoutMode('cluster');
-        } else if (e.key === 't') {
-          e.preventDefault();
-          setLayoutMode('tree');
-        } else if (e.key === 'F2' && state.selectedNodeId) {
+        if (e.key === 'F2' && state.selectedNodeId) {
           e.preventDefault();
           startEditing(state.selectedNodeId);
         }
@@ -754,9 +788,6 @@ export const MindMapCanvas: React.FC = () => {
               operations.updateNode(nodeId, updates);
             });
             
-            // Force layout recalculation on next render
-            setHasPositions(false);
-            setLastNodeCount(0);
           }}
           title="Auto-arrange all nodes with optimal spacing"
         >
@@ -787,6 +818,12 @@ export const MindMapCanvas: React.FC = () => {
         </button>
       </div>
 
+      <SearchBar
+        nodes={nodes}
+        onNodeSelect={panToNode}
+        isVisible={!state.editingNodeId}
+      />
+
       <div className={styles.canvasContainer}>
         {hoveredNode && !state.editingNodeId && (
           <NodeTooltip
@@ -800,9 +837,13 @@ export const MindMapCanvas: React.FC = () => {
           <NodeEditModal
             nodeId={editingNode.id}
             initialText={editingNode.text}
+            initialColor={editingNode.color}
             isOpen={!!state.editingNodeId}
-            onSave={(nodeId, text) => {
+            onSave={(nodeId, text, color) => {
               operations.updateNodeText(nodeId, text);
+              if (color !== undefined) {
+                operations.updateNode(nodeId, { color });
+              }
               stopEditing();
             }}
             onCancel={stopEditing}
@@ -811,7 +852,7 @@ export const MindMapCanvas: React.FC = () => {
 
         {nodes.length === 0 && (
         <div className={styles.instructions}>
-          <h2>Welcome to Mind Map!</h2>
+          <h2>Welcome to ThoughtNet!</h2>
           <p><strong>Load Demo Map</strong> to get started, or create nodes using the <strong>+ button</strong> on existing nodes</p>
         </div>
       )}
