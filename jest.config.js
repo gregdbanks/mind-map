@@ -6,6 +6,7 @@ export default {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '\\.svg$': '<rootDir>/src/__tests__/mocks/fileMock.js',
     '^/(.*)$': '<rootDir>/public/$1',
+    '^@gbdev20053/simple-comp-ui$': '<rootDir>/src/__mocks__/@gbdev20053/simple-comp-ui.js',
   },
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
   testMatch: [
