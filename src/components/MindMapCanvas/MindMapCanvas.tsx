@@ -441,8 +441,8 @@ export const MindMapCanvas: React.FC = () => {
           }
         });
         
-        // The main useEffect will handle SVG updates on the next render cycle
-        // This ensures all node positions are updated before SVG re-rendering
+        // Node positions are updated directly; SVG updates occur in this useEffect after handlePositionUpdate is called.
+        // No React render cycle is triggered by these updates.
       };
       
       // Apply the layout
@@ -459,9 +459,8 @@ export const MindMapCanvas: React.FC = () => {
       if (simulation) {
         simulationRef.current = simulation;
       } else {
-        // For static layouts, call the update immediately
-        const positions = layoutManager.getStaticLayout(currentLayout, state.nodes, window.innerWidth, window.innerHeight);
-        handlePositionUpdate(positions);
+        // For static layouts, positions are already updated by applyLayout via the onUpdate callback
+        // No additional position update needed here
       }
     }
     
