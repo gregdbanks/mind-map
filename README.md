@@ -51,7 +51,7 @@ npm run test:e2e  # End-to-end tests
 npm run typecheck # TypeScript validation
 ```
 
-**Test Coverage**: 126/126 tests passing (100% success rate)
+**Test Coverage**: 123/123 tests passing (100% success rate)
 - See [TEST_STRATEGY.md](TEST_STRATEGY.md) for detailed testing information
 
 ### Building
@@ -66,7 +66,7 @@ The project includes a comprehensive GitHub Actions pipeline that automatically:
 
 **On Pull Requests:**
 - Runs TypeScript type checking
-- Executes full unit test suite (126 tests)
+- Executes full unit test suite (123 tests)
 - Runs end-to-end tests with Playwright
 - Tests on Node.js 18.x and 20.x
 - Deploys preview environment
