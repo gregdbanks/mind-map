@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
     "test": "jest --watch",
     "test:ci": "jest",
     "test:coverage": "jest --coverage",

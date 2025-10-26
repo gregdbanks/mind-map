@@ -58,6 +58,44 @@ npm run build     # Production build
 npm run preview   # Preview production build
 ```
 
+### CI/CD Pipeline
+
+The project includes a comprehensive GitHub Actions pipeline that automatically:
+
+**On Pull Requests:**
+- Runs TypeScript type checking
+- Executes full unit test suite (126 tests)
+- Runs end-to-end tests with Playwright
+- Tests on Node.js 18.x and 20.x
+- Deploys preview environment
+- Uploads test artifacts on failure
+
+**On Main Branch Push:**
+- All the above tests
+- Deploys to production environment
+
+**Pipeline Configuration:**
+```bash
+# The pipeline runs on:
+- push to main or develop branches
+- pull requests to main branch
+
+# Test Matrix:
+- Node.js versions: 18.x, 20.x
+- Browser testing: Chromium (Playwright)
+- Parallel execution for faster feedback
+```
+
+**Setting up the Pipeline:**
+1. Pipeline is automatically active once `.github/workflows/ci.yml` is pushed
+2. Configure deployment secrets in repository settings for production deployments
+3. Tests run automatically on every commit and PR
+
+**Viewing Results:**
+- Check the "Actions" tab in your GitHub repository
+- Test artifacts (screenshots, videos) are uploaded on E2E test failures
+- Playwright HTML reports available for download on test failures
+
 ## Use Cases
 
 - **Students**: Map complex subjects with interconnected topics
