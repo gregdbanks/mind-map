@@ -1,0 +1,2045 @@
+{
+  "nodes": [
+    {
+      "id": "root",
+      "text": "AWS Certified Security - Specialty (SCS-C02)",
+      "x": 600,
+      "y": 400,
+      "parent": null,
+      "collapsed": false,
+      "color": "#2C3E50"
+    },
+    {
+      "id": "domain1",
+      "text": "Domain 1: Threat Detection & Incident Response (14%)",
+      "x": 1100,
+      "y": 200,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#E74C3C"
+    },
+    {
+      "id": "d1-task1",
+      "text": "Task 1.1: Design & Implement Incident Response Plan",
+      "x": 1400,
+      "y": 100,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#E74C3C"
+    },
+    {
+      "id": "d1-t1-knowledge",
+      "text": "Knowledge Areas",
+      "x": 1650,
+      "y": 50,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063"
+    },
+    {
+      "id": "d1-t1-k1",
+      "text": "AWS Best Practices",
+      "x": 1850,
+      "y": 0,
+      "parent": "d1-t1-knowledge",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-k2",
+      "text": "Cloud Incidents",
+      "x": 1850,
+      "y": 30,
+      "parent": "d1-t1-knowledge",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-k3",
+      "text": "Roles & Responsibilities",
+      "x": 1850,
+      "y": 60,
+      "parent": "d1-t1-knowledge",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-k4",
+      "text": "AWS Security Finding Format (ASFF)",
+      "x": 1850,
+      "y": 90,
+      "parent": "d1-t1-knowledge",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-services",
+      "text": "AWS Services",
+      "x": 1650,
+      "y": 150,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063"
+    },
+    {
+      "id": "d1-t1-s1",
+      "text": "AWS Security Hub",
+      "x": 1850,
+      "y": 120,
+      "parent": "d1-t1-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-s2",
+      "text": "Amazon Macie",
+      "x": 1850,
+      "y": 150,
+      "parent": "d1-t1-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-s3",
+      "text": "Amazon GuardDuty",
+      "x": 1850,
+      "y": 180,
+      "parent": "d1-t1-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-s4",
+      "text": "Amazon Inspector",
+      "x": 1850,
+      "y": 210,
+      "parent": "d1-t1-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-s5",
+      "text": "AWS Config",
+      "x": 1850,
+      "y": 240,
+      "parent": "d1-t1-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-s6",
+      "text": "Amazon Detective",
+      "x": 1850,
+      "y": 270,
+      "parent": "d1-t1-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-s7",
+      "text": "IAM Access Analyzer",
+      "x": 1850,
+      "y": 300,
+      "parent": "d1-t1-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-s8",
+      "text": "Amazon EventBridge",
+      "x": 1850,
+      "y": 330,
+      "parent": "d1-t1-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-s9",
+      "text": "AWS IAM",
+      "x": 1850,
+      "y": 360,
+      "parent": "d1-t1-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t1-s10",
+      "text": "AWS Secrets Manager",
+      "x": 1850,
+      "y": 390,
+      "parent": "d1-t1-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-task2",
+      "text": "Task 1.2: Detect Security Threats & Anomalies",
+      "x": 1400,
+      "y": 450,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#E74C3C"
+    },
+    {
+      "id": "d1-t2-services",
+      "text": "AWS Services",
+      "x": 1650,
+      "y": 450,
+      "parent": "d1-task2",
+      "collapsed": false,
+      "color": "#EC7063"
+    },
+    {
+      "id": "d1-t2-s1",
+      "text": "Amazon GuardDuty",
+      "x": 1850,
+      "y": 420,
+      "parent": "d1-t2-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t2-s2",
+      "text": "AWS Security Hub",
+      "x": 1850,
+      "y": 450,
+      "parent": "d1-t2-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t2-s3",
+      "text": "Amazon Macie",
+      "x": 1850,
+      "y": 480,
+      "parent": "d1-t2-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t2-s4",
+      "text": "AWS Config",
+      "x": 1850,
+      "y": 510,
+      "parent": "d1-t2-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t2-s5",
+      "text": "IAM Access Analyzer",
+      "x": 1850,
+      "y": 540,
+      "parent": "d1-t2-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t2-s6",
+      "text": "Amazon Detective",
+      "x": 1850,
+      "y": 570,
+      "parent": "d1-t2-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t2-s7",
+      "text": "Amazon Athena",
+      "x": 1850,
+      "y": 600,
+      "parent": "d1-t2-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t2-s8",
+      "text": "Amazon CloudWatch",
+      "x": 1850,
+      "y": 630,
+      "parent": "d1-t2-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-task3",
+      "text": "Task 1.3: Respond to Compromised Resources",
+      "x": 1400,
+      "y": 700,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#E74C3C"
+    },
+    {
+      "id": "d1-t3-services",
+      "text": "AWS Services",
+      "x": 1650,
+      "y": 700,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063"
+    },
+    {
+      "id": "d1-t3-s1",
+      "text": "AWS Lambda",
+      "x": 1850,
+      "y": 660,
+      "parent": "d1-t3-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-s2",
+      "text": "AWS Step Functions",
+      "x": 1850,
+      "y": 690,
+      "parent": "d1-t3-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-s3",
+      "text": "Amazon EventBridge",
+      "x": 1850,
+      "y": 720,
+      "parent": "d1-t3-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-s4",
+      "text": "AWS Systems Manager",
+      "x": 1850,
+      "y": 750,
+      "parent": "d1-t3-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-s5",
+      "text": "AWS Security Hub",
+      "x": 1850,
+      "y": 780,
+      "parent": "d1-t3-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-s6",
+      "text": "AWS Config",
+      "x": 1850,
+      "y": 810,
+      "parent": "d1-t3-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-s7",
+      "text": "Amazon EC2",
+      "x": 1850,
+      "y": 840,
+      "parent": "d1-t3-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-s8",
+      "text": "Amazon Detective",
+      "x": 1850,
+      "y": 870,
+      "parent": "d1-t3-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-s9",
+      "text": "Amazon EBS",
+      "x": 1850,
+      "y": 900,
+      "parent": "d1-t3-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-s10",
+      "text": "Amazon S3",
+      "x": 1850,
+      "y": 930,
+      "parent": "d1-t3-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-s11",
+      "text": "Amazon Athena",
+      "x": 1850,
+      "y": 960,
+      "parent": "d1-t3-services",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-features",
+      "text": "Key Features",
+      "x": 1650,
+      "y": 1000,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063"
+    },
+    {
+      "id": "d1-t3-f1",
+      "text": "S3 Object Lock",
+      "x": 1850,
+      "y": 990,
+      "parent": "d1-t3-features",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-f2",
+      "text": "S3 Lifecycle",
+      "x": 1850,
+      "y": 1020,
+      "parent": "d1-t3-features",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "d1-t3-f3",
+      "text": "S3 Replication",
+      "x": 1850,
+      "y": 1050,
+      "parent": "d1-t3-features",
+      "collapsed": false,
+      "color": "#F5B7B1"
+    },
+    {
+      "id": "domain2",
+      "text": "Domain 2: Security Logging & Monitoring (18%)",
+      "x": 1100,
+      "y": 800,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3498DB"
+    },
+    {
+      "id": "d2-task1",
+      "text": "Task 2.1: Design Monitoring & Alerting",
+      "x": 1400,
+      "y": 1150,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB"
+    },
+    {
+      "id": "d2-t1-services",
+      "text": "AWS Services",
+      "x": 1650,
+      "y": 1150,
+      "parent": "d2-task1",
+      "collapsed": false,
+      "color": "#5DADE2"
+    },
+    {
+      "id": "d2-t1-s1",
+      "text": "Amazon CloudWatch",
+      "x": 1850,
+      "y": 1100,
+      "parent": "d2-t1-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t1-s2",
+      "text": "Amazon EventBridge",
+      "x": 1850,
+      "y": 1130,
+      "parent": "d2-t1-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t1-s3",
+      "text": "AWS Lambda",
+      "x": 1850,
+      "y": 1160,
+      "parent": "d2-t1-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t1-s4",
+      "text": "Amazon SNS",
+      "x": 1850,
+      "y": 1190,
+      "parent": "d2-t1-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t1-s5",
+      "text": "AWS Security Hub",
+      "x": 1850,
+      "y": 1220,
+      "parent": "d2-t1-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t1-s6",
+      "text": "Amazon GuardDuty",
+      "x": 1850,
+      "y": 1250,
+      "parent": "d2-t1-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t1-s7",
+      "text": "AWS Systems Manager",
+      "x": 1850,
+      "y": 1280,
+      "parent": "d2-t1-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-task2",
+      "text": "Task 2.2: Troubleshoot Monitoring & Alerting",
+      "x": 1400,
+      "y": 1350,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB"
+    },
+    {
+      "id": "d2-t2-services",
+      "text": "AWS Services",
+      "x": 1650,
+      "y": 1350,
+      "parent": "d2-task2",
+      "collapsed": false,
+      "color": "#5DADE2"
+    },
+    {
+      "id": "d2-t2-s1",
+      "text": "AWS Security Hub",
+      "x": 1850,
+      "y": 1350,
+      "parent": "d2-t2-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-task3",
+      "text": "Task 2.3: Design Logging Solution",
+      "x": 1400,
+      "y": 1450,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB"
+    },
+    {
+      "id": "d2-t3-services",
+      "text": "AWS Services",
+      "x": 1650,
+      "y": 1450,
+      "parent": "d2-task3",
+      "collapsed": false,
+      "color": "#5DADE2"
+    },
+    {
+      "id": "d2-t3-s1",
+      "text": "VPC Flow Logs",
+      "x": 1850,
+      "y": 1400,
+      "parent": "d2-t3-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t3-s2",
+      "text": "DNS Logs",
+      "x": 1850,
+      "y": 1430,
+      "parent": "d2-t3-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t3-s3",
+      "text": "AWS CloudTrail",
+      "x": 1850,
+      "y": 1460,
+      "parent": "d2-t3-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t3-s4",
+      "text": "Amazon CloudWatch Logs",
+      "x": 1850,
+      "y": 1490,
+      "parent": "d2-t3-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-task4",
+      "text": "Task 2.4: Troubleshoot Logging",
+      "x": 1400,
+      "y": 1550,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB"
+    },
+    {
+      "id": "d2-t4-services",
+      "text": "AWS Services",
+      "x": 1650,
+      "y": 1550,
+      "parent": "d2-task4",
+      "collapsed": false,
+      "color": "#5DADE2"
+    },
+    {
+      "id": "d2-t4-s1",
+      "text": "VPC Flow Logs",
+      "x": 1850,
+      "y": 1520,
+      "parent": "d2-t4-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t4-s2",
+      "text": "DNS Logs",
+      "x": 1850,
+      "y": 1550,
+      "parent": "d2-t4-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t4-s3",
+      "text": "CloudTrail",
+      "x": 1850,
+      "y": 1580,
+      "parent": "d2-t4-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t4-s4",
+      "text": "CloudWatch Logs",
+      "x": 1850,
+      "y": 1610,
+      "parent": "d2-t4-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-task5",
+      "text": "Task 2.5: Design Log Analysis",
+      "x": 1400,
+      "y": 1700,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB"
+    },
+    {
+      "id": "d2-t5-services",
+      "text": "AWS Services",
+      "x": 1650,
+      "y": 1700,
+      "parent": "d2-task5",
+      "collapsed": false,
+      "color": "#5DADE2"
+    },
+    {
+      "id": "d2-t5-s1",
+      "text": "Amazon Athena",
+      "x": 1850,
+      "y": 1650,
+      "parent": "d2-t5-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t5-s2",
+      "text": "CloudWatch Logs Filter",
+      "x": 1850,
+      "y": 1680,
+      "parent": "d2-t5-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t5-s3",
+      "text": "CloudWatch Logs Insights",
+      "x": 1850,
+      "y": 1710,
+      "parent": "d2-t5-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t5-s4",
+      "text": "CloudTrail Insights",
+      "x": 1850,
+      "y": 1740,
+      "parent": "d2-t5-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "d2-t5-s5",
+      "text": "Security Hub Insights",
+      "x": 1850,
+      "y": 1770,
+      "parent": "d2-t5-services",
+      "collapsed": false,
+      "color": "#AED6F1"
+    },
+    {
+      "id": "domain3",
+      "text": "Domain 3: Infrastructure Security (20%)",
+      "x": 600,
+      "y": 900,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#16A085"
+    },
+    {
+      "id": "d3-task1",
+      "text": "Task 3.1: Edge Services Security",
+      "x": 300,
+      "y": 850,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#16A085"
+    },
+    {
+      "id": "d3-t1-services",
+      "text": "AWS Services",
+      "x": 50,
+      "y": 850,
+      "parent": "d3-task1",
+      "collapsed": false,
+      "color": "#48C9B0"
+    },
+    {
+      "id": "d3-t1-s1",
+      "text": "AWS WAF",
+      "x": -150,
+      "y": 800,
+      "parent": "d3-t1-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t1-s2",
+      "text": "Elastic Load Balancers",
+      "x": -150,
+      "y": 830,
+      "parent": "d3-t1-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t1-s3",
+      "text": "Amazon Route 53",
+      "x": -150,
+      "y": 860,
+      "parent": "d3-t1-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t1-s4",
+      "text": "Amazon CloudFront",
+      "x": -150,
+      "y": 890,
+      "parent": "d3-t1-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t1-s5",
+      "text": "AWS Shield",
+      "x": -150,
+      "y": 920,
+      "parent": "d3-t1-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-task2",
+      "text": "Task 3.2: Network Security Controls",
+      "x": 300,
+      "y": 1050,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#16A085"
+    },
+    {
+      "id": "d3-t2-services",
+      "text": "AWS Services",
+      "x": 50,
+      "y": 1050,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0"
+    },
+    {
+      "id": "d3-t2-s1",
+      "text": "Security Groups",
+      "x": -150,
+      "y": 970,
+      "parent": "d3-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t2-s2",
+      "text": "Network ACLs",
+      "x": -150,
+      "y": 1000,
+      "parent": "d3-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t2-s3",
+      "text": "AWS Network Firewall",
+      "x": -150,
+      "y": 1030,
+      "parent": "d3-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t2-s4",
+      "text": "AWS Transit Gateway",
+      "x": -150,
+      "y": 1060,
+      "parent": "d3-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t2-s5",
+      "text": "VPC Endpoints",
+      "x": -150,
+      "y": 1090,
+      "parent": "d3-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t2-s6",
+      "text": "Traffic Mirroring",
+      "x": -150,
+      "y": 1120,
+      "parent": "d3-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t2-s7",
+      "text": "VPC Flow Logs",
+      "x": -150,
+      "y": 1150,
+      "parent": "d3-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t2-s8",
+      "text": "AWS VPN",
+      "x": -150,
+      "y": 1180,
+      "parent": "d3-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t2-s9",
+      "text": "AWS Direct Connect",
+      "x": -150,
+      "y": 1210,
+      "parent": "d3-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t2-s10",
+      "text": "AWS Lambda (in VPC)",
+      "x": -150,
+      "y": 1240,
+      "parent": "d3-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t2-s11",
+      "text": "AWS Firewall Manager",
+      "x": -150,
+      "y": 1270,
+      "parent": "d3-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-task3",
+      "text": "Task 3.3: Compute Security Controls",
+      "x": 300,
+      "y": 1350,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#16A085"
+    },
+    {
+      "id": "d3-t3-services",
+      "text": "AWS Services",
+      "x": 50,
+      "y": 1350,
+      "parent": "d3-task3",
+      "collapsed": false,
+      "color": "#48C9B0"
+    },
+    {
+      "id": "d3-t3-s1",
+      "text": "Amazon EC2",
+      "x": -150,
+      "y": 1300,
+      "parent": "d3-t3-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t3-s2",
+      "text": "EC2 Image Builder",
+      "x": -150,
+      "y": 1330,
+      "parent": "d3-t3-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t3-s3",
+      "text": "Amazon Inspector",
+      "x": -150,
+      "y": 1360,
+      "parent": "d3-t3-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t3-s4",
+      "text": "Amazon ECR",
+      "x": -150,
+      "y": 1390,
+      "parent": "d3-t3-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t3-s5",
+      "text": "AWS Systems Manager",
+      "x": -150,
+      "y": 1420,
+      "parent": "d3-t3-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-task4",
+      "text": "Task 3.4: Troubleshoot Network Security",
+      "x": 300,
+      "y": 1500,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#16A085"
+    },
+    {
+      "id": "d3-t4-services",
+      "text": "AWS Services",
+      "x": 50,
+      "y": 1500,
+      "parent": "d3-task4",
+      "collapsed": false,
+      "color": "#48C9B0"
+    },
+    {
+      "id": "d3-t4-s1",
+      "text": "VPC Reachability Analyzer",
+      "x": -150,
+      "y": 1460,
+      "parent": "d3-t4-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t4-s2",
+      "text": "Amazon Inspector",
+      "x": -150,
+      "y": 1490,
+      "parent": "d3-t4-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t4-s3",
+      "text": "Route 53 Logs",
+      "x": -150,
+      "y": 1520,
+      "parent": "d3-t4-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t4-s4",
+      "text": "AWS WAF Logs",
+      "x": -150,
+      "y": 1550,
+      "parent": "d3-t4-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t4-s5",
+      "text": "VPC Flow Logs",
+      "x": -150,
+      "y": 1580,
+      "parent": "d3-t4-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d3-t4-s6",
+      "text": "Traffic Mirroring",
+      "x": -150,
+      "y": 1610,
+      "parent": "d3-t4-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "domain4",
+      "text": "Domain 4: Identity & Access Management (16%)",
+      "x": 200,
+      "y": 400,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8E44AD"
+    },
+    {
+      "id": "d4-task1",
+      "text": "Task 4.1: Design Authentication",
+      "x": -100,
+      "y": 300,
+      "parent": "domain4",
+      "collapsed": false,
+      "color": "#8E44AD"
+    },
+    {
+      "id": "d4-t1-services",
+      "text": "AWS Services",
+      "x": -350,
+      "y": 300,
+      "parent": "d4-task1",
+      "collapsed": false,
+      "color": "#AF7AC5"
+    },
+    {
+      "id": "d4-t1-s1",
+      "text": "AWS IAM Identity Center",
+      "x": -550,
+      "y": 250,
+      "parent": "d4-t1-services",
+      "collapsed": false,
+      "color": "#D2B4DE"
+    },
+    {
+      "id": "d4-t1-s2",
+      "text": "Amazon Cognito",
+      "x": -550,
+      "y": 280,
+      "parent": "d4-t1-services",
+      "collapsed": false,
+      "color": "#D2B4DE"
+    },
+    {
+      "id": "d4-t1-s3",
+      "text": "AWS IAM",
+      "x": -550,
+      "y": 310,
+      "parent": "d4-t1-services",
+      "collapsed": false,
+      "color": "#D2B4DE"
+    },
+    {
+      "id": "d4-t1-s4",
+      "text": "AWS STS",
+      "x": -550,
+      "y": 340,
+      "parent": "d4-t1-services",
+      "collapsed": false,
+      "color": "#D2B4DE"
+    },
+    {
+      "id": "d4-t1-s5",
+      "text": "AWS CloudTrail",
+      "x": -550,
+      "y": 370,
+      "parent": "d4-t1-services",
+      "collapsed": false,
+      "color": "#D2B4DE"
+    },
+    {
+      "id": "d4-t1-s6",
+      "text": "IAM Access Advisor",
+      "x": -550,
+      "y": 400,
+      "parent": "d4-t1-services",
+      "collapsed": false,
+      "color": "#D2B4DE"
+    },
+    {
+      "id": "d4-t1-s7",
+      "text": "IAM Policy Simulator",
+      "x": -550,
+      "y": 430,
+      "parent": "d4-t1-services",
+      "collapsed": false,
+      "color": "#D2B4DE"
+    },
+    {
+      "id": "d4-t1-s8",
+      "text": "AWS Directory Service",
+      "x": -550,
+      "y": 460,
+      "parent": "d4-t1-services",
+      "collapsed": false,
+      "color": "#D2B4DE"
+    },
+    {
+      "id": "d4-task2",
+      "text": "Task 4.2: Design Authorization",
+      "x": -100,
+      "y": 550,
+      "parent": "domain4",
+      "collapsed": false,
+      "color": "#8E44AD"
+    },
+    {
+      "id": "d4-t2-services",
+      "text": "AWS Services",
+      "x": -350,
+      "y": 550,
+      "parent": "d4-task2",
+      "collapsed": false,
+      "color": "#AF7AC5"
+    },
+    {
+      "id": "d4-t2-s1",
+      "text": "AWS IAM",
+      "x": -550,
+      "y": 500,
+      "parent": "d4-t2-services",
+      "collapsed": false,
+      "color": "#D2B4DE"
+    },
+    {
+      "id": "d4-t2-s2",
+      "text": "CloudTrail",
+      "x": -550,
+      "y": 530,
+      "parent": "d4-t2-services",
+      "collapsed": false,
+      "color": "#D2B4DE"
+    },
+    {
+      "id": "d4-t2-s3",
+      "text": "IAM Access Advisor",
+      "x": -550,
+      "y": 560,
+      "parent": "d4-t2-services",
+      "collapsed": false,
+      "color": "#D2B4DE"
+    },
+    {
+      "id": "d4-t2-s4",
+      "text": "IAM Policy Simulator",
+      "x": -550,
+      "y": 590,
+      "parent": "d4-t2-services",
+      "collapsed": false,
+      "color": "#D2B4DE"
+    },
+    {
+      "id": "domain5",
+      "text": "Domain 5: Data Protection (18%)",
+      "x": 200,
+      "y": 100,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#E67E22"
+    },
+    {
+      "id": "d5-task1",
+      "text": "Task 5.1: Data in Transit",
+      "x": -100,
+      "y": 0,
+      "parent": "domain5",
+      "collapsed": false,
+      "color": "#E67E22"
+    },
+    {
+      "id": "d5-t1-services",
+      "text": "AWS Services",
+      "x": -350,
+      "y": 0,
+      "parent": "d5-task1",
+      "collapsed": false,
+      "color": "#F39C12"
+    },
+    {
+      "id": "d5-t1-s1",
+      "text": "AWS Certificate Manager",
+      "x": -550,
+      "y": -50,
+      "parent": "d5-t1-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t1-s2",
+      "text": "AWS VPN",
+      "x": -550,
+      "y": -20,
+      "parent": "d5-t1-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t1-s3",
+      "text": "AWS Direct Connect",
+      "x": -550,
+      "y": 10,
+      "parent": "d5-t1-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t1-s4",
+      "text": "Systems Manager Session Manager",
+      "x": -550,
+      "y": 40,
+      "parent": "d5-t1-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t1-s5",
+      "text": "EC2 Instance Connect",
+      "x": -550,
+      "y": 70,
+      "parent": "d5-t1-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t1-s6",
+      "text": "Amazon CloudFront",
+      "x": -550,
+      "y": 100,
+      "parent": "d5-t1-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t1-s7",
+      "text": "Elastic Load Balancers",
+      "x": -550,
+      "y": 130,
+      "parent": "d5-t1-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-task2",
+      "text": "Task 5.2: Data at Rest",
+      "x": -100,
+      "y": 200,
+      "parent": "domain5",
+      "collapsed": false,
+      "color": "#E67E22"
+    },
+    {
+      "id": "d5-t2-services",
+      "text": "AWS Services",
+      "x": -350,
+      "y": 200,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12"
+    },
+    {
+      "id": "d5-t2-s1",
+      "text": "AWS KMS",
+      "x": -550,
+      "y": 160,
+      "parent": "d5-t2-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-s2",
+      "text": "AWS CloudHSM",
+      "x": -550,
+      "y": 190,
+      "parent": "d5-t2-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-s3",
+      "text": "Amazon S3",
+      "x": -550,
+      "y": 220,
+      "parent": "d5-t2-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-s4",
+      "text": "Amazon RDS",
+      "x": -550,
+      "y": 250,
+      "parent": "d5-t2-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-s5",
+      "text": "Amazon DynamoDB",
+      "x": -550,
+      "y": 280,
+      "parent": "d5-t2-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-s6",
+      "text": "Amazon SQS",
+      "x": -550,
+      "y": 310,
+      "parent": "d5-t2-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-s7",
+      "text": "Amazon EBS",
+      "x": -550,
+      "y": 340,
+      "parent": "d5-t2-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-s8",
+      "text": "Amazon EFS",
+      "x": -550,
+      "y": 370,
+      "parent": "d5-t2-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-s9",
+      "text": "Amazon Redshift",
+      "x": -550,
+      "y": 400,
+      "parent": "d5-t2-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-s10",
+      "text": "Amazon API Gateway",
+      "x": -550,
+      "y": 430,
+      "parent": "d5-t2-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-features",
+      "text": "Key Features",
+      "x": -350,
+      "y": 480,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12"
+    },
+    {
+      "id": "d5-t2-f1",
+      "text": "S3 Block Public Access",
+      "x": -550,
+      "y": 460,
+      "parent": "d5-t2-features",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-f2",
+      "text": "S3 Object Lock",
+      "x": -550,
+      "y": 490,
+      "parent": "d5-t2-features",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-f3",
+      "text": "S3 Glacier Vault Lock",
+      "x": -550,
+      "y": 520,
+      "parent": "d5-t2-features",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t2-f4",
+      "text": "AWS Backup Vault Lock",
+      "x": -550,
+      "y": 550,
+      "parent": "d5-t2-features",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-task3",
+      "text": "Task 5.3: Data Lifecycle",
+      "x": -50,
+      "y": 600,
+      "parent": "domain5",
+      "collapsed": false,
+      "color": "#E67E22"
+    },
+    {
+      "id": "d5-t3-services",
+      "text": "AWS Services",
+      "x": -300,
+      "y": 600,
+      "parent": "d5-task3",
+      "collapsed": false,
+      "color": "#F39C12"
+    },
+    {
+      "id": "d5-t3-s1",
+      "text": "Amazon S3",
+      "x": -500,
+      "y": 580,
+      "parent": "d5-t3-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t3-s2",
+      "text": "S3 Lifecycle Policies",
+      "x": -500,
+      "y": 610,
+      "parent": "d5-t3-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t3-s3",
+      "text": "Amazon Data Lifecycle Manager",
+      "x": -500,
+      "y": 640,
+      "parent": "d5-t3-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t3-s4",
+      "text": "AWS Backup",
+      "x": -500,
+      "y": 670,
+      "parent": "d5-t3-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t3-s5",
+      "text": "CloudWatch Log Groups",
+      "x": -500,
+      "y": 700,
+      "parent": "d5-t3-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-task4",
+      "text": "Task 5.4: Secrets & Keys",
+      "x": -50,
+      "y": 750,
+      "parent": "domain5",
+      "collapsed": false,
+      "color": "#E67E22"
+    },
+    {
+      "id": "d5-t4-services",
+      "text": "AWS Services",
+      "x": -300,
+      "y": 750,
+      "parent": "d5-task4",
+      "collapsed": false,
+      "color": "#F39C12"
+    },
+    {
+      "id": "d5-t4-s1",
+      "text": "AWS Secrets Manager",
+      "x": -500,
+      "y": 720,
+      "parent": "d5-t4-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t4-s2",
+      "text": "Systems Manager Parameter Store",
+      "x": -500,
+      "y": 750,
+      "parent": "d5-t4-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t4-s3",
+      "text": "AWS KMS",
+      "x": -500,
+      "y": 780,
+      "parent": "d5-t4-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "d5-t4-s4",
+      "text": "AWS CloudHSM",
+      "x": -500,
+      "y": 810,
+      "parent": "d5-t4-services",
+      "collapsed": false,
+      "color": "#F8C471"
+    },
+    {
+      "id": "domain6",
+      "text": "Domain 6: Management & Security Governance (14%)",
+      "x": 600,
+      "y": -100,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#1ABC9C"
+    },
+    {
+      "id": "d6-task1",
+      "text": "Task 6.1: Centralize Account Management",
+      "x": 900,
+      "y": -200,
+      "parent": "domain6",
+      "collapsed": false,
+      "color": "#1ABC9C"
+    },
+    {
+      "id": "d6-t1-services",
+      "text": "AWS Services",
+      "x": 1150,
+      "y": -200,
+      "parent": "d6-task1",
+      "collapsed": false,
+      "color": "#48C9B0"
+    },
+    {
+      "id": "d6-t1-s1",
+      "text": "AWS Organizations",
+      "x": 1350,
+      "y": -250,
+      "parent": "d6-t1-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-t1-s2",
+      "text": "AWS Control Tower",
+      "x": 1350,
+      "y": -220,
+      "parent": "d6-t1-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-t1-s3",
+      "text": "AWS Security Hub",
+      "x": 1350,
+      "y": -190,
+      "parent": "d6-t1-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-t1-s4",
+      "text": "AWS Config",
+      "x": 1350,
+      "y": -160,
+      "parent": "d6-t1-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-task2",
+      "text": "Task 6.2: Secure Deployment Strategy",
+      "x": 900,
+      "y": -50,
+      "parent": "domain6",
+      "collapsed": false,
+      "color": "#1ABC9C"
+    },
+    {
+      "id": "d6-t2-services",
+      "text": "AWS Services",
+      "x": 1150,
+      "y": -50,
+      "parent": "d6-task2",
+      "collapsed": false,
+      "color": "#48C9B0"
+    },
+    {
+      "id": "d6-t2-s1",
+      "text": "AWS CloudFormation",
+      "x": 1350,
+      "y": -120,
+      "parent": "d6-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-t2-s2",
+      "text": "AWS Service Catalog",
+      "x": 1350,
+      "y": -90,
+      "parent": "d6-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-t2-s3",
+      "text": "AWS Firewall Manager",
+      "x": 1350,
+      "y": -60,
+      "parent": "d6-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-t2-s4",
+      "text": "AWS Resource Access Manager",
+      "x": 1350,
+      "y": -30,
+      "parent": "d6-t2-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-task3",
+      "text": "Task 6.3: Evaluate Compliance",
+      "x": 900,
+      "y": 100,
+      "parent": "domain6",
+      "collapsed": false,
+      "color": "#1ABC9C"
+    },
+    {
+      "id": "d6-t3-services",
+      "text": "AWS Services",
+      "x": 1150,
+      "y": 100,
+      "parent": "d6-task3",
+      "collapsed": false,
+      "color": "#48C9B0"
+    },
+    {
+      "id": "d6-t3-s1",
+      "text": "Amazon Macie",
+      "x": 1350,
+      "y": 50,
+      "parent": "d6-t3-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-t3-s2",
+      "text": "AWS Config",
+      "x": 1350,
+      "y": 80,
+      "parent": "d6-t3-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-t3-s3",
+      "text": "AWS Security Hub",
+      "x": 1350,
+      "y": 110,
+      "parent": "d6-t3-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-t3-s4",
+      "text": "AWS Audit Manager",
+      "x": 1350,
+      "y": 140,
+      "parent": "d6-t3-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-task4",
+      "text": "Task 6.4: Identify Security Gaps",
+      "x": 900,
+      "y": 250,
+      "parent": "domain6",
+      "collapsed": false,
+      "color": "#1ABC9C"
+    },
+    {
+      "id": "d6-t4-services",
+      "text": "AWS Services",
+      "x": 1150,
+      "y": 250,
+      "parent": "d6-task4",
+      "collapsed": false,
+      "color": "#48C9B0"
+    },
+    {
+      "id": "d6-t4-s1",
+      "text": "AWS Well-Architected Tool",
+      "x": 1350,
+      "y": 200,
+      "parent": "d6-t4-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-t4-s2",
+      "text": "AWS Trusted Advisor",
+      "x": 1350,
+      "y": 230,
+      "parent": "d6-t4-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "d6-t4-s3",
+      "text": "AWS Cost Explorer",
+      "x": 1350,
+      "y": 260,
+      "parent": "d6-t4-services",
+      "collapsed": false,
+      "color": "#A3E4D7"
+    },
+    {
+      "id": "exam-details",
+      "text": "Exam Details",
+      "x": 600,
+      "y": 1800,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#34495E"
+    },
+    {
+      "id": "exam-info",
+      "text": "Format & Scoring",
+      "x": 400,
+      "y": 1900,
+      "parent": "exam-details",
+      "collapsed": false,
+      "color": "#7F8C8D"
+    },
+    {
+      "id": "exam-q",
+      "text": "65 Questions Total",
+      "x": 200,
+      "y": 1900,
+      "parent": "exam-info",
+      "collapsed": false,
+      "color": "#95A5A6"
+    },
+    {
+      "id": "exam-scored",
+      "text": "50 Scored Questions",
+      "x": 200,
+      "y": 1930,
+      "parent": "exam-info",
+      "collapsed": false,
+      "color": "#95A5A6"
+    },
+    {
+      "id": "exam-unscored",
+      "text": "15 Unscored Questions",
+      "x": 200,
+      "y": 1960,
+      "parent": "exam-info",
+      "collapsed": false,
+      "color": "#95A5A6"
+    },
+    {
+      "id": "exam-pass",
+      "text": "Passing Score: 750/1000",
+      "x": 200,
+      "y": 1990,
+      "parent": "exam-info",
+      "collapsed": false,
+      "color": "#95A5A6"
+    },
+    {
+      "id": "exam-req",
+      "text": "Requirements",
+      "x": 800,
+      "y": 1900,
+      "parent": "exam-details",
+      "collapsed": false,
+      "color": "#7F8C8D"
+    },
+    {
+      "id": "exam-exp1",
+      "text": "3-5 Years Security Experience",
+      "x": 1000,
+      "y": 1900,
+      "parent": "exam-req",
+      "collapsed": false,
+      "color": "#95A5A6"
+    },
+    {
+      "id": "exam-exp2",
+      "text": "2+ Years AWS Security Experience",
+      "x": 1000,
+      "y": 1930,
+      "parent": "exam-req",
+      "collapsed": false,
+      "color": "#95A5A6"
+    }
+  ],
+  "links": [
+    {"source": "root", "target": "domain1"},
+    {"source": "root", "target": "domain2"},
+    {"source": "root", "target": "domain3"},
+    {"source": "root", "target": "domain4"},
+    {"source": "root", "target": "domain5"},
+    {"source": "root", "target": "domain6"},
+    {"source": "root", "target": "exam-details"},
+    {"source": "domain1", "target": "d1-task1"},
+    {"source": "domain1", "target": "d1-task2"},
+    {"source": "domain1", "target": "d1-task3"},
+    {"source": "d1-task1", "target": "d1-t1-knowledge"},
+    {"source": "d1-task1", "target": "d1-t1-services"},
+    {"source": "d1-t1-knowledge", "target": "d1-t1-k1"},
+    {"source": "d1-t1-knowledge", "target": "d1-t1-k2"},
+    {"source": "d1-t1-knowledge", "target": "d1-t1-k3"},
+    {"source": "d1-t1-knowledge", "target": "d1-t1-k4"},
+    {"source": "d1-t1-services", "target": "d1-t1-s1"},
+    {"source": "d1-t1-services", "target": "d1-t1-s2"},
+    {"source": "d1-t1-services", "target": "d1-t1-s3"},
+    {"source": "d1-t1-services", "target": "d1-t1-s4"},
+    {"source": "d1-t1-services", "target": "d1-t1-s5"},
+    {"source": "d1-t1-services", "target": "d1-t1-s6"},
+    {"source": "d1-t1-services", "target": "d1-t1-s7"},
+    {"source": "d1-t1-services", "target": "d1-t1-s8"},
+    {"source": "d1-t1-services", "target": "d1-t1-s9"},
+    {"source": "d1-t1-services", "target": "d1-t1-s10"},
+    {"source": "d1-task2", "target": "d1-t2-services"},
+    {"source": "d1-t2-services", "target": "d1-t2-s1"},
+    {"source": "d1-t2-services", "target": "d1-t2-s2"},
+    {"source": "d1-t2-services", "target": "d1-t2-s3"},
+    {"source": "d1-t2-services", "target": "d1-t2-s4"},
+    {"source": "d1-t2-services", "target": "d1-t2-s5"},
+    {"source": "d1-t2-services", "target": "d1-t2-s6"},
+    {"source": "d1-t2-services", "target": "d1-t2-s7"},
+    {"source": "d1-t2-services", "target": "d1-t2-s8"},
+    {"source": "d1-task3", "target": "d1-t3-services"},
+    {"source": "d1-task3", "target": "d1-t3-features"},
+    {"source": "d1-t3-services", "target": "d1-t3-s1"},
+    {"source": "d1-t3-services", "target": "d1-t3-s2"},
+    {"source": "d1-t3-services", "target": "d1-t3-s3"},
+    {"source": "d1-t3-services", "target": "d1-t3-s4"},
+    {"source": "d1-t3-services", "target": "d1-t3-s5"},
+    {"source": "d1-t3-services", "target": "d1-t3-s6"},
+    {"source": "d1-t3-services", "target": "d1-t3-s7"},
+    {"source": "d1-t3-services", "target": "d1-t3-s8"},
+    {"source": "d1-t3-services", "target": "d1-t3-s9"},
+    {"source": "d1-t3-services", "target": "d1-t3-s10"},
+    {"source": "d1-t3-services", "target": "d1-t3-s11"},
+    {"source": "d1-t3-features", "target": "d1-t3-f1"},
+    {"source": "d1-t3-features", "target": "d1-t3-f2"},
+    {"source": "d1-t3-features", "target": "d1-t3-f3"},
+    {"source": "domain2", "target": "d2-task1"},
+    {"source": "domain2", "target": "d2-task2"},
+    {"source": "domain2", "target": "d2-task3"},
+    {"source": "domain2", "target": "d2-task4"},
+    {"source": "domain2", "target": "d2-task5"},
+    {"source": "d2-task1", "target": "d2-t1-services"},
+    {"source": "d2-t1-services", "target": "d2-t1-s1"},
+    {"source": "d2-t1-services", "target": "d2-t1-s2"},
+    {"source": "d2-t1-services", "target": "d2-t1-s3"},
+    {"source": "d2-t1-services", "target": "d2-t1-s4"},
+    {"source": "d2-t1-services", "target": "d2-t1-s5"},
+    {"source": "d2-t1-services", "target": "d2-t1-s6"},
+    {"source": "d2-t1-services", "target": "d2-t1-s7"},
+    {"source": "d2-task2", "target": "d2-t2-services"},
+    {"source": "d2-t2-services", "target": "d2-t2-s1"},
+    {"source": "d2-task3", "target": "d2-t3-services"},
+    {"source": "d2-t3-services", "target": "d2-t3-s1"},
+    {"source": "d2-t3-services", "target": "d2-t3-s2"},
+    {"source": "d2-t3-services", "target": "d2-t3-s3"},
+    {"source": "d2-t3-services", "target": "d2-t3-s4"},
+    {"source": "d2-task4", "target": "d2-t4-services"},
+    {"source": "d2-t4-services", "target": "d2-t4-s1"},
+    {"source": "d2-t4-services", "target": "d2-t4-s2"},
+    {"source": "d2-t4-services", "target": "d2-t4-s3"},
+    {"source": "d2-t4-services", "target": "d2-t4-s4"},
+    {"source": "d2-task5", "target": "d2-t5-services"},
+    {"source": "d2-t5-services", "target": "d2-t5-s1"},
+    {"source": "d2-t5-services", "target": "d2-t5-s2"},
+    {"source": "d2-t5-services", "target": "d2-t5-s3"},
+    {"source": "d2-t5-services", "target": "d2-t5-s4"},
+    {"source": "d2-t5-services", "target": "d2-t5-s5"},
+    {"source": "domain3", "target": "d3-task1"},
+    {"source": "domain3", "target": "d3-task2"},
+    {"source": "domain3", "target": "d3-task3"},
+    {"source": "domain3", "target": "d3-task4"},
+    {"source": "d3-task1", "target": "d3-t1-services"},
+    {"source": "d3-t1-services", "target": "d3-t1-s1"},
+    {"source": "d3-t1-services", "target": "d3-t1-s2"},
+    {"source": "d3-t1-services", "target": "d3-t1-s3"},
+    {"source": "d3-t1-services", "target": "d3-t1-s4"},
+    {"source": "d3-t1-services", "target": "d3-t1-s5"},
+    {"source": "d3-task2", "target": "d3-t2-services"},
+    {"source": "d3-t2-services", "target": "d3-t2-s1"},
+    {"source": "d3-t2-services", "target": "d3-t2-s2"},
+    {"source": "d3-t2-services", "target": "d3-t2-s3"},
+    {"source": "d3-t2-services", "target": "d3-t2-s4"},
+    {"source": "d3-t2-services", "target": "d3-t2-s5"},
+    {"source": "d3-t2-services", "target": "d3-t2-s6"},
+    {"source": "d3-t2-services", "target": "d3-t2-s7"},
+    {"source": "d3-t2-services", "target": "d3-t2-s8"},
+    {"source": "d3-t2-services", "target": "d3-t2-s9"},
+    {"source": "d3-t2-services", "target": "d3-t2-s10"},
+    {"source": "d3-t2-services", "target": "d3-t2-s11"},
+    {"source": "d3-task3", "target": "d3-t3-services"},
+    {"source": "d3-t3-services", "target": "d3-t3-s1"},
+    {"source": "d3-t3-services", "target": "d3-t3-s2"},
+    {"source": "d3-t3-services", "target": "d3-t3-s3"},
+    {"source": "d3-t3-services", "target": "d3-t3-s4"},
+    {"source": "d3-t3-services", "target": "d3-t3-s5"},
+    {"source": "d3-task4", "target": "d3-t4-services"},
+    {"source": "d3-t4-services", "target": "d3-t4-s1"},
+    {"source": "d3-t4-services", "target": "d3-t4-s2"},
+    {"source": "d3-t4-services", "target": "d3-t4-s3"},
+    {"source": "d3-t4-services", "target": "d3-t4-s4"},
+    {"source": "d3-t4-services", "target": "d3-t4-s5"},
+    {"source": "d3-t4-services", "target": "d3-t4-s6"},
+    {"source": "domain4", "target": "d4-task1"},
+    {"source": "domain4", "target": "d4-task2"},
+    {"source": "d4-task1", "target": "d4-t1-services"},
+    {"source": "d4-t1-services", "target": "d4-t1-s1"},
+    {"source": "d4-t1-services", "target": "d4-t1-s2"},
+    {"source": "d4-t1-services", "target": "d4-t1-s3"},
+    {"source": "d4-t1-services", "target": "d4-t1-s4"},
+    {"source": "d4-t1-services", "target": "d4-t1-s5"},
+    {"source": "d4-t1-services", "target": "d4-t1-s6"},
+    {"source": "d4-t1-services", "target": "d4-t1-s7"},
+    {"source": "d4-t1-services", "target": "d4-t1-s8"},
+    {"source": "d4-task2", "target": "d4-t2-services"},
+    {"source": "d4-t2-services", "target": "d4-t2-s1"},
+    {"source": "d4-t2-services", "target": "d4-t2-s2"},
+    {"source": "d4-t2-services", "target": "d4-t2-s3"},
+    {"source": "d4-t2-services", "target": "d4-t2-s4"},
+    {"source": "domain5", "target": "d5-task1"},
+    {"source": "domain5", "target": "d5-task2"},
+    {"source": "domain5", "target": "d5-task3"},
+    {"source": "domain5", "target": "d5-task4"},
+    {"source": "d5-task1", "target": "d5-t1-services"},
+    {"source": "d5-t1-services", "target": "d5-t1-s1"},
+    {"source": "d5-t1-services", "target": "d5-t1-s2"},
+    {"source": "d5-t1-services", "target": "d5-t1-s3"},
+    {"source": "d5-t1-services", "target": "d5-t1-s4"},
+    {"source": "d5-t1-services", "target": "d5-t1-s5"},
+    {"source": "d5-t1-services", "target": "d5-t1-s6"},
+    {"source": "d5-t1-services", "target": "d5-t1-s7"},
+    {"source": "d5-task2", "target": "d5-t2-services"},
+    {"source": "d5-task2", "target": "d5-t2-features"},
+    {"source": "d5-t2-services", "target": "d5-t2-s1"},
+    {"source": "d5-t2-services", "target": "d5-t2-s2"},
+    {"source": "d5-t2-services", "target": "d5-t2-s3"},
+    {"source": "d5-t2-services", "target": "d5-t2-s4"},
+    {"source": "d5-t2-services", "target": "d5-t2-s5"},
+    {"source": "d5-t2-services", "target": "d5-t2-s6"},
+    {"source": "d5-t2-services", "target": "d5-t2-s7"},
+    {"source": "d5-t2-services", "target": "d5-t2-s8"},
+    {"source": "d5-t2-services", "target": "d5-t2-s9"},
+    {"source": "d5-t2-services", "target": "d5-t2-s10"},
+    {"source": "d5-t2-features", "target": "d5-t2-f1"},
+    {"source": "d5-t2-features", "target": "d5-t2-f2"},
+    {"source": "d5-t2-features", "target": "d5-t2-f3"},
+    {"source": "d5-t2-features", "target": "d5-t2-f4"},
+    {"source": "d5-task3", "target": "d5-t3-services"},
+    {"source": "d5-t3-services", "target": "d5-t3-s1"},
+    {"source": "d5-t3-services", "target": "d5-t3-s2"},
+    {"source": "d5-t3-services", "target": "d5-t3-s3"},
+    {"source": "d5-t3-services", "target": "d5-t3-s4"},
+    {"source": "d5-t3-services", "target": "d5-t3-s5"},
+    {"source": "d5-task4", "target": "d5-t4-services"},
+    {"source": "d5-t4-services", "target": "d5-t4-s1"},
+    {"source": "d5-t4-services", "target": "d5-t4-s2"},
+    {"source": "d5-t4-services", "target": "d5-t4-s3"},
+    {"source": "d5-t4-services", "target": "d5-t4-s4"},
+    {"source": "domain6", "target": "d6-task1"},
+    {"source": "domain6", "target": "d6-task2"},
+    {"source": "domain6", "target": "d6-task3"},
+    {"source": "domain6", "target": "d6-task4"},
+    {"source": "d6-task1", "target": "d6-t1-services"},
+    {"source": "d6-t1-services", "target": "d6-t1-s1"},
+    {"source": "d6-t1-services", "target": "d6-t1-s2"},
+    {"source": "d6-t1-services", "target": "d6-t1-s3"},
+    {"source": "d6-t1-services", "target": "d6-t1-s4"},
+    {"source": "d6-task2", "target": "d6-t2-services"},
+    {"source": "d6-t2-services", "target": "d6-t2-s1"},
+    {"source": "d6-t2-services", "target": "d6-t2-s2"},
+    {"source": "d6-t2-services", "target": "d6-t2-s3"},
+    {"source": "d6-t2-services", "target": "d6-t2-s4"},
+    {"source": "d6-task3", "target": "d6-t3-services"},
+    {"source": "d6-t3-services", "target": "d6-t3-s1"},
+    {"source": "d6-t3-services", "target": "d6-t3-s2"},
+    {"source": "d6-t3-services", "target": "d6-t3-s3"},
+    {"source": "d6-t3-services", "target": "d6-t3-s4"},
+    {"source": "d6-task4", "target": "d6-t4-services"},
+    {"source": "d6-t4-services", "target": "d6-t4-s1"},
+    {"source": "d6-t4-services", "target": "d6-t4-s2"},
+    {"source": "d6-t4-services", "target": "d6-t4-s3"},
+    {"source": "exam-details", "target": "exam-info"},
+    {"source": "exam-details", "target": "exam-req"},
+    {"source": "exam-info", "target": "exam-q"},
+    {"source": "exam-info", "target": "exam-scored"},
+    {"source": "exam-info", "target": "exam-unscored"},
+    {"source": "exam-info", "target": "exam-pass"},
+    {"source": "exam-req", "target": "exam-exp1"},
+    {"source": "exam-req", "target": "exam-exp2"}
+  ]
+}

@@ -1,0 +1,2282 @@
+{
+  "nodes": [
+    {
+      "id": "root",
+      "text": "AWS Certified Security - Specialty (SCS-C02)",
+      "x": 864,
+      "y": 514,
+      "parent": null,
+      "collapsed": false,
+      "color": "#2C3E50",
+      "fx": 864,
+      "fy": 514,
+      "depth": 0
+    },
+    {
+      "id": "domain1",
+      "text": "Domain 1: Threat Detection & Incident Response (14%)",
+      "x": 864,
+      "y": 81.85225967795236,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#E74C3C",
+      "fx": 864,
+      "fy": 81.85225967795236,
+      "depth": 1,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-task1",
+      "text": "1.1: Design & Implement Incident Response Plan",
+      "x": 664.9199814639196,
+      "y": -155.78904468381927,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#E74C3C",
+      "fx": 664.9199814639196,
+      "fy": -155.78904468381927,
+      "depth": 2,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-security-hub",
+      "text": "AWS Security Hub",
+      "x": 317.4076351756325,
+      "y": -420.78572889021586,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 317.4076351756325,
+      "fy": -420.78572889021586,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-macie",
+      "text": "Amazon Macie",
+      "x": 375.00962910348625,
+      "y": -456.5467139870047,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 375.00962910348625,
+      "fy": -456.5467139870047,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-guardduty",
+      "text": "Amazon GuardDuty",
+      "x": 423.60065950440554,
+      "y": -478.5283477137945,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 423.60065950440554,
+      "fy": -478.5283477137945,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-inspector",
+      "text": "Amazon Inspector",
+      "x": 466.92081159669357,
+      "y": -497.6050075337804,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 466.92081159669357,
+      "fy": -497.6050075337804,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-config",
+      "text": "AWS Config",
+      "x": 509.2707639284182,
+      "y": -511.99908181916936,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 509.2707639284182,
+      "fy": -511.99908181916936,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-detective",
+      "text": "Amazon Detective",
+      "x": 550.8189874348506,
+      "y": -525.5372086242631,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 550.8189874348506,
+      "fy": -525.5372086242631,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-iam-access-analyzer",
+      "text": "IAM Access Analyzer",
+      "x": 592.7353046463701,
+      "y": -536.0819821878363,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 592.7353046463701,
+      "fy": -536.0819821878363,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-eventbridge",
+      "text": "Amazon EventBridge",
+      "x": 634.7800158492843,
+      "y": -545.3397727793086,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 634.7800158492843,
+      "fy": -545.3397727793086,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-secrets-manager",
+      "text": "AWS Secrets Manager",
+      "x": 677.1763904689652,
+      "y": -552.2964483968672,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 677.1763904689652,
+      "fy": -552.2964483968672,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-task2",
+      "text": "1.2: Detect Security Threats & Anomalies",
+      "x": 814,
+      "y": -175.64273503755373,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#E74C3C",
+      "fx": 814,
+      "fy": -175.64273503755373,
+      "depth": 2,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t2-athena",
+      "text": "Amazon Athena",
+      "x": 719.788264307091,
+      "y": -557.5632737059973,
+      "parent": "d1-task2",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 719.788264307091,
+      "fy": -557.5632737059973,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t2-cloudwatch",
+      "text": "Amazon CloudWatch",
+      "x": 763.0393947666274,
+      "y": -560.793358599176,
+      "parent": "d1-task2",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 763.0393947666274,
+      "fy": -560.793358599176,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t2-detective",
+      "text": "Amazon Detective",
+      "x": 809.114604114005,
+      "y": -562.054780325817,
+      "parent": "d1-task2",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 809.114604114005,
+      "fy": -562.054780325817,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-task3",
+      "text": "1.3: Respond to Compromised Resources",
+      "x": 963.0800185360804,
+      "y": -155.78904468381927,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#E74C3C",
+      "fx": 963.0800185360804,
+      "fy": -155.78904468381927,
+      "depth": 2,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t3-lambda",
+      "text": "AWS Lambda",
+      "x": 860.0328693000833,
+      "y": -560.7100822557918,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 860.0328693000833,
+      "fy": -560.7100822557918,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t3-step-functions",
+      "text": "AWS Step Functions",
+      "x": 911.4517638300686,
+      "y": -556.6867189530236,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 911.4517638300686,
+      "fy": -556.6867189530236,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t3-systems-manager",
+      "text": "AWS Systems Manager",
+      "x": 962.6744001944227,
+      "y": -549.6379419631439,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 962.6744001944227,
+      "fy": -549.6379419631439,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t3-ec2",
+      "text": "Amazon EC2",
+      "x": 1015.1435151614187,
+      "y": -540.3353699100347,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1015.1435151614187,
+      "fy": -540.3353699100347,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t3-ebs",
+      "text": "Amazon EBS",
+      "x": 1070.6571732915334,
+      "y": -524.1990826208868,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1070.6571732915334,
+      "fy": -524.1990826208868,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t3-s3",
+      "text": "Amazon S3",
+      "x": 1134.5123472028044,
+      "y": -508.0172155280554,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1134.5123472028044,
+      "fy": -508.0172155280554,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t3-s3-object-lock",
+      "text": "S3 Object Lock",
+      "x": 1173.2890233765754,
+      "y": -406.62446507201196,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1173.2890233765754,
+      "fy": -406.62446507201196,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t3-s3-lifecycle",
+      "text": "S3 Lifecycle",
+      "x": 1158.1247937797527,
+      "y": -284.4228493837745,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1158.1247937797527,
+      "fy": -284.4228493837745,
+      "depth": 3,
+      "cluster": "domain1"
+    },
+    {
+      "id": "domain2",
+      "text": "Domain 2: Security Logging & Monitoring (18%)",
+      "x": 1201.8667084611957,
+      "y": 244.5602910129071,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3498DB",
+      "fx": 1201.8667084611957,
+      "fy": 244.5602910129071,
+      "depth": 1,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-task1",
+      "text": "2.1: Design Monitoring & Alerting",
+      "x": 1184.77677965129,
+      "y": -152.33870669166689,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB",
+      "fx": 1184.77677965129,
+      "fy": -152.33870669166689,
+      "depth": 2,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-cloudwatch",
+      "text": "Amazon CloudWatch",
+      "x": 1249.1795557040143,
+      "y": -536.7627810838651,
+      "parent": "d2-task1",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1249.1795557040143,
+      "fy": -536.7627810838651,
+      "depth": 3,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-eventbridge",
+      "text": "Amazon EventBridge",
+      "x": 1330.1733919867363,
+      "y": -495.5401340050135,
+      "parent": "d2-task1",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1330.1733919867363,
+      "fy": -495.5401340050135,
+      "depth": 3,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-lambda",
+      "text": "AWS Lambda",
+      "x": 1404.2676774416511,
+      "y": -448.77570990807635,
+      "parent": "d2-task1",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1404.2676774416511,
+      "fy": -448.77570990807635,
+      "depth": 3,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-sns",
+      "text": "Amazon SNS",
+      "x": 1472.1044442100306,
+      "y": -397.27207360289805,
+      "parent": "d2-task1",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1472.1044442100306,
+      "fy": -397.27207360289805,
+      "depth": 3,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-task2",
+      "text": "2.2: Troubleshoot Monitoring",
+      "x": 1262.31594487717,
+      "y": -91.125052544812,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB",
+      "fx": 1262.31594487717,
+      "fy": -91.125052544812,
+      "depth": 2,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-task3",
+      "text": "2.3: Design Logging Solution",
+      "x": 1329.7120647777422,
+      "y": -18.90507561133359,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB",
+      "fx": 1329.7120647777422,
+      "fy": -18.90507561133359,
+      "depth": 2,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-vpc-flow-logs",
+      "text": "VPC Flow Logs",
+      "x": 1534.1137491723505,
+      "y": -341.4878162067736,
+      "parent": "d2-task3",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1534.1137491723505,
+      "fy": -341.4878162067736,
+      "depth": 3,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-dns-logs",
+      "text": "DNS Logs",
+      "x": 1590.5484528266525,
+      "y": -281.7564472876384,
+      "parent": "d2-task3",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1590.5484528266525,
+      "fy": -281.7564472876384,
+      "depth": 3,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-cloudtrail",
+      "text": "AWS CloudTrail",
+      "x": 1641.5121198327836,
+      "y": -218.36903714813667,
+      "parent": "d2-task3",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1641.5121198327836,
+      "fy": -218.36903714813667,
+      "depth": 3,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-cloudwatch-logs",
+      "text": "CloudWatch Logs",
+      "x": 1687.322428742073,
+      "y": -151.07403732593576,
+      "parent": "d2-task3",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1687.322428742073,
+      "fy": -151.07403732593576,
+      "depth": 3,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-task4",
+      "text": "2.4: Troubleshoot Logging",
+      "x": 1385.567647585557,
+      "y": 62.93890129196699,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB",
+      "fx": 1385.567647585557,
+      "fy": 62.93890129196699,
+      "depth": 2,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-task5",
+      "text": "2.5: Design Log Analysis",
+      "x": 1428.4947115978023,
+      "y": 152.7528621740422,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB",
+      "fx": 1428.4947115978023,
+      "fy": 152.7528621740422,
+      "depth": 2,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-athena",
+      "text": "Amazon Athena",
+      "x": 1728.315423518887,
+      "y": -78.96690894300386,
+      "parent": "d2-task5",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1728.315423518887,
+      "fy": -78.96690894300386,
+      "depth": 3,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-cloudwatch-insights",
+      "text": "CloudWatch Logs Insights",
+      "x": 1764.4067654062903,
+      "y": -0.8647937519506215,
+      "parent": "d2-task5",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1764.4067654062903,
+      "fy": -0.8647937519506215,
+      "depth": 3,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-cloudtrail-insights",
+      "text": "CloudTrail Insights",
+      "x": 1794.8000926060101,
+      "y": 84.18020768409124,
+      "parent": "d2-task5",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1794.8000926060101,
+      "fy": 84.18020768409124,
+      "depth": 3,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-security-hub-insights",
+      "text": "Security Hub Insights",
+      "x": 1707.126222705159,
+      "y": 160.3024618693539,
+      "parent": "d2-task5",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1707.126222705159,
+      "fy": 160.3024618693539,
+      "depth": 3,
+      "cluster": "domain2"
+    },
+    {
+      "id": "domain3",
+      "text": "Domain 3: Infrastructure Security (20%)",
+      "x": 1285.3128942262667,
+      "y": 610.1619187835729,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#16A085",
+      "fx": 1285.3128942262667,
+      "fy": 610.1619187835729,
+      "depth": 1,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-task1",
+      "text": "3.1: Edge Services Security",
+      "x": 1588.7462353198275,
+      "y": 352.23497731893735,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#16A085",
+      "fx": 1588.7462353198275,
+      "fy": 352.23497731893735,
+      "depth": 2,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-waf",
+      "text": "AWS WAF",
+      "x": 1932.4613782215304,
+      "y": 68.3904927926181,
+      "parent": "d3-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1932.4613782215304,
+      "fy": 68.3904927926181,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-shield",
+      "text": "AWS Shield",
+      "x": 1952.862449768565,
+      "y": 140.87554168343917,
+      "parent": "d3-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1952.862449768565,
+      "fy": 140.87554168343917,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-cloudfront",
+      "text": "Amazon CloudFront",
+      "x": 1964.6102200378848,
+      "y": 205.7889335916851,
+      "parent": "d3-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1964.6102200378848,
+      "fy": 205.7889335916851,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-route53",
+      "text": "Amazon Route 53",
+      "x": 1973.178024044237,
+      "y": 263.8866848845553,
+      "parent": "d3-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1973.178024044237,
+      "fy": 263.8866848845553,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-elb",
+      "text": "Elastic Load Balancers",
+      "x": 1977.1773006078165,
+      "y": 316.2493955130706,
+      "parent": "d3-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1977.1773006078165,
+      "fy": 316.2493955130706,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-task2",
+      "text": "3.2: Network Security Controls",
+      "x": 1583.1575017636994,
+      "y": 495.84686417568224,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#16A085",
+      "fx": 1583.1575017636994,
+      "fy": 495.84686417568224,
+      "depth": 2,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-security-groups",
+      "text": "Security Groups",
+      "x": 1980.012447242248,
+      "y": 365.783228234041,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1980.012447242248,
+      "fy": 365.783228234041,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-nacls",
+      "text": "Network ACLs",
+      "x": 1979.6282410057372,
+      "y": 414.10053388603103,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1979.6282410057372,
+      "fy": 414.10053388603103,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-network-firewall",
+      "text": "AWS Network Firewall",
+      "x": 1978.2486411341763,
+      "y": 461.8600795480896,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1978.2486411341763,
+      "fy": 461.8600795480896,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-transit-gateway",
+      "text": "AWS Transit Gateway",
+      "x": 1974.1966764611275,
+      "y": 509.21278940614275,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1974.1966764611275,
+      "fy": 509.21278940614275,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-vpc-endpoints",
+      "text": "VPC Endpoints",
+      "x": 1968.770167600519,
+      "y": 556.3300951737809,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1968.770167600519,
+      "fy": 556.3300951737809,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-vpn",
+      "text": "AWS VPN",
+      "x": 1961.0771575666604,
+      "y": 603.0788523936569,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1961.0771575666604,
+      "fy": 603.0788523936569,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-direct-connect",
+      "text": "AWS Direct Connect",
+      "x": 1951.7320520449357,
+      "y": 649.508770132563,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1951.7320520449357,
+      "fy": 649.508770132563,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-traffic-mirroring",
+      "text": "Traffic Mirroring",
+      "x": 1940.312195898991,
+      "y": 695.6408745101309,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1940.312195898991,
+      "fy": 695.6408745101309,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-firewall-manager",
+      "text": "AWS Firewall Manager",
+      "x": 1926.7747482210782,
+      "y": 742.2861363782002,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1926.7747482210782,
+      "fy": 742.2861363782002,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-task3",
+      "text": "3.3: Compute Security Controls",
+      "x": 1551.1766618486363,
+      "y": 635.9640789197779,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#16A085",
+      "fx": 1551.1766618486363,
+      "fy": 635.9640789197779,
+      "depth": 2,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-ec2",
+      "text": "Amazon EC2",
+      "x": 1910.593658780226,
+      "y": 790.0295786114143,
+      "parent": "d3-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1910.593658780226,
+      "fy": 790.0295786114143,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-ec2-image-builder",
+      "text": "EC2 Image Builder",
+      "x": 1892.3484665318733,
+      "y": 837.2415354927888,
+      "parent": "d3-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1892.3484665318733,
+      "fy": 837.2415354927888,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-inspector",
+      "text": "Amazon Inspector",
+      "x": 1871.9345416289211,
+      "y": 883.6257486599225,
+      "parent": "d3-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1871.9345416289211,
+      "fy": 883.6257486599225,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-ecr",
+      "text": "Amazon ECR",
+      "x": 1849.1332220879578,
+      "y": 930.6439723315954,
+      "parent": "d3-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1849.1332220879578,
+      "fy": 930.6439723315954,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-systems-manager",
+      "text": "AWS Systems Manager",
+      "x": 1820.951189430509,
+      "y": 980.0547749408996,
+      "parent": "d3-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1820.951189430509,
+      "fy": 980.0547749408996,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-task4",
+      "text": "3.4: Troubleshoot Network Security",
+      "x": 1493.901074342577,
+      "y": 767.7787786506942,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#16A085",
+      "fx": 1493.901074342577,
+      "fy": 767.7787786506942,
+      "depth": 2,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-reachability-analyzer",
+      "text": "VPC Reachability Analyzer",
+      "x": 1787.9259219712576,
+      "y": 1036.0606747581642,
+      "parent": "d3-task4",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1787.9259219712576,
+      "fy": 1036.0606747581642,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-inspector-network",
+      "text": "Inspector Network Reachability",
+      "x": 1742.4760374039054,
+      "y": 1096.7250892077263,
+      "parent": "d3-task4",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1742.4760374039054,
+      "fy": 1096.7250892077263,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-vpc-flow-logs",
+      "text": "VPC Flow Logs",
+      "x": 1686.2321479140305,
+      "y": 1164.283250296946,
+      "parent": "d3-task4",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1686.2321479140305,
+      "fy": 1164.283250296946,
+      "depth": 3,
+      "cluster": "domain3"
+    },
+    {
+      "id": "domain4",
+      "text": "Domain 4: Identity & Access Management (16%)",
+      "x": 1051.5018774221335,
+      "y": 903.3516603645439,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8E44AD",
+      "fx": 1051.5018774221335,
+      "fy": 903.3516603645439,
+      "depth": 1,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-task1",
+      "text": "4.1: Design Authentication",
+      "x": 1324.9029913674044,
+      "y": 1000.4098688263214,
+      "parent": "domain4",
+      "collapsed": false,
+      "color": "#8E44AD",
+      "fx": 1324.9029913674044,
+      "fy": 1000.4098688263214,
+      "depth": 2,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-iam",
+      "text": "AWS IAM",
+      "x": 1572.3285706963993,
+      "y": 1088.0311496016996,
+      "parent": "d4-task1",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1572.3285706963993,
+      "fy": 1088.0311496016996,
+      "depth": 3,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-identity-center",
+      "text": "IAM Identity Center (SSO)",
+      "x": 1599.0481366666309,
+      "y": 1219.7205373899155,
+      "parent": "d4-task1",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1599.0481366666309,
+      "fy": 1219.7205373899155,
+      "depth": 3,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-cognito",
+      "text": "Amazon Cognito",
+      "x": 1509.2805016501366,
+      "y": 1296.607338091362,
+      "parent": "d4-task1",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1509.2805016501366,
+      "fy": 1296.607338091362,
+      "depth": 3,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-sts",
+      "text": "AWS STS",
+      "x": 1412.0305283706439,
+      "y": 1363.7806297756047,
+      "parent": "d4-task1",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1412.0305283706439,
+      "fy": 1363.7806297756047,
+      "depth": 3,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-directory-service",
+      "text": "AWS Directory Service",
+      "x": 1308.34478320592,
+      "y": 1420.517519611006,
+      "parent": "d4-task1",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1308.34478320592,
+      "fy": 1420.517519611006,
+      "depth": 3,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-task2",
+      "text": "4.2: Design Authorization",
+      "x": 969.5675218710294,
+      "y": 1171.5304120978326,
+      "parent": "domain4",
+      "collapsed": false,
+      "color": "#8E44AD",
+      "fx": 969.5675218710294,
+      "fy": 1171.5304120978326,
+      "depth": 2,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-iam-policies",
+      "text": "IAM Policies",
+      "x": 1199.3390918069545,
+      "y": 1466.207427262389,
+      "parent": "d4-task2",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1199.3390918069545,
+      "fy": 1466.207427262389,
+      "depth": 3,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-access-advisor",
+      "text": "IAM Access Advisor",
+      "x": 1086.1865310164076,
+      "y": 1500.3586557190638,
+      "parent": "d4-task2",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1086.1865310164076,
+      "fy": 1500.3586557190638,
+      "depth": 3,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-policy-simulator",
+      "text": "IAM Policy Simulator",
+      "x": 970.1048046720106,
+      "y": 1522.603682746762,
+      "parent": "d4-task2",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 970.1048046720106,
+      "fy": 1522.603682746762,
+      "depth": 3,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-cloudtrail",
+      "text": "AWS CloudTrail",
+      "x": 903.6615595617636,
+      "y": 1462.4777742220638,
+      "parent": "d4-task2",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 903.6615595617636,
+      "fy": 1462.4777742220638,
+      "depth": 3,
+      "cluster": "domain4"
+    },
+    {
+      "id": "domain5",
+      "text": "Domain 5: Data Protection (18%)",
+      "x": 676.4981225778665,
+      "y": 903.3516603645439,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#E67E22",
+      "fx": 676.4981225778665,
+      "fy": 903.3516603645439,
+      "depth": 1,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-task1",
+      "text": "5.1: Data in Transit Protection",
+      "x": 680.5809097849666,
+      "y": 1168.7172617195124,
+      "parent": "domain5",
+      "collapsed": false,
+      "color": "#E67E22",
+      "fx": 680.5809097849666,
+      "fy": 1168.7172617195124,
+      "depth": 2,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-acm",
+      "text": "AWS Certificate Manager",
+      "x": 888.9169116134733,
+      "y": 1568.7797975385038,
+      "parent": "d5-task1",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 888.9169116134733,
+      "fy": 1568.7797975385038,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-vpn",
+      "text": "AWS VPN",
+      "x": 816.0658865293275,
+      "y": 1572.7227579776675,
+      "parent": "d5-task1",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 816.0658865293275,
+      "fy": 1572.7227579776675,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-direct-connect",
+      "text": "AWS Direct Connect",
+      "x": 753.6129936361617,
+      "y": 1570.7990862539405,
+      "parent": "d5-task1",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 753.6129936361617,
+      "fy": 1570.7990862539405,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-session-manager",
+      "text": "Systems Manager Session Manager",
+      "x": 700.682668258531,
+      "y": 1567.172643094711,
+      "parent": "d5-task1",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 700.682668258531,
+      "fy": 1567.172643094711,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-instance-connect",
+      "text": "EC2 Instance Connect",
+      "x": 652.2372219161922,
+      "y": 1561.118146829766,
+      "parent": "d5-task1",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 652.2372219161922,
+      "fy": 1561.118146829766,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-task2",
+      "text": "5.2: Data at Rest Protection",
+      "x": 539.9799136644599,
+      "y": 1130.8178075512628,
+      "parent": "domain5",
+      "collapsed": false,
+      "color": "#E67E22",
+      "fx": 539.9799136644599,
+      "fy": 1130.8178075512628,
+      "depth": 2,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-kms",
+      "text": "AWS KMS",
+      "x": 605.760198485416,
+      "y": 1553.9613994928072,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 605.760198485416,
+      "fy": 1553.9613994928072,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-cloudhsm",
+      "text": "AWS CloudHSM",
+      "x": 560.4562624802857,
+      "y": 1544.6913976705816,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 560.4562624802857,
+      "fy": 1544.6913976705816,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-s3",
+      "text": "Amazon S3",
+      "x": 515.7809370761556,
+      "y": 1534.0775704530483,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 515.7809370761556,
+      "fy": 1534.0775704530483,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-rds",
+      "text": "Amazon RDS",
+      "x": 471.758991065707,
+      "y": 1521.5358788102983,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 471.758991065707,
+      "fy": 1521.5358788102983,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-dynamodb",
+      "text": "Amazon DynamoDB",
+      "x": 428.25863169003935,
+      "y": 1507.474445584925,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 428.25863169003935,
+      "fy": 1507.474445584925,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-ebs",
+      "text": "Amazon EBS",
+      "x": 385.3994371980157,
+      "y": 1491.6444378158867,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 385.3994371980157,
+      "fy": 1491.6444378158867,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-efs",
+      "text": "Amazon EFS",
+      "x": 343.16926149074163,
+      "y": 1474.2313363347296,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 343.16926149074163,
+      "fy": 1474.2313363347296,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-sqs",
+      "text": "Amazon SQS",
+      "x": 301.6673098386453,
+      "y": 1455.1603022335191,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 301.6673098386453,
+      "fy": 1455.1603022335191,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-redshift",
+      "text": "Amazon Redshift",
+      "x": 260.6859704410723,
+      "y": 1434.3768411806743,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 260.6859704410723,
+      "fy": 1434.3768411806743,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-api-gateway",
+      "text": "Amazon API Gateway",
+      "x": 219.13015111908703,
+      "y": 1411.1209249490616,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 219.13015111908703,
+      "fy": 1411.1209249490616,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-task3",
+      "text": "5.3: Data Lifecycle Management",
+      "x": 408.78137054801175,
+      "y": 1067.6359191618562,
+      "parent": "domain5",
+      "collapsed": false,
+      "color": "#E67E22",
+      "fx": 408.78137054801175,
+      "fy": 1067.6359191618562,
+      "depth": 2,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-s3-lifecycle",
+      "text": "S3 Lifecycle Policies",
+      "x": 176.0812098192279,
+      "y": 1384.5560859336952,
+      "parent": "d5-task3",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 176.0812098192279,
+      "fy": 1384.5560859336952,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-s3-object-lock",
+      "text": "S3 Object Lock",
+      "x": 133.8772178761872,
+      "y": 1355.9839708904426,
+      "parent": "d5-task3",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 133.8772178761872,
+      "fy": 1355.9839708904426,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-glacier-vault-lock",
+      "text": "S3 Glacier Vault Lock",
+      "x": 92.9676992038432,
+      "y": 1325.450790350051,
+      "parent": "d5-task3",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 92.9676992038432,
+      "fy": 1325.450790350051,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-backup",
+      "text": "AWS Backup",
+      "x": 51.8973277370139,
+      "y": 1292.557267754609,
+      "parent": "d5-task3",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 51.8973277370139,
+      "fy": 1292.557267754609,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-dlm",
+      "text": "Amazon Data Lifecycle Manager",
+      "x": 10.066582627081008,
+      "y": 1253.537739052366,
+      "parent": "d5-task3",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 10.066582627081008,
+      "fy": 1253.537739052366,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-task4",
+      "text": "5.4: Secrets & Keys Management",
+      "x": 291.48709689860505,
+      "y": 981.339557098395,
+      "parent": "domain5",
+      "collapsed": false,
+      "color": "#E67E22",
+      "fx": 291.48709689860505,
+      "fy": 981.339557098395,
+      "depth": 2,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-secrets-manager",
+      "text": "AWS Secrets Manager",
+      "x": -37.84911205273089,
+      "y": 1209.1831818081102,
+      "parent": "d5-task4",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": -37.84911205273089,
+      "fy": 1209.1831818081102,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-parameter-store",
+      "text": "Systems Manager Parameter Store",
+      "x": -86.18801272087299,
+      "y": 1150.5513806184908,
+      "parent": "d5-task4",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": -86.18801272087299,
+      "fy": 1150.5513806184908,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-kms-keys",
+      "text": "AWS KMS Key Management",
+      "x": -140.2515663759153,
+      "y": 1081.1219494508512,
+      "parent": "d5-task4",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": -140.2515663759153,
+      "fy": 1081.1219494508512,
+      "depth": 3,
+      "cluster": "domain5"
+    },
+    {
+      "id": "domain6",
+      "text": "Domain 6: Management & Security Governance (14%)",
+      "x": 442.6871057737332,
+      "y": 610.1619187835729,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#1ABC9C",
+      "fx": 442.6871057737332,
+      "fy": 610.1619187835729,
+      "depth": 1,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-task1",
+      "text": "6.1: Centralize Account Management",
+      "x": 220.54111681499433,
+      "y": 720.2567819160824,
+      "parent": "domain6",
+      "collapsed": false,
+      "color": "#1ABC9C",
+      "fx": 220.54111681499433,
+      "fy": 720.2567819160824,
+      "depth": 2,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-organizations",
+      "text": "AWS Organizations",
+      "x": 175.98009207508917,
+      "y": 916.3637553428653,
+      "parent": "d6-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 175.98009207508917,
+      "fy": 916.3637553428653,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-control-tower",
+      "text": "AWS Control Tower",
+      "x": 55.23612601905714,
+      "y": 956.8978330485694,
+      "parent": "d6-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 55.23612601905714,
+      "fy": 956.8978330485694,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-scps",
+      "text": "Service Control Policies",
+      "x": -80.45621652483963,
+      "y": 949.0448979027632,
+      "parent": "d6-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -80.45621652483963,
+      "fy": 949.0448979027632,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-security-hub",
+      "text": "AWS Security Hub",
+      "x": -117.25159086420038,
+      "y": 885.1675327221506,
+      "parent": "d6-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -117.25159086420038,
+      "fy": 885.1675327221506,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-config-aggregators",
+      "text": "AWS Config Aggregators",
+      "x": -148.09255110256638,
+      "y": 821.6838142352209,
+      "parent": "d6-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -148.09255110256638,
+      "fy": 821.6838142352209,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-task2",
+      "text": "6.2: Secure Deployment Strategy",
+      "x": 170.54751115996885,
+      "y": 605.2009194653328,
+      "parent": "domain6",
+      "collapsed": false,
+      "color": "#1ABC9C",
+      "fx": 170.54751115996885,
+      "fy": 605.2009194653328,
+      "depth": 2,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-cloudformation",
+      "text": "AWS CloudFormation",
+      "x": -173.84221693457368,
+      "y": 758.3355986553225,
+      "parent": "d6-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -173.84221693457368,
+      "fy": 758.3355986553225,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-service-catalog",
+      "text": "AWS Service Catalog",
+      "x": -194.97799332748795,
+      "y": 694.8800119952975,
+      "parent": "d6-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -194.97799332748795,
+      "fy": 694.8800119952975,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-firewall-manager",
+      "text": "AWS Firewall Manager",
+      "x": -211.8200014028131,
+      "y": 631.1852503020317,
+      "parent": "d6-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -211.8200014028131,
+      "fy": 631.1852503020317,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-ram",
+      "text": "AWS Resource Access Manager",
+      "x": -224.5354345989216,
+      "y": 567.2062037072237,
+      "parent": "d6-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -224.5354345989216,
+      "fy": 567.2062037072237,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-task3",
+      "text": "6.3: Evaluate Compliance",
+      "x": 142.63269493811822,
+      "y": 482.89811849178074,
+      "parent": "domain6",
+      "collapsed": false,
+      "color": "#1ABC9C",
+      "fx": 142.63269493811822,
+      "fy": 482.89811849178074,
+      "depth": 2,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-config",
+      "text": "AWS Config Rules",
+      "x": -233.2229275260924,
+      "y": 502.9808143784457,
+      "parent": "d6-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -233.2229275260924,
+      "fy": 502.9808143784457,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-audit-manager",
+      "text": "AWS Audit Manager",
+      "x": -237.96771392259132,
+      "y": 437.48343067889425,
+      "parent": "d6-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -237.96771392259132,
+      "fy": 437.48343067889425,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-macie",
+      "text": "Amazon Macie",
+      "x": -238.50683643323322,
+      "y": 368.605044811773,
+      "parent": "d6-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -238.50683643323322,
+      "fy": 368.605044811773,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-task4",
+      "text": "6.4: Identify Security Gaps",
+      "x": 137.75450941995985,
+      "y": 357.54495580042095,
+      "parent": "domain6",
+      "collapsed": false,
+      "color": "#1ABC9C",
+      "fx": 137.75450941995985,
+      "fy": 357.54495580042095,
+      "depth": 2,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-well-architected",
+      "text": "AWS Well-Architected Tool",
+      "x": -233.86944920102516,
+      "y": 294.0634228021869,
+      "parent": "d6-task4",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -233.86944920102516,
+      "fy": 294.0634228021869,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-trusted-advisor",
+      "text": "AWS Trusted Advisor",
+      "x": -222.29413015539885,
+      "y": 212.3942264846128,
+      "parent": "d6-task4",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -222.29413015539885,
+      "fy": 212.3942264846128,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-cost-explorer",
+      "text": "AWS Cost Explorer",
+      "x": -200.62836429368207,
+      "y": 123.74500160775897,
+      "parent": "d6-task4",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": -200.62836429368207,
+      "fy": 123.74500160775897,
+      "depth": 3,
+      "cluster": "domain6"
+    },
+    {
+      "id": "exam-info",
+      "text": "Exam Details",
+      "x": 526.1332915388043,
+      "y": 244.56029101290716,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#34495E",
+      "fx": 526.1332915388043,
+      "fy": 244.56029101290716,
+      "depth": 1,
+      "cluster": "exam-info"
+    },
+    {
+      "id": "exam-questions",
+      "text": "65 Questions (50 Scored)",
+      "x": 337.22722933157706,
+      "y": 187.68199856040343,
+      "parent": "exam-info",
+      "collapsed": false,
+      "color": "#7F8C8D",
+      "fx": 337.22722933157706,
+      "fy": 187.68199856040343,
+      "depth": 2,
+      "cluster": "exam-info"
+    },
+    {
+      "id": "exam-passing",
+      "text": "Passing: 750/1000",
+      "x": 407.83919006207486,
+      "y": 70.09756246758099,
+      "parent": "exam-info",
+      "collapsed": false,
+      "color": "#7F8C8D",
+      "fx": 407.83919006207486,
+      "fy": 70.09756246758099,
+      "depth": 2,
+      "cluster": "exam-info"
+    },
+    {
+      "id": "exam-exp",
+      "text": "3-5 Yrs Security, 2+ AWS",
+      "x": 506.7628993968902,
+      "y": -24.909007520569446,
+      "parent": "exam-info",
+      "collapsed": false,
+      "color": "#7F8C8D",
+      "fx": 506.7628993968902,
+      "fy": -24.909007520569446,
+      "depth": 2,
+      "cluster": "exam-info"
+    }
+  ],
+  "links": [
+    {
+      "source": "root",
+      "target": "domain1"
+    },
+    {
+      "source": "root",
+      "target": "domain2"
+    },
+    {
+      "source": "root",
+      "target": "domain3"
+    },
+    {
+      "source": "root",
+      "target": "domain4"
+    },
+    {
+      "source": "root",
+      "target": "domain5"
+    },
+    {
+      "source": "root",
+      "target": "domain6"
+    },
+    {
+      "source": "root",
+      "target": "exam-info"
+    },
+    {
+      "source": "domain1",
+      "target": "d1-task1"
+    },
+    {
+      "source": "domain1",
+      "target": "d1-task2"
+    },
+    {
+      "source": "domain1",
+      "target": "d1-task3"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-security-hub"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-macie"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-guardduty"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-inspector"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-config"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-detective"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-iam-access-analyzer"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-eventbridge"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-secrets-manager"
+    },
+    {
+      "source": "d1-task2",
+      "target": "d1-t2-athena"
+    },
+    {
+      "source": "d1-task2",
+      "target": "d1-t2-cloudwatch"
+    },
+    {
+      "source": "d1-task2",
+      "target": "d1-t2-detective"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-lambda"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-step-functions"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-systems-manager"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-ec2"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-ebs"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-s3"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-s3-object-lock"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-s3-lifecycle"
+    },
+    {
+      "source": "domain2",
+      "target": "d2-task1"
+    },
+    {
+      "source": "domain2",
+      "target": "d2-task2"
+    },
+    {
+      "source": "domain2",
+      "target": "d2-task3"
+    },
+    {
+      "source": "domain2",
+      "target": "d2-task4"
+    },
+    {
+      "source": "domain2",
+      "target": "d2-task5"
+    },
+    {
+      "source": "d2-task1",
+      "target": "d2-cloudwatch"
+    },
+    {
+      "source": "d2-task1",
+      "target": "d2-eventbridge"
+    },
+    {
+      "source": "d2-task1",
+      "target": "d2-lambda"
+    },
+    {
+      "source": "d2-task1",
+      "target": "d2-sns"
+    },
+    {
+      "source": "d2-task3",
+      "target": "d2-vpc-flow-logs"
+    },
+    {
+      "source": "d2-task3",
+      "target": "d2-dns-logs"
+    },
+    {
+      "source": "d2-task3",
+      "target": "d2-cloudtrail"
+    },
+    {
+      "source": "d2-task3",
+      "target": "d2-cloudwatch-logs"
+    },
+    {
+      "source": "d2-task5",
+      "target": "d2-athena"
+    },
+    {
+      "source": "d2-task5",
+      "target": "d2-cloudwatch-insights"
+    },
+    {
+      "source": "d2-task5",
+      "target": "d2-cloudtrail-insights"
+    },
+    {
+      "source": "d2-task5",
+      "target": "d2-security-hub-insights"
+    },
+    {
+      "source": "domain3",
+      "target": "d3-task1"
+    },
+    {
+      "source": "domain3",
+      "target": "d3-task2"
+    },
+    {
+      "source": "domain3",
+      "target": "d3-task3"
+    },
+    {
+      "source": "domain3",
+      "target": "d3-task4"
+    },
+    {
+      "source": "d3-task1",
+      "target": "d3-waf"
+    },
+    {
+      "source": "d3-task1",
+      "target": "d3-shield"
+    },
+    {
+      "source": "d3-task1",
+      "target": "d3-cloudfront"
+    },
+    {
+      "source": "d3-task1",
+      "target": "d3-route53"
+    },
+    {
+      "source": "d3-task1",
+      "target": "d3-elb"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-security-groups"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-nacls"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-network-firewall"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-transit-gateway"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-vpc-endpoints"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-vpn"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-direct-connect"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-traffic-mirroring"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-firewall-manager"
+    },
+    {
+      "source": "d3-task3",
+      "target": "d3-ec2"
+    },
+    {
+      "source": "d3-task3",
+      "target": "d3-ec2-image-builder"
+    },
+    {
+      "source": "d3-task3",
+      "target": "d3-inspector"
+    },
+    {
+      "source": "d3-task3",
+      "target": "d3-ecr"
+    },
+    {
+      "source": "d3-task3",
+      "target": "d3-systems-manager"
+    },
+    {
+      "source": "d3-task4",
+      "target": "d3-reachability-analyzer"
+    },
+    {
+      "source": "d3-task4",
+      "target": "d3-inspector-network"
+    },
+    {
+      "source": "d3-task4",
+      "target": "d3-vpc-flow-logs"
+    },
+    {
+      "source": "domain4",
+      "target": "d4-task1"
+    },
+    {
+      "source": "domain4",
+      "target": "d4-task2"
+    },
+    {
+      "source": "d4-task1",
+      "target": "d4-iam"
+    },
+    {
+      "source": "d4-task1",
+      "target": "d4-identity-center"
+    },
+    {
+      "source": "d4-task1",
+      "target": "d4-cognito"
+    },
+    {
+      "source": "d4-task1",
+      "target": "d4-sts"
+    },
+    {
+      "source": "d4-task1",
+      "target": "d4-directory-service"
+    },
+    {
+      "source": "d4-task2",
+      "target": "d4-iam-policies"
+    },
+    {
+      "source": "d4-task2",
+      "target": "d4-access-advisor"
+    },
+    {
+      "source": "d4-task2",
+      "target": "d4-policy-simulator"
+    },
+    {
+      "source": "d4-task2",
+      "target": "d4-cloudtrail"
+    },
+    {
+      "source": "domain5",
+      "target": "d5-task1"
+    },
+    {
+      "source": "domain5",
+      "target": "d5-task2"
+    },
+    {
+      "source": "domain5",
+      "target": "d5-task3"
+    },
+    {
+      "source": "domain5",
+      "target": "d5-task4"
+    },
+    {
+      "source": "d5-task1",
+      "target": "d5-acm"
+    },
+    {
+      "source": "d5-task1",
+      "target": "d5-vpn"
+    },
+    {
+      "source": "d5-task1",
+      "target": "d5-direct-connect"
+    },
+    {
+      "source": "d5-task1",
+      "target": "d5-session-manager"
+    },
+    {
+      "source": "d5-task1",
+      "target": "d5-instance-connect"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-kms"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-cloudhsm"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-s3"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-rds"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-dynamodb"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-ebs"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-efs"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-sqs"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-redshift"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-api-gateway"
+    },
+    {
+      "source": "d5-task3",
+      "target": "d5-s3-lifecycle"
+    },
+    {
+      "source": "d5-task3",
+      "target": "d5-s3-object-lock"
+    },
+    {
+      "source": "d5-task3",
+      "target": "d5-glacier-vault-lock"
+    },
+    {
+      "source": "d5-task3",
+      "target": "d5-backup"
+    },
+    {
+      "source": "d5-task3",
+      "target": "d5-dlm"
+    },
+    {
+      "source": "d5-task4",
+      "target": "d5-secrets-manager"
+    },
+    {
+      "source": "d5-task4",
+      "target": "d5-parameter-store"
+    },
+    {
+      "source": "d5-task4",
+      "target": "d5-kms-keys"
+    },
+    {
+      "source": "domain6",
+      "target": "d6-task1"
+    },
+    {
+      "source": "domain6",
+      "target": "d6-task2"
+    },
+    {
+      "source": "domain6",
+      "target": "d6-task3"
+    },
+    {
+      "source": "domain6",
+      "target": "d6-task4"
+    },
+    {
+      "source": "d6-task1",
+      "target": "d6-organizations"
+    },
+    {
+      "source": "d6-task1",
+      "target": "d6-control-tower"
+    },
+    {
+      "source": "d6-task1",
+      "target": "d6-scps"
+    },
+    {
+      "source": "d6-task1",
+      "target": "d6-security-hub"
+    },
+    {
+      "source": "d6-task1",
+      "target": "d6-config-aggregators"
+    },
+    {
+      "source": "d6-task2",
+      "target": "d6-cloudformation"
+    },
+    {
+      "source": "d6-task2",
+      "target": "d6-service-catalog"
+    },
+    {
+      "source": "d6-task2",
+      "target": "d6-firewall-manager"
+    },
+    {
+      "source": "d6-task2",
+      "target": "d6-ram"
+    },
+    {
+      "source": "d6-task3",
+      "target": "d6-config"
+    },
+    {
+      "source": "d6-task3",
+      "target": "d6-audit-manager"
+    },
+    {
+      "source": "d6-task3",
+      "target": "d6-macie"
+    },
+    {
+      "source": "d6-task4",
+      "target": "d6-well-architected"
+    },
+    {
+      "source": "d6-task4",
+      "target": "d6-trusted-advisor"
+    },
+    {
+      "source": "d6-task4",
+      "target": "d6-cost-explorer"
+    },
+    {
+      "source": "exam-info",
+      "target": "exam-questions"
+    },
+    {
+      "source": "exam-info",
+      "target": "exam-passing"
+    },
+    {
+      "source": "exam-info",
+      "target": "exam-exp"
+    }
+  ],
+  "selectedNodeId": "d1-task2",
+  "editingNodeId": null,
+  "exportedAt": "2025-10-26T04:41:02.409Z"
+}
