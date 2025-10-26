@@ -19,7 +19,7 @@ ThoughtNet helps students and researchers organize interconnected topics into vi
 ### Installation
 ```bash
 git clone https://github.com/gregdbanks/mind-map.git
-cd mind-map/frontend
+cd mind-map
 npm install && npm run dev
 ```
 
