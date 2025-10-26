@@ -85,7 +85,7 @@ export function createHybridTreeLayout(
   
   // Apply padding constraints
   const padding = 50;
-  positions.forEach((pos, nodeId) => {
+  positions.forEach((pos) => {
     pos.x = Math.max(padding, Math.min(width - padding, pos.x));
     pos.y = Math.max(padding, Math.min(height - padding, pos.y));
   });

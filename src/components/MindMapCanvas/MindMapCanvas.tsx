@@ -5,7 +5,6 @@ import { useMindMapPersistence } from '../../hooks/useMindMapPersistence';
 import { useMindMapOperations } from '../../hooks/useMindMapOperations';
 import type { Node, Link } from '../../types/mindMap';
 import { exportToJSON, importFromJSONText } from '../../utils/exportUtils';
-import { createImprovedClusterLayout } from '../../utils/improvedClusterLayout';
 import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties } from '../../utils/nodeHierarchy';
 import { isAWSService } from '../../utils/awsServices';
 import { demoNodes, demoLinks } from '../../data/demoMindMap';
@@ -13,16 +12,19 @@ import { NodeTooltip } from '../NodeTooltip';
 import { NodeEditModal } from '../NodeEditModal';
 import { ImportModal } from '../ImportModal';
 import { SearchBar } from '../SearchBar';
+import { LayoutSelector, type LayoutType } from '../LayoutSelector';
+import { layoutManager, savePreferredLayout, loadPreferredLayout } from '../../utils/layoutManager';
+import type { ForceNode, ForceLink } from '../../utils/forceDirectedLayout';
 import styles from './MindMapCanvas.module.css';
-
-// Simplified to single layout mode for MVP consistency
 
 export const MindMapCanvas: React.FC = () => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
   const zoomBehaviorRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
+  const simulationRef = useRef<d3.Simulation<ForceNode, ForceLink> | null>(null);
   
-  // Removed layout mode state - using single cluster layout for consistency
+  // Layout state management
+  const [currentLayout, setCurrentLayout] = useState<LayoutType>(() => loadPreferredLayout());
   const [isInitialized, setIsInitialized] = useState(false);
   const [svgElement, setSvgElement] = useState<SVGSVGElement | null>(null);
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
@@ -54,6 +56,29 @@ export const MindMapCanvas: React.FC = () => {
       }, 100);
       setIsImportModalOpen(false);
     }
+  };
+
+  // Handle layout changes
+  const handleLayoutChange = (newLayout: LayoutType) => {
+    // Stop any running simulation
+    if (simulationRef.current) {
+      layoutManager.stopSimulation(simulationRef.current);
+      simulationRef.current = null;
+    }
+    
+    setCurrentLayout(newLayout);
+    savePreferredLayout(newLayout);
+    
+    // Clear all existing positions to force re-layout
+    const nodeUpdates = new Map<string, Partial<Node>>();
+    nodes.forEach(node => {
+      nodeUpdates.set(node.id, { x: undefined, y: undefined, fx: undefined, fy: undefined });
+    });
+    
+    // Apply the position clearing
+    nodeUpdates.forEach((updates, nodeId) => {
+      operations.updateNode(nodeId, updates);
+    });
   };
 
   // Convert state to arrays
@@ -391,22 +416,53 @@ export const MindMapCanvas: React.FC = () => {
         return getNodeVisualProperties(depth).strokeColor;
       });
 
-    // Apply cluster layout - only to nodes without positions (preserves IndexedDB and user drags)
+    // Apply selected layout - only to nodes without positions (preserves IndexedDB and user drags)
     const nodesWithoutPositions = nodes.filter(n => n.x === undefined || n.y === undefined);
     
     if (nodesWithoutPositions.length > 0) {
-      const positions = createImprovedClusterLayout(state.nodes, window.innerWidth, window.innerHeight);
+      // Stop any running simulation before applying new layout
+      if (simulationRef.current) {
+        layoutManager.stopSimulation(simulationRef.current);
+        simulationRef.current = null;
+      }
       
-      // Only update positions for nodes that don't have them
-      nodesWithoutPositions.forEach(node => {
-        const pos = positions.get(node.id);
-        if (pos) {
-          node.x = pos.x;
-          node.y = pos.y;
-          node.fx = pos.x;  // Fix position
-          node.fy = pos.y;
-        }
-      });
+      // Handle position updates from layout manager
+      const handlePositionUpdate = (positions: Map<string, { x: number; y: number }>) => {
+        nodesWithoutPositions.forEach(node => {
+          const pos = positions.get(node.id);
+          if (pos) {
+            node.x = pos.x;
+            node.y = pos.y;
+            // For animated layouts, don't fix positions to allow movement
+            if (!layoutManager.isAnimatedLayout(currentLayout)) {
+              node.fx = pos.x;
+              node.fy = pos.y;
+            }
+          }
+        });
+        
+        // The main useEffect will handle SVG updates on the next render cycle
+        // This ensures all node positions are updated before SVG re-rendering
+      };
+      
+      // Apply the layout
+      const simulation = layoutManager.applyLayout(
+        currentLayout,
+        state.nodes,
+        links,
+        window.innerWidth,
+        window.innerHeight,
+        handlePositionUpdate
+      );
+      
+      // Store simulation reference for animated layouts
+      if (simulation) {
+        simulationRef.current = simulation;
+      } else {
+        // For static layouts, call the update immediately
+        const positions = layoutManager.getStaticLayout(currentLayout, state.nodes, window.innerWidth, window.innerHeight);
+        handlePositionUpdate(positions);
+      }
     }
     
     // Apply positions to all nodes
@@ -574,7 +630,7 @@ export const MindMapCanvas: React.FC = () => {
     attachActionHandlers(nodeEnter);
     attachActionHandlers(nodeUpdate);
 
-  }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, isDragging, operations]);
+  }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, isDragging, operations, currentLayout]);
 
   // Hide all action buttons when editing starts
   useEffect(() => {
@@ -730,6 +786,16 @@ export const MindMapCanvas: React.FC = () => {
     };
   }, [state, operations, stopEditing, isPanMode]);
 
+  // Cleanup simulation on unmount
+  useEffect(() => {
+    return () => {
+      if (simulationRef.current) {
+        layoutManager.stopSimulation(simulationRef.current);
+        simulationRef.current = null;
+      }
+    };
+  }, []);
+
   if (loading) {
     return <div className={styles.loading}>Loading mind map...</div>;
   }
@@ -750,6 +816,12 @@ export const MindMapCanvas: React.FC = () => {
     <>
       {/* Toolbar outside canvas container to avoid transform context issues */}
       <div className={styles.toolbar} data-testid="toolbar">
+        <LayoutSelector
+          currentLayout={currentLayout}
+          onLayoutChange={handleLayoutChange}
+          disabled={loading}
+        />
+        
         <button 
           className={styles.iconButton}
           onClick={() => {
