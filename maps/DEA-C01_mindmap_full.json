@@ -1,0 +1,4838 @@
+{
+  "nodes": [
+    {
+      "id": "root",
+      "text": "AWS Certified Data Engineer - Associate (DEA-C01)",
+      "x": 600,
+      "y": 400,
+      "parent": null,
+      "collapsed": false,
+      "color": "#4ECDC4"
+    },
+    {
+      "id": "domain1",
+      "text": "Domain 1: Data Ingestion and Transformation (34%)",
+      "x": 220,
+      "y": 200,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "domain2",
+      "text": "Domain 2: Data Store Management (26%)",
+      "x": 980,
+      "y": 200,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "domain3",
+      "text": "Domain 3: Data Operations and Support (22%)",
+      "x": 220,
+      "y": 600,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "domain4",
+      "text": "Domain 4: Data Security and Governance (18%)",
+      "x": 980,
+      "y": 600,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d1_t1",
+      "text": "1.1 Perform data ingestion",
+      "x": 80,
+      "y": 120,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_k",
+      "text": "Knowledge of",
+      "x": 0,
+      "y": 80,
+      "parent": "d1_t1",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_k_1",
+      "text": "Throughput and latency characteristics for ingestion services",
+      "x": -100,
+      "y": 40,
+      "parent": "d1_t1_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_k_2",
+      "text": "Data ingestion patterns (frequency and data history)",
+      "x": -100,
+      "y": 80,
+      "parent": "d1_t1_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_k_3",
+      "text": "Streaming data ingestion",
+      "x": -100,
+      "y": 120,
+      "parent": "d1_t1_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_k_4",
+      "text": "Batch data ingestion (scheduled, event-driven)",
+      "x": -100,
+      "y": 160,
+      "parent": "d1_t1_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_k_5",
+      "text": "Replayability of data ingestion pipelines",
+      "x": -100,
+      "y": 200,
+      "parent": "d1_t1_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_k_6",
+      "text": "Stateful and stateless data transactions",
+      "x": -100,
+      "y": 240,
+      "parent": "d1_t1_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_s",
+      "text": "Skills in",
+      "x": 0,
+      "y": 200,
+      "parent": "d1_t1",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_s_1",
+      "text": "Read from streaming sources (Kinesis, MSK, DynamoDB Streams, AWS DMS, AWS Glue, Amazon Redshift)",
+      "x": -100,
+      "y": 240,
+      "parent": "d1_t1_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_s_2",
+      "text": "Read from batch sources (Amazon S3, AWS Glue, Amazon EMR, AWS DMS, Amazon Redshift, AWS Lambda, Amazon AppFlow)",
+      "x": -100,
+      "y": 280,
+      "parent": "d1_t1_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_s_3",
+      "text": "Configure batch ingestion options",
+      "x": -100,
+      "y": 320,
+      "parent": "d1_t1_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_s_4",
+      "text": "Consume data APIs",
+      "x": -100,
+      "y": 360,
+      "parent": "d1_t1_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_s_5",
+      "text": "Set up schedulers (EventBridge, Apache Airflow, time-based jobs/crawlers)",
+      "x": -100,
+      "y": 400,
+      "parent": "d1_t1_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_s_6",
+      "text": "Set up event triggers (S3 Event Notifications, EventBridge)",
+      "x": -100,
+      "y": 440,
+      "parent": "d1_t1_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_s_7",
+      "text": "Call Lambda from Amazon Kinesis",
+      "x": -100,
+      "y": 480,
+      "parent": "d1_t1_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_s_8",
+      "text": "Create allowlists for IPs to connect to data sources",
+      "x": -100,
+      "y": 520,
+      "parent": "d1_t1_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_s_9",
+      "text": "Implement throttling/overcome rate limits (DynamoDB, Amazon RDS, Kinesis)",
+      "x": -100,
+      "y": 560,
+      "parent": "d1_t1_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t1_s_10",
+      "text": "Manage fan-in and fan-out for streaming distribution",
+      "x": -100,
+      "y": 600,
+      "parent": "d1_t1_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2",
+      "text": "1.2 Transform and process data",
+      "x": 360,
+      "y": 120,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_k",
+      "text": "Knowledge of",
+      "x": 280,
+      "y": 80,
+      "parent": "d1_t2",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_k_1",
+      "text": "Create ETL pipelines from business requirements",
+      "x": 180,
+      "y": 40,
+      "parent": "d1_t2_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_k_2",
+      "text": "Volume, velocity, variety (structured, unstructured)",
+      "x": 180,
+      "y": 80,
+      "parent": "d1_t2_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_k_3",
+      "text": "Cloud and distributed computing",
+      "x": 180,
+      "y": 120,
+      "parent": "d1_t2_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_k_4",
+      "text": "Use Apache Spark to process data",
+      "x": 180,
+      "y": 160,
+      "parent": "d1_t2_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_k_5",
+      "text": "Intermediate data staging locations",
+      "x": 180,
+      "y": 200,
+      "parent": "d1_t2_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_s",
+      "text": "Skills in",
+      "x": 280,
+      "y": 200,
+      "parent": "d1_t2",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_s_1",
+      "text": "Optimize containers for performance (EKS, ECS)",
+      "x": 180,
+      "y": 240,
+      "parent": "d1_t2_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_s_2",
+      "text": "Connect to data sources (JDBC, ODBC)",
+      "x": 180,
+      "y": 280,
+      "parent": "d1_t2_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_s_3",
+      "text": "Integrate data from multiple sources",
+      "x": 180,
+      "y": 320,
+      "parent": "d1_t2_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_s_4",
+      "text": "Optimize costs while processing data",
+      "x": 180,
+      "y": 360,
+      "parent": "d1_t2_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_s_5",
+      "text": "Implement transformation services (EMR, AWS Glue, Lambda, Redshift)",
+      "x": 180,
+      "y": 400,
+      "parent": "d1_t2_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_s_6",
+      "text": "Transform formats (CSV to Parquet, etc.)",
+      "x": 180,
+      "y": 440,
+      "parent": "d1_t2_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_s_7",
+      "text": "Troubleshoot/Debug transformation failures and performance issues",
+      "x": 180,
+      "y": 480,
+      "parent": "d1_t2_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t2_s_8",
+      "text": "Create data APIs using AWS services",
+      "x": 180,
+      "y": 520,
+      "parent": "d1_t2_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t3",
+      "text": "1.3 Orchestrate data pipelines",
+      "x": 80,
+      "y": 380,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t3_k",
+      "text": "Knowledge of",
+      "x": 0,
+      "y": 340,
+      "parent": "d1_t3",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t3_k_1",
+      "text": "Integrate AWS services to create ETL pipelines",
+      "x": -100,
+      "y": 300,
+      "parent": "d1_t3_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t3_k_2",
+      "text": "Event-driven architecture",
+      "x": -100,
+      "y": 340,
+      "parent": "d1_t3_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t3_k_3",
+      "text": "Configure services for schedules/dependencies",
+      "x": -100,
+      "y": 380,
+      "parent": "d1_t3_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t3_k_4",
+      "text": "Serverless workflows",
+      "x": -100,
+      "y": 420,
+      "parent": "d1_t3_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t3_s",
+      "text": "Skills in",
+      "x": 0,
+      "y": 460,
+      "parent": "d1_t3",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t3_s_1",
+      "text": "Use orchestration services (Lambda, EventBridge, MWAA, Step Functions, AWS Glue workflows)",
+      "x": -100,
+      "y": 500,
+      "parent": "d1_t3_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t3_s_2",
+      "text": "Build pipelines for performance, availability, scalability, resiliency, fault tolerance",
+      "x": -100,
+      "y": 540,
+      "parent": "d1_t3_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t3_s_3",
+      "text": "Implement/Maintain serverless workflows",
+      "x": -100,
+      "y": 580,
+      "parent": "d1_t3_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t3_s_4",
+      "text": "Use notification services for alerts (SNS, SQS)",
+      "x": -100,
+      "y": 620,
+      "parent": "d1_t3_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4",
+      "text": "1.4 Apply programming concepts",
+      "x": 360,
+      "y": 380,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_k",
+      "text": "Knowledge of",
+      "x": 280,
+      "y": 340,
+      "parent": "d1_t4",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_k_1",
+      "text": "CI/CD for pipelines (implementation, testing, deployment)",
+      "x": 180,
+      "y": 300,
+      "parent": "d1_t4_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_k_2",
+      "text": "SQL queries (source queries, transformations)",
+      "x": 180,
+      "y": 340,
+      "parent": "d1_t4_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_k_3",
+      "text": "Infrastructure as Code (CDK, CloudFormation)",
+      "x": 180,
+      "y": 380,
+      "parent": "d1_t4_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_k_4",
+      "text": "Distributed computing",
+      "x": 180,
+      "y": 420,
+      "parent": "d1_t4_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_k_5",
+      "text": "Data structures and algorithms (graphs, trees)",
+      "x": 180,
+      "y": 460,
+      "parent": "d1_t4_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_k_6",
+      "text": "SQL query optimization",
+      "x": 180,
+      "y": 500,
+      "parent": "d1_t4_k",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_s",
+      "text": "Skills in",
+      "x": 280,
+      "y": 460,
+      "parent": "d1_t4",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_s_1",
+      "text": "Optimize code to reduce runtime for ingestion/transformation",
+      "x": 180,
+      "y": 500,
+      "parent": "d1_t4_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_s_2",
+      "text": "Configure Lambda (concurrency, performance)",
+      "x": 180,
+      "y": 540,
+      "parent": "d1_t4_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_s_3",
+      "text": "Perform SQL transformations (e.g., Redshift stored procedures)",
+      "x": 180,
+      "y": 580,
+      "parent": "d1_t4_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_s_4",
+      "text": "Structure SQL for pipeline requirements",
+      "x": 180,
+      "y": 620,
+      "parent": "d1_t4_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_s_5",
+      "text": "Use Git (create/update/clone/branch)",
+      "x": 180,
+      "y": 660,
+      "parent": "d1_t4_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_s_6",
+      "text": "Use AWS SAM to package/deploy serverless pipelines (Lambda, Step Functions, DynamoDB)",
+      "x": 180,
+      "y": 700,
+      "parent": "d1_t4_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d1_t4_s_7",
+      "text": "Use and mount storage volumes from within Lambda",
+      "x": 180,
+      "y": 740,
+      "parent": "d1_t4_s",
+      "collapsed": false,
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "d2_t1",
+      "text": "2.1 Choose a data store",
+      "x": 840,
+      "y": 120,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_k",
+      "text": "Knowledge of",
+      "x": 760,
+      "y": 80,
+      "parent": "d2_t1",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_k_1",
+      "text": "Storage platforms and characteristics",
+      "x": 660,
+      "y": 40,
+      "parent": "d2_t1_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_k_2",
+      "text": "Storage services/configs for performance demands",
+      "x": 660,
+      "y": 80,
+      "parent": "d2_t1_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_k_3",
+      "text": "Data storage formats (CSV, TXT, Parquet)",
+      "x": 660,
+      "y": 120,
+      "parent": "d2_t1_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_k_4",
+      "text": "Align storage with migration requirements",
+      "x": 660,
+      "y": 160,
+      "parent": "d2_t1_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_k_5",
+      "text": "Determine storage solution for access patterns",
+      "x": 660,
+      "y": 200,
+      "parent": "d2_t1_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_k_6",
+      "text": "Manage locks to prevent data access (Redshift, RDS)",
+      "x": 660,
+      "y": 240,
+      "parent": "d2_t1_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_s",
+      "text": "Skills in",
+      "x": 760,
+      "y": 200,
+      "parent": "d2_t1",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_s_1",
+      "text": "Implement appropriate storage for cost/perf (Redshift, EMR, Lake Formation, RDS, DynamoDB, Kinesis/MSK)",
+      "x": 660,
+      "y": 240,
+      "parent": "d2_t1_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_s_2",
+      "text": "Configure storage for access patterns/requirements (Redshift, EMR, Lake Formation, RDS, DynamoDB)",
+      "x": 660,
+      "y": 280,
+      "parent": "d2_t1_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_s_3",
+      "text": "Apply storage services to use cases (S3)",
+      "x": 660,
+      "y": 320,
+      "parent": "d2_t1_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_s_4",
+      "text": "Integrate migration tools (AWS Transfer Family)",
+      "x": 660,
+      "y": 360,
+      "parent": "d2_t1_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t1_s_5",
+      "text": "Implement migration/remote access (Redshift federated queries/materialized views/Spectrum)",
+      "x": 660,
+      "y": 400,
+      "parent": "d2_t1_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t2",
+      "text": "2.2 Understand data cataloging systems",
+      "x": 1120,
+      "y": 120,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t2_k",
+      "text": "Knowledge of",
+      "x": 1040,
+      "y": 80,
+      "parent": "d2_t2",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t2_k_1",
+      "text": "How to create a data catalog",
+      "x": 940,
+      "y": 40,
+      "parent": "d2_t2_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t2_k_2",
+      "text": "Data classification based on requirements",
+      "x": 940,
+      "y": 80,
+      "parent": "d2_t2_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t2_k_3",
+      "text": "Components of metadata and data catalogs",
+      "x": 940,
+      "y": 120,
+      "parent": "d2_t2_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t2_s",
+      "text": "Skills in",
+      "x": 1040,
+      "y": 200,
+      "parent": "d2_t2",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t2_s_1",
+      "text": "Use catalogs to consume data from source",
+      "x": 940,
+      "y": 240,
+      "parent": "d2_t2_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t2_s_2",
+      "text": "Build/reference catalogs (AWS Glue Data Catalog, Hive metastore)",
+      "x": 940,
+      "y": 280,
+      "parent": "d2_t2_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t2_s_3",
+      "text": "Discover schemas & use Glue crawlers to populate catalogs",
+      "x": 940,
+      "y": 320,
+      "parent": "d2_t2_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t2_s_4",
+      "text": "Synchronize partitions with a catalog",
+      "x": 940,
+      "y": 360,
+      "parent": "d2_t2_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t2_s_5",
+      "text": "Create new source/target connections for cataloging (AWS Glue)",
+      "x": 940,
+      "y": 400,
+      "parent": "d2_t2_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t3",
+      "text": "2.3 Manage the lifecycle of data",
+      "x": 840,
+      "y": 380,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t3_k",
+      "text": "Knowledge of",
+      "x": 760,
+      "y": 340,
+      "parent": "d2_t3",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t3_k_1",
+      "text": "Appropriate storage for hot/cold data",
+      "x": 660,
+      "y": 300,
+      "parent": "d2_t3_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t3_k_2",
+      "text": "Optimize storage cost by lifecycle",
+      "x": 660,
+      "y": 340,
+      "parent": "d2_t3_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t3_k_3",
+      "text": "Delete data for business/legal requirements",
+      "x": 660,
+      "y": 380,
+      "parent": "d2_t3_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t3_k_4",
+      "text": "Data retention policies and archiving",
+      "x": 660,
+      "y": 420,
+      "parent": "d2_t3_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t3_k_5",
+      "text": "Protect data with resiliency/availability",
+      "x": 660,
+      "y": 460,
+      "parent": "d2_t3_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t3_s",
+      "text": "Skills in",
+      "x": 760,
+      "y": 460,
+      "parent": "d2_t3",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t3_s_1",
+      "text": "Load/Unload data between S3 and Redshift",
+      "x": 660,
+      "y": 500,
+      "parent": "d2_t3_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t3_s_2",
+      "text": "Manage S3 Lifecycle to change storage tier",
+      "x": 660,
+      "y": 540,
+      "parent": "d2_t3_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t3_s_3",
+      "text": "Expire data by age using S3 Lifecycle",
+      "x": 660,
+      "y": 580,
+      "parent": "d2_t3_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t3_s_4",
+      "text": "Manage S3 Versioning and DynamoDB TTL",
+      "x": 660,
+      "y": 620,
+      "parent": "d2_t3_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t4",
+      "text": "2.4 Design data models and schema evolution",
+      "x": 1120,
+      "y": 380,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t4_k",
+      "text": "Knowledge of",
+      "x": 1040,
+      "y": 340,
+      "parent": "d2_t4",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t4_k_1",
+      "text": "Data modeling concepts",
+      "x": 940,
+      "y": 300,
+      "parent": "d2_t4_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t4_k_2",
+      "text": "Ensure accuracy/trust via data lineage",
+      "x": 940,
+      "y": 340,
+      "parent": "d2_t4_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t4_k_3",
+      "text": "Indexing, partitioning, compression best practices",
+      "x": 940,
+      "y": 380,
+      "parent": "d2_t4_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t4_k_4",
+      "text": "Model structured, semi-structured, unstructured data",
+      "x": 940,
+      "y": 420,
+      "parent": "d2_t4_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t4_k_5",
+      "text": "Schema evolution techniques",
+      "x": 940,
+      "y": 460,
+      "parent": "d2_t4_k",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t4_s",
+      "text": "Skills in",
+      "x": 1040,
+      "y": 460,
+      "parent": "d2_t4",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t4_s_1",
+      "text": "Design schemas for Redshift, DynamoDB, Lake Formation",
+      "x": 940,
+      "y": 500,
+      "parent": "d2_t4_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t4_s_2",
+      "text": "Address changes to data characteristics",
+      "x": 940,
+      "y": 540,
+      "parent": "d2_t4_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t4_s_3",
+      "text": "Perform schema conversion (AWS SCT, AWS DMS Schema Conversion)",
+      "x": 940,
+      "y": 580,
+      "parent": "d2_t4_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d2_t4_s_4",
+      "text": "Establish data lineage (e.g., SageMaker ML Lineage Tracking)",
+      "x": 940,
+      "y": 620,
+      "parent": "d2_t4_s",
+      "collapsed": false,
+      "color": "#FFD93D"
+    },
+    {
+      "id": "d3_t1",
+      "text": "3.1 Automate data processing by using AWS services",
+      "x": 80,
+      "y": 520,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_k",
+      "text": "Knowledge of",
+      "x": 0,
+      "y": 480,
+      "parent": "d3_t1",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_k_1",
+      "text": "Maintain/troubleshoot processing for repeatable outcomes",
+      "x": -100,
+      "y": 440,
+      "parent": "d3_t1_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_k_2",
+      "text": "API calls for data processing",
+      "x": -100,
+      "y": 480,
+      "parent": "d3_t1_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_k_3",
+      "text": "Services that accept scripting (EMR, Redshift, Glue)",
+      "x": -100,
+      "y": 520,
+      "parent": "d3_t1_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_s",
+      "text": "Skills in",
+      "x": 0,
+      "y": 600,
+      "parent": "d3_t1",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_s_1",
+      "text": "Orchestrate data pipelines (MWAA, Step Functions)",
+      "x": -100,
+      "y": 640,
+      "parent": "d3_t1_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_s_2",
+      "text": "Troubleshoot managed workflows",
+      "x": -100,
+      "y": 680,
+      "parent": "d3_t1_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_s_3",
+      "text": "Call SDKs to access features from code",
+      "x": -100,
+      "y": 720,
+      "parent": "d3_t1_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_s_4",
+      "text": "Use EMR, Redshift, Glue to process data",
+      "x": -100,
+      "y": 760,
+      "parent": "d3_t1_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_s_5",
+      "text": "Consume and maintain data APIs",
+      "x": -100,
+      "y": 800,
+      "parent": "d3_t1_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_s_6",
+      "text": "Prepare transformations (Glue DataBrew)",
+      "x": -100,
+      "y": 840,
+      "parent": "d3_t1_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_s_7",
+      "text": "Query data (Athena)",
+      "x": -100,
+      "y": 880,
+      "parent": "d3_t1_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_s_8",
+      "text": "Use Lambda to automate data processing",
+      "x": -100,
+      "y": 920,
+      "parent": "d3_t1_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t1_s_9",
+      "text": "Manage events/schedulers (EventBridge)",
+      "x": -100,
+      "y": 960,
+      "parent": "d3_t1_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t2",
+      "text": "3.2 Analyze data by using AWS services",
+      "x": 360,
+      "y": 520,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t2_k",
+      "text": "Knowledge of",
+      "x": 280,
+      "y": 480,
+      "parent": "d3_t2",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t2_k_1",
+      "text": "Tradeoffs: provisioned vs serverless services",
+      "x": 180,
+      "y": 440,
+      "parent": "d3_t2_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t2_k_2",
+      "text": "SQL queries (SELECT with qualifiers, JOIN)",
+      "x": 180,
+      "y": 480,
+      "parent": "d3_t2_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t2_k_3",
+      "text": "How to visualize data",
+      "x": 180,
+      "y": 520,
+      "parent": "d3_t2_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t2_k_4",
+      "text": "When/how to apply cleansing",
+      "x": 180,
+      "y": 560,
+      "parent": "d3_t2_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t2_k_5",
+      "text": "Aggregation, rolling average, grouping, pivoting",
+      "x": 180,
+      "y": 600,
+      "parent": "d3_t2_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t2_s",
+      "text": "Skills in",
+      "x": 280,
+      "y": 600,
+      "parent": "d3_t2",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t2_s_1",
+      "text": "Visualize with Glue DataBrew, QuickSight",
+      "x": 180,
+      "y": 640,
+      "parent": "d3_t2_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t2_s_2",
+      "text": "Verify/clean data (Lambda, Athena, QuickSight, Jupyter, SageMaker Data Wrangler)",
+      "x": 180,
+      "y": 680,
+      "parent": "d3_t2_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t2_s_3",
+      "text": "Use Athena to query data/create views",
+      "x": 180,
+      "y": 720,
+      "parent": "d3_t2_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t2_s_4",
+      "text": "Use Athena Spark notebooks to explore data",
+      "x": 180,
+      "y": 760,
+      "parent": "d3_t2_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3",
+      "text": "3.3 Maintain and monitor data pipelines",
+      "x": 80,
+      "y": 760,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_k",
+      "text": "Knowledge of",
+      "x": 0,
+      "y": 720,
+      "parent": "d3_t3",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_k_1",
+      "text": "How to log application data",
+      "x": -100,
+      "y": 680,
+      "parent": "d3_t3_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_k_2",
+      "text": "Performance tuning best practices",
+      "x": -100,
+      "y": 720,
+      "parent": "d3_t3_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_k_3",
+      "text": "How to log access to AWS services",
+      "x": -100,
+      "y": 760,
+      "parent": "d3_t3_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_k_4",
+      "text": "Macie, CloudTrail, CloudWatch",
+      "x": -100,
+      "y": 800,
+      "parent": "d3_t3_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_s",
+      "text": "Skills in",
+      "x": 0,
+      "y": 840,
+      "parent": "d3_t3",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_s_1",
+      "text": "Extract logs for audits",
+      "x": -100,
+      "y": 880,
+      "parent": "d3_t3_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_s_2",
+      "text": "Deploy logging/monitoring for auditing/traceability",
+      "x": -100,
+      "y": 920,
+      "parent": "d3_t3_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_s_3",
+      "text": "Use notifications for alerts",
+      "x": -100,
+      "y": 960,
+      "parent": "d3_t3_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_s_4",
+      "text": "Troubleshoot performance issues",
+      "x": -100,
+      "y": 1000,
+      "parent": "d3_t3_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_s_5",
+      "text": "Use CloudTrail to track API calls",
+      "x": -100,
+      "y": 1040,
+      "parent": "d3_t3_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_s_6",
+      "text": "Troubleshoot/Maintain pipelines (Glue, EMR)",
+      "x": -100,
+      "y": 1080,
+      "parent": "d3_t3_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_s_7",
+      "text": "Use CloudWatch Logs for application logging (config/automation)",
+      "x": -100,
+      "y": 1120,
+      "parent": "d3_t3_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t3_s_8",
+      "text": "Analyze logs (Athena, EMR, OpenSearch, CloudWatch Logs Insights, big data app logs)",
+      "x": -100,
+      "y": 1160,
+      "parent": "d3_t3_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t4",
+      "text": "3.4 Ensure data quality",
+      "x": 360,
+      "y": 760,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t4_k",
+      "text": "Knowledge of",
+      "x": 280,
+      "y": 720,
+      "parent": "d3_t4",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t4_k_1",
+      "text": "Data sampling techniques",
+      "x": 180,
+      "y": 680,
+      "parent": "d3_t4_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t4_k_2",
+      "text": "Implement data skew mechanisms",
+      "x": 180,
+      "y": 720,
+      "parent": "d3_t4_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t4_k_3",
+      "text": "Data validation (completeness, consistency, accuracy, integrity)",
+      "x": 180,
+      "y": 760,
+      "parent": "d3_t4_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t4_k_4",
+      "text": "Data profiling",
+      "x": 180,
+      "y": 800,
+      "parent": "d3_t4_k",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t4_s",
+      "text": "Skills in",
+      "x": 280,
+      "y": 840,
+      "parent": "d3_t4",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t4_s_1",
+      "text": "Run data quality checks during processing (e.g., empty fields)",
+      "x": 180,
+      "y": 880,
+      "parent": "d3_t4_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t4_s_2",
+      "text": "Define data quality rules (Glue DataBrew)",
+      "x": 180,
+      "y": 920,
+      "parent": "d3_t4_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d3_t4_s_3",
+      "text": "Investigate data consistency (Glue DataBrew)",
+      "x": 180,
+      "y": 960,
+      "parent": "d3_t4_s",
+      "collapsed": false,
+      "color": "#6BCB77"
+    },
+    {
+      "id": "d4_t1",
+      "text": "4.1 Apply authentication mechanisms",
+      "x": 840,
+      "y": 520,
+      "parent": "domain4",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t1_k",
+      "text": "Knowledge of",
+      "x": 760,
+      "y": 480,
+      "parent": "d4_t1",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t1_k_1",
+      "text": "VPC security networking concepts",
+      "x": 660,
+      "y": 440,
+      "parent": "d4_t1_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t1_k_2",
+      "text": "Managed vs unmanaged services",
+      "x": 660,
+      "y": 480,
+      "parent": "d4_t1_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t1_k_3",
+      "text": "Authentication methods (password, certificate, role-based)",
+      "x": 660,
+      "y": 520,
+      "parent": "d4_t1_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t1_k_4",
+      "text": "AWS managed vs customer managed policies",
+      "x": 660,
+      "y": 560,
+      "parent": "d4_t1_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t1_s",
+      "text": "Skills in",
+      "x": 760,
+      "y": 600,
+      "parent": "d4_t1",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t1_s_1",
+      "text": "Update VPC security groups",
+      "x": 660,
+      "y": 640,
+      "parent": "d4_t1_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t1_s_2",
+      "text": "Create/Update IAM groups, roles, endpoints, services",
+      "x": 660,
+      "y": 680,
+      "parent": "d4_t1_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t1_s_3",
+      "text": "Create/Rotate credentials (Secrets Manager)",
+      "x": 660,
+      "y": 720,
+      "parent": "d4_t1_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t1_s_4",
+      "text": "Set IAM roles for access (Lambda, API Gateway, AWS CLI, CloudFormation)",
+      "x": 660,
+      "y": 760,
+      "parent": "d4_t1_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t1_s_5",
+      "text": "Apply IAM policies to roles/endpoints/services (S3 Access Points, PrivateLink)",
+      "x": 660,
+      "y": 800,
+      "parent": "d4_t1_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t2",
+      "text": "4.2 Apply authorization mechanisms",
+      "x": 1120,
+      "y": 520,
+      "parent": "domain4",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t2_k",
+      "text": "Knowledge of",
+      "x": 1040,
+      "y": 480,
+      "parent": "d4_t2",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t2_k_1",
+      "text": "Authorization (role-based, policy-based, tag-based, ABAC)",
+      "x": 940,
+      "y": 440,
+      "parent": "d4_t2_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t2_k_2",
+      "text": "Least privilege in AWS",
+      "x": 940,
+      "y": 480,
+      "parent": "d4_t2_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t2_k_3",
+      "text": "RBAC and expected access patterns",
+      "x": 940,
+      "y": 520,
+      "parent": "d4_t2_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t2_k_4",
+      "text": "Methods to protect data across services",
+      "x": 940,
+      "y": 560,
+      "parent": "d4_t2_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t2_s",
+      "text": "Skills in",
+      "x": 1040,
+      "y": 600,
+      "parent": "d4_t2",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t2_s_1",
+      "text": "Create custom IAM policies when managed policies don\u2019t fit",
+      "x": 940,
+      "y": 640,
+      "parent": "d4_t2_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t2_s_2",
+      "text": "Store application/database credentials (Secrets Manager, SSM Parameter Store)",
+      "x": 940,
+      "y": 680,
+      "parent": "d4_t2_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t2_s_3",
+      "text": "Provide DB users/groups/roles access (e.g., Redshift)",
+      "x": 940,
+      "y": 720,
+      "parent": "d4_t2_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t2_s_4",
+      "text": "Manage permissions via Lake Formation (Redshift, EMR, Athena, S3)",
+      "x": 940,
+      "y": 760,
+      "parent": "d4_t2_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t3",
+      "text": "4.3 Ensure data encryption and masking",
+      "x": 840,
+      "y": 760,
+      "parent": "domain4",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t3_k",
+      "text": "Knowledge of",
+      "x": 760,
+      "y": 720,
+      "parent": "d4_t3",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t3_k_1",
+      "text": "Encryption options in analytics services (Redshift, EMR, Glue)",
+      "x": 660,
+      "y": 680,
+      "parent": "d4_t3_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t3_k_2",
+      "text": "Client-side vs server-side encryption",
+      "x": 660,
+      "y": 720,
+      "parent": "d4_t3_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t3_k_3",
+      "text": "Protection of sensitive data",
+      "x": 660,
+      "y": 760,
+      "parent": "d4_t3_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t3_k_4",
+      "text": "Data anonymization, masking, key salting",
+      "x": 660,
+      "y": 800,
+      "parent": "d4_t3_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t3_s",
+      "text": "Skills in",
+      "x": 760,
+      "y": 840,
+      "parent": "d4_t3",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t3_s_1",
+      "text": "Apply masking/anonymization per compliance/policy",
+      "x": 660,
+      "y": 880,
+      "parent": "d4_t3_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t3_s_2",
+      "text": "Use encryption keys (AWS KMS)",
+      "x": 660,
+      "y": 920,
+      "parent": "d4_t3_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t3_s_3",
+      "text": "Configure encryption across AWS account boundaries",
+      "x": 660,
+      "y": 960,
+      "parent": "d4_t3_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t3_s_4",
+      "text": "Enable encryption in transit",
+      "x": 660,
+      "y": 1000,
+      "parent": "d4_t3_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t4",
+      "text": "4.4 Prepare logs for audit",
+      "x": 1120,
+      "y": 760,
+      "parent": "domain4",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t4_k",
+      "text": "Knowledge of",
+      "x": 1040,
+      "y": 720,
+      "parent": "d4_t4",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t4_k_1",
+      "text": "How to log application data",
+      "x": 940,
+      "y": 680,
+      "parent": "d4_t4_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t4_k_2",
+      "text": "How to log access to AWS services",
+      "x": 940,
+      "y": 720,
+      "parent": "d4_t4_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t4_k_3",
+      "text": "Centralized AWS logs",
+      "x": 940,
+      "y": 760,
+      "parent": "d4_t4_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t4_s",
+      "text": "Skills in",
+      "x": 1040,
+      "y": 840,
+      "parent": "d4_t4",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t4_s_1",
+      "text": "Use CloudTrail to track API calls",
+      "x": 940,
+      "y": 880,
+      "parent": "d4_t4_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t4_s_2",
+      "text": "Use CloudWatch Logs to store application logs",
+      "x": 940,
+      "y": 920,
+      "parent": "d4_t4_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t4_s_3",
+      "text": "Use CloudTrail Lake for centralized logging queries",
+      "x": 940,
+      "y": 960,
+      "parent": "d4_t4_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t4_s_4",
+      "text": "Analyze logs (Athena, CloudWatch Logs Insights, OpenSearch)",
+      "x": 940,
+      "y": 1000,
+      "parent": "d4_t4_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t4_s_5",
+      "text": "Integrate services for logging (e.g., EMR for large log volumes)",
+      "x": 940,
+      "y": 1040,
+      "parent": "d4_t4_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t5",
+      "text": "4.5 Understand data privacy and governance",
+      "x": 980,
+      "y": 960,
+      "parent": "domain4",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t5_k",
+      "text": "Knowledge of",
+      "x": 900,
+      "y": 920,
+      "parent": "d4_t5",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t5_k_1",
+      "text": "Protect personally identifiable information (PII)",
+      "x": 800,
+      "y": 880,
+      "parent": "d4_t5_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t5_k_2",
+      "text": "Data sovereignty",
+      "x": 800,
+      "y": 920,
+      "parent": "d4_t5_k",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t5_s",
+      "text": "Skills in",
+      "x": 900,
+      "y": 1040,
+      "parent": "d4_t5",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t5_s_1",
+      "text": "Grant permissions for Redshift data sharing",
+      "x": 800,
+      "y": 1080,
+      "parent": "d4_t5_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t5_s_2",
+      "text": "Implement PII identification (Macie with Lake Formation)",
+      "x": 800,
+      "y": 1120,
+      "parent": "d4_t5_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t5_s_3",
+      "text": "Implement privacy to prevent backups/replication to disallowed Regions",
+      "x": 800,
+      "y": 1160,
+      "parent": "d4_t5_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "d4_t5_s_4",
+      "text": "Manage configuration changes (AWS Config)",
+      "x": 800,
+      "y": 1200,
+      "parent": "d4_t5_s",
+      "collapsed": false,
+      "color": "#4D96FF"
+    },
+    {
+      "id": "appendix_in",
+      "text": "Appendix: In-scope AWS services and features",
+      "x": 600,
+      "y": -20,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Analytics",
+      "text": "Analytics",
+      "x": 600,
+      "y": -220,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Analytics_svc_1",
+      "text": "Amazon Athena",
+      "x": 600,
+      "y": -190,
+      "parent": "cat_Analytics",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Analytics_svc_2",
+      "text": "Amazon EMR",
+      "x": 600,
+      "y": -164,
+      "parent": "cat_Analytics",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Analytics_svc_3",
+      "text": "AWS Glue",
+      "x": 600,
+      "y": -138,
+      "parent": "cat_Analytics",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Analytics_svc_4",
+      "text": "AWS Glue DataBrew",
+      "x": 600,
+      "y": -112,
+      "parent": "cat_Analytics",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Analytics_svc_5",
+      "text": "AWS Lake Formation",
+      "x": 600,
+      "y": -86,
+      "parent": "cat_Analytics",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Analytics_svc_6",
+      "text": "Amazon Kinesis Data Firehose",
+      "x": 600,
+      "y": -60,
+      "parent": "cat_Analytics",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Analytics_svc_7",
+      "text": "Amazon Kinesis Data Streams",
+      "x": 600,
+      "y": -34,
+      "parent": "cat_Analytics",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Analytics_svc_8",
+      "text": "Amazon Managed Service for Apache Flink",
+      "x": 600,
+      "y": -8,
+      "parent": "cat_Analytics",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Analytics_svc_9",
+      "text": "Amazon Managed Streaming for Apache Kafka (Amazon MSK)",
+      "x": 600,
+      "y": 18,
+      "parent": "cat_Analytics",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Analytics_svc_10",
+      "text": "Amazon OpenSearch Service",
+      "x": 600,
+      "y": 44,
+      "parent": "cat_Analytics",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Analytics_svc_11",
+      "text": "Amazon QuickSight",
+      "x": 600,
+      "y": 70,
+      "parent": "cat_Analytics",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Application_Integration",
+      "text": "Application Integration",
+      "x": 738,
+      "y": -200,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Application_Integration_svc_1",
+      "text": "Amazon AppFlow",
+      "x": 738,
+      "y": -170,
+      "parent": "cat_Application_Integration",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Application_Integration_svc_2",
+      "text": "Amazon EventBridge",
+      "x": 738,
+      "y": -144,
+      "parent": "cat_Application_Integration",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Application_Integration_svc_3",
+      "text": "Amazon Managed Workflows for Apache Airflow (Amazon MWAA)",
+      "x": 738,
+      "y": -118,
+      "parent": "cat_Application_Integration",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Application_Integration_svc_4",
+      "text": "Amazon Simple Notification Service (Amazon SNS)",
+      "x": 738,
+      "y": -92,
+      "parent": "cat_Application_Integration",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Application_Integration_svc_5",
+      "text": "Amazon Simple Queue Service (Amazon SQS)",
+      "x": 738,
+      "y": -66,
+      "parent": "cat_Application_Integration",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Application_Integration_svc_6",
+      "text": "AWS Step Functions",
+      "x": 738,
+      "y": -40,
+      "parent": "cat_Application_Integration",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Cloud_Financial_Management",
+      "text": "Cloud Financial Management",
+      "x": 850,
+      "y": -144,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Cloud_Financial_Management_svc_1",
+      "text": "AWS Budgets",
+      "x": 850,
+      "y": -114,
+      "parent": "cat_Cloud_Financial_Management",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Cloud_Financial_Management_svc_2",
+      "text": "AWS Cost Explorer",
+      "x": 850,
+      "y": -88,
+      "parent": "cat_Cloud_Financial_Management",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Compute",
+      "text": "Compute",
+      "x": 911,
+      "y": -64,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Compute_svc_1",
+      "text": "AWS Batch",
+      "x": 911,
+      "y": -34,
+      "parent": "cat_Compute",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Compute_svc_2",
+      "text": "Amazon EC2",
+      "x": 911,
+      "y": -8,
+      "parent": "cat_Compute",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Compute_svc_3",
+      "text": "AWS Lambda",
+      "x": 911,
+      "y": 18,
+      "parent": "cat_Compute",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Compute_svc_4",
+      "text": "AWS Serverless Application Model (AWS SAM)",
+      "x": 911,
+      "y": 44,
+      "parent": "cat_Compute",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Containers",
+      "text": "Containers",
+      "x": 911,
+      "y": 24,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Containers_svc_1",
+      "text": "Amazon Elastic Container Registry (Amazon ECR)",
+      "x": 911,
+      "y": 54,
+      "parent": "cat_Containers",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Containers_svc_2",
+      "text": "Amazon Elastic Container Service (Amazon ECS)",
+      "x": 911,
+      "y": 80,
+      "parent": "cat_Containers",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Containers_svc_3",
+      "text": "Amazon Elastic Kubernetes Service (Amazon EKS)",
+      "x": 911,
+      "y": 106,
+      "parent": "cat_Containers",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Database",
+      "text": "Database",
+      "x": 850,
+      "y": 104,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Database_svc_1",
+      "text": "Amazon DocumentDB (with MongoDB compatibility)",
+      "x": 850,
+      "y": 134,
+      "parent": "cat_Database",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Database_svc_2",
+      "text": "Amazon DynamoDB",
+      "x": 850,
+      "y": 160,
+      "parent": "cat_Database",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Database_svc_3",
+      "text": "Amazon Keyspaces (for Apache Cassandra)",
+      "x": 850,
+      "y": 186,
+      "parent": "cat_Database",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Database_svc_4",
+      "text": "Amazon MemoryDB for Redis",
+      "x": 850,
+      "y": 212,
+      "parent": "cat_Database",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Database_svc_5",
+      "text": "Amazon Neptune",
+      "x": 850,
+      "y": 238,
+      "parent": "cat_Database",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Database_svc_6",
+      "text": "Amazon RDS",
+      "x": 850,
+      "y": 264,
+      "parent": "cat_Database",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Database_svc_7",
+      "text": "Amazon Redshift",
+      "x": 850,
+      "y": 290,
+      "parent": "cat_Database",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Developer_Tools",
+      "text": "Developer Tools",
+      "x": 738,
+      "y": 160,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Developer_Tools_svc_1",
+      "text": "AWS CLI",
+      "x": 738,
+      "y": 190,
+      "parent": "cat_Developer_Tools",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Developer_Tools_svc_2",
+      "text": "AWS Cloud9",
+      "x": 738,
+      "y": 216,
+      "parent": "cat_Developer_Tools",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Developer_Tools_svc_3",
+      "text": "AWS Cloud Development Kit (AWS CDK)",
+      "x": 738,
+      "y": 242,
+      "parent": "cat_Developer_Tools",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Developer_Tools_svc_4",
+      "text": "AWS CodeBuild",
+      "x": 738,
+      "y": 268,
+      "parent": "cat_Developer_Tools",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Developer_Tools_svc_5",
+      "text": "AWS CodeCommit",
+      "x": 738,
+      "y": 294,
+      "parent": "cat_Developer_Tools",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Developer_Tools_svc_6",
+      "text": "AWS CodeDeploy",
+      "x": 738,
+      "y": 320,
+      "parent": "cat_Developer_Tools",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Developer_Tools_svc_7",
+      "text": "AWS CodePipeline",
+      "x": 738,
+      "y": 346,
+      "parent": "cat_Developer_Tools",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Frontend_Web_and_Mobile",
+      "text": "Frontend Web and Mobile",
+      "x": 600,
+      "y": 180,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Frontend_Web_and_Mobile_svc_1",
+      "text": "Amazon API Gateway",
+      "x": 600,
+      "y": 210,
+      "parent": "cat_Frontend_Web_and_Mobile",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Machine_Learning",
+      "text": "Machine Learning",
+      "x": 462,
+      "y": 160,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Machine_Learning_svc_1",
+      "text": "Amazon SageMaker",
+      "x": 462,
+      "y": 190,
+      "parent": "cat_Machine_Learning",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Management_and_Governance",
+      "text": "Management and Governance",
+      "x": 350,
+      "y": 104,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Management_and_Governance_svc_1",
+      "text": "AWS CloudFormation",
+      "x": 350,
+      "y": 134,
+      "parent": "cat_Management_and_Governance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Management_and_Governance_svc_2",
+      "text": "AWS CloudTrail",
+      "x": 350,
+      "y": 160,
+      "parent": "cat_Management_and_Governance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Management_and_Governance_svc_3",
+      "text": "Amazon CloudWatch",
+      "x": 350,
+      "y": 186,
+      "parent": "cat_Management_and_Governance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Management_and_Governance_svc_4",
+      "text": "Amazon CloudWatch Logs",
+      "x": 350,
+      "y": 212,
+      "parent": "cat_Management_and_Governance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Management_and_Governance_svc_5",
+      "text": "AWS Config",
+      "x": 350,
+      "y": 238,
+      "parent": "cat_Management_and_Governance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Management_and_Governance_svc_6",
+      "text": "Amazon Managed Grafana",
+      "x": 350,
+      "y": 264,
+      "parent": "cat_Management_and_Governance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Management_and_Governance_svc_7",
+      "text": "AWS Systems Manager",
+      "x": 350,
+      "y": 290,
+      "parent": "cat_Management_and_Governance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Management_and_Governance_svc_8",
+      "text": "AWS Well-Architected Tool",
+      "x": 350,
+      "y": 316,
+      "parent": "cat_Management_and_Governance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Migration_and_Transfer",
+      "text": "Migration and Transfer",
+      "x": 289,
+      "y": 24,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Migration_and_Transfer_svc_1",
+      "text": "AWS Application Discovery Service",
+      "x": 289,
+      "y": 54,
+      "parent": "cat_Migration_and_Transfer",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Migration_and_Transfer_svc_2",
+      "text": "AWS Application Migration Service",
+      "x": 289,
+      "y": 80,
+      "parent": "cat_Migration_and_Transfer",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Migration_and_Transfer_svc_3",
+      "text": "AWS Database Migration Service (AWS DMS)",
+      "x": 289,
+      "y": 106,
+      "parent": "cat_Migration_and_Transfer",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Migration_and_Transfer_svc_4",
+      "text": "AWS DataSync",
+      "x": 289,
+      "y": 132,
+      "parent": "cat_Migration_and_Transfer",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Migration_and_Transfer_svc_5",
+      "text": "AWS Schema Conversion Tool (AWS SCT)",
+      "x": 289,
+      "y": 158,
+      "parent": "cat_Migration_and_Transfer",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Migration_and_Transfer_svc_6",
+      "text": "AWS Snow Family",
+      "x": 289,
+      "y": 184,
+      "parent": "cat_Migration_and_Transfer",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Migration_and_Transfer_svc_7",
+      "text": "AWS Transfer Family",
+      "x": 289,
+      "y": 210,
+      "parent": "cat_Migration_and_Transfer",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Networking_and_Content_Delivery",
+      "text": "Networking and Content Delivery",
+      "x": 289,
+      "y": -64,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Networking_and_Content_Delivery_svc_1",
+      "text": "Amazon CloudFront",
+      "x": 289,
+      "y": -34,
+      "parent": "cat_Networking_and_Content_Delivery",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Networking_and_Content_Delivery_svc_2",
+      "text": "AWS PrivateLink",
+      "x": 289,
+      "y": -8,
+      "parent": "cat_Networking_and_Content_Delivery",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Networking_and_Content_Delivery_svc_3",
+      "text": "Amazon Route 53",
+      "x": 289,
+      "y": 18,
+      "parent": "cat_Networking_and_Content_Delivery",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Networking_and_Content_Delivery_svc_4",
+      "text": "Amazon VPC",
+      "x": 289,
+      "y": 44,
+      "parent": "cat_Networking_and_Content_Delivery",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Security_Identity_and_Compliance",
+      "text": "Security, Identity, and Compliance",
+      "x": 350,
+      "y": -144,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Security_Identity_and_Compliance_svc_1",
+      "text": "AWS Identity and Access Management (IAM)",
+      "x": 350,
+      "y": -114,
+      "parent": "cat_Security_Identity_and_Compliance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Security_Identity_and_Compliance_svc_2",
+      "text": "AWS Key Management Service (AWS KMS)",
+      "x": 350,
+      "y": -88,
+      "parent": "cat_Security_Identity_and_Compliance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Security_Identity_and_Compliance_svc_3",
+      "text": "Amazon Macie",
+      "x": 350,
+      "y": -62,
+      "parent": "cat_Security_Identity_and_Compliance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Security_Identity_and_Compliance_svc_4",
+      "text": "AWS Secrets Manager",
+      "x": 350,
+      "y": -36,
+      "parent": "cat_Security_Identity_and_Compliance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Security_Identity_and_Compliance_svc_5",
+      "text": "AWS Shield",
+      "x": 350,
+      "y": -10,
+      "parent": "cat_Security_Identity_and_Compliance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Security_Identity_and_Compliance_svc_6",
+      "text": "AWS WAF",
+      "x": 350,
+      "y": 16,
+      "parent": "cat_Security_Identity_and_Compliance",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Storage",
+      "text": "Storage",
+      "x": 462,
+      "y": -200,
+      "parent": "appendix_in",
+      "collapsed": false,
+      "color": "#00B8A9"
+    },
+    {
+      "id": "cat_Storage_svc_1",
+      "text": "AWS Backup",
+      "x": 462,
+      "y": -170,
+      "parent": "cat_Storage",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Storage_svc_2",
+      "text": "Amazon Elastic Block Store (Amazon EBS)",
+      "x": 462,
+      "y": -144,
+      "parent": "cat_Storage",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Storage_svc_3",
+      "text": "Amazon Elastic File System (Amazon EFS)",
+      "x": 462,
+      "y": -118,
+      "parent": "cat_Storage",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Storage_svc_4",
+      "text": "Amazon S3",
+      "x": 462,
+      "y": -92,
+      "parent": "cat_Storage",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "cat_Storage_svc_5",
+      "text": "Amazon S3 Glacier",
+      "x": 462,
+      "y": -66,
+      "parent": "cat_Storage",
+      "collapsed": false,
+      "color": "#3FEEE6"
+    },
+    {
+      "id": "appendix_out",
+      "text": "Appendix: Out-of-scope AWS services and features (non-exhaustive)",
+      "x": 600,
+      "y": 1120,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Analytics",
+      "text": "Analytics",
+      "x": 600,
+      "y": 1320,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Analytics_svc_1",
+      "text": "Amazon FinSpace",
+      "x": 600,
+      "y": 1350,
+      "parent": "oos_Analytics",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Business_Applications",
+      "text": "Business Applications",
+      "x": 470,
+      "y": 1301,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Business_Applications_svc_1",
+      "text": "Alexa for Business",
+      "x": 470,
+      "y": 1331,
+      "parent": "oos_Business_Applications",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Business_Applications_svc_2",
+      "text": "Amazon Chime",
+      "x": 470,
+      "y": 1357,
+      "parent": "oos_Business_Applications",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Business_Applications_svc_3",
+      "text": "Amazon Connect",
+      "x": 470,
+      "y": 1383,
+      "parent": "oos_Business_Applications",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Business_Applications_svc_4",
+      "text": "Amazon Honeycode",
+      "x": 470,
+      "y": 1409,
+      "parent": "oos_Business_Applications",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Business_Applications_svc_5",
+      "text": "AWS IQ",
+      "x": 470,
+      "y": 1435,
+      "parent": "oos_Business_Applications",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Business_Applications_svc_6",
+      "text": "Amazon WorkDocs",
+      "x": 470,
+      "y": 1461,
+      "parent": "oos_Business_Applications",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Business_Applications_svc_7",
+      "text": "Amazon WorkMail",
+      "x": 470,
+      "y": 1487,
+      "parent": "oos_Business_Applications",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Compute",
+      "text": "Compute",
+      "x": 370,
+      "y": 1250,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Compute_svc_1",
+      "text": "AWS App Runner",
+      "x": 370,
+      "y": 1280,
+      "parent": "oos_Compute",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Compute_svc_2",
+      "text": "AWS Elastic Beanstalk",
+      "x": 370,
+      "y": 1306,
+      "parent": "oos_Compute",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Compute_svc_3",
+      "text": "Amazon Lightsail",
+      "x": 370,
+      "y": 1332,
+      "parent": "oos_Compute",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Compute_svc_4",
+      "text": "AWS Outposts",
+      "x": 370,
+      "y": 1358,
+      "parent": "oos_Compute",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Compute_svc_5",
+      "text": "AWS Serverless Application Repository",
+      "x": 370,
+      "y": 1384,
+      "parent": "oos_Compute",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Containers",
+      "text": "Containers",
+      "x": 323,
+      "y": 1179,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Containers_svc_1",
+      "text": "Red Hat OpenShift Service on AWS (ROSA)",
+      "x": 323,
+      "y": 1209,
+      "parent": "oos_Containers",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Database",
+      "text": "Database",
+      "x": 339,
+      "y": 1104,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Database_svc_1",
+      "text": "Amazon Timestream",
+      "x": 339,
+      "y": 1134,
+      "parent": "oos_Database",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Developer_Tools",
+      "text": "Developer Tools",
+      "x": 415,
+      "y": 1041,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Developer_Tools_svc_1",
+      "text": "AWS Fault Injection Simulator (AWS FIS)",
+      "x": 415,
+      "y": 1071,
+      "parent": "oos_Developer_Tools",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Developer_Tools_svc_2",
+      "text": "AWS X-Ray",
+      "x": 415,
+      "y": 1097,
+      "parent": "oos_Developer_Tools",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Frontend_Web_and_Mobile",
+      "text": "Frontend Web and Mobile",
+      "x": 533,
+      "y": 1005,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Frontend_Web_and_Mobile_svc_1",
+      "text": "AWS Amplify",
+      "x": 533,
+      "y": 1035,
+      "parent": "oos_Frontend_Web_and_Mobile",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Frontend_Web_and_Mobile_svc_2",
+      "text": "AWS AppSync",
+      "x": 533,
+      "y": 1061,
+      "parent": "oos_Frontend_Web_and_Mobile",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Frontend_Web_and_Mobile_svc_3",
+      "text": "AWS Device Farm",
+      "x": 533,
+      "y": 1087,
+      "parent": "oos_Frontend_Web_and_Mobile",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Frontend_Web_and_Mobile_svc_4",
+      "text": "Amazon Location Service",
+      "x": 533,
+      "y": 1113,
+      "parent": "oos_Frontend_Web_and_Mobile",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Frontend_Web_and_Mobile_svc_5",
+      "text": "Amazon Pinpoint",
+      "x": 533,
+      "y": 1139,
+      "parent": "oos_Frontend_Web_and_Mobile",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Frontend_Web_and_Mobile_svc_6",
+      "text": "Amazon Simple Email Service (Amazon SES)",
+      "x": 533,
+      "y": 1165,
+      "parent": "oos_Frontend_Web_and_Mobile",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Internet_of_Things_(IoT)",
+      "text": "Internet of Things (IoT)",
+      "x": 667,
+      "y": 1005,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Internet_of_Things_(IoT)_svc_1",
+      "text": "FreeRTOS",
+      "x": 667,
+      "y": 1035,
+      "parent": "oos_Internet_of_Things_(IoT)",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Internet_of_Things_(IoT)_svc_2",
+      "text": "AWS IoT 1-Click",
+      "x": 667,
+      "y": 1061,
+      "parent": "oos_Internet_of_Things_(IoT)",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Internet_of_Things_(IoT)_svc_3",
+      "text": "AWS IoT Device Defender",
+      "x": 667,
+      "y": 1087,
+      "parent": "oos_Internet_of_Things_(IoT)",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Internet_of_Things_(IoT)_svc_4",
+      "text": "AWS IoT Device Management",
+      "x": 667,
+      "y": 1113,
+      "parent": "oos_Internet_of_Things_(IoT)",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Internet_of_Things_(IoT)_svc_5",
+      "text": "AWS IoT Events",
+      "x": 667,
+      "y": 1139,
+      "parent": "oos_Internet_of_Things_(IoT)",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Internet_of_Things_(IoT)_svc_6",
+      "text": "AWS IoT FleetWise",
+      "x": 667,
+      "y": 1165,
+      "parent": "oos_Internet_of_Things_(IoT)",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Internet_of_Things_(IoT)_svc_7",
+      "text": "AWS IoT RoboRunner",
+      "x": 667,
+      "y": 1191,
+      "parent": "oos_Internet_of_Things_(IoT)",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Internet_of_Things_(IoT)_svc_8",
+      "text": "AWS IoT SiteWise",
+      "x": 667,
+      "y": 1217,
+      "parent": "oos_Internet_of_Things_(IoT)",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Internet_of_Things_(IoT)_svc_9",
+      "text": "AWS IoT TwinMaker",
+      "x": 667,
+      "y": 1243,
+      "parent": "oos_Internet_of_Things_(IoT)",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Machine_Learning",
+      "text": "Machine Learning",
+      "x": 785,
+      "y": 1041,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Machine_Learning_svc_1",
+      "text": "Amazon CodeWhisperer",
+      "x": 785,
+      "y": 1071,
+      "parent": "oos_Machine_Learning",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Machine_Learning_svc_2",
+      "text": "Amazon DevOps Guru",
+      "x": 785,
+      "y": 1097,
+      "parent": "oos_Machine_Learning",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Management_and_Governance",
+      "text": "Management and Governance",
+      "x": 861,
+      "y": 1104,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Management_and_Governance_svc_1",
+      "text": "AWS Activate",
+      "x": 861,
+      "y": 1134,
+      "parent": "oos_Management_and_Governance",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Management_and_Governance_svc_2",
+      "text": "AWS Managed Services (AMS)",
+      "x": 861,
+      "y": 1160,
+      "parent": "oos_Management_and_Governance",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Media_Services",
+      "text": "Media Services",
+      "x": 877,
+      "y": 1179,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Media_Services_svc_1",
+      "text": "Amazon Elastic Transcoder",
+      "x": 877,
+      "y": 1209,
+      "parent": "oos_Media_Services",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Media_Services_svc_2",
+      "text": "AWS Elemental Appliances and Software",
+      "x": 877,
+      "y": 1235,
+      "parent": "oos_Media_Services",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Media_Services_svc_3",
+      "text": "AWS Elemental MediaConnect",
+      "x": 877,
+      "y": 1261,
+      "parent": "oos_Media_Services",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Media_Services_svc_4",
+      "text": "AWS Elemental MediaConvert",
+      "x": 877,
+      "y": 1287,
+      "parent": "oos_Media_Services",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Media_Services_svc_5",
+      "text": "AWS Elemental MediaLive",
+      "x": 877,
+      "y": 1313,
+      "parent": "oos_Media_Services",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Media_Services_svc_6",
+      "text": "AWS Elemental MediaPackage",
+      "x": 877,
+      "y": 1339,
+      "parent": "oos_Media_Services",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Media_Services_svc_7",
+      "text": "AWS Elemental MediaStore",
+      "x": 877,
+      "y": 1365,
+      "parent": "oos_Media_Services",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Media_Services_svc_8",
+      "text": "AWS Elemental MediaTailor",
+      "x": 877,
+      "y": 1391,
+      "parent": "oos_Media_Services",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Media_Services_svc_9",
+      "text": "Amazon Interactive Video Service (Amazon IVS)",
+      "x": 877,
+      "y": 1417,
+      "parent": "oos_Media_Services",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Media_Services_svc_10",
+      "text": "Amazon Nimble Studio",
+      "x": 877,
+      "y": 1443,
+      "parent": "oos_Media_Services",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Migration_and_Transfer",
+      "text": "Migration and Transfer",
+      "x": 830,
+      "y": 1250,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Migration_and_Transfer_svc_1",
+      "text": "AWS Mainframe Modernization",
+      "x": 830,
+      "y": 1280,
+      "parent": "oos_Migration_and_Transfer",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Migration_and_Transfer_svc_2",
+      "text": "AWS Migration Hub",
+      "x": 830,
+      "y": 1306,
+      "parent": "oos_Migration_and_Transfer",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Storage",
+      "text": "Storage",
+      "x": 730,
+      "y": 1301,
+      "parent": "appendix_out",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    },
+    {
+      "id": "oos_Storage_svc_1",
+      "text": "EC2 Image Builder",
+      "x": 730,
+      "y": 1331,
+      "parent": "oos_Storage",
+      "collapsed": false,
+      "color": "#B8B8FF"
+    }
+  ],
+  "links": [
+    {
+      "source": "root",
+      "target": "domain1"
+    },
+    {
+      "source": "root",
+      "target": "domain2"
+    },
+    {
+      "source": "root",
+      "target": "domain3"
+    },
+    {
+      "source": "root",
+      "target": "domain4"
+    },
+    {
+      "source": "domain1",
+      "target": "d1_t1"
+    },
+    {
+      "source": "d1_t1",
+      "target": "d1_t1_k"
+    },
+    {
+      "source": "d1_t1_k",
+      "target": "d1_t1_k_1"
+    },
+    {
+      "source": "d1_t1_k",
+      "target": "d1_t1_k_2"
+    },
+    {
+      "source": "d1_t1_k",
+      "target": "d1_t1_k_3"
+    },
+    {
+      "source": "d1_t1_k",
+      "target": "d1_t1_k_4"
+    },
+    {
+      "source": "d1_t1_k",
+      "target": "d1_t1_k_5"
+    },
+    {
+      "source": "d1_t1_k",
+      "target": "d1_t1_k_6"
+    },
+    {
+      "source": "d1_t1",
+      "target": "d1_t1_s"
+    },
+    {
+      "source": "d1_t1_s",
+      "target": "d1_t1_s_1"
+    },
+    {
+      "source": "d1_t1_s",
+      "target": "d1_t1_s_2"
+    },
+    {
+      "source": "d1_t1_s",
+      "target": "d1_t1_s_3"
+    },
+    {
+      "source": "d1_t1_s",
+      "target": "d1_t1_s_4"
+    },
+    {
+      "source": "d1_t1_s",
+      "target": "d1_t1_s_5"
+    },
+    {
+      "source": "d1_t1_s",
+      "target": "d1_t1_s_6"
+    },
+    {
+      "source": "d1_t1_s",
+      "target": "d1_t1_s_7"
+    },
+    {
+      "source": "d1_t1_s",
+      "target": "d1_t1_s_8"
+    },
+    {
+      "source": "d1_t1_s",
+      "target": "d1_t1_s_9"
+    },
+    {
+      "source": "d1_t1_s",
+      "target": "d1_t1_s_10"
+    },
+    {
+      "source": "domain1",
+      "target": "d1_t2"
+    },
+    {
+      "source": "d1_t2",
+      "target": "d1_t2_k"
+    },
+    {
+      "source": "d1_t2_k",
+      "target": "d1_t2_k_1"
+    },
+    {
+      "source": "d1_t2_k",
+      "target": "d1_t2_k_2"
+    },
+    {
+      "source": "d1_t2_k",
+      "target": "d1_t2_k_3"
+    },
+    {
+      "source": "d1_t2_k",
+      "target": "d1_t2_k_4"
+    },
+    {
+      "source": "d1_t2_k",
+      "target": "d1_t2_k_5"
+    },
+    {
+      "source": "d1_t2",
+      "target": "d1_t2_s"
+    },
+    {
+      "source": "d1_t2_s",
+      "target": "d1_t2_s_1"
+    },
+    {
+      "source": "d1_t2_s",
+      "target": "d1_t2_s_2"
+    },
+    {
+      "source": "d1_t2_s",
+      "target": "d1_t2_s_3"
+    },
+    {
+      "source": "d1_t2_s",
+      "target": "d1_t2_s_4"
+    },
+    {
+      "source": "d1_t2_s",
+      "target": "d1_t2_s_5"
+    },
+    {
+      "source": "d1_t2_s",
+      "target": "d1_t2_s_6"
+    },
+    {
+      "source": "d1_t2_s",
+      "target": "d1_t2_s_7"
+    },
+    {
+      "source": "d1_t2_s",
+      "target": "d1_t2_s_8"
+    },
+    {
+      "source": "domain1",
+      "target": "d1_t3"
+    },
+    {
+      "source": "d1_t3",
+      "target": "d1_t3_k"
+    },
+    {
+      "source": "d1_t3_k",
+      "target": "d1_t3_k_1"
+    },
+    {
+      "source": "d1_t3_k",
+      "target": "d1_t3_k_2"
+    },
+    {
+      "source": "d1_t3_k",
+      "target": "d1_t3_k_3"
+    },
+    {
+      "source": "d1_t3_k",
+      "target": "d1_t3_k_4"
+    },
+    {
+      "source": "d1_t3",
+      "target": "d1_t3_s"
+    },
+    {
+      "source": "d1_t3_s",
+      "target": "d1_t3_s_1"
+    },
+    {
+      "source": "d1_t3_s",
+      "target": "d1_t3_s_2"
+    },
+    {
+      "source": "d1_t3_s",
+      "target": "d1_t3_s_3"
+    },
+    {
+      "source": "d1_t3_s",
+      "target": "d1_t3_s_4"
+    },
+    {
+      "source": "domain1",
+      "target": "d1_t4"
+    },
+    {
+      "source": "d1_t4",
+      "target": "d1_t4_k"
+    },
+    {
+      "source": "d1_t4_k",
+      "target": "d1_t4_k_1"
+    },
+    {
+      "source": "d1_t4_k",
+      "target": "d1_t4_k_2"
+    },
+    {
+      "source": "d1_t4_k",
+      "target": "d1_t4_k_3"
+    },
+    {
+      "source": "d1_t4_k",
+      "target": "d1_t4_k_4"
+    },
+    {
+      "source": "d1_t4_k",
+      "target": "d1_t4_k_5"
+    },
+    {
+      "source": "d1_t4_k",
+      "target": "d1_t4_k_6"
+    },
+    {
+      "source": "d1_t4",
+      "target": "d1_t4_s"
+    },
+    {
+      "source": "d1_t4_s",
+      "target": "d1_t4_s_1"
+    },
+    {
+      "source": "d1_t4_s",
+      "target": "d1_t4_s_2"
+    },
+    {
+      "source": "d1_t4_s",
+      "target": "d1_t4_s_3"
+    },
+    {
+      "source": "d1_t4_s",
+      "target": "d1_t4_s_4"
+    },
+    {
+      "source": "d1_t4_s",
+      "target": "d1_t4_s_5"
+    },
+    {
+      "source": "d1_t4_s",
+      "target": "d1_t4_s_6"
+    },
+    {
+      "source": "d1_t4_s",
+      "target": "d1_t4_s_7"
+    },
+    {
+      "source": "domain2",
+      "target": "d2_t1"
+    },
+    {
+      "source": "d2_t1",
+      "target": "d2_t1_k"
+    },
+    {
+      "source": "d2_t1_k",
+      "target": "d2_t1_k_1"
+    },
+    {
+      "source": "d2_t1_k",
+      "target": "d2_t1_k_2"
+    },
+    {
+      "source": "d2_t1_k",
+      "target": "d2_t1_k_3"
+    },
+    {
+      "source": "d2_t1_k",
+      "target": "d2_t1_k_4"
+    },
+    {
+      "source": "d2_t1_k",
+      "target": "d2_t1_k_5"
+    },
+    {
+      "source": "d2_t1_k",
+      "target": "d2_t1_k_6"
+    },
+    {
+      "source": "d2_t1",
+      "target": "d2_t1_s"
+    },
+    {
+      "source": "d2_t1_s",
+      "target": "d2_t1_s_1"
+    },
+    {
+      "source": "d2_t1_s",
+      "target": "d2_t1_s_2"
+    },
+    {
+      "source": "d2_t1_s",
+      "target": "d2_t1_s_3"
+    },
+    {
+      "source": "d2_t1_s",
+      "target": "d2_t1_s_4"
+    },
+    {
+      "source": "d2_t1_s",
+      "target": "d2_t1_s_5"
+    },
+    {
+      "source": "domain2",
+      "target": "d2_t2"
+    },
+    {
+      "source": "d2_t2",
+      "target": "d2_t2_k"
+    },
+    {
+      "source": "d2_t2_k",
+      "target": "d2_t2_k_1"
+    },
+    {
+      "source": "d2_t2_k",
+      "target": "d2_t2_k_2"
+    },
+    {
+      "source": "d2_t2_k",
+      "target": "d2_t2_k_3"
+    },
+    {
+      "source": "d2_t2",
+      "target": "d2_t2_s"
+    },
+    {
+      "source": "d2_t2_s",
+      "target": "d2_t2_s_1"
+    },
+    {
+      "source": "d2_t2_s",
+      "target": "d2_t2_s_2"
+    },
+    {
+      "source": "d2_t2_s",
+      "target": "d2_t2_s_3"
+    },
+    {
+      "source": "d2_t2_s",
+      "target": "d2_t2_s_4"
+    },
+    {
+      "source": "d2_t2_s",
+      "target": "d2_t2_s_5"
+    },
+    {
+      "source": "domain2",
+      "target": "d2_t3"
+    },
+    {
+      "source": "d2_t3",
+      "target": "d2_t3_k"
+    },
+    {
+      "source": "d2_t3_k",
+      "target": "d2_t3_k_1"
+    },
+    {
+      "source": "d2_t3_k",
+      "target": "d2_t3_k_2"
+    },
+    {
+      "source": "d2_t3_k",
+      "target": "d2_t3_k_3"
+    },
+    {
+      "source": "d2_t3_k",
+      "target": "d2_t3_k_4"
+    },
+    {
+      "source": "d2_t3_k",
+      "target": "d2_t3_k_5"
+    },
+    {
+      "source": "d2_t3",
+      "target": "d2_t3_s"
+    },
+    {
+      "source": "d2_t3_s",
+      "target": "d2_t3_s_1"
+    },
+    {
+      "source": "d2_t3_s",
+      "target": "d2_t3_s_2"
+    },
+    {
+      "source": "d2_t3_s",
+      "target": "d2_t3_s_3"
+    },
+    {
+      "source": "d2_t3_s",
+      "target": "d2_t3_s_4"
+    },
+    {
+      "source": "domain2",
+      "target": "d2_t4"
+    },
+    {
+      "source": "d2_t4",
+      "target": "d2_t4_k"
+    },
+    {
+      "source": "d2_t4_k",
+      "target": "d2_t4_k_1"
+    },
+    {
+      "source": "d2_t4_k",
+      "target": "d2_t4_k_2"
+    },
+    {
+      "source": "d2_t4_k",
+      "target": "d2_t4_k_3"
+    },
+    {
+      "source": "d2_t4_k",
+      "target": "d2_t4_k_4"
+    },
+    {
+      "source": "d2_t4_k",
+      "target": "d2_t4_k_5"
+    },
+    {
+      "source": "d2_t4",
+      "target": "d2_t4_s"
+    },
+    {
+      "source": "d2_t4_s",
+      "target": "d2_t4_s_1"
+    },
+    {
+      "source": "d2_t4_s",
+      "target": "d2_t4_s_2"
+    },
+    {
+      "source": "d2_t4_s",
+      "target": "d2_t4_s_3"
+    },
+    {
+      "source": "d2_t4_s",
+      "target": "d2_t4_s_4"
+    },
+    {
+      "source": "domain3",
+      "target": "d3_t1"
+    },
+    {
+      "source": "d3_t1",
+      "target": "d3_t1_k"
+    },
+    {
+      "source": "d3_t1_k",
+      "target": "d3_t1_k_1"
+    },
+    {
+      "source": "d3_t1_k",
+      "target": "d3_t1_k_2"
+    },
+    {
+      "source": "d3_t1_k",
+      "target": "d3_t1_k_3"
+    },
+    {
+      "source": "d3_t1",
+      "target": "d3_t1_s"
+    },
+    {
+      "source": "d3_t1_s",
+      "target": "d3_t1_s_1"
+    },
+    {
+      "source": "d3_t1_s",
+      "target": "d3_t1_s_2"
+    },
+    {
+      "source": "d3_t1_s",
+      "target": "d3_t1_s_3"
+    },
+    {
+      "source": "d3_t1_s",
+      "target": "d3_t1_s_4"
+    },
+    {
+      "source": "d3_t1_s",
+      "target": "d3_t1_s_5"
+    },
+    {
+      "source": "d3_t1_s",
+      "target": "d3_t1_s_6"
+    },
+    {
+      "source": "d3_t1_s",
+      "target": "d3_t1_s_7"
+    },
+    {
+      "source": "d3_t1_s",
+      "target": "d3_t1_s_8"
+    },
+    {
+      "source": "d3_t1_s",
+      "target": "d3_t1_s_9"
+    },
+    {
+      "source": "domain3",
+      "target": "d3_t2"
+    },
+    {
+      "source": "d3_t2",
+      "target": "d3_t2_k"
+    },
+    {
+      "source": "d3_t2_k",
+      "target": "d3_t2_k_1"
+    },
+    {
+      "source": "d3_t2_k",
+      "target": "d3_t2_k_2"
+    },
+    {
+      "source": "d3_t2_k",
+      "target": "d3_t2_k_3"
+    },
+    {
+      "source": "d3_t2_k",
+      "target": "d3_t2_k_4"
+    },
+    {
+      "source": "d3_t2_k",
+      "target": "d3_t2_k_5"
+    },
+    {
+      "source": "d3_t2",
+      "target": "d3_t2_s"
+    },
+    {
+      "source": "d3_t2_s",
+      "target": "d3_t2_s_1"
+    },
+    {
+      "source": "d3_t2_s",
+      "target": "d3_t2_s_2"
+    },
+    {
+      "source": "d3_t2_s",
+      "target": "d3_t2_s_3"
+    },
+    {
+      "source": "d3_t2_s",
+      "target": "d3_t2_s_4"
+    },
+    {
+      "source": "domain3",
+      "target": "d3_t3"
+    },
+    {
+      "source": "d3_t3",
+      "target": "d3_t3_k"
+    },
+    {
+      "source": "d3_t3_k",
+      "target": "d3_t3_k_1"
+    },
+    {
+      "source": "d3_t3_k",
+      "target": "d3_t3_k_2"
+    },
+    {
+      "source": "d3_t3_k",
+      "target": "d3_t3_k_3"
+    },
+    {
+      "source": "d3_t3_k",
+      "target": "d3_t3_k_4"
+    },
+    {
+      "source": "d3_t3",
+      "target": "d3_t3_s"
+    },
+    {
+      "source": "d3_t3_s",
+      "target": "d3_t3_s_1"
+    },
+    {
+      "source": "d3_t3_s",
+      "target": "d3_t3_s_2"
+    },
+    {
+      "source": "d3_t3_s",
+      "target": "d3_t3_s_3"
+    },
+    {
+      "source": "d3_t3_s",
+      "target": "d3_t3_s_4"
+    },
+    {
+      "source": "d3_t3_s",
+      "target": "d3_t3_s_5"
+    },
+    {
+      "source": "d3_t3_s",
+      "target": "d3_t3_s_6"
+    },
+    {
+      "source": "d3_t3_s",
+      "target": "d3_t3_s_7"
+    },
+    {
+      "source": "d3_t3_s",
+      "target": "d3_t3_s_8"
+    },
+    {
+      "source": "domain3",
+      "target": "d3_t4"
+    },
+    {
+      "source": "d3_t4",
+      "target": "d3_t4_k"
+    },
+    {
+      "source": "d3_t4_k",
+      "target": "d3_t4_k_1"
+    },
+    {
+      "source": "d3_t4_k",
+      "target": "d3_t4_k_2"
+    },
+    {
+      "source": "d3_t4_k",
+      "target": "d3_t4_k_3"
+    },
+    {
+      "source": "d3_t4_k",
+      "target": "d3_t4_k_4"
+    },
+    {
+      "source": "d3_t4",
+      "target": "d3_t4_s"
+    },
+    {
+      "source": "d3_t4_s",
+      "target": "d3_t4_s_1"
+    },
+    {
+      "source": "d3_t4_s",
+      "target": "d3_t4_s_2"
+    },
+    {
+      "source": "d3_t4_s",
+      "target": "d3_t4_s_3"
+    },
+    {
+      "source": "domain4",
+      "target": "d4_t1"
+    },
+    {
+      "source": "d4_t1",
+      "target": "d4_t1_k"
+    },
+    {
+      "source": "d4_t1_k",
+      "target": "d4_t1_k_1"
+    },
+    {
+      "source": "d4_t1_k",
+      "target": "d4_t1_k_2"
+    },
+    {
+      "source": "d4_t1_k",
+      "target": "d4_t1_k_3"
+    },
+    {
+      "source": "d4_t1_k",
+      "target": "d4_t1_k_4"
+    },
+    {
+      "source": "d4_t1",
+      "target": "d4_t1_s"
+    },
+    {
+      "source": "d4_t1_s",
+      "target": "d4_t1_s_1"
+    },
+    {
+      "source": "d4_t1_s",
+      "target": "d4_t1_s_2"
+    },
+    {
+      "source": "d4_t1_s",
+      "target": "d4_t1_s_3"
+    },
+    {
+      "source": "d4_t1_s",
+      "target": "d4_t1_s_4"
+    },
+    {
+      "source": "d4_t1_s",
+      "target": "d4_t1_s_5"
+    },
+    {
+      "source": "domain4",
+      "target": "d4_t2"
+    },
+    {
+      "source": "d4_t2",
+      "target": "d4_t2_k"
+    },
+    {
+      "source": "d4_t2_k",
+      "target": "d4_t2_k_1"
+    },
+    {
+      "source": "d4_t2_k",
+      "target": "d4_t2_k_2"
+    },
+    {
+      "source": "d4_t2_k",
+      "target": "d4_t2_k_3"
+    },
+    {
+      "source": "d4_t2_k",
+      "target": "d4_t2_k_4"
+    },
+    {
+      "source": "d4_t2",
+      "target": "d4_t2_s"
+    },
+    {
+      "source": "d4_t2_s",
+      "target": "d4_t2_s_1"
+    },
+    {
+      "source": "d4_t2_s",
+      "target": "d4_t2_s_2"
+    },
+    {
+      "source": "d4_t2_s",
+      "target": "d4_t2_s_3"
+    },
+    {
+      "source": "d4_t2_s",
+      "target": "d4_t2_s_4"
+    },
+    {
+      "source": "domain4",
+      "target": "d4_t3"
+    },
+    {
+      "source": "d4_t3",
+      "target": "d4_t3_k"
+    },
+    {
+      "source": "d4_t3_k",
+      "target": "d4_t3_k_1"
+    },
+    {
+      "source": "d4_t3_k",
+      "target": "d4_t3_k_2"
+    },
+    {
+      "source": "d4_t3_k",
+      "target": "d4_t3_k_3"
+    },
+    {
+      "source": "d4_t3_k",
+      "target": "d4_t3_k_4"
+    },
+    {
+      "source": "d4_t3",
+      "target": "d4_t3_s"
+    },
+    {
+      "source": "d4_t3_s",
+      "target": "d4_t3_s_1"
+    },
+    {
+      "source": "d4_t3_s",
+      "target": "d4_t3_s_2"
+    },
+    {
+      "source": "d4_t3_s",
+      "target": "d4_t3_s_3"
+    },
+    {
+      "source": "d4_t3_s",
+      "target": "d4_t3_s_4"
+    },
+    {
+      "source": "domain4",
+      "target": "d4_t4"
+    },
+    {
+      "source": "d4_t4",
+      "target": "d4_t4_k"
+    },
+    {
+      "source": "d4_t4_k",
+      "target": "d4_t4_k_1"
+    },
+    {
+      "source": "d4_t4_k",
+      "target": "d4_t4_k_2"
+    },
+    {
+      "source": "d4_t4_k",
+      "target": "d4_t4_k_3"
+    },
+    {
+      "source": "d4_t4",
+      "target": "d4_t4_s"
+    },
+    {
+      "source": "d4_t4_s",
+      "target": "d4_t4_s_1"
+    },
+    {
+      "source": "d4_t4_s",
+      "target": "d4_t4_s_2"
+    },
+    {
+      "source": "d4_t4_s",
+      "target": "d4_t4_s_3"
+    },
+    {
+      "source": "d4_t4_s",
+      "target": "d4_t4_s_4"
+    },
+    {
+      "source": "d4_t4_s",
+      "target": "d4_t4_s_5"
+    },
+    {
+      "source": "domain4",
+      "target": "d4_t5"
+    },
+    {
+      "source": "d4_t5",
+      "target": "d4_t5_k"
+    },
+    {
+      "source": "d4_t5_k",
+      "target": "d4_t5_k_1"
+    },
+    {
+      "source": "d4_t5_k",
+      "target": "d4_t5_k_2"
+    },
+    {
+      "source": "d4_t5",
+      "target": "d4_t5_s"
+    },
+    {
+      "source": "d4_t5_s",
+      "target": "d4_t5_s_1"
+    },
+    {
+      "source": "d4_t5_s",
+      "target": "d4_t5_s_2"
+    },
+    {
+      "source": "d4_t5_s",
+      "target": "d4_t5_s_3"
+    },
+    {
+      "source": "d4_t5_s",
+      "target": "d4_t5_s_4"
+    },
+    {
+      "source": "root",
+      "target": "appendix_in"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Analytics"
+    },
+    {
+      "source": "cat_Analytics",
+      "target": "cat_Analytics_svc_1"
+    },
+    {
+      "source": "cat_Analytics",
+      "target": "cat_Analytics_svc_2"
+    },
+    {
+      "source": "cat_Analytics",
+      "target": "cat_Analytics_svc_3"
+    },
+    {
+      "source": "cat_Analytics",
+      "target": "cat_Analytics_svc_4"
+    },
+    {
+      "source": "cat_Analytics",
+      "target": "cat_Analytics_svc_5"
+    },
+    {
+      "source": "cat_Analytics",
+      "target": "cat_Analytics_svc_6"
+    },
+    {
+      "source": "cat_Analytics",
+      "target": "cat_Analytics_svc_7"
+    },
+    {
+      "source": "cat_Analytics",
+      "target": "cat_Analytics_svc_8"
+    },
+    {
+      "source": "cat_Analytics",
+      "target": "cat_Analytics_svc_9"
+    },
+    {
+      "source": "cat_Analytics",
+      "target": "cat_Analytics_svc_10"
+    },
+    {
+      "source": "cat_Analytics",
+      "target": "cat_Analytics_svc_11"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Application_Integration"
+    },
+    {
+      "source": "cat_Application_Integration",
+      "target": "cat_Application_Integration_svc_1"
+    },
+    {
+      "source": "cat_Application_Integration",
+      "target": "cat_Application_Integration_svc_2"
+    },
+    {
+      "source": "cat_Application_Integration",
+      "target": "cat_Application_Integration_svc_3"
+    },
+    {
+      "source": "cat_Application_Integration",
+      "target": "cat_Application_Integration_svc_4"
+    },
+    {
+      "source": "cat_Application_Integration",
+      "target": "cat_Application_Integration_svc_5"
+    },
+    {
+      "source": "cat_Application_Integration",
+      "target": "cat_Application_Integration_svc_6"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Cloud_Financial_Management"
+    },
+    {
+      "source": "cat_Cloud_Financial_Management",
+      "target": "cat_Cloud_Financial_Management_svc_1"
+    },
+    {
+      "source": "cat_Cloud_Financial_Management",
+      "target": "cat_Cloud_Financial_Management_svc_2"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Compute"
+    },
+    {
+      "source": "cat_Compute",
+      "target": "cat_Compute_svc_1"
+    },
+    {
+      "source": "cat_Compute",
+      "target": "cat_Compute_svc_2"
+    },
+    {
+      "source": "cat_Compute",
+      "target": "cat_Compute_svc_3"
+    },
+    {
+      "source": "cat_Compute",
+      "target": "cat_Compute_svc_4"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Containers"
+    },
+    {
+      "source": "cat_Containers",
+      "target": "cat_Containers_svc_1"
+    },
+    {
+      "source": "cat_Containers",
+      "target": "cat_Containers_svc_2"
+    },
+    {
+      "source": "cat_Containers",
+      "target": "cat_Containers_svc_3"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Database"
+    },
+    {
+      "source": "cat_Database",
+      "target": "cat_Database_svc_1"
+    },
+    {
+      "source": "cat_Database",
+      "target": "cat_Database_svc_2"
+    },
+    {
+      "source": "cat_Database",
+      "target": "cat_Database_svc_3"
+    },
+    {
+      "source": "cat_Database",
+      "target": "cat_Database_svc_4"
+    },
+    {
+      "source": "cat_Database",
+      "target": "cat_Database_svc_5"
+    },
+    {
+      "source": "cat_Database",
+      "target": "cat_Database_svc_6"
+    },
+    {
+      "source": "cat_Database",
+      "target": "cat_Database_svc_7"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Developer_Tools"
+    },
+    {
+      "source": "cat_Developer_Tools",
+      "target": "cat_Developer_Tools_svc_1"
+    },
+    {
+      "source": "cat_Developer_Tools",
+      "target": "cat_Developer_Tools_svc_2"
+    },
+    {
+      "source": "cat_Developer_Tools",
+      "target": "cat_Developer_Tools_svc_3"
+    },
+    {
+      "source": "cat_Developer_Tools",
+      "target": "cat_Developer_Tools_svc_4"
+    },
+    {
+      "source": "cat_Developer_Tools",
+      "target": "cat_Developer_Tools_svc_5"
+    },
+    {
+      "source": "cat_Developer_Tools",
+      "target": "cat_Developer_Tools_svc_6"
+    },
+    {
+      "source": "cat_Developer_Tools",
+      "target": "cat_Developer_Tools_svc_7"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Frontend_Web_and_Mobile"
+    },
+    {
+      "source": "cat_Frontend_Web_and_Mobile",
+      "target": "cat_Frontend_Web_and_Mobile_svc_1"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Machine_Learning"
+    },
+    {
+      "source": "cat_Machine_Learning",
+      "target": "cat_Machine_Learning_svc_1"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Management_and_Governance"
+    },
+    {
+      "source": "cat_Management_and_Governance",
+      "target": "cat_Management_and_Governance_svc_1"
+    },
+    {
+      "source": "cat_Management_and_Governance",
+      "target": "cat_Management_and_Governance_svc_2"
+    },
+    {
+      "source": "cat_Management_and_Governance",
+      "target": "cat_Management_and_Governance_svc_3"
+    },
+    {
+      "source": "cat_Management_and_Governance",
+      "target": "cat_Management_and_Governance_svc_4"
+    },
+    {
+      "source": "cat_Management_and_Governance",
+      "target": "cat_Management_and_Governance_svc_5"
+    },
+    {
+      "source": "cat_Management_and_Governance",
+      "target": "cat_Management_and_Governance_svc_6"
+    },
+    {
+      "source": "cat_Management_and_Governance",
+      "target": "cat_Management_and_Governance_svc_7"
+    },
+    {
+      "source": "cat_Management_and_Governance",
+      "target": "cat_Management_and_Governance_svc_8"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Migration_and_Transfer"
+    },
+    {
+      "source": "cat_Migration_and_Transfer",
+      "target": "cat_Migration_and_Transfer_svc_1"
+    },
+    {
+      "source": "cat_Migration_and_Transfer",
+      "target": "cat_Migration_and_Transfer_svc_2"
+    },
+    {
+      "source": "cat_Migration_and_Transfer",
+      "target": "cat_Migration_and_Transfer_svc_3"
+    },
+    {
+      "source": "cat_Migration_and_Transfer",
+      "target": "cat_Migration_and_Transfer_svc_4"
+    },
+    {
+      "source": "cat_Migration_and_Transfer",
+      "target": "cat_Migration_and_Transfer_svc_5"
+    },
+    {
+      "source": "cat_Migration_and_Transfer",
+      "target": "cat_Migration_and_Transfer_svc_6"
+    },
+    {
+      "source": "cat_Migration_and_Transfer",
+      "target": "cat_Migration_and_Transfer_svc_7"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Networking_and_Content_Delivery"
+    },
+    {
+      "source": "cat_Networking_and_Content_Delivery",
+      "target": "cat_Networking_and_Content_Delivery_svc_1"
+    },
+    {
+      "source": "cat_Networking_and_Content_Delivery",
+      "target": "cat_Networking_and_Content_Delivery_svc_2"
+    },
+    {
+      "source": "cat_Networking_and_Content_Delivery",
+      "target": "cat_Networking_and_Content_Delivery_svc_3"
+    },
+    {
+      "source": "cat_Networking_and_Content_Delivery",
+      "target": "cat_Networking_and_Content_Delivery_svc_4"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Security_Identity_and_Compliance"
+    },
+    {
+      "source": "cat_Security_Identity_and_Compliance",
+      "target": "cat_Security_Identity_and_Compliance_svc_1"
+    },
+    {
+      "source": "cat_Security_Identity_and_Compliance",
+      "target": "cat_Security_Identity_and_Compliance_svc_2"
+    },
+    {
+      "source": "cat_Security_Identity_and_Compliance",
+      "target": "cat_Security_Identity_and_Compliance_svc_3"
+    },
+    {
+      "source": "cat_Security_Identity_and_Compliance",
+      "target": "cat_Security_Identity_and_Compliance_svc_4"
+    },
+    {
+      "source": "cat_Security_Identity_and_Compliance",
+      "target": "cat_Security_Identity_and_Compliance_svc_5"
+    },
+    {
+      "source": "cat_Security_Identity_and_Compliance",
+      "target": "cat_Security_Identity_and_Compliance_svc_6"
+    },
+    {
+      "source": "appendix_in",
+      "target": "cat_Storage"
+    },
+    {
+      "source": "cat_Storage",
+      "target": "cat_Storage_svc_1"
+    },
+    {
+      "source": "cat_Storage",
+      "target": "cat_Storage_svc_2"
+    },
+    {
+      "source": "cat_Storage",
+      "target": "cat_Storage_svc_3"
+    },
+    {
+      "source": "cat_Storage",
+      "target": "cat_Storage_svc_4"
+    },
+    {
+      "source": "cat_Storage",
+      "target": "cat_Storage_svc_5"
+    },
+    {
+      "source": "root",
+      "target": "appendix_out"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Analytics"
+    },
+    {
+      "source": "oos_Analytics",
+      "target": "oos_Analytics_svc_1"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Business_Applications"
+    },
+    {
+      "source": "oos_Business_Applications",
+      "target": "oos_Business_Applications_svc_1"
+    },
+    {
+      "source": "oos_Business_Applications",
+      "target": "oos_Business_Applications_svc_2"
+    },
+    {
+      "source": "oos_Business_Applications",
+      "target": "oos_Business_Applications_svc_3"
+    },
+    {
+      "source": "oos_Business_Applications",
+      "target": "oos_Business_Applications_svc_4"
+    },
+    {
+      "source": "oos_Business_Applications",
+      "target": "oos_Business_Applications_svc_5"
+    },
+    {
+      "source": "oos_Business_Applications",
+      "target": "oos_Business_Applications_svc_6"
+    },
+    {
+      "source": "oos_Business_Applications",
+      "target": "oos_Business_Applications_svc_7"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Compute"
+    },
+    {
+      "source": "oos_Compute",
+      "target": "oos_Compute_svc_1"
+    },
+    {
+      "source": "oos_Compute",
+      "target": "oos_Compute_svc_2"
+    },
+    {
+      "source": "oos_Compute",
+      "target": "oos_Compute_svc_3"
+    },
+    {
+      "source": "oos_Compute",
+      "target": "oos_Compute_svc_4"
+    },
+    {
+      "source": "oos_Compute",
+      "target": "oos_Compute_svc_5"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Containers"
+    },
+    {
+      "source": "oos_Containers",
+      "target": "oos_Containers_svc_1"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Database"
+    },
+    {
+      "source": "oos_Database",
+      "target": "oos_Database_svc_1"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Developer_Tools"
+    },
+    {
+      "source": "oos_Developer_Tools",
+      "target": "oos_Developer_Tools_svc_1"
+    },
+    {
+      "source": "oos_Developer_Tools",
+      "target": "oos_Developer_Tools_svc_2"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Frontend_Web_and_Mobile"
+    },
+    {
+      "source": "oos_Frontend_Web_and_Mobile",
+      "target": "oos_Frontend_Web_and_Mobile_svc_1"
+    },
+    {
+      "source": "oos_Frontend_Web_and_Mobile",
+      "target": "oos_Frontend_Web_and_Mobile_svc_2"
+    },
+    {
+      "source": "oos_Frontend_Web_and_Mobile",
+      "target": "oos_Frontend_Web_and_Mobile_svc_3"
+    },
+    {
+      "source": "oos_Frontend_Web_and_Mobile",
+      "target": "oos_Frontend_Web_and_Mobile_svc_4"
+    },
+    {
+      "source": "oos_Frontend_Web_and_Mobile",
+      "target": "oos_Frontend_Web_and_Mobile_svc_5"
+    },
+    {
+      "source": "oos_Frontend_Web_and_Mobile",
+      "target": "oos_Frontend_Web_and_Mobile_svc_6"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Internet_of_Things_(IoT)"
+    },
+    {
+      "source": "oos_Internet_of_Things_(IoT)",
+      "target": "oos_Internet_of_Things_(IoT)_svc_1"
+    },
+    {
+      "source": "oos_Internet_of_Things_(IoT)",
+      "target": "oos_Internet_of_Things_(IoT)_svc_2"
+    },
+    {
+      "source": "oos_Internet_of_Things_(IoT)",
+      "target": "oos_Internet_of_Things_(IoT)_svc_3"
+    },
+    {
+      "source": "oos_Internet_of_Things_(IoT)",
+      "target": "oos_Internet_of_Things_(IoT)_svc_4"
+    },
+    {
+      "source": "oos_Internet_of_Things_(IoT)",
+      "target": "oos_Internet_of_Things_(IoT)_svc_5"
+    },
+    {
+      "source": "oos_Internet_of_Things_(IoT)",
+      "target": "oos_Internet_of_Things_(IoT)_svc_6"
+    },
+    {
+      "source": "oos_Internet_of_Things_(IoT)",
+      "target": "oos_Internet_of_Things_(IoT)_svc_7"
+    },
+    {
+      "source": "oos_Internet_of_Things_(IoT)",
+      "target": "oos_Internet_of_Things_(IoT)_svc_8"
+    },
+    {
+      "source": "oos_Internet_of_Things_(IoT)",
+      "target": "oos_Internet_of_Things_(IoT)_svc_9"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Machine_Learning"
+    },
+    {
+      "source": "oos_Machine_Learning",
+      "target": "oos_Machine_Learning_svc_1"
+    },
+    {
+      "source": "oos_Machine_Learning",
+      "target": "oos_Machine_Learning_svc_2"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Management_and_Governance"
+    },
+    {
+      "source": "oos_Management_and_Governance",
+      "target": "oos_Management_and_Governance_svc_1"
+    },
+    {
+      "source": "oos_Management_and_Governance",
+      "target": "oos_Management_and_Governance_svc_2"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Media_Services"
+    },
+    {
+      "source": "oos_Media_Services",
+      "target": "oos_Media_Services_svc_1"
+    },
+    {
+      "source": "oos_Media_Services",
+      "target": "oos_Media_Services_svc_2"
+    },
+    {
+      "source": "oos_Media_Services",
+      "target": "oos_Media_Services_svc_3"
+    },
+    {
+      "source": "oos_Media_Services",
+      "target": "oos_Media_Services_svc_4"
+    },
+    {
+      "source": "oos_Media_Services",
+      "target": "oos_Media_Services_svc_5"
+    },
+    {
+      "source": "oos_Media_Services",
+      "target": "oos_Media_Services_svc_6"
+    },
+    {
+      "source": "oos_Media_Services",
+      "target": "oos_Media_Services_svc_7"
+    },
+    {
+      "source": "oos_Media_Services",
+      "target": "oos_Media_Services_svc_8"
+    },
+    {
+      "source": "oos_Media_Services",
+      "target": "oos_Media_Services_svc_9"
+    },
+    {
+      "source": "oos_Media_Services",
+      "target": "oos_Media_Services_svc_10"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Migration_and_Transfer"
+    },
+    {
+      "source": "oos_Migration_and_Transfer",
+      "target": "oos_Migration_and_Transfer_svc_1"
+    },
+    {
+      "source": "oos_Migration_and_Transfer",
+      "target": "oos_Migration_and_Transfer_svc_2"
+    },
+    {
+      "source": "appendix_out",
+      "target": "oos_Storage"
+    },
+    {
+      "source": "oos_Storage",
+      "target": "oos_Storage_svc_1"
+    }
+  ]
+}
