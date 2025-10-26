@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import type { Node } from '../types/mindMap';
+import { fixOverlaps } from './simpleCollisionFix';
 
 export interface HierarchyNode {
   id: string;
@@ -15,19 +16,13 @@ export function createHierarchicalLayout(
   nodes: Map<string, Node>,
   width: number = 1600,
   height: number = 1200,
-  nodeWidth: number = 150,
-  nodeHeight: number = 50
+  _nodeWidth: number = 150, // Underscore prefix for unused
+  _nodeHeight: number = 50  // Underscore prefix for unused
 ): Map<string, { x: number; y: number }> {
   const positions = new Map<string, { x: number; y: number }>();
   
-  // Add safe margins for UI elements
-  const topMargin = 120;  // Space for toolbar and tooltip
-  const sideMargin = 50;   // General padding
-  const bottomMargin = 50;
-  
-  // Calculate usable area
-  const usableWidth = width - (2 * sideMargin);
-  const usableHeight = height - topMargin - bottomMargin;
+  // Minimal constraints - only avoid toolbar
+  const topMargin = 80;  // Space for toolbar
   
   // Convert nodes to hierarchy format
   const nodeArray = Array.from(nodes.values());
@@ -72,26 +67,41 @@ export function createHierarchicalLayout(
     hierarchyRoot = d3.hierarchy(virtualRoot);
   }
   
-  // Create tree layout using usable area
+  // Create tree layout with proper level spacing
   const treeLayout = d3.tree<HierarchyNode>()
-    .size([usableWidth, usableHeight])
-    .nodeSize([nodeWidth * 1.5, nodeHeight * 3]) // Add spacing between nodes
-    .separation((a, b) => a.parent === b.parent ? 1 : 1.5);
+    .size([width * 0.8, height - topMargin - 100]) // Use most of the canvas
+    .nodeSize([200, 140]) // Fixed spacing: 200px horizontal, 140px vertical
+    .separation((a, b) => a.parent === b.parent ? 1.2 : 1.8); // More separation between branches
   
   // Apply the layout
   treeLayout(hierarchyRoot);
   
-  // Extract positions (skip virtual root if it exists)
+  // Extract initial positions using full canvas (skip virtual root if it exists)
+  const initialPositions = new Map<string, { x: number; y: number }>();
   hierarchyRoot.each((node) => {
     if (node.data.id !== '__virtual_root__') {
-      positions.set(node.data.id, {
-        x: node.x! + sideMargin + usableWidth / 2, // Center horizontally in usable area
-        y: node.y! + topMargin // Position in safe area
+      initialPositions.set(node.data.id, {
+        x: node.x! + width / 2, // Center horizontally in full canvas
+        y: node.y! + topMargin  // Position below toolbar
       });
     }
   });
   
-  return positions;
+  // Apply collision detection to prevent overlaps
+  const collisionNodes = Array.from(initialPositions.entries()).map(([id, pos]) => ({
+    id,
+    x: pos.x,
+    y: pos.y
+  }));
+  
+  const collisionFreePositions = fixOverlaps(
+    collisionNodes,
+    60,  // Node radius
+    130, // Minimum distance
+    30   // Conservative iterations to preserve tree structure
+  );
+  
+  return collisionFreePositions;
 }
 
 export function applyHierarchicalLayout(

@@ -34,17 +34,12 @@ export function createForceDirectedLayout(
     target: link.target
   }));
 
-  // Add safe margins for UI elements
-  const topMargin = 120;
-  const sideMargin = 50;
-  const bottomMargin = 50;
-  
-  const usableWidth = width - (2 * sideMargin);
-  const usableHeight = height - topMargin - bottomMargin;
-  const centerX = sideMargin + usableWidth / 2;
-  const centerY = topMargin + usableHeight / 2;
+  // Use full canvas for physics simulation - only avoid toolbar
+  const topMargin = 80;  // Minimal space for toolbar
+  const centerX = width / 2;
+  const centerY = height / 2;
 
-  // Create simulation with forces
+  // Create simulation with forces - no artificial boundaries
   const simulation = d3.forceSimulation<ForceNode>(forceNodes)
     .force('link', d3.forceLink<ForceNode, ForceLink>(forceLinks)
       .id(d => d.id)
@@ -57,8 +52,16 @@ export function createForceDirectedLayout(
     .force('collision', d3.forceCollide()
       .radius(40) // Node collision radius
       .strength(0.7))
-    .force('x', d3.forceX(centerX).strength(0.1)) // Weak centering force
-    .force('y', d3.forceY(centerY).strength(0.1))
+    .force('x', d3.forceX(centerX).strength(0.05)) // Very weak centering to allow spread
+    .force('y', d3.forceY(centerY).strength(0.05)) // Very weak centering to allow spread
+    .force('toolbarAvoid', () => {
+      // Custom force to gently push nodes away from toolbar area
+      forceNodes.forEach(node => {
+        if (node.y && node.y < topMargin + 30) {
+          node.vy = (node.vy || 0) + 0.5; // Gentle downward push
+        }
+      });
+    })
     .alphaDecay(0.02) // Slower cooling
     .velocityDecay(0.4); // Some friction
 
@@ -69,18 +72,15 @@ export function createForceDirectedLayout(
     rootNode.fy = centerY;
   }
 
-  // Update positions callback
+  // Update positions callback - completely free physics simulation
   if (onUpdate) {
     simulation.on('tick', () => {
       const positions = new Map<string, { x: number; y: number }>();
       forceNodes.forEach(node => {
-        // Constrain nodes to usable area
-        const constrainedX = Math.max(sideMargin, Math.min(width - sideMargin, node.x || centerX));
-        const constrainedY = Math.max(topMargin, Math.min(height - bottomMargin, node.y || centerY));
-        
+        // Let physics run completely free - no hard constraints
         positions.set(node.id, { 
-          x: constrainedX, 
-          y: constrainedY 
+          x: node.x || centerX, 
+          y: node.y || centerY 
         });
       });
       onUpdate(positions);
