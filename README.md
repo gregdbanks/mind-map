@@ -2,6 +2,8 @@
 
 A visual tool for studying complex topics by connecting related concepts into coherent knowledge networks.
 
+> **Status**: CI/CD pipeline active and testing! 🚀
+
 ![ThoughtNet Demo](demo.gif)
 
 ## Overview
