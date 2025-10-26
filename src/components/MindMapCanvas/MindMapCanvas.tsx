@@ -864,6 +864,8 @@ export const MindMapCanvas: React.FC = () => {
         }}
         width="100%"
         height="100%"
+        role="img"
+        aria-label="Mind map canvas"
         style={{ 
           cursor: isPanMode ? (isDragging ? 'grabbing' : 'grab') : 'default', 
           display: 'block', 

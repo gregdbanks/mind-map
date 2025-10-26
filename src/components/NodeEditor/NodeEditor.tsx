@@ -21,8 +21,6 @@ export const NodeEditor: React.FC<NodeEditorProps> = ({
   const [text, setText] = useState(initialText);
   const inputRef = useRef<HTMLInputElement>(null);
   
-  // Debug CSS modules
-  console.log('NodeEditor styles object:', styles);
 
   useEffect(() => {
     // Focus and select all text when editor opens
@@ -57,14 +55,10 @@ export const NodeEditor: React.FC<NodeEditorProps> = ({
     pt.y = y;
     const screenPt = pt.matrixTransform(svgElement.getScreenCTM() || new DOMMatrix());
     
-    console.log('NodeEditor positioning:', {
-      svgCoords: { x, y },
-      screenCoords: { x: screenPt.x, y: screenPt.y },
-      className: styles.editorContainer
-    });
     
     return (
       <div 
+        className={styles.editorContainer}
         style={{
           position: 'fixed',
           zIndex: 10000,
@@ -81,17 +75,7 @@ export const NodeEditor: React.FC<NodeEditorProps> = ({
             onChange={(e) => setText(e.target.value)}
             onKeyDown={handleKeyDown}
             onBlur={handleSubmit}
-            style={{
-              padding: '8px 12px',
-              fontSize: '14px',
-              border: '2px solid #0066cc',
-              borderRadius: '4px',
-              background: 'white',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-              minWidth: '150px',
-              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-              outline: 'none',
-            }}
+            className={styles.input}
             placeholder="Enter node text..."
           />
         </form>

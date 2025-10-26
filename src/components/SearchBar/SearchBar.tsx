@@ -114,8 +114,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current && 
-        !dropdownRef.current.contains(event.target as Node) &&
-        !searchInputRef.current?.contains(event.target as Node)
+        !dropdownRef.current.contains(event.target as Element) &&
+        !searchInputRef.current?.contains(event.target as Element)
       ) {
         setIsDropdownOpen(false);
         setSelectedIndex(-1);

@@ -21,6 +21,7 @@ describe('MindMapNode', () => {
     onStartEdit: jest.fn(),
     onTextChange: jest.fn(),
     onToggleCollapse: jest.fn(),
+    onDelete: jest.fn(),
     hasChildren: false,
   };
 

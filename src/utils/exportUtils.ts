@@ -1,4 +1,4 @@
-import type { MindMapState, Node, Link } from '../types/mindMap';
+import type { MindMapState, Node } from '../types/mindMap';
 
 export const exportToJSON = (state: MindMapState): void => {
   const data = {

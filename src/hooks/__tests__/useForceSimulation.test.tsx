@@ -93,7 +93,7 @@ describe('useForceSimulation', () => {
 
     rerender({ nodes: newNodes });
 
-    expect(mockEngineInstance.updateNodes).toHaveBeenCalledWith(newNodes);
+    expect(mockEngineInstance.updateNodes).toHaveBeenCalledWith(newNodes, true);
   });
 
   it('should update engine when links change', () => {
@@ -114,7 +114,7 @@ describe('useForceSimulation', () => {
 
     rerender({ links: newLinks });
 
-    expect(mockEngineInstance.updateLinks).toHaveBeenCalledWith(newLinks);
+    expect(mockEngineInstance.updateLinks).toHaveBeenCalledWith(newLinks, true);
   });
 
   it('should handle drag operations', () => {

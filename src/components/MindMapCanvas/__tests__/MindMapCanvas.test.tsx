@@ -10,33 +10,63 @@ jest.mock('../../../hooks/useForceSimulation');
 jest.mock('../../../hooks/useMindMapPersistence');
 
 // Mock D3 to avoid SVG property errors in tests
-jest.mock('d3', () => ({
-  ...jest.requireActual('d3'),
-  select: jest.fn(() => ({
-    call: jest.fn(),
-    on: jest.fn(),
-    select: jest.fn(() => ({
-      selectAll: jest.fn(() => ({
-        data: jest.fn(() => ({
-          enter: jest.fn(() => ({
-            append: jest.fn(() => ({
-              attr: jest.fn(),
-            })),
-          })),
-          attr: jest.fn(),
-          exit: jest.fn(() => ({
-            remove: jest.fn(),
-          })),
-        })),
-      })),
-    })),
-  })),
-  zoom: jest.fn(() => ({
-    scaleExtent: jest.fn().mockReturnThis(),
+jest.mock('d3', () => {
+  const mockSelection: any = {
+    call: jest.fn().mockReturnThis(),
     on: jest.fn().mockReturnThis(),
-  })),
-  zoomTransform: jest.fn(() => ({ x: 0, y: 0, k: 1 })),
-}));
+    append: jest.fn().mockReturnThis(),
+    attr: jest.fn().mockReturnThis(),
+    style: jest.fn().mockReturnThis(),
+    text: jest.fn().mockReturnThis(),
+    transition: jest.fn().mockReturnThis(),
+    duration: jest.fn().mockReturnThis(),
+    ease: jest.fn().mockReturnThis(),
+    merge: jest.fn().mockReturnThis(),
+    each: jest.fn().mockReturnThis(),
+    node: jest.fn(() => ({ getBBox: () => ({ x: 0, y: 0, width: 100, height: 100 }) })),
+    select: jest.fn(() => mockSelection),
+    selectAll: jest.fn(() => ({
+      data: jest.fn(() => ({
+        enter: jest.fn(() => mockSelection),
+        exit: jest.fn(() => ({
+          remove: jest.fn().mockReturnThis(),
+          attr: jest.fn().mockReturnThis(),
+          style: jest.fn().mockReturnThis(),
+        })),
+        merge: jest.fn(() => mockSelection),
+        remove: jest.fn().mockReturnThis(),
+        attr: jest.fn().mockReturnThis(),
+        style: jest.fn().mockReturnThis(),
+        text: jest.fn().mockReturnThis(),
+        each: jest.fn().mockReturnThis(),
+        filter: jest.fn(() => mockSelection),
+      })),
+      attr: jest.fn().mockReturnThis(),
+      style: jest.fn().mockReturnThis(),
+      remove: jest.fn().mockReturnThis(),
+    })),
+  };
+
+  return {
+    ...jest.requireActual('d3'),
+    select: jest.fn(() => mockSelection),
+    zoom: jest.fn(() => ({
+      scaleExtent: jest.fn().mockReturnThis(),
+      filter: jest.fn().mockReturnThis(),
+      on: jest.fn().mockReturnThis(),
+      transform: jest.fn(),
+    })),
+    zoomTransform: jest.fn(() => ({ x: 0, y: 0, k: 1 })),
+    zoomIdentity: {
+      translate: jest.fn().mockReturnThis(),
+      scale: jest.fn().mockReturnThis(),
+    },
+    drag: jest.fn(() => ({
+      on: jest.fn().mockReturnThis(),
+    })),
+    easeCubicInOut: jest.fn(),
+  };
+});
 
 const mockUseForceSimulation = useForceSimulation as jest.MockedFunction<typeof useForceSimulation>;
 const mockUseMindMapPersistence = useMindMapPersistence as jest.MockedFunction<typeof useMindMapPersistence>;

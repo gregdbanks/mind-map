@@ -2,6 +2,16 @@ import { render, screen } from '@testing-library/react';
 import { MindMapBridge } from '../MindMapBridge';
 import type { MindMapState } from '../../../types/mindMap';
 
+// Mock the external component library that has D3 ESM issues
+jest.mock('@gbdev20053/simple-comp-ui', () => ({
+  MindMap: ({ data }: any) => (
+    <div data-testid="mind-map-component">
+      <div data-testid="nodes-count">{data?.nodes?.length || 0}</div>
+      <div data-testid="links-count">{data?.links?.length || 0}</div>
+    </div>
+  ),
+}));
+
 describe('MindMapBridge', () => {
   const mockState: MindMapState = {
     nodes: new Map([
@@ -38,10 +48,10 @@ describe('MindMapBridge', () => {
   });
 
   it('converts frontend state to component format correctly', () => {
-    const { container } = render(<MindMapBridge state={mockState} testMode={true} />);
+    render(<MindMapBridge state={mockState} testMode={true} />);
     
-    // Verify the component is rendered
-    expect(container.querySelector('svg')).toBeInTheDocument();
+    // Verify the component is rendered (using our mock)
+    expect(screen.getByTestId('mind-map-component')).toBeInTheDocument();
   });
 
   it('handles empty state gracefully', () => {
