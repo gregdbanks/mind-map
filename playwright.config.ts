@@ -28,6 +28,8 @@ export default defineConfig({
   webServer: {
     command: 'npm run dev',
     port: 3000,
+    // In CI, always start a fresh server to ensure a clean environment.
+    // Locally, reuse an existing server for faster feedback during development.
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
   },
