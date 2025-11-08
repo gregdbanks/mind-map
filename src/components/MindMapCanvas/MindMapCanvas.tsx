@@ -51,7 +51,19 @@ export const MindMapCanvas: React.FC = () => {
     stopEditing,
   } = useMindMap();
 
-  const { loading } = useMindMapPersistence();
+  const { loading: persistenceLoading } = useMindMapPersistence();
+  const [loadingTimeout, setLoadingTimeout] = useState(false);
+  
+  // Add timeout for loading state
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoadingTimeout(true);
+    }, 3000); // 3 second timeout
+    
+    return () => clearTimeout(timeout);
+  }, []);
+  
+  const loading = persistenceLoading && !loadingTimeout;
   const operations = useMindMapOperations();
 
   const handleImport = async (jsonText: string) => {

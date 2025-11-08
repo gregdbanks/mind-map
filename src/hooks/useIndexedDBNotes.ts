@@ -27,6 +27,15 @@ export function useIndexedDBNotes(): UseIndexedDBNotesReturn {
     
     const initDB = async () => {
       try {
+        // Check if IndexedDB is available
+        if (!window.indexedDB) {
+          if (isMounted) {
+            setError(new Error('IndexedDB not available'));
+            setLoading(false);
+          }
+          return;
+        }
+        
         const request = indexedDB.open(DB_NAME, DB_VERSION);
         
         request.onerror = () => {
