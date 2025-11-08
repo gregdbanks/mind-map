@@ -29,9 +29,16 @@ test('check for runtime errors and performance', async ({ page }) => {
   await page.goto('http://localhost:3000');
   await page.waitForTimeout(1000);
   
-  // Load demo map and wait
-  await page.click('button[title="Load Demo Map"]');
-  await page.waitForTimeout(2000);
+  // Create some nodes to test with
+  const rootNode = page.locator('[data-testid="mind-map-node"]').first();
+  await rootNode.hover();
+  
+  // Add multiple child nodes
+  for (let i = 0; i < 5; i++) {
+    await page.locator('[data-testid="add-child-button"]').first().click();
+    await page.waitForTimeout(200);
+  }
+  await page.waitForTimeout(1000);
   
   // Check performance
   const performanceMetrics = await page.evaluate(() => {

@@ -1,11 +1,20 @@
 .searchContainer {
   position: fixed;
-  top: 74px; /* Position below toolbar with more spacing */
+  top: 20px; /* Position at the top where tooltip used to be */
   left: 50%;
   transform: translateX(-50%);
   z-index: 9998; /* Just below toolbar's 9999 */
   width: 286px;
   max-width: calc(100vw - 40px);
+}
+
+/* Responsive positioning for larger screens */
+@media (min-width: 800px) {
+  .searchContainer {
+    left: auto;
+    right: 20px;
+    transform: none;
+  }
 }
 
 .searchInputWrapper {
