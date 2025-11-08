@@ -17,7 +17,6 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [db, setDb] = useState<IDBDatabase | null>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
 
   // Initialize database connection
   useEffect(() => {

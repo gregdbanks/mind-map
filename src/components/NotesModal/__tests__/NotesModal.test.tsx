@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { NotesModal } from '../NotesModal';
@@ -5,18 +6,31 @@ import type { NodeNote } from '../../../types';
 
 // Mock the RichTextEditor component
 jest.mock('../../RichTextEditor', () => ({
-  RichTextEditor: ({ onChange, content, contentType }: any) => {
-    // Simulate how the RichTextEditor handles content
-    const textValue = contentType === 'tiptap' && typeof content === 'object' 
-      ? content?.content?.[0]?.content?.[0]?.text || ''
-      : content || '';
+  RichTextEditor: ({ onChange, content, contentType, placeholder }: any) => {
+    const [localContent, setLocalContent] = React.useState('');
+
+    React.useEffect(() => {
+      // Initialize content based on type
+      if (contentType === 'tiptap' && typeof content === 'object') {
+        setLocalContent(content?.content?.[0]?.content?.[0]?.text || '');
+      } else if (typeof content === 'string') {
+        setLocalContent(content.replace(/<[^>]*>/g, ''));
+      } else {
+        setLocalContent(content || '');
+      }
+    }, [content, contentType]);
       
     return (
       <div data-testid="rich-text-editor">
         <textarea
           data-testid="editor-textarea"
-          value={textValue}
-          onChange={(e) => onChange({}, e.target.value, e.target.value)}
+          placeholder={placeholder}
+          value={localContent}
+          onChange={(e) => {
+            const newValue = e.target.value;
+            setLocalContent(newValue);
+            onChange({}, newValue, newValue);
+          }}
         />
       </div>
     );
@@ -46,7 +60,20 @@ describe('NotesModal', () => {
     id: 'note-1',
     nodeId: 'test-node',
     content: '<p>Existing note content</p>',
-    contentJson: { type: 'doc', content: [] },
+    contentJson: { 
+      type: 'doc', 
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Existing note content'
+            }
+          ]
+        }
+      ]
+    },
     contentType: 'tiptap',
     plainText: 'Existing note content',
     tags: [],
@@ -85,7 +112,8 @@ describe('NotesModal', () => {
       );
       
       expect(screen.getByText('Delete Note')).toBeInTheDocument();
-      expect(screen.getByTestId('editor-textarea')).toHaveValue(mockExistingNote.content);
+      // The mock strips HTML tags, so we expect plain text
+      expect(screen.getByTestId('editor-textarea')).toHaveValue('Existing note content');
     });
   });
 
@@ -95,7 +123,9 @@ describe('NotesModal', () => {
       render(<NotesModal {...defaultProps} />);
       
       const textarea = screen.getByTestId('editor-textarea');
-      await user.type(textarea, 'New note content');
+      
+      // Use fireEvent for more direct control
+      fireEvent.change(textarea, { target: { value: 'New note content' } });
       
       const saveButton = screen.getByText('Save Note');
       await user.click(saveButton);
@@ -213,6 +243,20 @@ describe('NotesModal', () => {
       const newNote: NodeNote = {
         ...mockExistingNote,
         content: '<p>Updated content</p>',
+        contentJson: { 
+          type: 'doc', 
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Updated content'
+                }
+              ]
+            }
+          ]
+        },
       };
       
       rerender(
@@ -223,7 +267,8 @@ describe('NotesModal', () => {
         />
       );
       
-      expect(screen.getByTestId('editor-textarea')).toHaveValue(newNote.content);
+      // The mock strips HTML tags, so we expect plain text
+      expect(screen.getByTestId('editor-textarea')).toHaveValue('Updated content');
     });
 
     it('should track changes state correctly', async () => {
