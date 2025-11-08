@@ -57,7 +57,21 @@ export function useMindMapPersistence() {
         await save(mindMapData);
         lastSavedRef.current = new Date();
       } catch (err) {
-        console.error('Failed to save mind map:', err);
+        // Only log error if it's not about initialization
+        if (err instanceof Error && err.message !== 'Database not initialized') {
+          console.error('Failed to save mind map:', err);
+        }
+        // If database not initialized, retry after a short delay
+        if (err instanceof Error && err.message === 'Database not initialized') {
+          setTimeout(async () => {
+            try {
+              await save(mindMapData);
+              lastSavedRef.current = new Date();
+            } catch (retryErr) {
+              console.error('Failed to save mind map after retry:', retryErr);
+            }
+          }, 500);
+        }
       }
     }, AUTOSAVE_DELAY);
 

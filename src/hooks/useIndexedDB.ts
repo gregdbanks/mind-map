@@ -17,6 +17,7 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [db, setDb] = useState<IDBDatabase | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // Initialize database connection
   useEffect(() => {
@@ -123,7 +124,8 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
 
   const save = useCallback(async (newData: T): Promise<void> => {
     if (!db) {
-      throw new Error('Database not initialized');
+      // Return a rejected promise instead of throwing immediately
+      return Promise.reject(new Error('Database not initialized'));
     }
     
     return new Promise((resolve, reject) => {
@@ -139,6 +141,14 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
         
         request.onerror = () => {
           reject(new Error('Failed to save data to IndexedDB'));
+        };
+        
+        transaction.onerror = () => {
+          reject(new Error('Transaction failed'));
+        };
+        
+        transaction.onabort = () => {
+          reject(new Error('Transaction aborted'));
         };
       } catch (err) {
         reject(err);
