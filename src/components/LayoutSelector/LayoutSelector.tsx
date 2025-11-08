@@ -1,15 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './LayoutSelector.module.css';
 
-export type LayoutType = 'improved-cluster' | 'hierarchical' | 'hybrid-tree' | 'cluster' | 'force-directed';
+export type LayoutType = 'custom' | 'improved-cluster' | 'hierarchical' | 'hybrid-tree' | 'cluster' | 'force-directed';
 
 interface LayoutSelectorProps {
   currentLayout: LayoutType;
   onLayoutChange: (layout: LayoutType) => void;
   disabled?: boolean;
+  hasCustomPositions?: boolean;
 }
 
 const layoutOptions = [
+  {
+    type: 'custom' as LayoutType,
+    name: 'Custom',
+    description: 'Original positions from imported data'
+  },
   {
     type: 'improved-cluster' as LayoutType,
     name: 'Smart Radial',
@@ -40,7 +46,8 @@ const layoutOptions = [
 export const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   currentLayout,
   onLayoutChange,
-  disabled = false
+  disabled = false,
+  hasCustomPositions = false
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -101,7 +108,9 @@ export const LayoutSelector: React.FC<LayoutSelectorProps> = ({
 
       {isOpen && (
         <div ref={dropdownRef} className={styles.dropdown}>
-          {layoutOptions.map((option) => (
+          {layoutOptions
+            .filter(option => option.type !== 'custom' || hasCustomPositions)
+            .map((option) => (
             <button
               key={option.type}
               className={`${styles.dropdownItem} ${
