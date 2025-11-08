@@ -15,6 +15,7 @@ import { SearchBar } from '../SearchBar';
 import { LayoutSelector, type LayoutType } from '../LayoutSelector';
 import { layoutManager, savePreferredLayout, loadPreferredLayout } from '../../utils/layoutManager';
 import type { ForceNode, ForceLink } from '../../utils/forceDirectedLayout';
+import { getAllConnectedNodes } from '../../utils/getNodeDescendants';
 import styles from './MindMapCanvas.module.css';
 
 export const MindMapCanvas: React.FC = () => {
@@ -30,6 +31,7 @@ export const MindMapCanvas: React.FC = () => {
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [searchHighlightNodeId, setSearchHighlightNodeId] = useState<string | null>(null);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
+  const [lockedHighlightNodeId, setLockedHighlightNodeId] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isPanMode, setIsPanMode] = useState(false);
 
@@ -554,6 +556,12 @@ export const MindMapCanvas: React.FC = () => {
     // Event handlers
     nodeUpdate.on('click', (event: MouseEvent, d: Node) => {
       event.stopPropagation();
+      // Toggle locked highlight state
+      if (lockedHighlightNodeId === d.id) {
+        setLockedHighlightNodeId(null);
+      } else {
+        setLockedHighlightNodeId(d.id);
+      }
       selectNode(d.id);
     });
 
@@ -566,10 +574,10 @@ export const MindMapCanvas: React.FC = () => {
     // These work better with drag interactions
     nodeUpdate
       .on('mouseover.hover', function(_event: MouseEvent, d: Node) {
-        // Only set hover if not currently dragging or editing
+        // Always set hover if not dragging or editing
         if (!isDragging && !state.editingNodeId) {
           setHoveredNodeId(d.id);
-          // Show action buttons for this node
+          // Always show action buttons on hover
           d3.select(this).select('.node-actions')
             .transition()
             .duration(200)
@@ -579,7 +587,7 @@ export const MindMapCanvas: React.FC = () => {
       .on('mouseout.hover', function(_event: MouseEvent, _d: Node) {
         if (!isDragging) {
           setHoveredNodeId(null);
-          // Hide action buttons
+          // Always hide action buttons on mouse out
           d3.select(this).select('.node-actions')
             .transition()
             .duration(200)
@@ -649,15 +657,18 @@ export const MindMapCanvas: React.FC = () => {
     }
   }, [state.editingNodeId]);
 
-  // Apply hover effects based on hoveredNodeId
+  // Apply hover/locked highlight effects
   useEffect(() => {
     if (!gRef.current) return;
     
     const g = gRef.current;
     const nodeDepths = calculateNodeDepths(state.nodes);
     
-    if (!hoveredNodeId) {
-      // Reset styles when not hovering
+    // Use locked node if set, otherwise use hovered node
+    const highlightNodeId = lockedHighlightNodeId || hoveredNodeId;
+    
+    if (!highlightNodeId) {
+      // Reset styles when not highlighting
       g.selectAll('.node').style('opacity', 1);
       g.selectAll('.link')
         .style('opacity', 1)
@@ -670,22 +681,22 @@ export const MindMapCanvas: React.FC = () => {
       return;
     }
     
-    // Find connected nodes
-    const connectedNodeIds = new Set<string>();
-    connectedNodeIds.add(hoveredNodeId);
-    
+    // Get all connected nodes including all descendants
+    const connectedNodeIds = getAllConnectedNodes(highlightNodeId, state.nodes);
+
+    // Create a set of all links that should be highlighted
+    const highlightedLinks = new Set<string>();
     links.forEach(link => {
       const sourceId = typeof link.source === 'string' ? link.source : (link.source as any).id;
       const targetId = typeof link.target === 'string' ? link.target : (link.target as any).id;
       
-      if (sourceId === hoveredNodeId) {
-        connectedNodeIds.add(targetId);
-      } else if (targetId === hoveredNodeId) {
-        connectedNodeIds.add(sourceId);
+      // Highlight links between any connected nodes
+      if (connectedNodeIds.has(sourceId) && connectedNodeIds.has(targetId)) {
+        highlightedLinks.add(`${sourceId}-${targetId}`);
       }
     });
 
-    // Apply hover styles
+    // Apply highlight styles
     g.selectAll<SVGGElement, Node>('.node')
       .style('opacity', (d: Node) => connectedNodeIds.has(d.id) ? 1 : 0.3);
     
@@ -693,12 +704,14 @@ export const MindMapCanvas: React.FC = () => {
       .style('opacity', (d: Link) => {
         const sourceId = typeof d.source === 'string' ? d.source : (d.source as any).id;
         const targetId = typeof d.target === 'string' ? d.target : (d.target as any).id;
-        return (sourceId === hoveredNodeId || targetId === hoveredNodeId) ? 1 : 0.2;
+        const linkKey = `${sourceId}-${targetId}`;
+        return highlightedLinks.has(linkKey) ? 1 : 0.2;
       })
       .attr('stroke', (d: Link) => {
         const sourceId = typeof d.source === 'string' ? d.source : (d.source as any).id;
         const targetId = typeof d.target === 'string' ? d.target : (d.target as any).id;
-        return (sourceId === hoveredNodeId || targetId === hoveredNodeId) ? '#0066cc' : '#999';
+        const linkKey = `${sourceId}-${targetId}`;
+        return highlightedLinks.has(linkKey) ? '#0066cc' : '#999';
       })
       .attr('stroke-width', (d: Link) => {
         const sourceId = typeof d.source === 'string' ? d.source : (d.source as any).id;
@@ -706,9 +719,10 @@ export const MindMapCanvas: React.FC = () => {
         const sourceDepth = nodeDepths.get(sourceId) || 0;
         const targetDepth = nodeDepths.get(targetId) || 0;
         const baseWidth = getLinkVisualProperties(sourceDepth, targetDepth).strokeWidth;
-        return (sourceId === hoveredNodeId || targetId === hoveredNodeId) ? baseWidth + 2 : baseWidth;
+        const linkKey = `${sourceId}-${targetId}`;
+        return highlightedLinks.has(linkKey) ? baseWidth + 2 : baseWidth;
       });
-  }, [hoveredNodeId, links, state.nodes]);
+  }, [hoveredNodeId, lockedHighlightNodeId, links, state.nodes]);
 
   // Handle canvas interactions
   useEffect(() => {
@@ -719,6 +733,7 @@ export const MindMapCanvas: React.FC = () => {
     const handleClick = function(event: MouseEvent) {
       if (event.target === svgRef.current) {
         selectNode(null);
+        setLockedHighlightNodeId(null);
       }
     };
 
@@ -734,8 +749,13 @@ export const MindMapCanvas: React.FC = () => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (state.editingNodeId) return;
 
-      // Handle spacebar for pan mode
-      if (e.code === 'Space' && !isPanMode) {
+      // Check if any input element is focused
+      const activeElement = document.activeElement;
+      const isInputFocused = activeElement instanceof HTMLInputElement || 
+                             activeElement instanceof HTMLTextAreaElement;
+
+      // Handle spacebar for pan mode only if no input is focused
+      if (e.code === 'Space' && !isPanMode && !isInputFocused) {
         e.preventDefault();
         setIsPanMode(true);
         return;
