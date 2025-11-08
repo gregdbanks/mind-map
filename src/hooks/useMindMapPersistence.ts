@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useMindMap } from '../context/MindMapContext';
 import { useIndexedDB } from './useIndexedDB';
 import type { MindMap, Node } from '../types/mindMap';
+import { demoNodes, demoLinks } from '../data/demoMindMap';
 
 const AUTOSAVE_DELAY = 500; // milliseconds
 const STORAGE_KEY = 'mindmap-default';
@@ -11,6 +12,7 @@ export function useMindMapPersistence() {
   const { data, save, loading, error } = useIndexedDB<MindMap>(STORAGE_KEY);
   const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastSavedRef = useRef<Date>(new Date());
+  const hasLoadedRef = useRef(false);
   
   // If IndexedDB fails completely, just continue without persistence
   const isIndexedDBError = error && (
@@ -18,18 +20,28 @@ export function useMindMapPersistence() {
     error.message.includes('Failed to execute \'transaction\'')
   );
 
-  // Load data from IndexedDB on mount
+  // Load data from IndexedDB on mount, or demo data if no saved data
   useEffect(() => {
-    if (!loading && data && data.nodes.length > 0) {
-      // Convert array to Map for nodes
-      const nodes = data.nodes;
+    if (!loading && !hasLoadedRef.current) {
+      hasLoadedRef.current = true;
       
-      dispatch({
-        type: 'LOAD_MINDMAP',
-        payload: { nodes, links: data.links }
-      });
-      
-      lastSavedRef.current = new Date(data.lastModified);
+      if (data && data.nodes.length > 0) {
+        // Convert array to Map for nodes
+        const nodes = data.nodes;
+        
+        dispatch({
+          type: 'LOAD_MINDMAP',
+          payload: { nodes, links: data.links }
+        });
+        
+        lastSavedRef.current = new Date(data.lastModified);
+      } else {
+        // No saved data, load demo
+        dispatch({
+          type: 'LOAD_MINDMAP',
+          payload: { nodes: demoNodes, links: demoLinks }
+        });
+      }
     }
   }, [loading, data, dispatch]);
 

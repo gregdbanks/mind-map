@@ -1113,7 +1113,7 @@ export const MindMapCanvas: React.FC = () => {
         {nodes.length === 0 && (
         <div className={styles.instructions}>
           <h2>Welcome to ThoughtNet!</h2>
-          <p><strong>Load Demo Map</strong> to get started, or create nodes using the <strong>+ button</strong> on existing nodes</p>
+          <p>Loading demo mind map...</p>
         </div>
       )}
 
