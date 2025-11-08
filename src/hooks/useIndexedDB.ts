@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
 const DB_NAME = 'MindMapDB';
-const DB_VERSION = 1;
+const DB_VERSION = 2; // Must match the version in useIndexedDBNotes
 const STORE_NAME = 'mindmaps';
 
 export interface UseIndexedDBReturn<T> {
@@ -24,6 +24,15 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
     
     const initDB = async () => {
       try {
+        // Check if IndexedDB is available
+        if (!window.indexedDB) {
+          if (isMounted) {
+            setError(new Error('IndexedDB not available'));
+            setLoading(false);
+          }
+          return;
+        }
+        
         const request = indexedDB.open(DB_NAME, DB_VERSION);
         
         request.onerror = () => {
@@ -72,8 +81,18 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
         
         request.onupgradeneeded = (event) => {
           const database = (event.target as IDBOpenDBRequest).result;
+          
+          // Create mindmaps store if it doesn't exist
           if (!database.objectStoreNames.contains(STORE_NAME)) {
             database.createObjectStore(STORE_NAME);
+          }
+          
+          // Create notes store if it doesn't exist (for compatibility with useIndexedDBNotes)
+          if (!database.objectStoreNames.contains('notes')) {
+            const notesStore = database.createObjectStore('notes', { keyPath: 'nodeId' });
+            notesStore.createIndex('createdAt', 'createdAt', { unique: false });
+            notesStore.createIndex('updatedAt', 'updatedAt', { unique: false });
+            notesStore.createIndex('isPinned', 'isPinned', { unique: false });
           }
         };
       } catch (err) {
@@ -123,7 +142,8 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
 
   const save = useCallback(async (newData: T): Promise<void> => {
     if (!db) {
-      throw new Error('Database not initialized');
+      // Return a rejected promise instead of throwing immediately
+      return Promise.reject(new Error('Database not initialized'));
     }
     
     return new Promise((resolve, reject) => {
@@ -140,11 +160,19 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
         request.onerror = () => {
           reject(new Error('Failed to save data to IndexedDB'));
         };
+        
+        transaction.onerror = () => {
+          reject(new Error('Transaction failed'));
+        };
+        
+        transaction.onabort = () => {
+          reject(new Error('Transaction aborted'));
+        };
       } catch (err) {
         reject(err);
       }
     });
-  }, [db, key]);
+  }, [db, key, loading]);
 
   const remove = useCallback(async (): Promise<void> => {
     if (!db) {

@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { useMindMap } from '../../context/MindMapContext';
 import { useMindMapPersistence } from '../../hooks/useMindMapPersistence';
 import { useMindMapOperations } from '../../hooks/useMindMapOperations';
-import type { Node, Link } from '../../types/mindMap';
+import type { Node, Link } from '../../types';
 import { exportToJSON, importFromJSONText } from '../../utils/exportUtils';
 import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties } from '../../utils/nodeHierarchy';
 import { isAWSService } from '../../utils/awsServices';
@@ -15,6 +15,11 @@ import { SearchBar } from '../SearchBar';
 import { LayoutSelector, type LayoutType } from '../LayoutSelector';
 import { layoutManager, savePreferredLayout, loadPreferredLayout } from '../../utils/layoutManager';
 import type { ForceNode, ForceLink } from '../../utils/forceDirectedLayout';
+import { getAllConnectedNodes } from '../../utils/getNodeDescendants';
+import { NotesModal } from '../NotesModal';
+import type { NodeNote } from '../../types';
+import { useIndexedDBNotes } from '../../hooks/useIndexedDBNotes';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './MindMapCanvas.module.css';
 
 export const MindMapCanvas: React.FC = () => {
@@ -30,8 +35,13 @@ export const MindMapCanvas: React.FC = () => {
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [searchHighlightNodeId, setSearchHighlightNodeId] = useState<string | null>(null);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
+  const [lockedHighlightNodeId, setLockedHighlightNodeId] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isPanMode, setIsPanMode] = useState(false);
+  const [notesModalNodeId, setNotesModalNodeId] = useState<string | null>(null);
+  
+  // Use IndexedDB for notes storage
+  const { notes, saveNote, deleteNote, getNote } = useIndexedDBNotes();
 
   const {
     state,
@@ -41,20 +51,76 @@ export const MindMapCanvas: React.FC = () => {
     stopEditing,
   } = useMindMap();
 
-  const { loading } = useMindMapPersistence();
+  const { loading: persistenceLoading } = useMindMapPersistence();
+  const [loadingTimeout, setLoadingTimeout] = useState(false);
+  
+  // Add timeout for loading state
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoadingTimeout(true);
+    }, 3000); // 3 second timeout
+    
+    return () => clearTimeout(timeout);
+  }, []);
+  
+  const loading = persistenceLoading && !loadingTimeout;
   const operations = useMindMapOperations();
 
-  const handleImport = (jsonText: string) => {
-    const importedState = importFromJSONText(jsonText);
-    if (importedState) {
-      const nodes = Array.from(importedState.nodes.values());
-      dispatch({ type: 'LOAD_MINDMAP', payload: { nodes, links: importedState.links } });
+  const handleImport = async (jsonText: string) => {
+    const importResult = importFromJSONText(jsonText);
+    if (importResult) {
+      const nodes = Array.from(importResult.state.nodes.values());
+      dispatch({ type: 'LOAD_MINDMAP', payload: { nodes, links: importResult.state.links } });
+      
+      // Import notes
+      if (importResult.notes && importResult.notes.length > 0) {
+        for (const note of importResult.notes) {
+          await saveNote(note);
+        }
+      }
+      
       // Force persistence by updating lastModified after a brief delay
       setTimeout(() => {
         dispatch({ type: 'UPDATE_LAST_MODIFIED' });
         fitToViewport();
       }, 100);
       setIsImportModalOpen(false);
+    }
+  };
+
+  // Note handlers
+  const handleNoteSave = (nodeId: string) => async (content: string, contentJson: any, plainText?: string) => {
+    const existingNote = getNote(nodeId);
+    
+    const note: NodeNote = {
+      id: existingNote?.id || uuidv4(),
+      nodeId,
+      content,
+      contentJson,
+      contentType: contentJson ? 'tiptap' : 'html',
+      plainText,
+      tags: existingNote?.tags || [],
+      isPinned: existingNote?.isPinned || false,
+      createdAt: existingNote?.createdAt || new Date(),
+      updatedAt: new Date(),
+    };
+
+    try {
+      await saveNote(note);
+      // Update the node to indicate it has a note
+      operations.updateNode(nodeId, { hasNote: true, noteId: note.id });
+    } catch (error) {
+      console.error('Failed to save note:', error);
+    }
+  };
+
+  const handleNoteDelete = (nodeId: string) => async () => {
+    try {
+      await deleteNote(nodeId);
+      // Update the node to indicate it no longer has a note
+      operations.updateNode(nodeId, { hasNote: false, noteId: undefined });
+    } catch (error) {
+      console.error('Failed to delete note:', error);
     }
   };
 
@@ -243,6 +309,16 @@ export const MindMapCanvas: React.FC = () => {
       .attr('dy', '.35em')
       .style('pointer-events', 'none');
 
+    // Add note indicator
+    nodeEnter.append('circle')
+      .attr('class', 'note-indicator')
+      .attr('r', 4)
+      .attr('fill', '#9C27B0')
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 1.5)
+      .style('display', 'none')
+      .style('pointer-events', 'none');
+
     // Add action buttons group for each NEW node only
     const actionsGroup = nodeEnter.append('g')
       .attr('class', 'node-actions')
@@ -312,6 +388,27 @@ export const MindMapCanvas: React.FC = () => {
       .attr('fill', '#fff')
       .style('font-size', '20px')
       .style('font-weight', 'bold')
+      .style('pointer-events', 'none');
+
+    // Notes action button
+    const notesButton = actionsGroup.append('g')
+      .attr('transform', 'translate(-35, 0)')
+      .style('cursor', 'pointer')
+      .style('pointer-events', 'all'); // Ensure the group captures all events
+    
+    notesButton.append('circle')
+      .attr('r', 12)
+      .attr('fill', '#9C27B0')
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 2)
+      .style('pointer-events', 'all'); // Make circle clickable
+    
+    notesButton.append('text')
+      .text('📝')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '.35em')
+      .attr('fill', '#fff')
+      .style('font-size', '10px')
       .style('pointer-events', 'none');
 
     // Update all nodes
@@ -414,6 +511,23 @@ export const MindMapCanvas: React.FC = () => {
         const depth = nodeDepths.get(node.id) || 0;
         // Text color matches the stroke color for consistency
         return getNodeVisualProperties(depth).strokeColor;
+      });
+
+    // Update note indicator
+    nodeUpdate.select('.note-indicator')
+      .style('display', (d: any) => {
+        const node = d as Node;
+        return node.hasNote ? 'block' : 'none';
+      })
+      .attr('transform', (d: any) => {
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
+        const radius = getNodeVisualProperties(depth).radius;
+        // Position at top-right of the node
+        const angle = -Math.PI / 4; // 45 degrees
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+        return `translate(${x}, ${y})`;
       });
 
     // Apply selected layout - only to nodes without positions (preserves IndexedDB and user drags)
@@ -554,6 +668,12 @@ export const MindMapCanvas: React.FC = () => {
     // Event handlers
     nodeUpdate.on('click', (event: MouseEvent, d: Node) => {
       event.stopPropagation();
+      // Toggle locked highlight state
+      if (lockedHighlightNodeId === d.id) {
+        setLockedHighlightNodeId(null);
+      } else {
+        setLockedHighlightNodeId(d.id);
+      }
       selectNode(d.id);
     });
 
@@ -566,10 +686,10 @@ export const MindMapCanvas: React.FC = () => {
     // These work better with drag interactions
     nodeUpdate
       .on('mouseover.hover', function(_event: MouseEvent, d: Node) {
-        // Only set hover if not currently dragging or editing
+        // Always set hover if not dragging or editing
         if (!isDragging && !state.editingNodeId) {
           setHoveredNodeId(d.id);
-          // Show action buttons for this node
+          // Always show action buttons on hover
           d3.select(this).select('.node-actions')
             .transition()
             .duration(200)
@@ -579,7 +699,7 @@ export const MindMapCanvas: React.FC = () => {
       .on('mouseout.hover', function(_event: MouseEvent, _d: Node) {
         if (!isDragging) {
           setHoveredNodeId(null);
-          // Hide action buttons
+          // Always hide action buttons on mouse out
           d3.select(this).select('.node-actions')
             .transition()
             .duration(200)
@@ -620,6 +740,11 @@ export const MindMapCanvas: React.FC = () => {
                 operations.deleteNode(d.id);
               }
             });
+          } else if (i === 3) { // Notes button
+            button.on('click', function(event: MouseEvent) {
+              event.stopPropagation();
+              setNotesModalNodeId(d.id);
+            });
           }
         });
       });
@@ -649,15 +774,18 @@ export const MindMapCanvas: React.FC = () => {
     }
   }, [state.editingNodeId]);
 
-  // Apply hover effects based on hoveredNodeId
+  // Apply hover/locked highlight effects
   useEffect(() => {
     if (!gRef.current) return;
     
     const g = gRef.current;
     const nodeDepths = calculateNodeDepths(state.nodes);
     
-    if (!hoveredNodeId) {
-      // Reset styles when not hovering
+    // Use locked node if set, otherwise use hovered node
+    const highlightNodeId = lockedHighlightNodeId || hoveredNodeId;
+    
+    if (!highlightNodeId) {
+      // Reset styles when not highlighting
       g.selectAll('.node').style('opacity', 1);
       g.selectAll('.link')
         .style('opacity', 1)
@@ -670,22 +798,22 @@ export const MindMapCanvas: React.FC = () => {
       return;
     }
     
-    // Find connected nodes
-    const connectedNodeIds = new Set<string>();
-    connectedNodeIds.add(hoveredNodeId);
-    
+    // Get all connected nodes including all descendants
+    const connectedNodeIds = getAllConnectedNodes(highlightNodeId, state.nodes);
+
+    // Create a set of all links that should be highlighted
+    const highlightedLinks = new Set<string>();
     links.forEach(link => {
       const sourceId = typeof link.source === 'string' ? link.source : (link.source as any).id;
       const targetId = typeof link.target === 'string' ? link.target : (link.target as any).id;
       
-      if (sourceId === hoveredNodeId) {
-        connectedNodeIds.add(targetId);
-      } else if (targetId === hoveredNodeId) {
-        connectedNodeIds.add(sourceId);
+      // Highlight links between any connected nodes
+      if (connectedNodeIds.has(sourceId) && connectedNodeIds.has(targetId)) {
+        highlightedLinks.add(`${sourceId}-${targetId}`);
       }
     });
 
-    // Apply hover styles
+    // Apply highlight styles
     g.selectAll<SVGGElement, Node>('.node')
       .style('opacity', (d: Node) => connectedNodeIds.has(d.id) ? 1 : 0.3);
     
@@ -693,12 +821,14 @@ export const MindMapCanvas: React.FC = () => {
       .style('opacity', (d: Link) => {
         const sourceId = typeof d.source === 'string' ? d.source : (d.source as any).id;
         const targetId = typeof d.target === 'string' ? d.target : (d.target as any).id;
-        return (sourceId === hoveredNodeId || targetId === hoveredNodeId) ? 1 : 0.2;
+        const linkKey = `${sourceId}-${targetId}`;
+        return highlightedLinks.has(linkKey) ? 1 : 0.2;
       })
       .attr('stroke', (d: Link) => {
         const sourceId = typeof d.source === 'string' ? d.source : (d.source as any).id;
         const targetId = typeof d.target === 'string' ? d.target : (d.target as any).id;
-        return (sourceId === hoveredNodeId || targetId === hoveredNodeId) ? '#0066cc' : '#999';
+        const linkKey = `${sourceId}-${targetId}`;
+        return highlightedLinks.has(linkKey) ? '#0066cc' : '#999';
       })
       .attr('stroke-width', (d: Link) => {
         const sourceId = typeof d.source === 'string' ? d.source : (d.source as any).id;
@@ -706,9 +836,10 @@ export const MindMapCanvas: React.FC = () => {
         const sourceDepth = nodeDepths.get(sourceId) || 0;
         const targetDepth = nodeDepths.get(targetId) || 0;
         const baseWidth = getLinkVisualProperties(sourceDepth, targetDepth).strokeWidth;
-        return (sourceId === hoveredNodeId || targetId === hoveredNodeId) ? baseWidth + 2 : baseWidth;
+        const linkKey = `${sourceId}-${targetId}`;
+        return highlightedLinks.has(linkKey) ? baseWidth + 2 : baseWidth;
       });
-  }, [hoveredNodeId, links, state.nodes]);
+  }, [hoveredNodeId, lockedHighlightNodeId, links, state.nodes]);
 
   // Handle canvas interactions
   useEffect(() => {
@@ -719,6 +850,7 @@ export const MindMapCanvas: React.FC = () => {
     const handleClick = function(event: MouseEvent) {
       if (event.target === svgRef.current) {
         selectNode(null);
+        setLockedHighlightNodeId(null);
       }
     };
 
@@ -734,8 +866,13 @@ export const MindMapCanvas: React.FC = () => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (state.editingNodeId) return;
 
-      // Handle spacebar for pan mode
-      if (e.code === 'Space' && !isPanMode) {
+      // Check if any input element is focused
+      const activeElement = document.activeElement;
+      const isInputFocused = activeElement instanceof HTMLInputElement || 
+                             activeElement instanceof HTMLTextAreaElement;
+
+      // Handle spacebar for pan mode only if no input is focused
+      if (e.code === 'Space' && !isPanMode && !isInputFocused) {
         e.preventDefault();
         setIsPanMode(true);
         return;
@@ -750,7 +887,7 @@ export const MindMapCanvas: React.FC = () => {
       if (modifiers.ctrlKey) {
         if (e.key === 's') {
           e.preventDefault();
-          exportToJSON(state);
+          exportToJSON(state, notes);
         } else if (e.key === 'p') {
           e.preventDefault();
           if (svgRef.current) {
@@ -869,7 +1006,7 @@ export const MindMapCanvas: React.FC = () => {
         
         <button 
           className={styles.iconButton}
-          onClick={() => exportToJSON(state)}
+          onClick={() => exportToJSON(state, notes)}
           title="Export as JSON"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -953,6 +1090,18 @@ export const MindMapCanvas: React.FC = () => {
         onImport={handleImport}
         onCancel={() => setIsImportModalOpen(false)}
       />
+
+      {notesModalNodeId && (
+        <NotesModal
+          isOpen={!!notesModalNodeId}
+          nodeId={notesModalNodeId}
+          nodeText={state.nodes.get(notesModalNodeId)?.text || ''}
+          existingNote={getNote(notesModalNodeId) || null}
+          onSave={handleNoteSave(notesModalNodeId)}
+          onDelete={getNote(notesModalNodeId) ? handleNoteDelete(notesModalNodeId) : undefined}
+          onClose={() => setNotesModalNodeId(null)}
+        />
+      )}
     </>
   );
 };
