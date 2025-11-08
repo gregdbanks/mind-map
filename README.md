@@ -26,11 +26,11 @@ npm install && npm run dev
 ```
 
 ### Basic Usage
-1. Click "Load Demo Map" to see an example network
-2. Create new nodes by hovering over existing nodes and clicking "+"
-3. Double-click nodes to edit text and change colors
-4. Use Ctrl+F to search for concepts
-5. Spacebar + drag to pan around large networks
+1. Create new nodes by hovering over existing nodes and clicking "+"
+2. Double-click nodes to edit text and change colors
+3. Use Ctrl+F to search for concepts
+4. Spacebar + drag to pan around large networks
+5. Import/export maps using the toolbar buttons
 
 ## Features
 

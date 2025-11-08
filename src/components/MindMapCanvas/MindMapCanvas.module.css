@@ -7,10 +7,10 @@
 
 .toolbar {
   position: fixed;
-  top: 10px;
+  top: 70px; /* Below the search bar (20px search position + ~40px search height + 10px spacing) */
   left: 50%;
   transform: translateX(-50%);
-  z-index: 9999;
+  z-index: 9997; /* Below search bar's z-index */
   display: flex;
   gap: 10px;
   background: rgba(255, 255, 255, 0.95);
@@ -19,6 +19,15 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   max-width: calc(100vw - 40px);
   flex-wrap: wrap;
+}
+
+/* Responsive positioning for larger screens */
+@media (min-width: 800px) {
+  .toolbar {
+    left: auto;
+    right: 20px;
+    transform: none;
+  }
 }
 
 .iconButton {

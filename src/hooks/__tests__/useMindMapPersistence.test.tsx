@@ -91,15 +91,22 @@ describe('useMindMapPersistence', () => {
       expect(saveMock).toHaveBeenCalledTimes(1);
     });
 
-    expect(saveMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        nodes: expect.arrayContaining([
-          expect.objectContaining({ text: 'Test Node' })
-        ]),
-        links: [],
-        lastModified: expect.any(Date),
-      })
-    );
+    // Check that save was called with data containing our test node
+    const savedData = saveMock.mock.calls[0][0];
+    expect(savedData).toMatchObject({
+      nodes: expect.any(Array),
+      links: expect.any(Array),
+      lastModified: expect.any(Date),
+    });
+    
+    // Verify our test node is in the saved nodes
+    const testNode = savedData.nodes.find((node: any) => node.text === 'Test Node');
+    expect(testNode).toBeDefined();
+    expect(testNode).toMatchObject({
+      text: 'Test Node',
+      x: 0,
+      y: 0,
+    });
   });
 
   it('should debounce multiple saves', async () => {

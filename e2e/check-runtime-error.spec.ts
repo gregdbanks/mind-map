@@ -27,11 +27,22 @@ test('check for runtime errors and performance', async ({ page }) => {
 
   // Navigate
   await page.goto('http://localhost:3000');
-  await page.waitForTimeout(1000);
+  // Wait for nodes to be visible (app to finish loading)
+  await page.waitForSelector('[data-testid="mind-map-node"]', { timeout: 10000 });
+  await page.waitForTimeout(500); // Additional time for animations
   
-  // Load demo map and wait
-  await page.click('button[title="Load Demo Map"]');
-  await page.waitForTimeout(2000);
+  // Create some nodes to test with
+  const rootNode = page.locator('[data-testid="mind-map-node"]').first();
+  await rootNode.hover();
+  
+  // Add multiple child nodes
+  for (let i = 0; i < 5; i++) {
+    // Click the add button (green + button)
+    const addButton = page.locator('.node-actions circle[fill="#4CAF50"]').first();
+    await addButton.click();
+    await page.waitForTimeout(200);
+  }
+  await page.waitForTimeout(1000);
   
   // Check performance
   const performanceMetrics = await page.evaluate(() => {

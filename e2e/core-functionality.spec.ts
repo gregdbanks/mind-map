@@ -3,32 +3,27 @@ import { test, expect } from '@playwright/test';
 test.describe('Mind Map Core Functionality', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('http://localhost:3000');
-    await page.waitForTimeout(1000);
+    // Wait for nodes to be visible (app to finish loading)
+    await page.waitForSelector('[data-testid="mind-map-node"]', { timeout: 10000 });
+    await page.waitForTimeout(500); // Additional time for animations
   });
 
   test('should render canvas and toolbar', async ({ page }) => {
     // Basic smoke test - app loads without crashing
     await expect(page.locator('[data-testid="toolbar"]')).toBeVisible();
-    await expect(page.locator('svg')).toHaveCount(8); // 6 toolbar SVGs (including layout selector) + 1 search SVG + 1 main canvas
+    await expect(page.locator('svg')).toHaveCount(6); // 1 layout dropdown + 3 toolbar buttons + 1 search + 1 main canvas
   });
 
-  test('should load demo map', async ({ page }) => {
-    // Core data loading functionality
-    await page.click('button[title="Load Demo Map"]');
-    await page.waitForTimeout(1000);
-    
+  test('should have initial nodes', async ({ page }) => {
     const nodes = page.locator('[data-testid="mind-map-node"]');
     await expect(nodes.first()).toBeVisible();
-    expect(await nodes.count()).toBeGreaterThan(10);
+    expect(await nodes.count()).toBeGreaterThan(0); // Should have at least one node
   });
 
   test('should create child nodes via action buttons', async ({ page }) => {
-    // Load demo map to have nodes to work with
-    await page.click('button[title="Load Demo Map"]');
-    await page.waitForTimeout(1000);
-    
     const initialNodes = page.locator('[data-testid="mind-map-node"]');
     const initialCount = await initialNodes.count();
+    expect(initialCount).toBeGreaterThan(0); // Should have nodes
     
     // Hover over first node to show action buttons
     await initialNodes.first().hover();
@@ -43,8 +38,12 @@ test.describe('Mind Map Core Functionality', () => {
   });
 
   test('should export JSON', async ({ page }) => {
-    // Core export functionality
-    await page.click('button[title="Load Demo Map"]');
+    // Core export functionality - create some nodes first
+    const rootNode = page.locator('[data-testid="mind-map-node"]').first();
+    await rootNode.hover();
+    // Click the add button (green + button)
+    const addButton = page.locator('.node-actions circle[fill="#4CAF50"]').first();
+    await addButton.click();
     await page.waitForTimeout(500);
     
     const downloadPromise = page.waitForEvent('download');
@@ -59,14 +58,12 @@ test.describe('Mind Map Core Functionality', () => {
     const toolbar = page.locator('[data-testid="toolbar"]');
     
     // Check all essential buttons are visible and clickable
-    await expect(toolbar.locator('button[title="Load Demo Map"]')).toBeVisible();
     await expect(toolbar.locator('button[title="Fit all nodes in viewport"]')).toBeVisible();
     await expect(toolbar.locator('button[title="Export as JSON"]')).toBeVisible();
     await expect(toolbar.locator('button[title="Import JSON data"]')).toBeVisible();
     
-    // Test one button interaction
-    await toolbar.locator('button[title="Load Demo Map"]').click();
-    await page.waitForTimeout(500);
+    // Test toolbar buttons are clickable
+    await toolbar.locator('button[title="Export as JSON"]').click({ trial: true });
     
     // Should have loaded nodes
     const nodes = page.locator('[data-testid="mind-map-node"]');
