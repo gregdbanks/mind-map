@@ -75,6 +75,17 @@ class LayoutManagerImpl implements LayoutManager {
       case 'cluster':
         return createClusteredLayout(nodes, width, height);
         
+      case 'custom':
+        // Return the existing node positions as-is
+        const customPositions = new Map<string, { x: number; y: number }>();
+        Array.from(nodes.values()).forEach(node => {
+          customPositions.set(node.id, {
+            x: node.x || width / 2,
+            y: node.y || height / 2
+          });
+        });
+        return customPositions;
+        
       case 'force-directed':
         // Force-directed is animated, but we can return initial random positions
         const positions = new Map<string, { x: number; y: number }>();
@@ -131,6 +142,7 @@ export function loadPreferredLayout(): LayoutType {
 
 function isValidLayoutType(value: string): boolean {
   const validTypes: LayoutType[] = [
+    'custom',
     'improved-cluster',
     'hierarchical', 
     'hybrid-tree',

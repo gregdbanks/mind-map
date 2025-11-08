@@ -27,6 +27,7 @@ export const MindMapCanvas: React.FC = () => {
   const gRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
   const zoomBehaviorRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
   const simulationRef = useRef<d3.Simulation<ForceNode, ForceLink> | null>(null);
+  const customPositionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
   
   // Layout state management
   const [currentLayout, setCurrentLayout] = useState<LayoutType>(() => loadPreferredLayout());
@@ -54,6 +55,8 @@ export const MindMapCanvas: React.FC = () => {
   const { loading: persistenceLoading } = useMindMapPersistence();
   const [loadingTimeout, setLoadingTimeout] = useState(false);
   
+  const loading = persistenceLoading && !loadingTimeout;
+  
   // Add timeout for loading state
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -62,14 +65,44 @@ export const MindMapCanvas: React.FC = () => {
     
     return () => clearTimeout(timeout);
   }, []);
-  
-  const loading = persistenceLoading && !loadingTimeout;
+
+  // Store positions when nodes are loaded from persistence
+  useEffect(() => {
+    if (state.nodes.size > 0 && !loading && customPositionsRef.current.size === 0) {
+      // Check if nodes have positions (from persistence)
+      const hasPositions = Array.from(state.nodes.values()).some(node => 
+        node.x !== undefined && node.y !== undefined
+      );
+      
+      if (hasPositions) {
+        // Store these positions as custom positions
+        state.nodes.forEach((node, id) => {
+          if (node.x !== undefined && node.y !== undefined) {
+            customPositionsRef.current.set(id, { x: node.x, y: node.y });
+          }
+        });
+        
+        // Set layout to custom to preserve loaded positions
+        setCurrentLayout('custom');
+      }
+    }
+  }, [state.nodes, loading]);
+
   const operations = useMindMapOperations();
 
   const handleImport = async (jsonText: string) => {
     const importResult = importFromJSONText(jsonText);
     if (importResult) {
       const nodes = Array.from(importResult.state.nodes.values());
+      
+      // Store the imported positions as custom positions
+      customPositionsRef.current.clear();
+      nodes.forEach(node => {
+        if (node.x !== undefined && node.y !== undefined) {
+          customPositionsRef.current.set(node.id, { x: node.x, y: node.y });
+        }
+      });
+      
       dispatch({ type: 'LOAD_MINDMAP', payload: { nodes, links: importResult.state.links } });
       
       // Import notes
@@ -78,6 +111,9 @@ export const MindMapCanvas: React.FC = () => {
           await saveNote(note);
         }
       }
+      
+      // Set layout to custom to preserve imported positions
+      setCurrentLayout('custom');
       
       // Force persistence by updating lastModified after a brief delay
       setTimeout(() => {
@@ -132,19 +168,52 @@ export const MindMapCanvas: React.FC = () => {
       simulationRef.current = null;
     }
     
+    // Before changing layout, save current positions if they exist
+    if (currentLayout !== 'custom' && newLayout === 'custom') {
+      // Switching TO custom layout - use stored custom positions if available
+      const nodeUpdates = new Map<string, Partial<Node>>();
+      state.nodes.forEach((_node, id) => {
+        const customPos = customPositionsRef.current.get(id);
+        if (customPos) {
+          nodeUpdates.set(id, { x: customPos.x, y: customPos.y });
+        }
+      });
+      
+      if (nodeUpdates.size > 0) {
+        nodeUpdates.forEach((updates, nodeId) => {
+          operations.updateNode(nodeId, updates);
+        });
+      }
+    } else if (currentLayout === 'custom' && newLayout !== 'custom') {
+      // Switching FROM custom layout - save current positions first
+      customPositionsRef.current.clear();
+      state.nodes.forEach((node, id) => {
+        if (node.x !== undefined && node.y !== undefined) {
+          customPositionsRef.current.set(id, { x: node.x, y: node.y });
+        }
+      });
+      
+      // Clear positions to force re-layout with new algorithm
+      const nodeUpdates = new Map<string, Partial<Node>>();
+      state.nodes.forEach((_node, id) => {
+        nodeUpdates.set(id, { x: undefined, y: undefined, fx: undefined, fy: undefined });
+      });
+      nodeUpdates.forEach((updates, nodeId) => {
+        operations.updateNode(nodeId, updates);
+      });
+    } else if (newLayout !== 'custom') {
+      // Switching between non-custom layouts - clear positions
+      const nodeUpdates = new Map<string, Partial<Node>>();
+      state.nodes.forEach((_node, id) => {
+        nodeUpdates.set(id, { x: undefined, y: undefined, fx: undefined, fy: undefined });
+      });
+      nodeUpdates.forEach((updates, nodeId) => {
+        operations.updateNode(nodeId, updates);
+      });
+    }
+    
     setCurrentLayout(newLayout);
     savePreferredLayout(newLayout);
-    
-    // Clear all existing positions to force re-layout
-    const nodeUpdates = new Map<string, Partial<Node>>();
-    nodes.forEach(node => {
-      nodeUpdates.set(node.id, { x: undefined, y: undefined, fx: undefined, fy: undefined });
-    });
-    
-    // Apply the position clearing
-    nodeUpdates.forEach((updates, nodeId) => {
-      operations.updateNode(nodeId, updates);
-    });
   };
 
   // Convert state to arrays
@@ -659,6 +728,21 @@ export const MindMapCanvas: React.FC = () => {
           // Persist the position to global state (debounced via persistence hook)
           operations.updateNodePosition(d.id, { x: finalX, y: finalY });
           
+          // If we're not in custom layout, switch to it when user manually moves a node
+          if (currentLayout !== 'custom') {
+            // Save all current positions as custom positions
+            customPositionsRef.current.clear();
+            state.nodes.forEach((node, id) => {
+              if (node.x !== undefined && node.y !== undefined) {
+                customPositionsRef.current.set(id, { x: node.x, y: node.y });
+              }
+            });
+            // Update the dragged node's position in custom positions
+            customPositionsRef.current.set(d.id, { x: finalX, y: finalY });
+            
+            setCurrentLayout('custom');
+          }
+          
           setIsDragging(false);
         });
 
@@ -956,12 +1040,19 @@ export const MindMapCanvas: React.FC = () => {
           currentLayout={currentLayout}
           onLayoutChange={handleLayoutChange}
           disabled={loading}
+          hasCustomPositions={Array.from(state.nodes.values()).some(node => 
+            node.x !== undefined && node.y !== undefined
+          )}
         />
         
         <button 
           className={styles.iconButton}
           onClick={() => {
             dispatch({ type: 'LOAD_MINDMAP', payload: { nodes: demoNodes, links: demoLinks } });
+            // Demo map should use the current or preferred layout, not custom
+            if (currentLayout === 'custom') {
+              setCurrentLayout(loadPreferredLayout());
+            }
           }}
           title="Load Demo Map"
         >
