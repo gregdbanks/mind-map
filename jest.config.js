@@ -22,7 +22,7 @@ export default {
     }]
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(d3|d3-.*|internmap|delaunator|robust-predicates|uuid)/)'
+    'node_modules/(?!(d3|d3-.*|internmap|delaunator|robust-predicates|uuid|@tiptap|prosemirror-.*|lowlight|highlight.js)/)'
   ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',

@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import './mocks/tiptapMocks';
 
 // Mock window.matchMedia which is used by some components
 Object.defineProperty(window, 'matchMedia', {

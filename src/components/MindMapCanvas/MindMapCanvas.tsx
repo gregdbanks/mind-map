@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { useMindMap } from '../../context/MindMapContext';
 import { useMindMapPersistence } from '../../hooks/useMindMapPersistence';
 import { useMindMapOperations } from '../../hooks/useMindMapOperations';
-import type { Node, Link } from '../../types/mindMap';
+import type { Node, Link } from '../../types';
 import { exportToJSON, importFromJSONText } from '../../utils/exportUtils';
 import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties } from '../../utils/nodeHierarchy';
 import { isAWSService } from '../../utils/awsServices';
@@ -16,6 +16,10 @@ import { LayoutSelector, type LayoutType } from '../LayoutSelector';
 import { layoutManager, savePreferredLayout, loadPreferredLayout } from '../../utils/layoutManager';
 import type { ForceNode, ForceLink } from '../../utils/forceDirectedLayout';
 import { getAllConnectedNodes } from '../../utils/getNodeDescendants';
+import { NotesModal } from '../NotesModal';
+import type { NodeNote } from '../../types';
+import { useIndexedDBNotes } from '../../hooks/useIndexedDBNotes';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './MindMapCanvas.module.css';
 
 export const MindMapCanvas: React.FC = () => {
@@ -34,6 +38,10 @@ export const MindMapCanvas: React.FC = () => {
   const [lockedHighlightNodeId, setLockedHighlightNodeId] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isPanMode, setIsPanMode] = useState(false);
+  const [notesModalNodeId, setNotesModalNodeId] = useState<string | null>(null);
+  
+  // Use IndexedDB for notes storage
+  const { notes, saveNote, deleteNote, getNote } = useIndexedDBNotes();
 
   const {
     state,
@@ -46,17 +54,61 @@ export const MindMapCanvas: React.FC = () => {
   const { loading } = useMindMapPersistence();
   const operations = useMindMapOperations();
 
-  const handleImport = (jsonText: string) => {
-    const importedState = importFromJSONText(jsonText);
-    if (importedState) {
-      const nodes = Array.from(importedState.nodes.values());
-      dispatch({ type: 'LOAD_MINDMAP', payload: { nodes, links: importedState.links } });
+  const handleImport = async (jsonText: string) => {
+    const importResult = importFromJSONText(jsonText);
+    if (importResult) {
+      const nodes = Array.from(importResult.state.nodes.values());
+      dispatch({ type: 'LOAD_MINDMAP', payload: { nodes, links: importResult.state.links } });
+      
+      // Import notes
+      if (importResult.notes && importResult.notes.length > 0) {
+        for (const note of importResult.notes) {
+          await saveNote(note);
+        }
+      }
+      
       // Force persistence by updating lastModified after a brief delay
       setTimeout(() => {
         dispatch({ type: 'UPDATE_LAST_MODIFIED' });
         fitToViewport();
       }, 100);
       setIsImportModalOpen(false);
+    }
+  };
+
+  // Note handlers
+  const handleNoteSave = (nodeId: string) => async (content: string, contentJson: any, plainText?: string) => {
+    const existingNote = getNote(nodeId);
+    
+    const note: NodeNote = {
+      id: existingNote?.id || uuidv4(),
+      nodeId,
+      content,
+      contentJson,
+      contentType: contentJson ? 'tiptap' : 'html',
+      plainText,
+      tags: existingNote?.tags || [],
+      isPinned: existingNote?.isPinned || false,
+      createdAt: existingNote?.createdAt || new Date(),
+      updatedAt: new Date(),
+    };
+
+    try {
+      await saveNote(note);
+      // Update the node to indicate it has a note
+      operations.updateNode(nodeId, { hasNote: true, noteId: note.id });
+    } catch (error) {
+      console.error('Failed to save note:', error);
+    }
+  };
+
+  const handleNoteDelete = (nodeId: string) => async () => {
+    try {
+      await deleteNote(nodeId);
+      // Update the node to indicate it no longer has a note
+      operations.updateNode(nodeId, { hasNote: false, noteId: undefined });
+    } catch (error) {
+      console.error('Failed to delete note:', error);
     }
   };
 
@@ -245,6 +297,16 @@ export const MindMapCanvas: React.FC = () => {
       .attr('dy', '.35em')
       .style('pointer-events', 'none');
 
+    // Add note indicator
+    nodeEnter.append('circle')
+      .attr('class', 'note-indicator')
+      .attr('r', 4)
+      .attr('fill', '#9C27B0')
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 1.5)
+      .style('display', 'none')
+      .style('pointer-events', 'none');
+
     // Add action buttons group for each NEW node only
     const actionsGroup = nodeEnter.append('g')
       .attr('class', 'node-actions')
@@ -314,6 +376,27 @@ export const MindMapCanvas: React.FC = () => {
       .attr('fill', '#fff')
       .style('font-size', '20px')
       .style('font-weight', 'bold')
+      .style('pointer-events', 'none');
+
+    // Notes action button
+    const notesButton = actionsGroup.append('g')
+      .attr('transform', 'translate(-35, 0)')
+      .style('cursor', 'pointer')
+      .style('pointer-events', 'all'); // Ensure the group captures all events
+    
+    notesButton.append('circle')
+      .attr('r', 12)
+      .attr('fill', '#9C27B0')
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 2)
+      .style('pointer-events', 'all'); // Make circle clickable
+    
+    notesButton.append('text')
+      .text('📝')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '.35em')
+      .attr('fill', '#fff')
+      .style('font-size', '10px')
       .style('pointer-events', 'none');
 
     // Update all nodes
@@ -416,6 +499,23 @@ export const MindMapCanvas: React.FC = () => {
         const depth = nodeDepths.get(node.id) || 0;
         // Text color matches the stroke color for consistency
         return getNodeVisualProperties(depth).strokeColor;
+      });
+
+    // Update note indicator
+    nodeUpdate.select('.note-indicator')
+      .style('display', (d: any) => {
+        const node = d as Node;
+        return node.hasNote ? 'block' : 'none';
+      })
+      .attr('transform', (d: any) => {
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
+        const radius = getNodeVisualProperties(depth).radius;
+        // Position at top-right of the node
+        const angle = -Math.PI / 4; // 45 degrees
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+        return `translate(${x}, ${y})`;
       });
 
     // Apply selected layout - only to nodes without positions (preserves IndexedDB and user drags)
@@ -628,6 +728,11 @@ export const MindMapCanvas: React.FC = () => {
                 operations.deleteNode(d.id);
               }
             });
+          } else if (i === 3) { // Notes button
+            button.on('click', function(event: MouseEvent) {
+              event.stopPropagation();
+              setNotesModalNodeId(d.id);
+            });
           }
         });
       });
@@ -770,7 +875,7 @@ export const MindMapCanvas: React.FC = () => {
       if (modifiers.ctrlKey) {
         if (e.key === 's') {
           e.preventDefault();
-          exportToJSON(state);
+          exportToJSON(state, notes);
         } else if (e.key === 'p') {
           e.preventDefault();
           if (svgRef.current) {
@@ -889,7 +994,7 @@ export const MindMapCanvas: React.FC = () => {
         
         <button 
           className={styles.iconButton}
-          onClick={() => exportToJSON(state)}
+          onClick={() => exportToJSON(state, notes)}
           title="Export as JSON"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -973,6 +1078,18 @@ export const MindMapCanvas: React.FC = () => {
         onImport={handleImport}
         onCancel={() => setIsImportModalOpen(false)}
       />
+
+      {notesModalNodeId && (
+        <NotesModal
+          isOpen={!!notesModalNodeId}
+          nodeId={notesModalNodeId}
+          nodeText={state.nodes.get(notesModalNodeId)?.text || ''}
+          existingNote={getNote(notesModalNodeId) || null}
+          onSave={handleNoteSave(notesModalNodeId)}
+          onDelete={getNote(notesModalNodeId) ? handleNoteDelete(notesModalNodeId) : undefined}
+          onClose={() => setNotesModalNodeId(null)}
+        />
+      )}
     </>
   );
 };

@@ -3,7 +3,7 @@ import styles from './ImportModal.module.css';
 
 interface ImportModalProps {
   isOpen: boolean;
-  onImport: (jsonData: string) => void;
+  onImport: (jsonData: string) => void | Promise<void>;
   onCancel: () => void;
 }
 
