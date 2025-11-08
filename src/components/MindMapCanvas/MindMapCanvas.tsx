@@ -7,7 +7,6 @@ import type { Node, Link } from '../../types';
 import { exportToJSON, importFromJSONText } from '../../utils/exportUtils';
 import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties } from '../../utils/nodeHierarchy';
 import { isAWSService } from '../../utils/awsServices';
-import { demoNodes, demoLinks } from '../../data/demoMindMap';
 import { NodeTooltip } from '../NodeTooltip';
 import { NodeEditModal } from '../NodeEditModal';
 import { ImportModal } from '../ImportModal';
