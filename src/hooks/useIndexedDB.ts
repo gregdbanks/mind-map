@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
 const DB_NAME = 'MindMapDB';
-const DB_VERSION = 1;
+const DB_VERSION = 2; // Must match the version in useIndexedDBNotes
 const STORE_NAME = 'mindmaps';
 
 export interface UseIndexedDBReturn<T> {
@@ -73,8 +73,18 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
         
         request.onupgradeneeded = (event) => {
           const database = (event.target as IDBOpenDBRequest).result;
+          
+          // Create mindmaps store if it doesn't exist
           if (!database.objectStoreNames.contains(STORE_NAME)) {
             database.createObjectStore(STORE_NAME);
+          }
+          
+          // Create notes store if it doesn't exist (for compatibility with useIndexedDBNotes)
+          if (!database.objectStoreNames.contains('notes')) {
+            const notesStore = database.createObjectStore('notes', { keyPath: 'nodeId' });
+            notesStore.createIndex('createdAt', 'createdAt', { unique: false });
+            notesStore.createIndex('updatedAt', 'updatedAt', { unique: false });
+            notesStore.createIndex('isPinned', 'isPinned', { unique: false });
           }
         };
       } catch (err) {
@@ -154,7 +164,7 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
         reject(err);
       }
     });
-  }, [db, key]);
+  }, [db, key, loading]);
 
   const remove = useCallback(async (): Promise<void> => {
     if (!db) {
