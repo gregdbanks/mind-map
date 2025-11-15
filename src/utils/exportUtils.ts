@@ -1,6 +1,6 @@
 import type { MindMapState, Node, NodeNote } from '../types';
 
-export const exportToJSON = (state: MindMapState, notes?: Map<string, NodeNote>): void => {
+export const exportToJSON = (state: MindMapState, notes?: Map<string, NodeNote>, onSuccess?: () => void): void => {
   try {
     // Process notes to ensure they're serializable
     const serializableNotes = notes ? Array.from(notes.values()).map(note => ({
@@ -27,6 +27,11 @@ export const exportToJSON = (state: MindMapState, notes?: Map<string, NodeNote>)
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    
+    // Call success callback if provided
+    if (onSuccess) {
+      onSuccess();
+    }
   } catch (error) {
     console.error('Failed to export mind map:', error);
     alert('Failed to export mind map. Please check the console for details.');
@@ -88,7 +93,8 @@ export const importFromJSONText = (text: string): ImportResult | null => {
         links,
         selectedNodeId: data.selectedNodeId || null,
         editingNodeId: data.editingNodeId || null,
-        lastModified: new Date()
+        lastModified: new Date(),
+        isDirty: false // Import starts with clean state
       },
       notes
     };

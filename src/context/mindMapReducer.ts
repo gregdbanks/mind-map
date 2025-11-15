@@ -9,7 +9,9 @@ export type MindMapAction =
   | { type: 'START_EDITING'; payload: { id: string } }
   | { type: 'STOP_EDITING' }
   | { type: 'LOAD_MINDMAP'; payload: { nodes: Node[]; links: Link[] } }
-  | { type: 'UPDATE_LAST_MODIFIED' };
+  | { type: 'UPDATE_LAST_MODIFIED' }
+  | { type: 'MARK_CLEAN' } // Mark state as clean (saved)
+  | { type: 'MARK_DIRTY' }; // Mark state as dirty (unsaved changes)
 
 // Create initial node in center of typical viewport
 const initialNodeId = 'root-node';
@@ -31,6 +33,7 @@ export const initialState: MindMapState = {
   selectedNodeId: null,
   editingNodeId: null,
   lastModified: new Date(),
+  isDirty: false, // Start with clean state
 };
 
 function generateNodeId(): string {
@@ -97,6 +100,7 @@ export function mindMapReducer(
         nodes: newNodes,
         links: newLinks,
         lastModified: new Date(),
+        isDirty: true, // Mark as dirty when adding nodes
       };
     }
     
@@ -112,6 +116,7 @@ export function mindMapReducer(
         ...state,
         nodes: newNodes,
         lastModified: new Date(),
+        isDirty: true, // Mark as dirty when updating nodes
       };
     }
     
@@ -126,6 +131,7 @@ export function mindMapReducer(
         selectedNodeId: state.selectedNodeId === id ? null : state.selectedNodeId,
         editingNodeId: state.editingNodeId === id ? null : state.editingNodeId,
         lastModified: new Date(),
+        isDirty: true, // Mark as dirty when deleting nodes
       };
     }
     
@@ -144,6 +150,7 @@ export function mindMapReducer(
         ...state,
         nodes: newNodes,
         lastModified: new Date(),
+        isDirty: true, // Mark as dirty when moving nodes
       };
     }
     
@@ -178,6 +185,7 @@ export function mindMapReducer(
         nodes: nodeMap,
         links,
         lastModified: new Date(),
+        isDirty: false, // Loading a mind map resets dirty state
       };
     }
     
@@ -185,6 +193,20 @@ export function mindMapReducer(
       return {
         ...state,
         lastModified: new Date(),
+      };
+    }
+    
+    case 'MARK_CLEAN': {
+      return {
+        ...state,
+        isDirty: false,
+      };
+    }
+    
+    case 'MARK_DIRTY': {
+      return {
+        ...state,
+        isDirty: true,
       };
     }
     

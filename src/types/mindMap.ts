@@ -36,4 +36,5 @@ export interface MindMapState {
   selectedNodeId: string | null;
   editingNodeId: string | null;
   lastModified: Date;
+  isDirty: boolean; // Tracks if there are unsaved changes
 }
