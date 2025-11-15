@@ -49,6 +49,7 @@ export const MindMapCanvas: React.FC = () => {
     selectNode,
     startEditing,
     stopEditing,
+    markClean,
   } = useMindMap();
 
   const { loading: persistenceLoading } = useMindMapPersistence();
@@ -218,11 +219,48 @@ export const MindMapCanvas: React.FC = () => {
   const nodes = Array.from(state.nodes.values());
   const links = state.links;
 
-  // Fit all nodes in viewport
+  // Fit nodes in viewport - focuses on selected/highlighted nodes if any, otherwise all nodes
   const fitToViewport = () => {
     if (!svgRef.current || !gRef.current || !zoomBehaviorRef.current || nodes.length === 0) return;
 
-    const bounds = gRef.current.node()?.getBBox();
+    let bounds;
+    
+    // If a node is selected, fit to the selected node and its children only
+    if (state.selectedNodeId) {
+      // Get all connected nodes (selected + descendants)
+      const connectedNodeIds = getAllConnectedNodes(state.selectedNodeId, state.nodes);
+      
+      // Calculate bounds manually from the positions of connected nodes
+      const connectedNodes = Array.from(connectedNodeIds)
+        .map(id => state.nodes.get(id))
+        .filter((node): node is Node => node !== undefined && node.x !== undefined && node.y !== undefined);
+      
+      if (connectedNodes.length === 0) {
+        // Fall back to all nodes if no connected nodes have positions
+        bounds = gRef.current.node()?.getBBox();
+      } else {
+        // Calculate bounding box from node positions
+        const nodeRadius = 15; // Approximate node radius for padding
+        const xs = connectedNodes.map(node => node.x!);
+        const ys = connectedNodes.map(node => node.y!);
+        
+        const minX = Math.min(...xs) - nodeRadius;
+        const maxX = Math.max(...xs) + nodeRadius;
+        const minY = Math.min(...ys) - nodeRadius;
+        const maxY = Math.max(...ys) + nodeRadius;
+        
+        bounds = {
+          x: minX,
+          y: minY,
+          width: maxX - minX,
+          height: maxY - minY
+        };
+      }
+    } else {
+      // No selection - fit all nodes as before
+      bounds = gRef.current.node()?.getBBox();
+    }
+
     if (!bounds || bounds.width === 0 || bounds.height === 0) return;
 
     const width = window.innerWidth;
@@ -969,7 +1007,7 @@ export const MindMapCanvas: React.FC = () => {
       if (modifiers.ctrlKey) {
         if (e.key === 's') {
           e.preventDefault();
-          exportToJSON(state, notes);
+          exportToJSON(state, notes, markClean);
         } else if (e.key === 'p') {
           e.preventDefault();
           if (svgRef.current) {
@@ -1057,7 +1095,7 @@ export const MindMapCanvas: React.FC = () => {
         
         <button 
           className={styles.iconButton}
-          onClick={() => exportToJSON(state, notes)}
+          onClick={() => exportToJSON(state, notes, markClean)}
           title="Export as JSON"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">

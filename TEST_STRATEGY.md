@@ -14,11 +14,12 @@ Unit Tests (Core Coverage)
 
 ## Current Test Status
 
-**Test Suite Summary (123 Total Tests)**
-- 123 Passing Tests (100% success rate)
-- 0 Failing Tests 
-- 15 Test Suites all passing
-- Zero TypeScript compilation errors
+**Test Suite Summary (145 Unit Tests + 9 E2E Tests)**
+- **Unit Tests**: 145 passing (100% success rate)
+- **E2E Tests**: 9 passing (100% success rate) 
+- **Test Suites**: 16 unit test suites + 3 E2E test suites
+- **TypeScript**: Zero compilation errors
+- **Last Updated**: November 2024
 
 ## Unit Tests
 
@@ -198,7 +199,7 @@ jest.mock('d3', () => {
 
 **Performance Targets**
 - Unit tests: < 3 seconds total runtime
-- E2E tests: < 30 seconds per scenario
+- E2E tests: < 15 seconds total runtime
 - TDD workflow: < 1 second feedback loop
 
 ## Summary

@@ -15,6 +15,8 @@ interface MindMapContextType {
   selectNode: (id: string | null) => void;
   startEditing: (id: string) => void;
   stopEditing: () => void;
+  markClean: () => void;
+  markDirty: () => void;
 }
 
 const MindMapContext = createContext<MindMapContextType | undefined>(undefined);
@@ -50,6 +52,14 @@ export const MindMapProvider: React.FC<MindMapProviderProps> = ({ children }) =>
   const stopEditing = () => {
     dispatch({ type: 'STOP_EDITING' });
   };
+
+  const markClean = () => {
+    dispatch({ type: 'MARK_CLEAN' });
+  };
+
+  const markDirty = () => {
+    dispatch({ type: 'MARK_DIRTY' });
+  };
   
   const value: MindMapContextType = {
     state,
@@ -60,6 +70,8 @@ export const MindMapProvider: React.FC<MindMapProviderProps> = ({ children }) =>
     selectNode,
     startEditing,
     stopEditing,
+    markClean,
+    markDirty,
   };
   
   return (
