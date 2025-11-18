@@ -1,1 +1,0 @@
-export { MindMapCanvas } from './MindMapCanvas';
