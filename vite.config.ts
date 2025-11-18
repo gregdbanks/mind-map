@@ -7,6 +7,9 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    open: true
+    open: true,
+    hmr: {
+      overlay: false // Disable the error overlay temporarily
+    }
   }
 })
