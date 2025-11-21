@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import { useMindMap } from '../../context/MindMapContext';
-import { useMindMapPersistence } from '../../hooks/useMindMapPersistence';
+import { useSimplePersistence } from '../../hooks/useSimplePersistence';
 import { useMindMapOperations } from '../../hooks/useMindMapOperations';
 import type { Node, Link } from '../../types';
 import { exportToJSON, importFromJSONText } from '../../utils/exportUtils';
@@ -52,7 +52,7 @@ export const MindMapCanvas: React.FC = () => {
     markClean,
   } = useMindMap();
 
-  const { loading: persistenceLoading } = useMindMapPersistence();
+  const { loading: persistenceLoading } = useSimplePersistence();
   const [loadingTimeout, setLoadingTimeout] = useState(false);
   
   const loading = persistenceLoading && !loadingTimeout;
