@@ -67,7 +67,7 @@ export function useSimplePersistence() {
         clearTimeout(saveTimeoutRef.current);
       }
     };
-  }, [state.nodes, state.links, state.lastModified]);
+  }, [state.nodes, state.links]);
 
   return {
     loading: false,

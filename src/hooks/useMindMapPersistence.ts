@@ -50,8 +50,10 @@ export function useMindMapPersistence() {
 
   // Load data from IndexedDB on mount, or demo data if no saved data
   useEffect(() => {
+    let loadTimeout: ReturnType<typeof setTimeout>;
+    
     // Set a timeout to load data even if IndexedDB is still loading
-    const loadTimeout = setTimeout(() => {
+    loadTimeout = setTimeout(() => {
       if (loading && !hasLoadedRef.current) {
         console.log('IndexedDB taking too long, loading from localStorage or demo');
         hasLoadedRef.current = true;

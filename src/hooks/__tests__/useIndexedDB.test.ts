@@ -183,7 +183,7 @@ describe('useIndexedDB', () => {
     });
 
     expect(result.current.error).toBeInstanceOf(Error);
-    expect(result.current.error?.message).toBe('Failed to open IndexedDB');
+    expect(result.current.error?.message).toBe('Failed to open IndexedDB: IndexedDB error');
     expect(result.current.data).toBeNull();
   });
 

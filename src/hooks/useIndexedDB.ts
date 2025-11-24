@@ -20,6 +20,11 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
   const isInitializingRef = useRef(false);
   const keyRef = useRef(key);
   
+  // Update keyRef when key changes
+  useEffect(() => {
+    keyRef.current = key;
+  }, [key]);
+  
   console.log('useIndexedDB hook - key:', key, 'loading:', loading, 'db:', db);
 
   // Initialize database connection
@@ -98,7 +103,7 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
     };
     
     const loadData = async (database: IDBDatabase) => {
-      console.log('Loading data for key:', keyRef.current);
+      console.log('Loading data for key:', key);
       try {
         // Check if object store exists first
         if (!database.objectStoreNames.contains(STORE_NAME)) {
@@ -113,7 +118,7 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
         
         const transaction = database.transaction([STORE_NAME], 'readonly');
         const store = transaction.objectStore(STORE_NAME);
-        const request = store.get(keyRef.current);
+        const request = store.get(key);
         
         request.onsuccess = (event) => {
           const result = (event.target as IDBRequest).result;
@@ -160,7 +165,7 @@ export function useIndexedDB<T>(key: string): UseIndexedDBReturn<T> {
         db.close();
       }
     };
-  }, []); // Remove dependencies to prevent re-initialization
+  }, [key]); // Re-run effect if key changes to ensure correct data is loaded
 
   const save = useCallback(async (newData: T): Promise<void> => {
     if (!db) {
