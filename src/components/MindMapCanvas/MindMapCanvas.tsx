@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import { useMindMap } from '../../context/MindMapContext';
-import { useMindMapPersistence } from '../../hooks/useMindMapPersistence';
+import { useSimplePersistence } from '../../hooks/useSimplePersistence';
 import { useMindMapOperations } from '../../hooks/useMindMapOperations';
 import type { Node, Link } from '../../types';
 import { exportToJSON, importFromJSONText } from '../../utils/exportUtils';
@@ -52,7 +52,7 @@ export const MindMapCanvas: React.FC = () => {
     markClean,
   } = useMindMap();
 
-  const { loading: persistenceLoading } = useMindMapPersistence();
+  const { loading: persistenceLoading } = useSimplePersistence();
   const [loadingTimeout, setLoadingTimeout] = useState(false);
   
   const loading = persistenceLoading && !loadingTimeout;
@@ -986,15 +986,22 @@ export const MindMapCanvas: React.FC = () => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (state.editingNodeId) return;
 
-      // Check if any input element is focused
+      // Check if any input element or contenteditable is focused
       const activeElement = document.activeElement;
       const isInputFocused = activeElement instanceof HTMLInputElement || 
-                             activeElement instanceof HTMLTextAreaElement;
+                             activeElement instanceof HTMLTextAreaElement ||
+                             activeElement?.hasAttribute('contenteditable') ||
+                             activeElement?.closest('[contenteditable="true"]') !== null;
 
       // Handle spacebar for pan mode only if no input is focused
       if (e.code === 'Space' && !isPanMode && !isInputFocused) {
         e.preventDefault();
         setIsPanMode(true);
+        return;
+      }
+
+      // Skip all keyboard shortcuts if input or contenteditable is focused
+      if (isInputFocused) {
         return;
       }
 

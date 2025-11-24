@@ -1,182 +1,114 @@
-# LLM Prompt for Mind Map JSON Generation
+# Mind Map Generation Prompt
 
-Use this prompt with any LLM (OpenAI, Anthropic, etc.) to generate mind maps in the correct JSON format:
-
----
-
-## Basic Prompt Template
-
-```
-Generate a mind map in JSON format for: [YOUR TOPIC HERE]
-
-Requirements:
-1. Create a hierarchical structure with multiple levels of depth (2-4 levels recommended)
-2. Include meaningful positioning (x,y coordinates) that create good visual spacing
-3. Root node should be centered around (600, 400)
-4. Branch main topics radially around the root
-5. Use parent-child relationships to show hierarchy
-6. Include subtopics under main topics to demonstrate depth
-
-JSON Format:
-{
-  "nodes": [
-    {
-      "id": "root",
-      "text": "Main Topic",
-      "x": 600,
-      "y": 400,
-      "parent": null,
-      "collapsed": false,
-      "color": "#4ECDC4"
-    },
-    {
-      "id": "subtopic1",
-      "text": "Subtopic 1",
-      "x": 400,
-      "y": 300,
-      "parent": "root",
-      "collapsed": false,
-      "color": "#FF6B6B"
-    },
-    {
-      "id": "detail1",
-      "text": "Detail",
-      "x": 250,
-      "y": 250,
-      "parent": "subtopic1",
-      "collapsed": false
-    }
-  ],
-  "links": [
-    {"source": "root", "target": "subtopic1"},
-    {"source": "subtopic1", "target": "detail1"}
-  ]
-}
-
-Positioning Guidelines:
-- Root: Center around (600, 400)
-- Main branches: 200-300px from center in different directions
-- Sub-topics: 150-200px from their parent
-- Spread nodes to avoid overlap
-- Use angles to create radial layouts
-
-Color Guidelines (Optional):
-- Use different colors for different categories/themes
-- Suggested color palette: #FF6B6B (red), #4ECDC4 (teal), #45B7D1 (blue), #96CEB4 (green), #FECA57 (yellow), #DDA0DD (purple)
-- Keep colors accessible and readable with dark text
-- You can omit the color property to use default theme colors
-
-Example Structure for "Project Management":
-- Root: "Project Management"
-  - Planning
-    - Requirements Gathering
-    - Risk Assessment
-    - Timeline Creation
-  - Execution
-    - Task Assignment
-    - Progress Tracking
-  - Monitoring
-    - KPI Tracking
-    - Quality Control
-
-Generate the complete JSON now:
-```
+Use this single prompt with any LLM to generate comprehensive, well-structured mind maps with detailed notes.
 
 ---
 
-## Enhanced Prompt for Study Guides & Comprehensive Content
-
-For detailed study guides, certification materials, or complex topics, use this enhanced version with PDF attachment:
+## The Comprehensive Mind Map Prompt
 
 ```
-Generate a comprehensive mind map in JSON format for: [YOUR TOPIC/CERTIFICATION HERE]
+Generate a COMPREHENSIVE mind map with detailed notes in JSON format for: [YOUR TOPIC HERE]
 
-Source Material: [ATTACH YOUR PDF STUDY GUIDE]
+[If you have source material]: Source Material: [ATTACH YOUR PDF/DOCUMENT]
 
-CRITICAL: You must use the EXACT JSON structure specified below. Do not use alternative property names.
+CRITICAL REQUIREMENTS:
+- Be THOROUGHLY COMPREHENSIVE - capture EVERY concept, no matter how many nodes it takes
+- Create DEEP, DETAILED hierarchy - as many levels as needed to fully represent the content
+- Keep node text CONCISE (2-5 words) - but create nodes for ALL concepts
+- Put extended explanations and details in notes, but don't skip creating nodes for concepts
 
-REQUIRED JSON STRUCTURE (follow this exactly):
+REQUIRED JSON STRUCTURE:
 {
   "nodes": [
     {
       "id": "unique-string-id",
-      "text": "Node content",
+      "text": "Short Title (2-5 words)",
       "x": 600,
       "y": 400,
       "parent": null,
       "collapsed": false,
-      "color": "#4ECDC4"
+      "color": "#FF9500"
     }
   ],
   "links": [
     {"source": "parent-id", "target": "child-id"}
+  ],
+  "notes": [
+    {
+      "id": "note-unique-id",
+      "nodeId": "node-id",
+      "content": "<p>ALL comprehensive details go here in HTML format</p>",
+      "contentType": "tiptap",
+      "plainText": "Plain text version of the content",
+      "tags": ["relevant", "tags"],
+      "isPinned": false,
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
   ]
 }
 
-IMPORTANT RULES:
-- Use "text" NOT "label" for node content
-- Use "links" NOT "edges" for connections
-- Only include these properties: id, text, x, y, parent, collapsed, color
-- Do not add extra properties like "size" or "label"
-- All nodes must have "parent" property (null for root node)
-- Every parent-child relationship must have a corresponding link
+STRUCTURE GUIDELINES:
+1. Root node: Main topic at (600, 400)
+2. Primary branches: As many as needed - no limits
+3. Hierarchy levels: As deep as necessary (5, 10, 20+ levels if needed)
+4. Positioning:
+   - Level 1: 300-400px from root
+   - Level 2: 200-300px from parent
+   - Level 3+: 150-200px from parent
+   - Continue spacing for ALL levels
+   - Use radial layout and spread nodes to prevent overlap
 
-Content Requirements:
-1. Analyze the attached PDF and extract ALL major domains, topics, and subtopics
-2. Create a deep hierarchical structure (3-5 levels) that reflects the content organization
-3. Root node: Main topic/certification name, centered at (600, 400)
-4. Level 1: Major domains/sections radiating from center (300-400px away)
-5. Level 2: Key topics under each domain (200-300px from parent)
-6. Level 3+: Specific services, concepts, or details (150-200px from parent)
-7. Use strategic positioning to avoid overlap and create clear visual flow
-8. Apply color coding by domain/category for better organization
+CONTENT DISTRIBUTION:
+- NODES: EVERY concept, topic, subtopic, detail that represents a distinct idea
+- NOTES: Extended explanations, examples, procedures, best practices, and additional context
+- Create a node for EVERY meaningful concept - don't consolidate to reduce node count
 
-Color Strategy:
-- Use hex color codes (e.g., "#FF6B6B")
-- Use consistent colors for related domains
-- Differentiate service types with distinct color families
-- Keep accessibility in mind with good contrast
+WHAT GOES IN NOTES:
+- Complete definitions and explanations
+- Step-by-step procedures
+- Configuration details
+- Examples and use cases
+- Best practices
+- Tools and services
+- Minor subtopics
+- Any detail too long for a node title
 
-Structural Guidelines:
-- Group related concepts spatially
-- Use radial layout from center for main domains
-- Create sub-clusters for detailed topics
-- Ensure logical flow and visual hierarchy
+HTML FORMATTING:
+- <p> for paragraphs
+- <strong> for emphasis
+- <ul> and <li> for lists
+- <h3> for subsections
+- Keep it clean and readable
 
-Generate the complete JSON now, ensuring ALL content from the PDF is represented and following the EXACT structure specified above:
+COLOR SCHEME:
+- Root: #FF9500 (orange)
+- Categories: #4A90E2 (blue), #50C878 (green), #FF6B6B (red), #9B59B6 (purple), #F39C12 (amber)
+- Subcategories: Lighter shades of parent
+- Be consistent within related topics
+
+QUALITY CHECK:
+□ Have I captured EVERY concept from the source material?
+□ Did I create nodes for ALL topics and subtopics?
+□ Is the hierarchy complete and fully detailed?
+□ Are all node titles concise (under 5 words)?
+□ Does every node have comprehensive notes where applicable?
+□ Have I gone deep enough (10+ levels if needed)?
+□ Is NOTHING missing or consolidated?
+
+Generate the complete JSON now with FULL comprehensive coverage - every concept gets a node.
 ```
 
 ---
 
-## Example Prompt Usage
+## Usage
 
-**For "Learning JavaScript":**
-```
-Generate a mind map in JSON format for: Learning JavaScript for Web Development
+Simply copy the prompt above and replace `[YOUR TOPIC HERE]` with your subject. If you have a PDF or document, mention it in the source material line.
 
-[Include the basic requirements and format above]
-```
+The result will be a clean, navigable mind map where:
+- The visual structure provides clear overview
+- Every node reveals rich details when clicked
+- Nothing important is missed
+- The map remains uncluttered
 
-**For "AWS Security Certification Study Guide":**
-```
-Generate a comprehensive mind map in JSON format for: AWS Certified Security - Specialty
-
-Source Material: [ATTACH YOUR PDF STUDY GUIDE]
-
-[Include the enhanced requirements and exact JSON structure above]
-```
-
-**For "Course with PDF Materials":**
-```
-Generate a comprehensive mind map in JSON format for: [Course Name]
-
-Source Material: [ATTACH YOUR COURSE PDF MATERIALS]
-
-[Include the enhanced requirements and exact JSON structure above]
-```
-
----
-
-## Expected Output
-
-The LLM will generate a properly formatted JSON that can be directly pasted into your mind map import modal, creating an instant, well-structured mind map with appropriate spacing and hierarchy.
+This single prompt handles all use cases - from simple topics to complex certification materials.

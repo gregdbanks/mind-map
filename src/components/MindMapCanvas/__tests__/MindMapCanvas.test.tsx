@@ -2,11 +2,11 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MindMapCanvas } from '../MindMapCanvas';
 import { MindMapProvider } from '../../../context/MindMapContext';
 import { useForceSimulation } from '../../../hooks/useForceSimulation';
-import { useMindMapPersistence } from '../../../hooks/useMindMapPersistence';
+import { useSimplePersistence } from '../../../hooks/useSimplePersistence';
 
 // Mock the hooks
 jest.mock('../../../hooks/useForceSimulation');
-jest.mock('../../../hooks/useMindMapPersistence');
+jest.mock('../../../hooks/useSimplePersistence');
 
 // Mock D3 to avoid SVG property errors in tests
 jest.mock('d3', () => {
@@ -68,7 +68,7 @@ jest.mock('d3', () => {
 });
 
 const mockUseForceSimulation = useForceSimulation as jest.MockedFunction<typeof useForceSimulation>;
-const mockUseMindMapPersistence = useMindMapPersistence as jest.MockedFunction<typeof useMindMapPersistence>;
+const mockUseSimplePersistence = useSimplePersistence as jest.MockedFunction<typeof useSimplePersistence>;
 
 
 describe('MindMapCanvas', () => {
@@ -91,7 +91,7 @@ describe('MindMapCanvas', () => {
     jest.clearAllMocks();
     mockUseForceSimulation.mockClear();
     mockUseForceSimulation.mockReturnValue(mockForceSimulation);
-    mockUseMindMapPersistence.mockReturnValue(mockPersistence);
+    mockUseSimplePersistence.mockReturnValue(mockPersistence);
 
     // Mock getBoundingClientRect for SVG elements
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
@@ -159,14 +159,14 @@ describe('MindMapCanvas', () => {
 
 
   it('should show loading state', () => {
-    mockUseMindMapPersistence.mockReturnValue({
+    mockUseSimplePersistence.mockReturnValue({
       ...mockPersistence,
       loading: true,
     });
 
     renderWithProvider(<MindMapCanvas />);
     
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+    expect(screen.getByText(/loading mind map/i)).toBeInTheDocument();
   });
 
 
