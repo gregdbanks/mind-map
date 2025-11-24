@@ -34,17 +34,20 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  border: none;
+  padding: 0;
+  border: 1px solid transparent;
   border-radius: 4px;
-  background: transparent;
-  color: #555;
+  background-color: transparent !important;
+  color: #555 !important;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-size: 16px;
+  font-weight: normal;
 }
 
 .button:hover:not(:disabled) {
-  background: #e8e8e8;
-  color: #333;
+  background: #e8e8e8 !important;
+  color: #333 !important;
 }
 
 .button:disabled {
@@ -54,7 +57,7 @@
 
 .buttonActive {
   background: #0066cc;
-  color: white;
+  color: white !important;
 }
 
 .buttonActive:hover {
@@ -62,8 +65,10 @@
 }
 
 .button svg {
-  width: 16px;
-  height: 16px;
+  width: 1em;
+  height: 1em;
+  display: block;
+  color: currentColor;
 }
 
 .select {
