@@ -610,6 +610,9 @@ export const MindMapCanvas: React.FC = () => {
       })
       .attr('fill', (d: any) => {
         const node = d as Node;
+        if (node.textColor) {
+          return node.textColor;
+        }
         if (isAWSService(node.text)) {
           return '#FFFFFF'; // White text for AWS services (good contrast with orange)
         }
@@ -1143,11 +1146,15 @@ export const MindMapCanvas: React.FC = () => {
             nodeId={editingNode.id}
             initialText={editingNode.text}
             initialColor={editingNode.color}
+            initialTextColor={editingNode.textColor}
             isOpen={!!state.editingNodeId}
-            onSave={(nodeId, text, color) => {
+            onSave={(nodeId, text, color, textColor) => {
               operations.updateNodeText(nodeId, text);
               if (color !== undefined) {
                 operations.updateNode(nodeId, { color });
+              }
+              if (textColor !== undefined) {
+                operations.updateNode(nodeId, { textColor });
               }
               stopEditing();
             }}

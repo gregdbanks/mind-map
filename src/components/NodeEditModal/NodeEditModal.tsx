@@ -5,8 +5,9 @@ interface NodeEditModalProps {
   nodeId: string;
   initialText: string;
   initialColor?: string;
+  initialTextColor?: string;
   isOpen: boolean;
-  onSave: (nodeId: string, text: string, color?: string) => void;
+  onSave: (nodeId: string, text: string, color?: string, textColor?: string) => void;
   onCancel: () => void;
 }
 
@@ -14,12 +15,14 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
   nodeId,
   initialText,
   initialColor,
+  initialTextColor,
   isOpen,
   onSave,
   onCancel
 }) => {
   const [text, setText] = useState(initialText);
   const [color, setColor] = useState(initialColor || '');
+  const [textColor, setTextColor] = useState(initialTextColor || '');
   const inputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -34,13 +37,14 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
   useEffect(() => {
     setText(initialText);
     setColor(initialColor || '');
-  }, [initialText, initialColor]);
+    setTextColor(initialTextColor || '');
+  }, [initialText, initialColor, initialTextColor]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const trimmedText = text.trim();
     if (trimmedText) {
-      onSave(nodeId, trimmedText, color || undefined);
+      onSave(nodeId, trimmedText, color || undefined, textColor || undefined);
     } else {
       onCancel();
     }
@@ -62,7 +66,7 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       ref={modalRef}
       className={styles.modalBackdrop}
       onClick={handleBackdropClick}
@@ -82,37 +86,72 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
               placeholder="Enter node text..."
             />
           </div>
-          
-          <div className={styles.inputGroup}>
-            <label className={styles.inputLabel}>Node Color</label>
-            <div className={styles.colorPickerContainer}>
-              <input
-                type="color"
-                value={color || '#4A90E2'}
-                onChange={(e) => setColor(e.target.value)}
-                className={styles.colorInput}
-              />
-              <button
-                type="button"
-                onClick={() => setColor('')}
-                className={styles.resetColorButton}
-                title="Reset to default color"
-              >
-                Reset
-              </button>
+
+          <div className={styles.colorRow}>
+            <div className={styles.inputGroup}>
+              <label className={styles.inputLabel}>Node Color</label>
+              <div className={styles.colorPickerContainer}>
+                <input
+                  type="color"
+                  value={color || '#4A90E2'}
+                  onChange={(e) => setColor(e.target.value)}
+                  className={styles.colorInput}
+                />
+                <button
+                  type="button"
+                  onClick={() => setColor('')}
+                  className={styles.resetColorButton}
+                  title="Reset to default color"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+
+            <div className={styles.inputGroup}>
+              <label className={styles.inputLabel}>Text Color</label>
+              <div className={styles.colorPickerContainer}>
+                <input
+                  type="color"
+                  value={textColor || '#1a237e'}
+                  onChange={(e) => setTextColor(e.target.value)}
+                  className={styles.colorInput}
+                />
+                <button
+                  type="button"
+                  onClick={() => setTextColor('')}
+                  className={styles.resetColorButton}
+                  title="Reset to default text color"
+                >
+                  Reset
+                </button>
+              </div>
             </div>
           </div>
-          
+
+          <div className={styles.previewContainer}>
+            <label className={styles.inputLabel}>Preview</label>
+            <div
+              className={styles.previewSwatch}
+              style={{
+                backgroundColor: color || '#4A90E2',
+                color: textColor || '#1a237e',
+              }}
+            >
+              {text || 'Preview'}
+            </div>
+          </div>
+
           <div className={styles.buttonGroup}>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className={styles.saveButton}
               disabled={!text.trim()}
             >
               Save
             </button>
-            <button 
-              type="button" 
+            <button
+              type="button"
               onClick={onCancel}
               className={styles.cancelButton}
             >
