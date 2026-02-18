@@ -15,6 +15,7 @@ export interface Node {
   collapsed: boolean;
   parent: string | null;
   color?: string; // Optional background color (hex, rgb, or CSS color name)
+  textColor?: string; // Optional text color (hex, rgb, or CSS color name)
   noteId?: string; // Reference to associated note
   hasNote?: boolean; // Quick flag to check if node has a note
 }
