@@ -12,6 +12,7 @@ import { NodeEditModal } from '../NodeEditModal';
 import { ImportModal } from '../ImportModal';
 import { SearchBar } from '../SearchBar';
 import { LayoutSelector, type LayoutType } from '../LayoutSelector';
+import { BackgroundSelector, getBackgroundStyle, getBackgroundColor, loadCanvasBackground, saveCanvasBackground, type CanvasBackground } from '../BackgroundSelector';
 import { layoutManager, savePreferredLayout, loadPreferredLayout } from '../../utils/layoutManager';
 import type { ForceNode, ForceLink } from '../../utils/forceDirectedLayout';
 import { getAllConnectedNodes } from '../../utils/getNodeDescendants';
@@ -39,6 +40,7 @@ export const MindMapCanvas: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [isPanMode, setIsPanMode] = useState(false);
   const [notesModalNodeId, setNotesModalNodeId] = useState<string | null>(null);
+  const [canvasBackground, setCanvasBackground] = useState<CanvasBackground>(() => loadCanvasBackground());
   
   // Use IndexedDB for notes storage
   const { notes, saveNote, deleteNote, getNote } = useIndexedDBNotes();
@@ -530,8 +532,8 @@ export const MindMapCanvas: React.FC = () => {
         const buffer = depth === 0 ? 6 : 4;
         return radius + buffer;
       })
-      .attr('fill', '#f9f9f9') // Match canvas background color
-      .attr('stroke', '#f9f9f9')
+      .attr('fill', getBackgroundColor(canvasBackground))
+      .attr('stroke', getBackgroundColor(canvasBackground))
       .attr('stroke-width', 4)
       .style('pointer-events', 'none'); // Ensure background doesn't interfere with interactions
 
@@ -875,7 +877,7 @@ export const MindMapCanvas: React.FC = () => {
     attachActionHandlers(nodeEnter);
     attachActionHandlers(nodeUpdate);
 
-  }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, isDragging, operations, currentLayout]);
+  }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, isDragging, operations, currentLayout, canvasBackground]);
 
   // Hide all action buttons when editing starts
   useEffect(() => {
@@ -1112,7 +1114,7 @@ export const MindMapCanvas: React.FC = () => {
         </button>
         
         
-        <button 
+        <button
           className={styles.iconButton}
           onClick={() => setIsImportModalOpen(true)}
           title="Import JSON data"
@@ -1121,6 +1123,14 @@ export const MindMapCanvas: React.FC = () => {
             <path d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"/>
           </svg>
         </button>
+
+        <BackgroundSelector
+          current={canvasBackground}
+          onChange={(bg) => {
+            setCanvasBackground(bg);
+            saveCanvasBackground(bg);
+          }}
+        />
       </div>
 
       <SearchBar
@@ -1137,7 +1147,7 @@ export const MindMapCanvas: React.FC = () => {
         />
       )}
 
-      <div className={styles.canvasContainer}>
+      <div className={styles.canvasContainer} style={getBackgroundStyle(canvasBackground)}>
 
         {editingNode && (
           <NodeEditModal
