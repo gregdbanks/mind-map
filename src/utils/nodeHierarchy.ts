@@ -90,6 +90,20 @@ export function getNodeVisualProperties(depth: number) {
 }
 
 /**
+ * Returns a dark or light text color that contrasts well with the given background.
+ * Uses perceived brightness (YIQ formula) to decide.
+ */
+export function getContrastTextColor(bgHex: string): string {
+  const hex = bgHex.replace('#', '');
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  // YIQ perceived brightness
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness > 150 ? '#1a1a2e' : '#ffffff';
+}
+
+/**
  * Get link visual properties based on source and target depths
  */
 export function getLinkVisualProperties(sourceDepth: number, targetDepth: number) {

@@ -5,13 +5,14 @@ import { useSimplePersistence } from '../../hooks/useSimplePersistence';
 import { useMindMapOperations } from '../../hooks/useMindMapOperations';
 import type { Node, Link } from '../../types';
 import { exportToJSON, importFromJSONText } from '../../utils/exportUtils';
-import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties } from '../../utils/nodeHierarchy';
+import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties, getContrastTextColor } from '../../utils/nodeHierarchy';
 import { isAWSService } from '../../utils/awsServices';
 import { NodeTooltip } from '../NodeTooltip';
 import { NodeEditModal } from '../NodeEditModal';
 import { ImportModal } from '../ImportModal';
 import { SearchBar } from '../SearchBar';
 import { LayoutSelector, type LayoutType } from '../LayoutSelector';
+import { BackgroundSelector, getBackgroundStyle, getBackgroundColor, loadCanvasBackground, saveCanvasBackground, type CanvasBackground } from '../BackgroundSelector';
 import { layoutManager, savePreferredLayout, loadPreferredLayout } from '../../utils/layoutManager';
 import type { ForceNode, ForceLink } from '../../utils/forceDirectedLayout';
 import { getAllConnectedNodes } from '../../utils/getNodeDescendants';
@@ -39,6 +40,7 @@ export const MindMapCanvas: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [isPanMode, setIsPanMode] = useState(false);
   const [notesModalNodeId, setNotesModalNodeId] = useState<string | null>(null);
+  const [canvasBackground, setCanvasBackground] = useState<CanvasBackground>(() => loadCanvasBackground());
   
   // Use IndexedDB for notes storage
   const { notes, saveNote, deleteNote, getNote } = useIndexedDBNotes();
@@ -530,8 +532,8 @@ export const MindMapCanvas: React.FC = () => {
         const buffer = depth === 0 ? 6 : 4;
         return radius + buffer;
       })
-      .attr('fill', '#f9f9f9') // Match canvas background color
-      .attr('stroke', '#f9f9f9')
+      .attr('fill', getBackgroundColor(canvasBackground))
+      .attr('stroke', getBackgroundColor(canvasBackground))
       .attr('stroke-width', 4)
       .style('pointer-events', 'none'); // Ensure background doesn't interfere with interactions
 
@@ -613,12 +615,10 @@ export const MindMapCanvas: React.FC = () => {
         if (node.textColor) {
           return node.textColor;
         }
-        if (isAWSService(node.text)) {
-          return '#FFFFFF'; // White text for AWS services (good contrast with orange)
-        }
+        // Determine the effective background color of this node
         const depth = nodeDepths.get(node.id) || 0;
-        // Text color matches the stroke color for consistency
-        return getNodeVisualProperties(depth).strokeColor;
+        const bgColor = node.color || getNodeVisualProperties(depth).fillColor;
+        return getContrastTextColor(bgColor);
       });
 
     // Update note indicator
@@ -877,7 +877,7 @@ export const MindMapCanvas: React.FC = () => {
     attachActionHandlers(nodeEnter);
     attachActionHandlers(nodeUpdate);
 
-  }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, isDragging, operations, currentLayout]);
+  }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, isDragging, operations, currentLayout, canvasBackground]);
 
   // Hide all action buttons when editing starts
   useEffect(() => {
@@ -1114,7 +1114,7 @@ export const MindMapCanvas: React.FC = () => {
         </button>
         
         
-        <button 
+        <button
           className={styles.iconButton}
           onClick={() => setIsImportModalOpen(true)}
           title="Import JSON data"
@@ -1123,6 +1123,14 @@ export const MindMapCanvas: React.FC = () => {
             <path d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"/>
           </svg>
         </button>
+
+        <BackgroundSelector
+          current={canvasBackground}
+          onChange={(bg) => {
+            setCanvasBackground(bg);
+            saveCanvasBackground(bg);
+          }}
+        />
       </div>
 
       <SearchBar
@@ -1139,7 +1147,7 @@ export const MindMapCanvas: React.FC = () => {
         />
       )}
 
-      <div className={styles.canvasContainer}>
+      <div className={styles.canvasContainer} style={getBackgroundStyle(canvasBackground)}>
 
         {editingNode && (
           <NodeEditModal
@@ -1195,17 +1203,30 @@ export const MindMapCanvas: React.FC = () => {
         onCancel={() => setIsImportModalOpen(false)}
       />
 
-      {notesModalNodeId && (
-        <NotesModal
-          isOpen={!!notesModalNodeId}
-          nodeId={notesModalNodeId}
-          nodeText={state.nodes.get(notesModalNodeId)?.text || ''}
-          existingNote={getNote(notesModalNodeId) || null}
-          onSave={handleNoteSave(notesModalNodeId)}
-          onDelete={getNote(notesModalNodeId) ? handleNoteDelete(notesModalNodeId) : undefined}
-          onClose={() => setNotesModalNodeId(null)}
-        />
-      )}
+      {notesModalNodeId && (() => {
+        const currentNode = state.nodes.get(notesModalNodeId);
+        const parentId = currentNode?.parent;
+        const siblings = parentId != null
+          ? nodes.filter(n => n.parent === parentId).sort((a, b) => a.id.localeCompare(b.id))
+          : [];
+        const currentIndex = siblings.findIndex(n => n.id === notesModalNodeId);
+        const prevSibling = currentIndex > 0 ? siblings[currentIndex - 1] : undefined;
+        const nextSibling = currentIndex >= 0 && currentIndex < siblings.length - 1 ? siblings[currentIndex + 1] : undefined;
+
+        return (
+          <NotesModal
+            isOpen={!!notesModalNodeId}
+            nodeId={notesModalNodeId}
+            nodeText={currentNode?.text || ''}
+            existingNote={getNote(notesModalNodeId) || null}
+            onSave={handleNoteSave(notesModalNodeId)}
+            onDelete={getNote(notesModalNodeId) ? handleNoteDelete(notesModalNodeId) : undefined}
+            onClose={() => setNotesModalNodeId(null)}
+            onNavigatePrev={prevSibling ? () => setNotesModalNodeId(prevSibling.id) : undefined}
+            onNavigateNext={nextSibling ? () => setNotesModalNodeId(nextSibling.id) : undefined}
+          />
+        );
+      })()}
     </>
   );
 };
