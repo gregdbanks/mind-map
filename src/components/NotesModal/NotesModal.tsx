@@ -13,6 +13,8 @@ interface NotesModalProps {
   onSave: (content: string, contentJson: any, plainText?: string) => void;
   onDelete?: () => void;
   onClose: () => void;
+  onNavigatePrev?: () => void;
+  onNavigateNext?: () => void;
 }
 
 export const NotesModal: React.FC<NotesModalProps> = ({
@@ -23,12 +25,15 @@ export const NotesModal: React.FC<NotesModalProps> = ({
   onSave,
   onDelete,
   onClose,
+  onNavigatePrev,
+  onNavigateNext,
 }) => {
   const [content, setContent] = useState(existingNote?.content || '');
   const [contentJson, setContentJson] = useState(existingNote?.contentJson || null);
   const [plainText, setPlainText] = useState(existingNote?.plainText || '');
   const [hasChanges, setHasChanges] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const initialLoadRef = useRef(true);
 
   // Update local state when existingNote changes
   useEffect(() => {
@@ -36,6 +41,7 @@ export const NotesModal: React.FC<NotesModalProps> = ({
     setContentJson(existingNote?.contentJson || null);
     setPlainText(existingNote?.plainText || '');
     setHasChanges(false);
+    initialLoadRef.current = true;
   }, [existingNote, nodeId]);
 
   // Handle escape key
@@ -63,10 +69,34 @@ export const NotesModal: React.FC<NotesModalProps> = ({
     return () => document.removeEventListener('keydown', handleSave);
   }, [isOpen, content, contentJson, plainText]);
 
+  // Handle Alt+Arrow for sibling navigation
+  useEffect(() => {
+    const handleNavigate = (e: KeyboardEvent) => {
+      if (!isOpen || !e.altKey) return;
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+
+      const callback = e.key === 'ArrowLeft' ? onNavigatePrev : onNavigateNext;
+      if (!callback) return;
+
+      e.preventDefault();
+      if (hasChanges && (content.trim() || contentJson)) {
+        onSave(content, contentJson, plainText);
+      }
+      callback();
+    };
+
+    document.addEventListener('keydown', handleNavigate);
+    return () => document.removeEventListener('keydown', handleNavigate);
+  }, [isOpen, hasChanges, content, contentJson, plainText, onSave, onNavigatePrev, onNavigateNext]);
+
   const handleEditorChange = (json: any, html: string, text?: string) => {
     setContentJson(json);
     setContent(html);
     setPlainText(text || '');
+    if (initialLoadRef.current) {
+      initialLoadRef.current = false;
+      return;
+    }
     setHasChanges(true);
   };
 
@@ -99,7 +129,39 @@ export const NotesModal: React.FC<NotesModalProps> = ({
       <div className={styles.overlay} onClick={handleClose} />
       <div className={styles.modal} ref={modalRef}>
         <div className={styles.header}>
-          <h2>Note for "{nodeText}"</h2>
+          <div className={styles.headerNav}>
+            {onNavigatePrev && (
+              <button
+                className={styles.navButton}
+                onClick={() => {
+                  if (hasChanges && (content.trim() || contentJson)) {
+                    onSave(content, contentJson, plainText);
+                  }
+                  onNavigatePrev();
+                }}
+                title="Previous sibling (Alt+Left)"
+                type="button"
+              >
+                &#x276E;
+              </button>
+            )}
+            <h2>Note for "{nodeText}"</h2>
+            {onNavigateNext && (
+              <button
+                className={styles.navButton}
+                onClick={() => {
+                  if (hasChanges && (content.trim() || contentJson)) {
+                    onSave(content, contentJson, plainText);
+                  }
+                  onNavigateNext();
+                }}
+                title="Next sibling (Alt+Right)"
+                type="button"
+              >
+                &#x276F;
+              </button>
+            )}
+          </div>
           <button
             className={styles.closeButton}
             onClick={handleClose}
@@ -154,7 +216,7 @@ export const NotesModal: React.FC<NotesModalProps> = ({
         </div>
 
         <div className={styles.hint}>
-          <small>Tip: Use Ctrl+S to save, Esc to close</small>
+          <small>Tip: Ctrl+S to save, Esc to close{(onNavigatePrev || onNavigateNext) ? ', Alt+Arrow to navigate siblings' : ''}</small>
         </div>
       </div>
     </>,

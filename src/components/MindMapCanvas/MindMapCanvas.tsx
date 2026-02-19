@@ -5,7 +5,7 @@ import { useSimplePersistence } from '../../hooks/useSimplePersistence';
 import { useMindMapOperations } from '../../hooks/useMindMapOperations';
 import type { Node, Link } from '../../types';
 import { exportToJSON, importFromJSONText } from '../../utils/exportUtils';
-import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties } from '../../utils/nodeHierarchy';
+import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties, getContrastTextColor } from '../../utils/nodeHierarchy';
 import { isAWSService } from '../../utils/awsServices';
 import { NodeTooltip } from '../NodeTooltip';
 import { NodeEditModal } from '../NodeEditModal';
@@ -613,12 +613,10 @@ export const MindMapCanvas: React.FC = () => {
         if (node.textColor) {
           return node.textColor;
         }
-        if (isAWSService(node.text)) {
-          return '#FFFFFF'; // White text for AWS services (good contrast with orange)
-        }
+        // Determine the effective background color of this node
         const depth = nodeDepths.get(node.id) || 0;
-        // Text color matches the stroke color for consistency
-        return getNodeVisualProperties(depth).strokeColor;
+        const bgColor = node.color || getNodeVisualProperties(depth).fillColor;
+        return getContrastTextColor(bgColor);
       });
 
     // Update note indicator
@@ -1195,17 +1193,30 @@ export const MindMapCanvas: React.FC = () => {
         onCancel={() => setIsImportModalOpen(false)}
       />
 
-      {notesModalNodeId && (
-        <NotesModal
-          isOpen={!!notesModalNodeId}
-          nodeId={notesModalNodeId}
-          nodeText={state.nodes.get(notesModalNodeId)?.text || ''}
-          existingNote={getNote(notesModalNodeId) || null}
-          onSave={handleNoteSave(notesModalNodeId)}
-          onDelete={getNote(notesModalNodeId) ? handleNoteDelete(notesModalNodeId) : undefined}
-          onClose={() => setNotesModalNodeId(null)}
-        />
-      )}
+      {notesModalNodeId && (() => {
+        const currentNode = state.nodes.get(notesModalNodeId);
+        const parentId = currentNode?.parent;
+        const siblings = parentId != null
+          ? nodes.filter(n => n.parent === parentId).sort((a, b) => a.id.localeCompare(b.id))
+          : [];
+        const currentIndex = siblings.findIndex(n => n.id === notesModalNodeId);
+        const prevSibling = currentIndex > 0 ? siblings[currentIndex - 1] : undefined;
+        const nextSibling = currentIndex >= 0 && currentIndex < siblings.length - 1 ? siblings[currentIndex + 1] : undefined;
+
+        return (
+          <NotesModal
+            isOpen={!!notesModalNodeId}
+            nodeId={notesModalNodeId}
+            nodeText={currentNode?.text || ''}
+            existingNote={getNote(notesModalNodeId) || null}
+            onSave={handleNoteSave(notesModalNodeId)}
+            onDelete={getNote(notesModalNodeId) ? handleNoteDelete(notesModalNodeId) : undefined}
+            onClose={() => setNotesModalNodeId(null)}
+            onNavigatePrev={prevSibling ? () => setNotesModalNodeId(prevSibling.id) : undefined}
+            onNavigateNext={nextSibling ? () => setNotesModalNodeId(nextSibling.id) : undefined}
+          />
+        );
+      })()}
     </>
   );
 };
