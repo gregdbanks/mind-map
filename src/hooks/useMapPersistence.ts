@@ -82,8 +82,12 @@ export function useMapPersistence(mapId: string) {
           const mindmapsStore = txMindmaps.objectStore('mindmaps');
           mindmapsStore.put(mindMapData, key);
 
+          txMindmaps.oncomplete = () => {
+            dispatch({ type: 'MARK_CLEAN' });
+          };
+
           txMindmaps.onerror = () => {
-            console.error('Failed to save mind map to IndexedDB');
+            // Save failed — dirty flag stays true
           };
 
           // Update mapMetadata entry
@@ -104,11 +108,11 @@ export function useMapPersistence(mapId: string) {
           };
 
           txMeta.onerror = () => {
-            console.error('Failed to update map metadata in IndexedDB');
+            // Metadata update failed — non-critical
           };
         })
-        .catch((err) => {
-          console.error('Failed to save mind map:', err);
+        .catch(() => {
+          // Save failed — dirty flag stays true so user knows
         });
     }, AUTOSAVE_DELAY);
 
