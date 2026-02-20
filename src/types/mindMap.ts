@@ -39,3 +39,18 @@ export interface MindMapState {
   lastModified: Date;
   isDirty: boolean; // Tracks if there are unsaved changes
 }
+
+export interface MapMetadata {
+  id: string;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  nodeCount: number;
+}
+
+export interface StoredMindMap {
+  id: string;
+  nodes: Node[];
+  links: Link[];
+  lastModified: string;
+}

@@ -1,6 +1,7 @@
 export interface NodeNote {
   id: string;
   nodeId: string;
+  mapId?: string;
   content: string; // HTML content
   contentJson?: any; // TipTap JSON format
   contentType: 'html' | 'tiptap' | 'markdown' | 'plain';

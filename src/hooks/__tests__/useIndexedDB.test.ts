@@ -1,13 +1,8 @@
-import { renderHook, waitFor } from '@testing-library/react';
+import { renderHook, waitFor, act } from '@testing-library/react';
 import { useIndexedDB } from '../useIndexedDB';
 import { MindMap } from '../../types/mindMap';
 
-// Mock IndexedDB
-const mockIDB = {
-  open: jest.fn(),
-  deleteDatabase: jest.fn(),
-};
-
+// Mock the shared database service
 const mockObjectStore = {
   get: jest.fn(),
   put: jest.fn(),
@@ -16,37 +11,35 @@ const mockObjectStore = {
 
 const mockTransaction = {
   objectStore: jest.fn(() => mockObjectStore),
+  onerror: null as any,
 };
 
 const mockDB = {
   transaction: jest.fn(() => mockTransaction),
-  createObjectStore: jest.fn(),
-  close: jest.fn(),
   objectStoreNames: {
     contains: jest.fn(() => true),
   },
-  version: 1,
 };
 
-// Setup global IndexedDB mock
-(window as any).indexedDB = mockIDB;
+jest.mock('../../services/database', () => ({
+  getDatabase: jest.fn(),
+}));
+
+import { getDatabase } from '../../services/database';
+const mockGetDatabase = getDatabase as jest.MockedFunction<typeof getDatabase>;
 
 describe('useIndexedDB', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    
-    // Setup default mock behavior
-    mockIDB.open.mockReturnValue({
-      onsuccess: null,
-      onerror: null,
-      onupgradeneeded: null,
-      result: mockDB,
-    });
+    mockGetDatabase.mockResolvedValue(mockDB as any);
   });
 
   it('should initialize with loading state', () => {
+    // Don't resolve getDatabase yet
+    mockGetDatabase.mockReturnValue(new Promise(() => {}));
+
     const { result } = renderHook(() => useIndexedDB<MindMap>('test-key'));
-    
+
     expect(result.current.data).toBeNull();
     expect(result.current.loading).toBe(true);
     expect(result.current.error).toBeNull();
@@ -59,32 +52,17 @@ describe('useIndexedDB', () => {
       lastModified: new Date(),
     };
 
-    mockIDB.open.mockImplementation(() => {
-      const request = {
-        onsuccess: null as any,
-        onerror: null as any,
-        onupgradeneeded: null as any,
-        result: mockDB,
-      };
-      
-      setTimeout(() => {
-        if (request.onsuccess) request.onsuccess({ target: { result: mockDB } });
-      }, 0);
-      
-      return request;
-    });
-
     mockObjectStore.get.mockImplementation(() => {
       const request = {
         onsuccess: null as any,
         onerror: null as any,
         result: mockData,
       };
-      
+
       setTimeout(() => {
         if (request.onsuccess) request.onsuccess({ target: { result: mockData } });
       }, 0);
-      
+
       return request;
     });
 
@@ -105,32 +83,17 @@ describe('useIndexedDB', () => {
       lastModified: new Date(),
     };
 
-    mockIDB.open.mockImplementation(() => {
-      const request = {
-        onsuccess: null as any,
-        onerror: null as any,
-        onupgradeneeded: null as any,
-        result: mockDB,
-      };
-      
-      setTimeout(() => {
-        if (request.onsuccess) request.onsuccess({ target: { result: mockDB } });
-      }, 0);
-      
-      return request;
-    });
-
     mockObjectStore.get.mockImplementation(() => {
       const request = {
         onsuccess: null as any,
         onerror: null as any,
         result: null,
       };
-      
+
       setTimeout(() => {
         if (request.onsuccess) request.onsuccess({ target: { result: null } });
       }, 0);
-      
+
       return request;
     });
 
@@ -139,11 +102,11 @@ describe('useIndexedDB', () => {
         onsuccess: null as any,
         onerror: null as any,
       };
-      
+
       setTimeout(() => {
         if (request.onsuccess) request.onsuccess({});
       }, 0);
-      
+
       return request;
     });
 
@@ -153,28 +116,16 @@ describe('useIndexedDB', () => {
       expect(result.current.loading).toBe(false);
     });
 
-    await result.current.save(mockData);
+    await act(async () => {
+      await result.current.save(mockData);
+    });
 
     expect(mockObjectStore.put).toHaveBeenCalledWith(mockData, 'test-key');
   });
 
   it('should handle errors gracefully', async () => {
-    const testError = new Error('IndexedDB error');
-    
-    mockIDB.open.mockImplementation(() => {
-      const request = {
-        onsuccess: null as any,
-        onerror: null as any,
-        onupgradeneeded: null as any,
-        result: mockDB,
-      };
-      
-      setTimeout(() => {
-        if (request.onerror) request.onerror({ target: { error: testError } });
-      }, 0);
-      
-      return request;
-    });
+    const testError = new Error('DB connection failed');
+    mockGetDatabase.mockRejectedValue(testError);
 
     const { result } = renderHook(() => useIndexedDB<MindMap>('test-key'));
 
@@ -183,37 +134,22 @@ describe('useIndexedDB', () => {
     });
 
     expect(result.current.error).toBeInstanceOf(Error);
-    expect(result.current.error?.message).toBe('Failed to open IndexedDB: IndexedDB error');
+    expect(result.current.error?.message).toBe('DB connection failed');
     expect(result.current.data).toBeNull();
   });
 
   it('should delete data from IndexedDB', async () => {
-    mockIDB.open.mockImplementation(() => {
-      const request = {
-        onsuccess: null as any,
-        onerror: null as any,
-        onupgradeneeded: null as any,
-        result: mockDB,
-      };
-      
-      setTimeout(() => {
-        if (request.onsuccess) request.onsuccess({ target: { result: mockDB } });
-      }, 0);
-      
-      return request;
-    });
-
     mockObjectStore.get.mockImplementation(() => {
       const request = {
         onsuccess: null as any,
         onerror: null as any,
         result: null,
       };
-      
+
       setTimeout(() => {
         if (request.onsuccess) request.onsuccess({ target: { result: null } });
       }, 0);
-      
+
       return request;
     });
 
@@ -222,11 +158,11 @@ describe('useIndexedDB', () => {
         onsuccess: null as any,
         onerror: null as any,
       };
-      
+
       setTimeout(() => {
         if (request.onsuccess) request.onsuccess({});
       }, 0);
-      
+
       return request;
     });
 
@@ -236,7 +172,9 @@ describe('useIndexedDB', () => {
       expect(result.current.loading).toBe(false);
     });
 
-    await result.current.remove();
+    await act(async () => {
+      await result.current.remove();
+    });
 
     expect(mockObjectStore.delete).toHaveBeenCalledWith('test-key');
   });
