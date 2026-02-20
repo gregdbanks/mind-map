@@ -16,6 +16,7 @@ import { layoutManager, savePreferredLayout, loadPreferredLayout } from '../../u
 import type { ForceNode, ForceLink } from '../../utils/forceDirectedLayout';
 import { getAllConnectedNodes } from '../../utils/getNodeDescendants';
 import { NotesModal } from '../NotesModal';
+import { HelpGuideModal } from '../HelpGuideModal';
 import type { NodeNote } from '../../types';
 import { useIndexedDBNotes } from '../../hooks/useIndexedDBNotes';
 import { v4 as uuidv4 } from 'uuid';
@@ -39,6 +40,12 @@ export const MindMapCanvas: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [isPanMode, setIsPanMode] = useState(false);
   const [notesModalNodeId, setNotesModalNodeId] = useState<string | null>(null);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
+
+  // Multi-select state
+  const [multiSelectedNodeIds, setMultiSelectedNodeIds] = useState<Set<string>>(new Set());
+  const marqueeRef = useRef<{ startX: number; startY: number; active: boolean }>({ startX: 0, startY: 0, active: false });
+  const marqueeGroupRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
   
   // Use IndexedDB for notes storage
   const { notes, saveNote, deleteNote, getNote } = useIndexedDBNotes();
@@ -321,6 +328,11 @@ export const MindMapCanvas: React.FC = () => {
       // Create main group that will hold everything
       const g = svg.append('g').attr('class', 'main-group');
       gRef.current = g;
+
+      // Create marquee selection group (screen-space, not transformed by zoom)
+      const marqueeGroup = svg.append('g').attr('class', 'marquee-group');
+      marqueeGroupRef.current = marqueeGroup;
+
       setIsInitialized(true);
     }
 
@@ -712,76 +724,146 @@ export const MindMapCanvas: React.FC = () => {
           return target?.y || 0;
         });
 
-    // Setup drag behavior
+    // Setup drag behavior (supports single and group drag)
     {
-      // Simple drag
+      let dragStartPositions: Map<string, { x: number; y: number }> = new Map();
+      let dragStartX = 0;
+      let dragStartY = 0;
+
       const drag = d3.drag<SVGGElement, Node>()
-        .on('start', (_event, d) => {
+        .on('start', (event, d) => {
           setIsDragging(true);
-          setHoveredNodeId(null); // Clear hover during drag
-          // Hide action buttons immediately when drag starts - find correct node by data
+          setHoveredNodeId(null);
+          // Hide action buttons immediately when drag starts
           g.selectAll<SVGGElement, Node>('.node')
             .filter((nodeData: Node) => nodeData.id === d.id)
             .select('.node-actions')
             .style('opacity', 0);
+
+          dragStartX = event.x;
+          dragStartY = event.y;
           d.fx = d.x;
           d.fy = d.y;
-        })
-        .on('drag', (event, d) => {
-          // Store temporary position for visual updates only
-          const tempX = event.x;
-          const tempY = event.y;
-          
-          // Update visual position immediately - find the correct node group by data
-          // This ensures action buttons stay with their parent node during fast drags
-          g.selectAll<SVGGElement, Node>('.node')
-            .filter((nodeData: Node) => nodeData.id === d.id)
-            .attr('transform', `translate(${tempX},${tempY})`);
-          
-          // Update connected links with temporary position
-          g.selectAll<SVGLineElement, Link>('.link')
-            .each(function(link: any) {
-              const linkSelection = d3.select(this);
-              const sourceId = typeof link.source === 'string' ? link.source : link.source.id;
-              const targetId = typeof link.target === 'string' ? link.target : link.target.id;
-              
-              if (sourceId === d.id) {
-                linkSelection.attr('x1', tempX).attr('y1', tempY);
-              }
-              if (targetId === d.id) {
-                linkSelection.attr('x2', tempX).attr('y2', tempY);
+
+          // If this node is in multi-selection, record start positions of all selected nodes
+          if (multiSelectedNodeIds.has(d.id) && multiSelectedNodeIds.size > 1) {
+            dragStartPositions = new Map();
+            multiSelectedNodeIds.forEach(id => {
+              const node = nodes.find(n => n.id === id);
+              if (node && node.x !== undefined && node.y !== undefined) {
+                dragStartPositions.set(id, { x: node.x, y: node.y });
               }
             });
+          } else {
+            dragStartPositions = new Map();
+          }
+        })
+        .on('drag', (event, d) => {
+          const dx = event.x - dragStartX;
+          const dy = event.y - dragStartY;
+
+          if (dragStartPositions.size > 1) {
+            // Group drag: move all selected nodes by the delta
+            g.selectAll<SVGGElement, Node>('.node')
+              .filter((nodeData: Node) => multiSelectedNodeIds.has(nodeData.id))
+              .each(function(nodeData: Node) {
+                const startPos = dragStartPositions.get(nodeData.id);
+                if (startPos) {
+                  const newX = startPos.x + dx;
+                  const newY = startPos.y + dy;
+                  d3.select(this).attr('transform', `translate(${newX},${newY})`);
+                }
+              });
+
+            // Update connected links for all dragged nodes
+            g.selectAll<SVGLineElement, Link>('.link')
+              .each(function(link: any) {
+                const linkSelection = d3.select(this);
+                const sourceId = typeof link.source === 'string' ? link.source : link.source.id;
+                const targetId = typeof link.target === 'string' ? link.target : link.target.id;
+
+                const sourceStart = dragStartPositions.get(sourceId);
+                const targetStart = dragStartPositions.get(targetId);
+
+                if (sourceStart) {
+                  linkSelection.attr('x1', sourceStart.x + dx).attr('y1', sourceStart.y + dy);
+                }
+                if (targetStart) {
+                  linkSelection.attr('x2', targetStart.x + dx).attr('y2', targetStart.y + dy);
+                }
+              });
+          } else {
+            // Single node drag
+            const tempX = event.x;
+            const tempY = event.y;
+
+            g.selectAll<SVGGElement, Node>('.node')
+              .filter((nodeData: Node) => nodeData.id === d.id)
+              .attr('transform', `translate(${tempX},${tempY})`);
+
+            g.selectAll<SVGLineElement, Link>('.link')
+              .each(function(link: any) {
+                const linkSelection = d3.select(this);
+                const sourceId = typeof link.source === 'string' ? link.source : link.source.id;
+                const targetId = typeof link.target === 'string' ? link.target : link.target.id;
+
+                if (sourceId === d.id) {
+                  linkSelection.attr('x1', tempX).attr('y1', tempY);
+                }
+                if (targetId === d.id) {
+                  linkSelection.attr('x2', tempX).attr('y2', tempY);
+                }
+              });
+          }
         })
         .on('end', (event, d) => {
-          // Update actual node data and persist the final position
-          const finalX = event.x;
-          const finalY = event.y;
-          
-          // Update the node data
-          d.x = finalX;
-          d.y = finalY;
-          d.fx = finalX;
-          d.fy = finalY;
-          
-          // Persist the position to global state (debounced via persistence hook)
-          operations.updateNodePosition(d.id, { x: finalX, y: finalY });
-          
-          // If we're not in custom layout, switch to it when user manually moves a node
+          const dx = event.x - dragStartX;
+          const dy = event.y - dragStartY;
+
+          if (dragStartPositions.size > 1) {
+            // Group drag end: persist all positions
+            dragStartPositions.forEach((startPos, id) => {
+              const finalX = startPos.x + dx;
+              const finalY = startPos.y + dy;
+              const node = nodes.find(n => n.id === id);
+              if (node) {
+                node.x = finalX;
+                node.y = finalY;
+                node.fx = finalX;
+                node.fy = finalY;
+                operations.updateNodePosition(id, { x: finalX, y: finalY });
+              }
+            });
+          } else {
+            // Single drag end
+            const finalX = event.x;
+            const finalY = event.y;
+            d.x = finalX;
+            d.y = finalY;
+            d.fx = finalX;
+            d.fy = finalY;
+            operations.updateNodePosition(d.id, { x: finalX, y: finalY });
+          }
+
+          // Switch to custom layout if needed
           if (currentLayout !== 'custom') {
-            // Save all current positions as custom positions
             customPositionsRef.current.clear();
             state.nodes.forEach((node, id) => {
               if (node.x !== undefined && node.y !== undefined) {
                 customPositionsRef.current.set(id, { x: node.x, y: node.y });
               }
             });
-            // Update the dragged node's position in custom positions
-            customPositionsRef.current.set(d.id, { x: finalX, y: finalY });
-            
+            if (dragStartPositions.size > 1) {
+              dragStartPositions.forEach((startPos, id) => {
+                customPositionsRef.current.set(id, { x: startPos.x + dx, y: startPos.y + dy });
+              });
+            } else {
+              customPositionsRef.current.set(d.id, { x: event.x, y: event.y });
+            }
             setCurrentLayout('custom');
           }
-          
+
+          dragStartPositions = new Map();
           setIsDragging(false);
         });
 
@@ -791,7 +873,23 @@ export const MindMapCanvas: React.FC = () => {
     // Event handlers
     nodeUpdate.on('click', (event: MouseEvent, d: Node) => {
       event.stopPropagation();
-      // Toggle locked highlight state
+
+      // Ctrl+click: toggle node in multi-selection
+      if (event.ctrlKey || event.metaKey) {
+        setMultiSelectedNodeIds(prev => {
+          const next = new Set(prev);
+          if (next.has(d.id)) {
+            next.delete(d.id);
+          } else {
+            next.add(d.id);
+          }
+          return next;
+        });
+        return;
+      }
+
+      // Normal click: clear multi-selection, toggle locked highlight
+      setMultiSelectedNodeIds(new Set());
       if (lockedHighlightNodeId === d.id) {
         setLockedHighlightNodeId(null);
       } else {
@@ -877,7 +975,7 @@ export const MindMapCanvas: React.FC = () => {
     attachActionHandlers(nodeEnter);
     attachActionHandlers(nodeUpdate);
 
-  }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, isDragging, operations, currentLayout]);
+  }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, isDragging, operations, currentLayout, multiSelectedNodeIds]);
 
   // Hide all action buttons when editing starts
   useEffect(() => {
@@ -964,25 +1062,158 @@ export const MindMapCanvas: React.FC = () => {
       });
   }, [hoveredNodeId, lockedHighlightNodeId, links, state.nodes]);
 
-  // Handle canvas interactions
+  // Apply multi-selection visual indicators
+  useEffect(() => {
+    if (!gRef.current) return;
+    const g = gRef.current;
+    const nodeDepths = calculateNodeDepths(state.nodes);
+
+    g.selectAll<SVGGElement, Node>('.node').each(function(d: Node) {
+      const nodeEl = d3.select(this);
+      // Remove any existing selection indicator
+      nodeEl.select('.multi-select-indicator').remove();
+
+      if (multiSelectedNodeIds.has(d.id)) {
+        const depth = nodeDepths.get(d.id) || 0;
+        const radius = getNodeVisualProperties(depth).radius;
+        // Add dashed circle indicator behind the node
+        nodeEl.insert('circle', '.node-background')
+          .attr('class', 'multi-select-indicator')
+          .attr('r', radius + 8)
+          .attr('fill', 'none')
+          .attr('stroke', '#0066cc')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5,3')
+          .attr('opacity', 0.8);
+      }
+    });
+  }, [multiSelectedNodeIds, state.nodes]);
+
+  // Handle canvas interactions + marquee selection
   useEffect(() => {
     if (!svgRef.current || !gRef.current || !isInitialized) return;
 
     const svg = d3.select(svgRef.current);
+    const svgEl = svgRef.current;
 
     const handleClick = function(event: MouseEvent) {
       if (event.target === svgRef.current) {
         selectNode(null);
         setLockedHighlightNodeId(null);
+        // Clear multi-selection on canvas click (unless marquee just finished)
+        if (!marqueeRef.current.active) {
+          setMultiSelectedNodeIds(new Set());
+        }
+      }
+    };
+
+    const handleMouseDown = function(event: MouseEvent) {
+      // Only start marquee on direct canvas click (not on nodes), not in pan mode
+      if (event.target !== svgEl || isPanMode || event.button !== 0) return;
+
+      marqueeRef.current = { startX: event.clientX, startY: event.clientY, active: true };
+
+      // Create the selection rectangle in screen space
+      if (marqueeGroupRef.current) {
+        marqueeGroupRef.current.selectAll('.marquee-rect').remove();
+        marqueeGroupRef.current.append('rect')
+          .attr('class', 'marquee-rect')
+          .attr('x', event.clientX)
+          .attr('y', event.clientY)
+          .attr('width', 0)
+          .attr('height', 0)
+          .attr('fill', 'rgba(0, 102, 204, 0.1)')
+          .attr('stroke', '#0066cc')
+          .attr('stroke-width', 1.5)
+          .attr('stroke-dasharray', '6,3')
+          .attr('pointer-events', 'none');
+      }
+    };
+
+    const handleMouseMove = function(event: MouseEvent) {
+      if (!marqueeRef.current.active) return;
+
+      const { startX, startY } = marqueeRef.current;
+      const currentX = event.clientX;
+      const currentY = event.clientY;
+
+      const x = Math.min(startX, currentX);
+      const y = Math.min(startY, currentY);
+      const width = Math.abs(currentX - startX);
+      const height = Math.abs(currentY - startY);
+
+      if (marqueeGroupRef.current) {
+        marqueeGroupRef.current.select('.marquee-rect')
+          .attr('x', x)
+          .attr('y', y)
+          .attr('width', width)
+          .attr('height', height);
+      }
+    };
+
+    const handleMouseUp = function(event: MouseEvent) {
+      if (!marqueeRef.current.active) return;
+
+      const { startX, startY } = marqueeRef.current;
+      marqueeRef.current.active = false;
+
+      // Remove the marquee rect
+      if (marqueeGroupRef.current) {
+        marqueeGroupRef.current.selectAll('.marquee-rect').remove();
+      }
+
+      const endX = event.clientX;
+      const endY = event.clientY;
+
+      // Only process if dragged more than 5px (avoid accidental tiny marquees)
+      if (Math.abs(endX - startX) < 5 && Math.abs(endY - startY) < 5) return;
+
+      // Convert screen coordinates to world coordinates using zoom transform
+      const transform = d3.zoomTransform(svgEl);
+      const worldStart = transform.invert([Math.min(startX, endX), Math.min(startY, endY)]);
+      const worldEnd = transform.invert([Math.max(startX, endX), Math.max(startY, endY)]);
+
+      const minX = worldStart[0];
+      const minY = worldStart[1];
+      const maxX = worldEnd[0];
+      const maxY = worldEnd[1];
+
+      // Find all nodes within the marquee bounds
+      const selected = new Set<string>();
+      nodes.forEach(node => {
+        if (node.x !== undefined && node.y !== undefined) {
+          if (node.x >= minX && node.x <= maxX && node.y >= minY && node.y <= maxY) {
+            selected.add(node.id);
+          }
+        }
+      });
+
+      if (selected.size > 0) {
+        // If Ctrl/Cmd held, add to existing selection
+        if (event.ctrlKey || event.metaKey) {
+          setMultiSelectedNodeIds(prev => {
+            const next = new Set(prev);
+            selected.forEach(id => next.add(id));
+            return next;
+          });
+        } else {
+          setMultiSelectedNodeIds(selected);
+        }
       }
     };
 
     svg.on('click', handleClick);
+    svg.on('mousedown.marquee', handleMouseDown);
+    svg.on('mousemove.marquee', handleMouseMove);
+    svg.on('mouseup.marquee', handleMouseUp);
 
     return () => {
       svg.on('click', null);
+      svg.on('mousedown.marquee', null);
+      svg.on('mousemove.marquee', null);
+      svg.on('mouseup.marquee', null);
     };
-  }, [state.selectedNodeId, operations, selectNode, isInitialized]);
+  }, [state.selectedNodeId, operations, selectNode, isInitialized, isPanMode, nodes]);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -1005,6 +1236,13 @@ export const MindMapCanvas: React.FC = () => {
 
       // Skip all keyboard shortcuts if input or contenteditable is focused
       if (isInputFocused) {
+        return;
+      }
+
+      // Toggle help guide with '?' key
+      if (e.key === '?') {
+        e.preventDefault();
+        setIsHelpOpen(prev => !prev);
         return;
       }
 
@@ -1114,13 +1352,24 @@ export const MindMapCanvas: React.FC = () => {
         </button>
         
         
-        <button 
+        <button
           className={styles.iconButton}
           onClick={() => setIsImportModalOpen(true)}
           title="Import JSON data"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"/>
+          </svg>
+        </button>
+
+        <button
+          className={styles.iconButton}
+          onClick={() => setIsHelpOpen(true)}
+          title="Help &amp; keyboard shortcuts (?)"
+          data-testid="help-button"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10-4.48 10-10S17.52,2 12,2zm1,17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45,12.9 13,13.5 13,15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2,.9-2,2H8c0-2.21 1.79-4 4-4s4,1.79 4,4c0,.88-.36,1.68-.93,2.25z"/>
           </svg>
         </button>
       </div>
@@ -1206,6 +1455,11 @@ export const MindMapCanvas: React.FC = () => {
           onClose={() => setNotesModalNodeId(null)}
         />
       )}
+
+      <HelpGuideModal
+        isOpen={isHelpOpen}
+        onClose={() => setIsHelpOpen(false)}
+      />
     </>
   );
 };
