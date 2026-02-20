@@ -3,6 +3,9 @@ import { ErrorBoundary } from './components/ErrorBoundary'
 import { useMigration } from './hooks/useMigration'
 import { Dashboard } from './pages/Dashboard'
 import { Editor } from './pages/Editor'
+import { Login } from './pages/Login'
+import { Signup } from './pages/Signup'
+import { ForgotPassword } from './pages/ForgotPassword'
 import './App.css'
 
 function App() {
@@ -21,6 +24,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/map/:mapId" element={<Editor />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </ErrorBoundary>
   )
