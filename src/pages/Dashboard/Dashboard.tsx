@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMapMetadata } from '../../hooks/useMapMetadata';
+import { importFromJSONText } from '../../utils/exportUtils';
 import { MapCard } from './MapCard';
 import styles from './Dashboard.module.css';
 
 export const Dashboard: React.FC = () => {
-  const { maps, loading, createMap, renameMap, deleteMap } = useMapMetadata();
+  const { maps, loading, createMap, renameMap, deleteMap, importMap } = useMapMetadata();
   const navigate = useNavigate();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleCreateMap = async () => {
     const id = await createMap('Untitled Map');
@@ -17,6 +19,37 @@ export const Dashboard: React.FC = () => {
     navigate(`/map/${id}`);
   };
 
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const result = importFromJSONText(text);
+      if (!result) {
+        alert('Invalid mind map file. Please select a valid JSON export.');
+        return;
+      }
+
+      const nodes = Array.from(result.state.nodes.values());
+      const title = file.name.replace(/\.json$/i, '').replace(/^mindmap-\d+$/, 'Imported Map');
+
+      const id = await importMap(title, nodes, result.state.links, result.notes);
+      navigate(`/map/${id}`);
+    } catch {
+      alert('Failed to import file. Please check the file format.');
+    }
+
+    // Reset so the same file can be re-selected
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   if (loading) {
     return <div className={styles.loading}>Loading maps...</div>;
   }
@@ -25,9 +58,21 @@ export const Dashboard: React.FC = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <h1 className={styles.title}>ThoughtNet</h1>
-        <button className={styles.createButton} onClick={handleCreateMap}>
-          + New Map
-        </button>
+        <div className={styles.headerActions}>
+          <button className={styles.importButton} onClick={handleImportClick}>
+            Import JSON
+          </button>
+          <button className={styles.createButton} onClick={handleCreateMap}>
+            + New Map
+          </button>
+        </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".json"
+          style={{ display: 'none' }}
+          onChange={handleFileSelected}
+        />
       </header>
 
       {maps.length === 0 ? (
@@ -51,6 +96,10 @@ export const Dashboard: React.FC = () => {
           ))}
         </div>
       )}
+
+      <footer className={styles.proBanner}>
+        Coming soon: Cloud sync, exports &amp; sharing
+      </footer>
     </div>
   );
 };

@@ -7,7 +7,7 @@
 
 .toolbar {
   position: fixed;
-  top: 70px; /* Below the search bar (20px search position + ~40px search height + 10px spacing) */
+  top: 114px; /* Below EditorHeader (44px) + search bar (20px + ~40px + 10px spacing) */
   left: 50%;
   transform: translateX(-50%);
   z-index: 9997; /* Below search bar's z-index */
@@ -97,6 +97,47 @@ label.iconButton {
   color: #cc0000;
   padding: 20px;
   text-align: center;
+}
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #555;
+  text-align: center;
+  padding: 24px;
+}
+
+.notFound h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+.notFound p {
+  margin: 0 0 24px;
+  font-size: 15px;
+  color: #777;
+}
+
+.notFound button {
+  padding: 10px 24px;
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.notFound button:hover {
+  background: #4f46e5;
 }
 
 .link {

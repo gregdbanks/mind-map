@@ -1,6 +1,6 @@
 .searchContainer {
   position: fixed;
-  top: 20px; /* Position at the top where tooltip used to be */
+  top: 64px; /* Below EditorHeader (44px) + 20px spacing */
   left: 50%;
   transform: translateX(-50%);
   z-index: 9998; /* Just below toolbar's 9999 */
@@ -149,7 +149,7 @@
   .searchContainer {
     width: calc(100vw - 24px);
     max-width: none;
-    top: 68px; /* Adjusted spacing for mobile */
+    top: 112px; /* Below EditorHeader (44px) + adjusted spacing for mobile */
   }
   
   .searchInput {
