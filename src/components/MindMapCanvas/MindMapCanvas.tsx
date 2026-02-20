@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import { useMindMap } from '../../context/MindMapContext';
-import { useSimplePersistence } from '../../hooks/useSimplePersistence';
+import { useMapPersistence } from '../../hooks/useMapPersistence';
 import { useMindMapOperations } from '../../hooks/useMindMapOperations';
 import type { Node, Link } from '../../types';
 import { exportToJSON, importFromJSONText } from '../../utils/exportUtils';
@@ -18,11 +18,15 @@ import { getAllConnectedNodes } from '../../utils/getNodeDescendants';
 import { NotesModal } from '../NotesModal';
 import { HelpGuideModal } from '../HelpGuideModal';
 import type { NodeNote } from '../../types';
-import { useIndexedDBNotes } from '../../hooks/useIndexedDBNotes';
+import { useMapNotes } from '../../hooks/useMapNotes';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './MindMapCanvas.module.css';
 
-export const MindMapCanvas: React.FC = () => {
+interface MindMapCanvasProps {
+  mapId: string;
+}
+
+export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
   const zoomBehaviorRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
@@ -67,7 +71,7 @@ export const MindMapCanvas: React.FC = () => {
   }, [currentLayout]);
 
   // Use IndexedDB for notes storage
-  const { notes, saveNote, deleteNote, getNote } = useIndexedDBNotes();
+  const { notes, saveNote, deleteNote, getNote } = useMapNotes(mapId);
 
   const {
     state,
@@ -78,7 +82,7 @@ export const MindMapCanvas: React.FC = () => {
     markClean,
   } = useMindMap();
 
-  const { loading: persistenceLoading } = useSimplePersistence();
+  const { loading: persistenceLoading } = useMapPersistence(mapId);
   const [loadingTimeout, setLoadingTimeout] = useState(false);
   
   const loading = persistenceLoading && !loadingTimeout;

@@ -1,18 +1,27 @@
-import { MindMapProvider } from './context/MindMapContext'
-import { MindMapCanvas } from './components/MindMapCanvas/MindMapCanvas'
+import { Routes, Route } from 'react-router-dom'
 import { ErrorBoundary } from './components/ErrorBoundary'
-import { DirtyIndicator } from './components/DirtyIndicator'
+import { useMigration } from './hooks/useMigration'
+import { Dashboard } from './pages/Dashboard'
+import { Editor } from './pages/Editor'
 import './App.css'
 
 function App() {
+  const { migrating } = useMigration()
+
+  if (migrating) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#1a1a2e', color: '#fff' }}>
+        Loading...
+      </div>
+    )
+  }
+
   return (
     <ErrorBoundary>
-      <MindMapProvider>
-        <div className="App" style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
-          <MindMapCanvas />
-          <DirtyIndicator />
-        </div>
-      </MindMapProvider>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/map/:mapId" element={<Editor />} />
+      </Routes>
     </ErrorBoundary>
   )
 }

@@ -2,11 +2,13 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MindMapCanvas } from '../MindMapCanvas';
 import { MindMapProvider } from '../../../context/MindMapContext';
 import { useForceSimulation } from '../../../hooks/useForceSimulation';
-import { useSimplePersistence } from '../../../hooks/useSimplePersistence';
+import { useMapPersistence } from '../../../hooks/useMapPersistence';
+import { useMapNotes } from '../../../hooks/useMapNotes';
 
 // Mock the hooks
 jest.mock('../../../hooks/useForceSimulation');
-jest.mock('../../../hooks/useSimplePersistence');
+jest.mock('../../../hooks/useMapPersistence');
+jest.mock('../../../hooks/useMapNotes');
 
 // Mock D3 to avoid SVG property errors in tests
 jest.mock('d3', () => {
@@ -68,8 +70,10 @@ jest.mock('d3', () => {
 });
 
 const mockUseForceSimulation = useForceSimulation as jest.MockedFunction<typeof useForceSimulation>;
-const mockUseSimplePersistence = useSimplePersistence as jest.MockedFunction<typeof useSimplePersistence>;
+const mockUseMapPersistence = useMapPersistence as jest.MockedFunction<typeof useMapPersistence>;
+const mockUseMapNotes = useMapNotes as jest.MockedFunction<typeof useMapNotes>;
 
+const TEST_MAP_ID = 'test-map-123';
 
 describe('MindMapCanvas', () => {
   const mockForceSimulation = {
@@ -84,14 +88,25 @@ describe('MindMapCanvas', () => {
   const mockPersistence = {
     loading: false,
     error: null,
-    lastSaved: new Date(),
+    mapNotFound: false,
+  };
+
+  const mockNotes = {
+    notes: new Map(),
+    loading: false,
+    error: null,
+    saveNote: jest.fn(),
+    deleteNote: jest.fn(),
+    getNote: jest.fn(),
+    clearAllNotes: jest.fn(),
   };
 
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseForceSimulation.mockClear();
     mockUseForceSimulation.mockReturnValue(mockForceSimulation);
-    mockUseSimplePersistence.mockReturnValue(mockPersistence);
+    mockUseMapPersistence.mockReturnValue(mockPersistence);
+    mockUseMapNotes.mockReturnValue(mockNotes);
 
     // Mock getBoundingClientRect for SVG elements
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
@@ -145,48 +160,41 @@ describe('MindMapCanvas', () => {
   };
 
   it('should render SVG canvas', () => {
-    renderWithProvider(<MindMapCanvas />);
-    
+    renderWithProvider(<MindMapCanvas mapId={TEST_MAP_ID} />);
+
     const svg = screen.getByRole('img', { name: /mind map canvas/i });
     expect(svg).toBeInTheDocument();
     expect(svg.tagName).toBe('svg');
   });
 
-
-
-
-
-
-
   it('should show loading state', () => {
-    mockUseSimplePersistence.mockReturnValue({
+    mockUseMapPersistence.mockReturnValue({
       ...mockPersistence,
       loading: true,
     });
 
-    renderWithProvider(<MindMapCanvas />);
-    
+    renderWithProvider(<MindMapCanvas mapId={TEST_MAP_ID} />);
+
     expect(screen.getByText(/loading mind map/i)).toBeInTheDocument();
   });
 
-
   it('should initialize D3 zoom behavior', () => {
-    renderWithProvider(<MindMapCanvas />);
-    
+    renderWithProvider(<MindMapCanvas mapId={TEST_MAP_ID} />);
+
     // Verify D3 zoom was initialized
     expect(jest.requireMock('d3').select).toHaveBeenCalled();
     expect(jest.requireMock('d3').zoom).toHaveBeenCalled();
   });
 
   it('should update canvas size on window resize', async () => {
-    const { container } = renderWithProvider(<MindMapCanvas />);
-    
+    const { container } = renderWithProvider(<MindMapCanvas mapId={TEST_MAP_ID} />);
+
     // Find the main canvas SVG (not the toolbar icon SVGs)
     const canvasSvg = container.querySelector('svg[role="img"][aria-label="Mind map canvas"]');
-    
+
     // Verify main canvas SVG exists
     expect(canvasSvg).toBeInTheDocument();
-    
+
     // Main canvas SVG should have width and height set to 100% (responsive)
     expect(canvasSvg?.getAttribute('width')).toBe('100%');
     expect(canvasSvg?.getAttribute('height')).toBe('100%');
@@ -194,7 +202,7 @@ describe('MindMapCanvas', () => {
     // Simulate window resize - component should handle this gracefully
     Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1200 });
     Object.defineProperty(window, 'innerHeight', { writable: true, configurable: true, value: 800 });
-    
+
     fireEvent(window, new Event('resize'));
 
     await waitFor(() => {
@@ -202,5 +210,12 @@ describe('MindMapCanvas', () => {
       expect(canvasSvg?.getAttribute('width')).toBe('100%');
       expect(canvasSvg?.getAttribute('height')).toBe('100%');
     });
+  });
+
+  it('should pass mapId to persistence hooks', () => {
+    renderWithProvider(<MindMapCanvas mapId={TEST_MAP_ID} />);
+
+    expect(mockUseMapPersistence).toHaveBeenCalledWith(TEST_MAP_ID);
+    expect(mockUseMapNotes).toHaveBeenCalledWith(TEST_MAP_ID);
   });
 });

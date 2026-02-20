@@ -7,6 +7,7 @@ export default {
     '\\.svg$': '<rootDir>/src/__tests__/mocks/fileMock.js',
     '^/(.*)$': '<rootDir>/public/$1',
   },
+  setupFiles: ['<rootDir>/src/__tests__/setupPolyfills.js'],
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{spec,test}.{ts,tsx}',
@@ -22,7 +23,7 @@ export default {
     }]
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(d3|d3-.*|internmap|delaunator|robust-predicates|uuid|@tiptap|prosemirror-.*|lowlight|highlight.js)/)'
+    'node_modules/(?!(d3|d3-.*|internmap|delaunator|robust-predicates|uuid|@tiptap|prosemirror-.*|lowlight|highlight.js|react-router|react-router-dom)/)'
   ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
