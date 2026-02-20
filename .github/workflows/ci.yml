@@ -36,6 +36,55 @@ jobs:
     - name: Build application
       run: npm run build
 
+  test-server:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: thoughtnet
+          POSTGRES_PASSWORD: thoughtnet_local
+          POSTGRES_DB: thoughtnet_test
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        cache-dependency-path: server/package-lock.json
+
+    - name: Install server dependencies
+      working-directory: server
+      run: npm ci
+
+    - name: TypeScript check
+      working-directory: server
+      run: npm run typecheck
+
+    - name: Setup test database
+      env:
+        PGPASSWORD: thoughtnet_local
+      run: psql -h localhost -p 5433 -U thoughtnet -d thoughtnet_test -f server/src/db/schema.sql
+
+    - name: Run server tests
+      working-directory: server
+      env:
+        NODE_ENV: test
+        PG_URI: postgres://thoughtnet:thoughtnet_local@localhost:5433/thoughtnet_test
+      run: npm test
+
   e2e-tests:
     runs-on: ubuntu-latest
     needs: test
