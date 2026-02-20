@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
+import { useNavigate } from 'react-router-dom';
 import { useMindMap } from '../../context/MindMapContext';
 import { useMapPersistence } from '../../hooks/useMapPersistence';
 import { useMindMapOperations } from '../../hooks/useMindMapOperations';
@@ -12,6 +13,8 @@ import { NodeEditModal } from '../NodeEditModal';
 import { ImportModal } from '../ImportModal';
 import { SearchBar } from '../SearchBar';
 import { LayoutSelector, type LayoutType } from '../LayoutSelector';
+import { BackgroundSelector, getBackgroundStyle, getBackgroundColor, loadCanvasBackground, saveCanvasBackground } from '../BackgroundSelector';
+import type { CanvasBackground } from '../BackgroundSelector';
 import { layoutManager, savePreferredLayout, loadPreferredLayout } from '../../utils/layoutManager';
 import type { ForceNode, ForceLink } from '../../utils/forceDirectedLayout';
 import { getAllConnectedNodes } from '../../utils/getNodeDescendants';
@@ -46,6 +49,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
   const [isPanMode, setIsPanMode] = useState(false);
   const [notesModalNodeId, setNotesModalNodeId] = useState<string | null>(null);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [canvasBackground, setCanvasBackground] = useState<CanvasBackground>(() => loadCanvasBackground());
 
   // Multi-select state
   const [multiSelectedNodeIds, setMultiSelectedNodeIds] = useState<Set<string>>(new Set());
@@ -82,7 +86,8 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     markClean,
   } = useMindMap();
 
-  const { loading: persistenceLoading } = useMapPersistence(mapId);
+  const { loading: persistenceLoading, mapNotFound } = useMapPersistence(mapId);
+  const navigateToHome = useNavigate();
   const [loadingTimeout, setLoadingTimeout] = useState(false);
   
   const loading = persistenceLoading && !loadingTimeout;
@@ -187,6 +192,12 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     } catch (error) {
       console.error('Failed to delete note:', error);
     }
+  };
+
+  // Handle background changes
+  const handleBackgroundChange = (bg: CanvasBackground) => {
+    setCanvasBackground(bg);
+    saveCanvasBackground(bg);
   };
 
   // Handle layout changes
@@ -565,8 +576,8 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         const buffer = depth === 0 ? 6 : 4;
         return radius + buffer;
       })
-      .attr('fill', '#f9f9f9') // Match canvas background color
-      .attr('stroke', '#f9f9f9')
+      .attr('fill', getBackgroundColor(canvasBackground)) // Match canvas background color
+      .attr('stroke', getBackgroundColor(canvasBackground))
       .attr('stroke-width', 4)
       .style('pointer-events', 'none'); // Ensure background doesn't interfere with interactions
 
@@ -1002,7 +1013,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     attachActionHandlers(nodeEnter);
     attachActionHandlers(nodeUpdate);
 
-  }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, operations, currentLayout]);
+  }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, operations, currentLayout, canvasBackground]);
 
   // Hide all action buttons when editing starts
   useEffect(() => {
@@ -1449,6 +1460,16 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     return <div className={styles.loading}>Loading mind map...</div>;
   }
 
+  if (mapNotFound) {
+    return (
+      <div className={styles.notFound}>
+        <h2>Map not found</h2>
+        <p>This mind map doesn't exist or may have been deleted.</p>
+        <button onClick={() => navigateToHome('/')}>Back to Dashboard</button>
+      </div>
+    );
+  }
+
   // Get hovered node details for tooltip
   const hoveredNode = hoveredNodeId ? state.nodes.get(hoveredNodeId) : null;
   const nodeDepths = calculateNodeDepths(state.nodes);
@@ -1469,12 +1490,17 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           currentLayout={currentLayout}
           onLayoutChange={handleLayoutChange}
           disabled={loading}
-          hasCustomPositions={Array.from(state.nodes.values()).some(node => 
+          hasCustomPositions={Array.from(state.nodes.values()).some(node =>
             node.x !== undefined && node.y !== undefined
           )}
         />
-        
-        <button 
+
+        <BackgroundSelector
+          current={canvasBackground}
+          onChange={handleBackgroundChange}
+        />
+
+        <button
           className={styles.iconButton}
           onClick={fitToViewport}
           title="Fit all nodes in viewport"
@@ -1533,7 +1559,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         />
       )}
 
-      <div className={styles.canvasContainer}>
+      <div className={styles.canvasContainer} style={getBackgroundStyle(canvasBackground)}>
 
         {editingNode && (
           <NodeEditModal

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getDatabase } from '../services/database';
-import type { MapMetadata, StoredMindMap, Node } from '../types/mindMap';
+import type { MapMetadata, StoredMindMap, Node, Link } from '../types/mindMap';
+import type { NodeNote } from '../types/notes';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface UseMapMetadataReturn {
@@ -10,6 +11,7 @@ export interface UseMapMetadataReturn {
   createMap: (title?: string) => Promise<string>;
   renameMap: (id: string, title: string) => Promise<void>;
   deleteMap: (id: string) => Promise<void>;
+  importMap: (title: string, nodes: Node[], links: Link[], notes?: NodeNote[]) => Promise<string>;
   refreshMaps: () => Promise<void>;
 }
 
@@ -274,6 +276,73 @@ export function useMapMetadata(): UseMapMetadataReturn {
     }
   }, [refreshMaps]);
 
+  const importMap = useCallback(
+    async (title: string, nodes: Node[], links: Link[], notes?: NodeNote[]): Promise<string> => {
+      try {
+        const id = uuidv4();
+        const now = new Date().toISOString();
+
+        const metadata: MapMetadata = {
+          id,
+          title,
+          createdAt: now,
+          updatedAt: now,
+          nodeCount: nodes.length,
+        };
+
+        const storedMap: StoredMindMap = {
+          id,
+          nodes,
+          links,
+          lastModified: now,
+        };
+
+        const db = await getDatabase();
+
+        const storeNames: string[] = ['mapMetadata', 'mindmaps'];
+        if (notes && notes.length > 0) {
+          storeNames.push('mapNotes');
+        }
+
+        await new Promise<void>((resolve, reject) => {
+          const transaction = db.transaction(storeNames, 'readwrite');
+
+          transaction.onerror = () => reject(new Error('Transaction failed while importing map'));
+          transaction.onabort = () => reject(new Error('Transaction aborted while importing map'));
+
+          const metaStore = transaction.objectStore('mapMetadata');
+          const mapsStore = transaction.objectStore('mindmaps');
+
+          metaStore.put(metadata);
+          mapsStore.put(storedMap, `map-${id}`);
+
+          if (notes && notes.length > 0) {
+            const notesStore = transaction.objectStore('mapNotes');
+            for (const note of notes) {
+              notesStore.put({
+                ...note,
+                id: note.id || uuidv4(),
+                mapId: id,
+                createdAt: note.createdAt instanceof Date ? note.createdAt.toISOString() : note.createdAt,
+                updatedAt: note.updatedAt instanceof Date ? note.updatedAt.toISOString() : note.updatedAt,
+              });
+            }
+          }
+
+          transaction.oncomplete = () => resolve();
+        });
+
+        await refreshMaps();
+        return id;
+      } catch (err) {
+        const e = err as Error;
+        setError(e);
+        throw e;
+      }
+    },
+    [refreshMaps]
+  );
+
   return {
     maps,
     loading,
@@ -281,6 +350,7 @@ export function useMapMetadata(): UseMapMetadataReturn {
     createMap,
     renameMap,
     deleteMap,
+    importMap,
     refreshMaps,
   };
 }

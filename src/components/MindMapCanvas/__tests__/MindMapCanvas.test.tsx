@@ -1,4 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { MindMapCanvas } from '../MindMapCanvas';
 import { MindMapProvider } from '../../../context/MindMapContext';
 import { useForceSimulation } from '../../../hooks/useForceSimulation';
@@ -153,9 +154,11 @@ describe('MindMapCanvas', () => {
 
   const renderWithProvider = (children: React.ReactNode) => {
     return render(
-      <MindMapProvider>
-        {children}
-      </MindMapProvider>
+      <MemoryRouter>
+        <MindMapProvider>
+          {children}
+        </MindMapProvider>
+      </MemoryRouter>
     );
   };
 
