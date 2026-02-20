@@ -19,6 +19,8 @@ const keyboardShortcuts = [
   { key: 'Enter', desc: 'Add child to selected node' },
   { key: 'Tab', desc: 'Add sibling to selected node' },
   { key: '?', desc: 'Toggle this help guide' },
+  { key: ']', desc: 'Spread selected nodes apart (5px per press)' },
+  { key: '[', desc: 'Compress selected nodes closer (5px per press)' },
 ];
 
 const mouseActions = [

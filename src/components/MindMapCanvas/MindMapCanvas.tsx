@@ -44,8 +44,14 @@ export const MindMapCanvas: React.FC = () => {
 
   // Multi-select state
   const [multiSelectedNodeIds, setMultiSelectedNodeIds] = useState<Set<string>>(new Set());
+  const multiSelectedNodeIdsRef = useRef<Set<string>>(new Set());
   const marqueeRef = useRef<{ startX: number; startY: number; active: boolean }>({ startX: 0, startY: 0, active: false });
   const marqueeGroupRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
+
+  // Keep ref in sync with state so D3 drag closures always see latest selection
+  useEffect(() => {
+    multiSelectedNodeIdsRef.current = multiSelectedNodeIds;
+  }, [multiSelectedNodeIds]);
   
   // Use IndexedDB for notes storage
   const { notes, saveNote, deleteNote, getNote } = useIndexedDBNotes();
@@ -725,6 +731,8 @@ export const MindMapCanvas: React.FC = () => {
         });
 
     // Setup drag behavior (supports single and group drag)
+    // Uses multiSelectedNodeIdsRef to always read the latest selection from a ref,
+    // avoiding stale closure issues with D3 event handlers.
     {
       let dragStartPositions: Map<string, { x: number; y: number }> = new Map();
       let dragStartX = 0;
@@ -734,7 +742,6 @@ export const MindMapCanvas: React.FC = () => {
         .on('start', (event, d) => {
           setIsDragging(true);
           setHoveredNodeId(null);
-          // Hide action buttons immediately when drag starts
           g.selectAll<SVGGElement, Node>('.node')
             .filter((nodeData: Node) => nodeData.id === d.id)
             .select('.node-actions')
@@ -745,13 +752,19 @@ export const MindMapCanvas: React.FC = () => {
           d.fx = d.x;
           d.fy = d.y;
 
-          // If this node is in multi-selection, record start positions of all selected nodes
-          if (multiSelectedNodeIds.has(d.id) && multiSelectedNodeIds.size > 1) {
+          // Read latest selection from ref (not closure state)
+          const currentSelection = multiSelectedNodeIdsRef.current;
+          if (currentSelection.has(d.id) && currentSelection.size > 1) {
             dragStartPositions = new Map();
-            multiSelectedNodeIds.forEach(id => {
-              const node = nodes.find(n => n.id === id);
-              if (node && node.x !== undefined && node.y !== undefined) {
-                dragStartPositions.set(id, { x: node.x, y: node.y });
+            currentSelection.forEach(id => {
+              // Read positions directly from D3 bound data for accuracy
+              let nodeX: number | undefined;
+              let nodeY: number | undefined;
+              g.selectAll<SVGGElement, Node>('.node')
+                .filter((nd: Node) => nd.id === id)
+                .each((nd: Node) => { nodeX = nd.x; nodeY = nd.y; });
+              if (nodeX !== undefined && nodeY !== undefined) {
+                dragStartPositions.set(id, { x: nodeX, y: nodeY });
               }
             });
           } else {
@@ -761,17 +774,16 @@ export const MindMapCanvas: React.FC = () => {
         .on('drag', (event, d) => {
           const dx = event.x - dragStartX;
           const dy = event.y - dragStartY;
+          const currentSelection = multiSelectedNodeIdsRef.current;
 
           if (dragStartPositions.size > 1) {
             // Group drag: move all selected nodes by the delta
             g.selectAll<SVGGElement, Node>('.node')
-              .filter((nodeData: Node) => multiSelectedNodeIds.has(nodeData.id))
+              .filter((nodeData: Node) => currentSelection.has(nodeData.id))
               .each(function(nodeData: Node) {
                 const startPos = dragStartPositions.get(nodeData.id);
                 if (startPos) {
-                  const newX = startPos.x + dx;
-                  const newY = startPos.y + dy;
-                  d3.select(this).attr('transform', `translate(${newX},${newY})`);
+                  d3.select(this).attr('transform', `translate(${startPos.x + dx},${startPos.y + dy})`);
                 }
               });
 
@@ -781,10 +793,8 @@ export const MindMapCanvas: React.FC = () => {
                 const linkSelection = d3.select(this);
                 const sourceId = typeof link.source === 'string' ? link.source : link.source.id;
                 const targetId = typeof link.target === 'string' ? link.target : link.target.id;
-
                 const sourceStart = dragStartPositions.get(sourceId);
                 const targetStart = dragStartPositions.get(targetId);
-
                 if (sourceStart) {
                   linkSelection.attr('x1', sourceStart.x + dx).attr('y1', sourceStart.y + dy);
                 }
@@ -796,7 +806,6 @@ export const MindMapCanvas: React.FC = () => {
             // Single node drag
             const tempX = event.x;
             const tempY = event.y;
-
             g.selectAll<SVGGElement, Node>('.node')
               .filter((nodeData: Node) => nodeData.id === d.id)
               .attr('transform', `translate(${tempX},${tempY})`);
@@ -806,7 +815,6 @@ export const MindMapCanvas: React.FC = () => {
                 const linkSelection = d3.select(this);
                 const sourceId = typeof link.source === 'string' ? link.source : link.source.id;
                 const targetId = typeof link.target === 'string' ? link.target : link.target.id;
-
                 if (sourceId === d.id) {
                   linkSelection.attr('x1', tempX).attr('y1', tempY);
                 }
@@ -825,17 +833,18 @@ export const MindMapCanvas: React.FC = () => {
             dragStartPositions.forEach((startPos, id) => {
               const finalX = startPos.x + dx;
               const finalY = startPos.y + dy;
-              const node = nodes.find(n => n.id === id);
-              if (node) {
-                node.x = finalX;
-                node.y = finalY;
-                node.fx = finalX;
-                node.fy = finalY;
-                operations.updateNodePosition(id, { x: finalX, y: finalY });
-              }
+              // Update D3 bound data directly
+              g.selectAll<SVGGElement, Node>('.node')
+                .filter((nd: Node) => nd.id === id)
+                .each((nd: Node) => {
+                  nd.x = finalX;
+                  nd.y = finalY;
+                  nd.fx = finalX;
+                  nd.fy = finalY;
+                });
+              operations.updateNodePosition(id, { x: finalX, y: finalY });
             });
           } else {
-            // Single drag end
             const finalX = event.x;
             const finalY = event.y;
             d.x = finalX;
@@ -1243,6 +1252,54 @@ export const MindMapCanvas: React.FC = () => {
       if (e.key === '?') {
         e.preventDefault();
         setIsHelpOpen(prev => !prev);
+        return;
+      }
+
+      // Spread / compress selected nodes with ] and [
+      if ((e.key === ']' || e.key === '[') && multiSelectedNodeIds.size > 1) {
+        e.preventDefault();
+        const STEP = 5;
+        const direction = e.key === ']' ? 1 : -1;
+        const selectedNodes: { id: string; x: number; y: number }[] = [];
+
+        multiSelectedNodeIds.forEach(id => {
+          const node = state.nodes.get(id);
+          if (node && node.x !== undefined && node.y !== undefined) {
+            selectedNodes.push({ id, x: node.x, y: node.y });
+          }
+        });
+
+        if (selectedNodes.length < 2) return;
+
+        // Calculate centroid
+        const cx = selectedNodes.reduce((sum, n) => sum + n.x, 0) / selectedNodes.length;
+        const cy = selectedNodes.reduce((sum, n) => sum + n.y, 0) / selectedNodes.length;
+
+        // Move each node STEP px further from (or closer to) centroid
+        selectedNodes.forEach(({ id, x, y }) => {
+          const dx = x - cx;
+          const dy = y - cy;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 0.1) return; // Skip nodes at centroid
+
+          const unitX = dx / dist;
+          const unitY = dy / dist;
+          const newX = x + unitX * STEP * direction;
+          const newY = y + unitY * STEP * direction;
+
+          operations.updateNodePosition(id, { x: newX, y: newY });
+        });
+
+        // Switch to custom layout
+        if (currentLayout !== 'custom') {
+          customPositionsRef.current.clear();
+          state.nodes.forEach((node, id) => {
+            if (node.x !== undefined && node.y !== undefined) {
+              customPositionsRef.current.set(id, { x: node.x, y: node.y });
+            }
+          });
+          setCurrentLayout('custom');
+        }
         return;
       }
 
