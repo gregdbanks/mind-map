@@ -1004,17 +1004,18 @@ export const MindMapCanvas: React.FC = () => {
     }
   }, [state.editingNodeId]);
 
-  // Apply hover/locked highlight effects
+  // Apply hover/locked/multi-select highlight effects
   useEffect(() => {
     if (!gRef.current) return;
-    
+
     const g = gRef.current;
     const nodeDepths = calculateNodeDepths(state.nodes);
-    
+
     // Use locked node if set, otherwise use hovered node
     const highlightNodeId = lockedHighlightNodeId || hoveredNodeId;
-    
-    if (!highlightNodeId) {
+    const hasMultiSelect = multiSelectedNodeIds.size > 0;
+
+    if (!highlightNodeId && !hasMultiSelect) {
       // Reset styles when not highlighting
       g.selectAll('.node').style('opacity', 1);
       g.selectAll('.link')
@@ -1027,26 +1028,34 @@ export const MindMapCanvas: React.FC = () => {
         });
       return;
     }
-    
-    // Get all connected nodes including all descendants
-    const connectedNodeIds = getAllConnectedNodes(highlightNodeId, state.nodes);
+
+    // Build the set of highlighted node IDs from either source
+    let activeNodeIds: Set<string>;
+    if (hasMultiSelect && !highlightNodeId) {
+      // Multi-select mode: highlight exactly the selected nodes
+      activeNodeIds = multiSelectedNodeIds;
+    } else if (highlightNodeId) {
+      // Single node highlight: get all connected descendants
+      activeNodeIds = getAllConnectedNodes(highlightNodeId, state.nodes);
+    } else {
+      activeNodeIds = new Set();
+    }
 
     // Create a set of all links that should be highlighted
     const highlightedLinks = new Set<string>();
     links.forEach(link => {
       const sourceId = typeof link.source === 'string' ? link.source : (link.source as any).id;
       const targetId = typeof link.target === 'string' ? link.target : (link.target as any).id;
-      
-      // Highlight links between any connected nodes
-      if (connectedNodeIds.has(sourceId) && connectedNodeIds.has(targetId)) {
+
+      if (activeNodeIds.has(sourceId) && activeNodeIds.has(targetId)) {
         highlightedLinks.add(`${sourceId}-${targetId}`);
       }
     });
 
     // Apply highlight styles
     g.selectAll<SVGGElement, Node>('.node')
-      .style('opacity', (d: Node) => connectedNodeIds.has(d.id) ? 1 : 0.3);
-    
+      .style('opacity', (d: Node) => activeNodeIds.has(d.id) ? 1 : 0.3);
+
     g.selectAll<SVGLineElement, Link>('.link')
       .style('opacity', (d: Link) => {
         const sourceId = typeof d.source === 'string' ? d.source : (d.source as any).id;
@@ -1069,7 +1078,7 @@ export const MindMapCanvas: React.FC = () => {
         const linkKey = `${sourceId}-${targetId}`;
         return highlightedLinks.has(linkKey) ? baseWidth + 2 : baseWidth;
       });
-  }, [hoveredNodeId, lockedHighlightNodeId, links, state.nodes]);
+  }, [hoveredNodeId, lockedHighlightNodeId, multiSelectedNodeIds, links, state.nodes]);
 
   // Apply multi-selection visual indicators
   useEffect(() => {
@@ -1318,7 +1327,16 @@ export const MindMapCanvas: React.FC = () => {
           if (svgRef.current) {
             // PNG export removed due to quality issues
           }
+        } else if (e.key === 'z') {
+          e.preventDefault(); // Prevent browser undo
+        } else if (e.key === 'y') {
+          e.preventDefault(); // Prevent browser redo
         }
+      }
+
+      // Prevent Tab from shifting browser focus
+      if (e.key === 'Tab') {
+        e.preventDefault();
       }
 
       // Add 'c' for cluster layout, 't' for tree
