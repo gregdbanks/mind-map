@@ -1,12 +1,15 @@
 import React, { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useMapMetadata } from '../../hooks/useMapMetadata';
+import { useAuth } from '../../context/AuthContext';
 import { importFromJSONText } from '../../utils/exportUtils';
+import { ProfileDropdown } from '../../components/ProfileDropdown';
 import { MapCard } from './MapCard';
 import styles from './Dashboard.module.css';
 
 export const Dashboard: React.FC = () => {
   const { maps, loading, createMap, renameMap, deleteMap, importMap } = useMapMetadata();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -65,6 +68,11 @@ export const Dashboard: React.FC = () => {
           <button className={styles.createButton} onClick={handleCreateMap}>
             + New Map
           </button>
+          {isAuthenticated ? (
+            <ProfileDropdown />
+          ) : (
+            <Link to="/login" className={styles.signInLink}>Sign in</Link>
+          )}
         </div>
         <input
           ref={fileInputRef}

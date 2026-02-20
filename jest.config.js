@@ -6,6 +6,7 @@ export default {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '\\.svg$': '<rootDir>/src/__tests__/mocks/fileMock.js',
     '^/(.*)$': '<rootDir>/public/$1',
+    '(.*)services/cognitoService': '<rootDir>/src/services/__mocks__/cognitoService.ts',
   },
   setupFiles: ['<rootDir>/src/__tests__/setupPolyfills.js'],
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
