@@ -46,12 +46,14 @@ export const MindMapCanvas: React.FC = () => {
   // Multi-select state
   const [multiSelectedNodeIds, setMultiSelectedNodeIds] = useState<Set<string>>(new Set());
   const multiSelectedNodeIdsRef = useRef<Set<string>>(new Set());
+  const prevMultiSelectedRef = useRef<Set<string>>(new Set());
   const marqueeRef = useRef<{ startX: number; startY: number; active: boolean; justFinished: boolean }>({ startX: 0, startY: 0, active: false, justFinished: false });
 
   // Drag start positions ref - survives useEffect re-runs during drag
   const dragStartPositionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
   const dragStartCoordsRef = useRef({ x: 0, y: 0 });
   const marqueeGroupRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
+  const currentLayoutRef = useRef(currentLayout);
 
   // Keep refs in sync with state so D3 event handler closures always see latest values
   useEffect(() => {
@@ -60,7 +62,10 @@ export const MindMapCanvas: React.FC = () => {
   useEffect(() => {
     isDraggingRef.current = isDragging;
   }, [isDragging]);
-  
+  useEffect(() => {
+    currentLayoutRef.current = currentLayout;
+  }, [currentLayout]);
+
   // Use IndexedDB for notes storage
   const { notes, saveNote, deleteNote, getNote } = useIndexedDBNotes();
 
@@ -902,6 +907,7 @@ export const MindMapCanvas: React.FC = () => {
           }
           return next;
         });
+        setLockedHighlightNodeId(d.id);
         return;
       }
 
@@ -1088,31 +1094,47 @@ export const MindMapCanvas: React.FC = () => {
       });
   }, [hoveredNodeId, lockedHighlightNodeId, multiSelectedNodeIds, links, state.nodes]);
 
-  // Apply multi-selection visual indicators
+  // Apply multi-selection visual indicators (optimized: only touch changed nodes)
   useEffect(() => {
     if (!gRef.current) return;
     const g = gRef.current;
     const nodeDepths = calculateNodeDepths(state.nodes);
+    const prev = prevMultiSelectedRef.current;
+    const current = multiSelectedNodeIds;
 
-    g.selectAll<SVGGElement, Node>('.node').each(function(d: Node) {
-      const nodeEl = d3.select(this);
-      // Remove any existing selection indicator
-      nodeEl.select('.multi-select-indicator').remove();
-
-      if (multiSelectedNodeIds.has(d.id)) {
-        const depth = nodeDepths.get(d.id) || 0;
-        const radius = getNodeVisualProperties(depth).radius;
-        // Add dashed circle indicator behind the node
-        nodeEl.insert('circle', '.node-background')
-          .attr('class', 'multi-select-indicator')
-          .attr('r', radius + 8)
-          .attr('fill', 'none')
-          .attr('stroke', '#0066cc')
-          .attr('stroke-width', 2)
-          .attr('stroke-dasharray', '5,3')
-          .attr('opacity', 0.8);
+    // Find nodes removed from selection
+    prev.forEach(id => {
+      if (!current.has(id)) {
+        g.selectAll<SVGGElement, Node>('.node')
+          .filter((d: Node) => d.id === id)
+          .select('.multi-select-indicator')
+          .remove();
       }
     });
+
+    // Find nodes added to selection
+    current.forEach(id => {
+      if (!prev.has(id)) {
+        g.selectAll<SVGGElement, Node>('.node')
+          .filter((d: Node) => d.id === id)
+          .each(function(d: Node) {
+            const nodeEl = d3.select(this);
+            nodeEl.select('.multi-select-indicator').remove(); // Safety cleanup
+            const depth = nodeDepths.get(d.id) || 0;
+            const radius = getNodeVisualProperties(depth).radius;
+            nodeEl.insert('circle', '.node-background')
+              .attr('class', 'multi-select-indicator')
+              .attr('r', radius + 8)
+              .attr('fill', 'none')
+              .attr('stroke', '#0066cc')
+              .attr('stroke-width', 2)
+              .attr('stroke-dasharray', '5,3')
+              .attr('opacity', 0.8);
+          });
+      }
+    });
+
+    prevMultiSelectedRef.current = new Set(current);
   }, [multiSelectedNodeIds, state.nodes]);
 
   // Handle canvas interactions + marquee selection
@@ -1217,30 +1239,30 @@ export const MindMapCanvas: React.FC = () => {
         }
       });
 
-      if (selected.size > 0) {
-        // If Ctrl/Cmd held, add to existing selection
-        if (event.ctrlKey || event.metaKey) {
+      if (event.ctrlKey || event.metaKey) {
+        if (selected.size > 0) {
           setMultiSelectedNodeIds(prev => {
             const next = new Set(prev);
             selected.forEach(id => next.add(id));
             return next;
           });
-        } else {
-          setMultiSelectedNodeIds(selected);
         }
+      } else {
+        // Without modifiers, marquee defines the full selection (may be empty to clear)
+        setMultiSelectedNodeIds(selected);
       }
     };
 
     svg.on('click', handleClick);
     svg.on('mousedown.marquee', handleMouseDown);
-    svg.on('mousemove.marquee', handleMouseMove);
-    svg.on('mouseup.marquee', handleMouseUp);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
 
     return () => {
       svg.on('click', null);
       svg.on('mousedown.marquee', null);
-      svg.on('mousemove.marquee', null);
-      svg.on('mouseup.marquee', null);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
     };
   }, [state.selectedNodeId, operations, selectNode, isInitialized, isPanMode, nodes]);
 
@@ -1344,7 +1366,7 @@ export const MindMapCanvas: React.FC = () => {
         });
 
         // Switch to custom layout
-        if (currentLayout !== 'custom') {
+        if (currentLayoutRef.current !== 'custom') {
           customPositionsRef.current.clear();
           state.nodes.forEach((node, id) => {
             if (node.x !== undefined && node.y !== undefined) {
@@ -1378,8 +1400,8 @@ export const MindMapCanvas: React.FC = () => {
         }
       }
 
-      // Prevent Tab from shifting browser focus
-      if (e.key === 'Tab') {
+      // Prevent Tab from shifting browser focus only when a node is selected
+      if (e.key === 'Tab' && state.selectedNodeId) {
         e.preventDefault();
       }
 
@@ -1407,7 +1429,7 @@ export const MindMapCanvas: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, [state, operations, stopEditing, isPanMode]);
+  }, [state, operations, stopEditing, isPanMode, markClean, startEditing]);
 
   // Cleanup simulation on unmount
   useEffect(() => {
@@ -1484,7 +1506,7 @@ export const MindMapCanvas: React.FC = () => {
         <button
           className={styles.iconButton}
           onClick={() => setIsHelpOpen(true)}
-          title="Help &amp; keyboard shortcuts (?)"
+          title="Help & keyboard shortcuts (?)"
           data-testid="help-button"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
