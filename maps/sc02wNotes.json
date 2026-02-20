@@ -1,0 +1,4918 @@
+{
+  "nodes": [
+    {
+      "id": "root",
+      "text": "AWS Certified Security - Specialty (SCS-C02)",
+      "x": 864,
+      "y": 514,
+      "parent": null,
+      "collapsed": false,
+      "color": "#2C3E50",
+      "fx": 864,
+      "fy": 514,
+      "depth": 0
+    },
+    {
+      "id": "domain1",
+      "text": "Domain 1: Threat Detection & Incident Response (14%)",
+      "x": 873.9410400390625,
+      "y": 149.70436320907083,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#E74C3C",
+      "fx": 873.9410400390625,
+      "fy": 149.70436320907083,
+      "depth": 1,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-task1",
+      "text": "1.1: Design & Implement Incident Response Plan",
+      "x": 778.7684452521827,
+      "y": 67.89594440308429,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#E74C3C",
+      "fx": 778.7684452521827,
+      "fy": 67.89594440308429,
+      "depth": 2,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-security-hub",
+      "text": "AWS Security Hub",
+      "x": 636.8272989351995,
+      "y": 21.760321453579195,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 636.8272989351995,
+      "fy": 21.760321453579195,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-security-hub"
+    },
+    {
+      "id": "d1-macie",
+      "text": "Amazon Macie",
+      "x": 706.1718917502822,
+      "y": -1.3796990043956612,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 706.1718917502822,
+      "fy": -1.3796990043956612,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-macie"
+    },
+    {
+      "id": "d1-guardduty",
+      "text": "Amazon GuardDuty",
+      "x": 622.798751447239,
+      "y": -73.196623954943,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 622.798751447239,
+      "fy": -73.196623954943,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-guardduty"
+    },
+    {
+      "id": "d1-inspector",
+      "text": "Amazon Inspector",
+      "x": 535.3621872115784,
+      "y": -40.82791589328576,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 535.3621872115784,
+      "fy": -40.82791589328576,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-inspector"
+    },
+    {
+      "id": "d1-config",
+      "text": "AWS Config",
+      "x": 692.8679043014498,
+      "y": -102.39835560741653,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 692.8679043014498,
+      "fy": -102.39835560741653,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-config"
+    },
+    {
+      "id": "d1-detective",
+      "text": "Amazon Detective",
+      "x": 604.8261243959715,
+      "y": -183.34859965732312,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 604.8261243959715,
+      "fy": -183.34859965732312,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-detective"
+    },
+    {
+      "id": "d1-iam-access-analyzer",
+      "text": "IAM Access Analyzer",
+      "x": 707.4551235740801,
+      "y": -202.61819654724297,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 707.4551235740801,
+      "fy": -202.61819654724297,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-iam-access-analyzer"
+    },
+    {
+      "id": "d1-eventbridge",
+      "text": "Amazon EventBridge",
+      "x": 761.9352581261799,
+      "y": -120.38169350504916,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 761.9352581261799,
+      "fy": -120.38169350504916,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-eventbridge"
+    },
+    {
+      "id": "d1-secrets-manager",
+      "text": "AWS Secrets Manager",
+      "x": 784.7209511247561,
+      "y": -232.54407933954178,
+      "parent": "d1-task1",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 784.7209511247561,
+      "fy": -232.54407933954178,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-secrets-manager"
+    },
+    {
+      "id": "d1-task2",
+      "text": "1.2: Detect Security Threats & Anomalies",
+      "x": 873.2952880859375,
+      "y": 26.321001100494186,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#E74C3C",
+      "fx": 873.2952880859375,
+      "fy": 26.321001100494186,
+      "depth": 2,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t2-athena",
+      "text": "Amazon Athena",
+      "x": 822.3608429435736,
+      "y": -63.67709323131419,
+      "parent": "d1-task2",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 822.3608429435736,
+      "fy": -63.67709323131419,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-t2-athena"
+    },
+    {
+      "id": "d1-t2-cloudwatch",
+      "text": "Amazon CloudWatch",
+      "x": 840.9723817654759,
+      "y": -155.7805348416532,
+      "parent": "d1-task2",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 840.9723817654759,
+      "fy": -155.7805348416532,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-t2-cloudwatch"
+    },
+    {
+      "id": "d1-t2-detective",
+      "text": "Amazon Detective",
+      "x": 916.7419945391814,
+      "y": -110.51436722502126,
+      "parent": "d1-task2",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 916.7419945391814,
+      "fy": -110.51436722502126,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-t2-detective"
+    },
+    {
+      "id": "d1-task3",
+      "text": "1.3: Respond to Compromised Resources",
+      "x": 989.4136226189112,
+      "y": 61.17933730927325,
+      "parent": "domain1",
+      "collapsed": false,
+      "color": "#E74C3C",
+      "fx": 989.4136226189112,
+      "fy": 61.17933730927325,
+      "depth": 2,
+      "cluster": "domain1"
+    },
+    {
+      "id": "d1-t3-lambda",
+      "text": "AWS Lambda",
+      "x": 921.8532693742541,
+      "y": -209.0751322952027,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 921.8532693742541,
+      "fy": -209.0751322952027,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-t3-lambda"
+    },
+    {
+      "id": "d1-t3-step-functions",
+      "text": "AWS Step Functions",
+      "x": 993.010260499037,
+      "y": -185.74606234979774,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 993.010260499037,
+      "fy": -185.74606234979774,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-t3-step-functions"
+    },
+    {
+      "id": "d1-t3-systems-manager",
+      "text": "AWS Systems Manager",
+      "x": 963.9388926012252,
+      "y": -20.740456744733592,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 963.9388926012252,
+      "fy": -20.740456744733592,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-t3-systems-manager"
+    },
+    {
+      "id": "d1-t3-ec2",
+      "text": "Amazon EC2",
+      "x": 1074.1230412969242,
+      "y": -155.85441875411937,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1074.1230412969242,
+      "fy": -155.85441875411937,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-t3-ec2"
+    },
+    {
+      "id": "d1-t3-ebs",
+      "text": "Amazon EBS",
+      "x": 1112.5893213358643,
+      "y": -60.75986140547701,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1112.5893213358643,
+      "fy": -60.75986140547701,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-t3-ebs"
+    },
+    {
+      "id": "d1-t3-s3",
+      "text": "Amazon S3",
+      "x": 1013.6175718648196,
+      "y": -80.6316644616445,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1013.6175718648196,
+      "fy": -80.6316644616445,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-t3-s3"
+    },
+    {
+      "id": "d1-t3-s3-object-lock",
+      "text": "S3 Object Lock",
+      "x": 1049.4379287971208,
+      "y": 0.47133204527341377,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1049.4379287971208,
+      "fy": 0.47133204527341377,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-t3-s3-object-lock"
+    },
+    {
+      "id": "d1-t3-s3-lifecycle",
+      "text": "S3 Lifecycle",
+      "x": 1124.1479044394139,
+      "y": 43.92406338385467,
+      "parent": "d1-task3",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1124.1479044394139,
+      "fy": 43.92406338385467,
+      "depth": 3,
+      "cluster": "domain1",
+      "hasNote": true,
+      "noteId": "note-d1-t3-s3-lifecycle"
+    },
+    {
+      "id": "domain2",
+      "text": "Domain 2: Security Logging & Monitoring (18%)",
+      "x": 964.2218138684148,
+      "y": 434.9909106999944,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3498DB",
+      "fx": 964.2218138684148,
+      "fy": 434.9909106999944,
+      "depth": 1,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-task1",
+      "text": "2.1: Design Monitoring & Alerting",
+      "x": 958.8161870362824,
+      "y": 330.0079880233952,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB",
+      "fx": 958.8161870362824,
+      "fy": 330.0079880233952,
+      "depth": 2,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-cloudwatch",
+      "text": "Amazon CloudWatch",
+      "x": 968.2872183027816,
+      "y": 193.79415858761843,
+      "parent": "d2-task1",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 968.2872183027816,
+      "fy": 193.79415858761843,
+      "depth": 3,
+      "cluster": "domain2",
+      "hasNote": true,
+      "noteId": "note-d2-cloudwatch"
+    },
+    {
+      "id": "d2-eventbridge",
+      "text": "Amazon EventBridge",
+      "x": 1060.5439949825002,
+      "y": 143.34463273363116,
+      "parent": "d2-task1",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1060.5439949825002,
+      "fy": 143.34463273363116,
+      "depth": 3,
+      "cluster": "domain2",
+      "hasNote": true,
+      "noteId": "note-d2-eventbridge"
+    },
+    {
+      "id": "d2-lambda",
+      "text": "AWS Lambda",
+      "x": 1055.0635470184461,
+      "y": 216.07889439365704,
+      "parent": "d2-task1",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1055.0635470184461,
+      "fy": 216.07889439365704,
+      "depth": 3,
+      "cluster": "domain2",
+      "hasNote": true,
+      "noteId": "note-d2-lambda"
+    },
+    {
+      "id": "d2-sns",
+      "text": "Amazon SNS",
+      "x": 914.5837759491483,
+      "y": 259.7784979396453,
+      "parent": "d2-task1",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 914.5837759491483,
+      "fy": 259.7784979396453,
+      "depth": 3,
+      "cluster": "domain2",
+      "hasNote": true,
+      "noteId": "note-d2-sns"
+    },
+    {
+      "id": "d2-task2",
+      "text": "2.2: Troubleshoot Monitoring",
+      "x": 1044.4349427851039,
+      "y": 307.5828466311281,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB",
+      "fx": 1044.4349427851039,
+      "fy": 307.5828466311281,
+      "depth": 2,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-task3",
+      "text": "2.3: Design Logging Solution",
+      "x": 1043.8093378100357,
+      "y": 385.1725503638988,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB",
+      "fx": 1043.8093378100357,
+      "fy": 385.1725503638988,
+      "depth": 2,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-vpc-flow-logs",
+      "text": "VPC Flow Logs",
+      "x": 1143.3315290301546,
+      "y": 226.16762349682412,
+      "parent": "d2-task3",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1143.3315290301546,
+      "fy": 226.16762349682412,
+      "depth": 3,
+      "cluster": "domain2",
+      "hasNote": true,
+      "noteId": "note-d2-vpc-flow-logs"
+    },
+    {
+      "id": "d2-dns-logs",
+      "text": "DNS Logs",
+      "x": 1235.6402482952994,
+      "y": 202.63553290391636,
+      "parent": "d2-task3",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1235.6402482952994,
+      "fy": 202.63553290391636,
+      "depth": 3,
+      "cluster": "domain2",
+      "hasNote": true,
+      "noteId": "note-d2-dns-logs"
+    },
+    {
+      "id": "d2-cloudtrail",
+      "text": "AWS CloudTrail",
+      "x": 1132.3225899300057,
+      "y": 314.487289317419,
+      "parent": "d2-task3",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1132.3225899300057,
+      "fy": 314.487289317419,
+      "depth": 3,
+      "cluster": "domain2",
+      "hasNote": true,
+      "noteId": "note-d2-cloudtrail"
+    },
+    {
+      "id": "d2-cloudwatch-logs",
+      "text": "CloudWatch Logs",
+      "x": 1265.4004713960492,
+      "y": 263.71945001787924,
+      "parent": "d2-task3",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1265.4004713960492,
+      "fy": 263.71945001787924,
+      "depth": 3,
+      "cluster": "domain2",
+      "hasNote": true,
+      "noteId": "note-d2-cloudwatch-logs"
+    },
+    {
+      "id": "d2-task4",
+      "text": "2.4: Troubleshoot Logging",
+      "x": 1128.217794468926,
+      "y": 423.36427978696736,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB",
+      "fx": 1128.217794468926,
+      "fy": 423.36427978696736,
+      "depth": 2,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-task5",
+      "text": "2.5: Design Log Analysis",
+      "x": 1066.567402265458,
+      "y": 531.2838951839512,
+      "parent": "domain2",
+      "collapsed": false,
+      "color": "#3498DB",
+      "fx": 1066.567402265458,
+      "fy": 531.2838951839512,
+      "depth": 2,
+      "cluster": "domain2"
+    },
+    {
+      "id": "d2-athena",
+      "text": "Amazon Athena",
+      "x": 1317.235049448778,
+      "y": 356.76236411956944,
+      "parent": "d2-task5",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1317.235049448778,
+      "fy": 356.76236411956944,
+      "depth": 3,
+      "cluster": "domain2",
+      "hasNote": true,
+      "noteId": "note-d2-athena"
+    },
+    {
+      "id": "d2-cloudwatch-insights",
+      "text": "CloudWatch Logs Insights",
+      "x": 1236.7319690835807,
+      "y": 434.28243835892755,
+      "parent": "d2-task5",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1236.7319690835807,
+      "fy": 434.28243835892755,
+      "depth": 3,
+      "cluster": "domain2",
+      "hasNote": true,
+      "noteId": "note-d2-cloudwatch-insights"
+    },
+    {
+      "id": "d2-cloudtrail-insights",
+      "text": "CloudTrail Insights",
+      "x": 1210.3195324169114,
+      "y": 352.2866459105633,
+      "parent": "d2-task5",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1210.3195324169114,
+      "fy": 352.2866459105633,
+      "depth": 3,
+      "cluster": "domain2",
+      "hasNote": true,
+      "noteId": "note-d2-cloudtrail-insights"
+    },
+    {
+      "id": "d2-security-hub-insights",
+      "text": "Security Hub Insights",
+      "x": 1183.0877475074453,
+      "y": 495.89044413271597,
+      "parent": "d2-task5",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1183.0877475074453,
+      "fy": 495.89044413271597,
+      "depth": 3,
+      "cluster": "domain2",
+      "hasNote": true,
+      "noteId": "note-d2-security-hub-insights"
+    },
+    {
+      "id": "domain3",
+      "text": "Domain 3: Infrastructure Security (20%)",
+      "x": 1061.1474730481025,
+      "y": 665.081965276568,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#16A085",
+      "fx": 1061.1474730481025,
+      "fy": 665.081965276568,
+      "depth": 1,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-task1",
+      "text": "3.1: Edge Services Security",
+      "x": 1200.9927461088616,
+      "y": 607.3826688017938,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#16A085",
+      "fx": 1200.9927461088616,
+      "fy": 607.3826688017938,
+      "depth": 2,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-waf",
+      "text": "AWS WAF",
+      "x": 1313.5793453218,
+      "y": 495.32042512927285,
+      "parent": "d3-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1313.5793453218,
+      "fy": 495.32042512927285,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-waf"
+    },
+    {
+      "id": "d3-shield",
+      "text": "AWS Shield",
+      "x": 1402.7518837168136,
+      "y": 398.04132564493466,
+      "parent": "d3-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1402.7518837168136,
+      "fy": 398.04132564493466,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-shield"
+    },
+    {
+      "id": "d3-cloudfront",
+      "text": "Amazon CloudFront",
+      "x": 1408.0857518637113,
+      "y": 485.6779996910459,
+      "parent": "d3-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1408.0857518637113,
+      "fy": 485.6779996910459,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-cloudfront"
+    },
+    {
+      "id": "d3-route53",
+      "text": "Amazon Route 53",
+      "x": 1537.3498528190164,
+      "y": 456.03647779974744,
+      "parent": "d3-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1537.3498528190164,
+      "fy": 456.03647779974744,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-route53"
+    },
+    {
+      "id": "d3-elb",
+      "text": "Elastic Load Balancers",
+      "x": 1455.8890189248448,
+      "y": 568.3082811197231,
+      "parent": "d3-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1455.8890189248448,
+      "fy": 568.3082811197231,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-elb"
+    },
+    {
+      "id": "d3-task2",
+      "text": "3.2: Network Security Controls",
+      "x": 1335.2330591281657,
+      "y": 634.8858018650601,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#16A085",
+      "fx": 1335.2330591281657,
+      "fy": 634.8858018650601,
+      "depth": 2,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-security-groups",
+      "text": "Security Groups",
+      "x": 1551.9373700922183,
+      "y": 563.6952873637624,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1551.9373700922183,
+      "fy": 563.6952873637624,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-security-groups"
+    },
+    {
+      "id": "d3-nacls",
+      "text": "Network ACLs",
+      "x": 1507.740154416006,
+      "y": 653.1217815278945,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1507.740154416006,
+      "fy": 653.1217815278945,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-nacls"
+    },
+    {
+      "id": "d3-network-firewall",
+      "text": "AWS Network Firewall",
+      "x": 1619.288450864669,
+      "y": 624.2292281182775,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1619.288450864669,
+      "fy": 624.2292281182775,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-network-firewall"
+    },
+    {
+      "id": "d3-transit-gateway",
+      "text": "AWS Transit Gateway",
+      "x": 1590.2041641616938,
+      "y": 715.8303760359704,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1590.2041641616938,
+      "fy": 715.8303760359704,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-transit-gateway"
+    },
+    {
+      "id": "d3-vpc-endpoints",
+      "text": "VPC Endpoints",
+      "x": 1493.6184703719046,
+      "y": 724.5393730662637,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1493.6184703719046,
+      "fy": 724.5393730662637,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-vpc-endpoints"
+    },
+    {
+      "id": "d3-vpn",
+      "text": "AWS VPN",
+      "x": 1623.1078035544808,
+      "y": 776.9916490673429,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1623.1078035544808,
+      "fy": 776.9916490673429,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-vpn"
+    },
+    {
+      "id": "d3-direct-connect",
+      "text": "AWS Direct Connect",
+      "x": 1540.6833383621463,
+      "y": 796.8803163385933,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1540.6833383621463,
+      "fy": 796.8803163385933,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-direct-connect"
+    },
+    {
+      "id": "d3-traffic-mirroring",
+      "text": "Traffic Mirroring",
+      "x": 1637.557961997847,
+      "y": 865.1132733628151,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1637.557961997847,
+      "fy": 865.1132733628151,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-traffic-mirroring"
+    },
+    {
+      "id": "d3-firewall-manager",
+      "text": "AWS Firewall Manager",
+      "x": 1451.8956514485544,
+      "y": 796.8144798069302,
+      "parent": "d3-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1451.8956514485544,
+      "fy": 796.8144798069302,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-firewall-manager"
+    },
+    {
+      "id": "d3-task3",
+      "text": "3.3: Compute Security Controls",
+      "x": 1283.241268468808,
+      "y": 707.4019304467793,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#16A085",
+      "fx": 1283.241268468808,
+      "fy": 707.4019304467793,
+      "depth": 2,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-ec2",
+      "text": "Amazon EC2",
+      "x": 1531.4741694951679,
+      "y": 886.5066022483115,
+      "parent": "d3-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1531.4741694951679,
+      "fy": 886.5066022483115,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-ec2"
+    },
+    {
+      "id": "d3-ec2-image-builder",
+      "text": "EC2 Image Builder",
+      "x": 1436.0958907618092,
+      "y": 874.3401438770688,
+      "parent": "d3-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1436.0958907618092,
+      "fy": 874.3401438770688,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-ec2-image-builder"
+    },
+    {
+      "id": "d3-inspector",
+      "text": "Amazon Inspector",
+      "x": 1476.2919668050283,
+      "y": 953.8289956265928,
+      "parent": "d3-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1476.2919668050283,
+      "fy": 953.8289956265928,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-inspector"
+    },
+    {
+      "id": "d3-ecr",
+      "text": "Amazon ECR",
+      "x": 1369.9533770672563,
+      "y": 870.2331735473608,
+      "parent": "d3-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1369.9533770672563,
+      "fy": 870.2331735473608,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-ecr"
+    },
+    {
+      "id": "d3-systems-manager",
+      "text": "AWS Systems Manager",
+      "x": 1366.4230232754073,
+      "y": 949.632920732048,
+      "parent": "d3-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1366.4230232754073,
+      "fy": 949.632920732048,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-systems-manager"
+    },
+    {
+      "id": "d3-task4",
+      "text": "3.4: Troubleshoot Network Security",
+      "x": 1199.5758506104453,
+      "y": 782.0836793818823,
+      "parent": "domain3",
+      "collapsed": false,
+      "color": "#16A085",
+      "fx": 1199.5758506104453,
+      "fy": 782.0836793818823,
+      "depth": 2,
+      "cluster": "domain3"
+    },
+    {
+      "id": "d3-reachability-analyzer",
+      "text": "VPC Reachability Analyzer",
+      "x": 1276.403015144557,
+      "y": 881.4262234501296,
+      "parent": "d3-task4",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1276.403015144557,
+      "fy": 881.4262234501296,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-reachability-analyzer"
+    },
+    {
+      "id": "d3-inspector-network",
+      "text": "Inspector Network Reachability",
+      "x": 1246.06025755498,
+      "y": 967.7407569985849,
+      "parent": "d3-task4",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1246.06025755498,
+      "fy": 967.7407569985849,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-inspector-network"
+    },
+    {
+      "id": "d3-vpc-flow-logs",
+      "text": "VPC Flow Logs",
+      "x": 1189.170429489137,
+      "y": 909.5788891661186,
+      "parent": "d3-task4",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1189.170429489137,
+      "fy": 909.5788891661186,
+      "depth": 3,
+      "cluster": "domain3",
+      "hasNote": true,
+      "noteId": "note-d3-vpc-flow-logs"
+    },
+    {
+      "id": "domain4",
+      "text": "Domain 4: Identity & Access Management (16%)",
+      "x": 861.5147705078125,
+      "y": 652.13603748673,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8E44AD",
+      "fx": 861.5147705078125,
+      "fy": 652.13603748673,
+      "depth": 1,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-task1",
+      "text": "4.1: Design Authentication",
+      "x": 950.7222597278064,
+      "y": 734.811185472558,
+      "parent": "domain4",
+      "collapsed": false,
+      "color": "#8E44AD",
+      "fx": 950.7222597278064,
+      "fy": 734.811185472558,
+      "depth": 2,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-iam",
+      "text": "AWS IAM",
+      "x": 1059.436284223893,
+      "y": 877.990770944541,
+      "parent": "d4-task1",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1059.436284223893,
+      "fy": 877.990770944541,
+      "depth": 3,
+      "cluster": "domain4",
+      "hasNote": true,
+      "noteId": "note-d4-iam"
+    },
+    {
+      "id": "d4-identity-center",
+      "text": "IAM Identity Center (SSO)",
+      "x": 1064.729082873066,
+      "y": 785.1907535600317,
+      "parent": "d4-task1",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1064.729082873066,
+      "fy": 785.1907535600317,
+      "depth": 3,
+      "cluster": "domain4",
+      "hasNote": true,
+      "noteId": "note-d4-identity-center"
+    },
+    {
+      "id": "d4-cognito",
+      "text": "Amazon Cognito",
+      "x": 1019.4025354173295,
+      "y": 955.8893092752096,
+      "parent": "d4-task1",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1019.4025354173295,
+      "fy": 955.8893092752096,
+      "depth": 3,
+      "cluster": "domain4",
+      "hasNote": true,
+      "noteId": "note-d4-cognito"
+    },
+    {
+      "id": "d4-sts",
+      "text": "AWS STS",
+      "x": 959.9694968490367,
+      "y": 871.8770212097097,
+      "parent": "d4-task1",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 959.9694968490367,
+      "fy": 871.8770212097097,
+      "depth": 3,
+      "cluster": "domain4",
+      "hasNote": true,
+      "noteId": "note-d4-sts"
+    },
+    {
+      "id": "d4-directory-service",
+      "text": "AWS Directory Service",
+      "x": 888.7889404296876,
+      "y": 947.1495084835451,
+      "parent": "d4-task1",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 888.7889404296876,
+      "fy": 947.1495084835451,
+      "depth": 3,
+      "cluster": "domain4",
+      "hasNote": true,
+      "noteId": "note-d4-directory-service"
+    },
+    {
+      "id": "d4-task2",
+      "text": "4.2: Design Authorization",
+      "x": 797.6880185925061,
+      "y": 756.7906166249018,
+      "parent": "domain4",
+      "collapsed": false,
+      "color": "#8E44AD",
+      "fx": 797.6880185925061,
+      "fy": 756.7906166249018,
+      "depth": 2,
+      "cluster": "domain4"
+    },
+    {
+      "id": "d4-iam-policies",
+      "text": "IAM Policies",
+      "x": 861.0319069595573,
+      "y": 846.9505075378347,
+      "parent": "d4-task2",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 861.0319069595573,
+      "fy": 846.9505075378347,
+      "depth": 3,
+      "cluster": "domain4",
+      "hasNote": true,
+      "noteId": "note-d4-iam-policies"
+    },
+    {
+      "id": "d4-access-advisor",
+      "text": "IAM Access Advisor",
+      "x": 807.1146459791551,
+      "y": 950.1795924783346,
+      "parent": "d4-task2",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 807.1146459791551,
+      "fy": 950.1795924783346,
+      "depth": 3,
+      "cluster": "domain4",
+      "hasNote": true,
+      "noteId": "note-d4-access-advisor"
+    },
+    {
+      "id": "d4-policy-simulator",
+      "text": "IAM Policy Simulator",
+      "x": 679.0717899296685,
+      "y": 804.1865421342504,
+      "parent": "d4-task2",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 679.0717899296685,
+      "fy": 804.1865421342504,
+      "depth": 3,
+      "cluster": "domain4",
+      "hasNote": true,
+      "noteId": "note-d4-policy-simulator"
+    },
+    {
+      "id": "d4-cloudtrail",
+      "text": "AWS CloudTrail",
+      "x": 708.2103527389975,
+      "y": 903.7764765109473,
+      "parent": "d4-task2",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 708.2103527389975,
+      "fy": 903.7764765109473,
+      "depth": 3,
+      "cluster": "domain4",
+      "hasNote": true,
+      "noteId": "note-d4-cloudtrail"
+    },
+    {
+      "id": "domain5",
+      "text": "Domain 5: Data Protection (18%)",
+      "x": 651.940966893304,
+      "y": 660.1113842218807,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#E67E22",
+      "fx": 651.940966893304,
+      "fy": 660.1113842218807,
+      "depth": 1,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-task1",
+      "text": "5.1: Data in Transit Protection",
+      "x": 581.4448948732156,
+      "y": 843.756966797563,
+      "parent": "domain5",
+      "collapsed": false,
+      "color": "#E67E22",
+      "fx": 581.4448948732156,
+      "fy": 843.756966797563,
+      "depth": 2,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-acm",
+      "text": "AWS Certificate Manager",
+      "x": 624.7490360690285,
+      "y": 996.2940472378182,
+      "parent": "d5-task1",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 624.7490360690285,
+      "fy": 996.2940472378182,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-acm"
+    },
+    {
+      "id": "d5-vpn",
+      "text": "AWS VPN",
+      "x": 543.2841757531579,
+      "y": 951.4330430122675,
+      "parent": "d5-task1",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 543.2841757531579,
+      "fy": 951.4330430122675,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-vpn"
+    },
+    {
+      "id": "d5-direct-connect",
+      "text": "AWS Direct Connect",
+      "x": 546.6350519271634,
+      "y": 1052.0337281045024,
+      "parent": "d5-task1",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 546.6350519271634,
+      "fy": 1052.0337281045024,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-direct-connect"
+    },
+    {
+      "id": "d5-session-manager",
+      "text": "Systems Manager Session Manager",
+      "x": 464.1736631263218,
+      "y": 1005.616066238636,
+      "parent": "d5-task1",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 464.1736631263218,
+      "fy": 1005.616066238636,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-session-manager"
+    },
+    {
+      "id": "d5-instance-connect",
+      "text": "EC2 Instance Connect",
+      "x": 471.1921224578392,
+      "y": 1092.336649255098,
+      "parent": "d5-task1",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 471.1921224578392,
+      "fy": 1092.336649255098,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-instance-connect"
+    },
+    {
+      "id": "d5-task2",
+      "text": "5.2: Data at Rest Protection",
+      "x": 569.8926944210165,
+      "y": 748.7572355059801,
+      "parent": "domain5",
+      "collapsed": false,
+      "color": "#E67E22",
+      "fx": 569.8926944210165,
+      "fy": 748.7572355059801,
+      "depth": 2,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-kms",
+      "text": "AWS KMS",
+      "x": 384.2091109193076,
+      "y": 1072.2151642881752,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 384.2091109193076,
+      "fy": 1072.2151642881752,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-kms"
+    },
+    {
+      "id": "d5-cloudhsm",
+      "text": "AWS CloudHSM",
+      "x": 437.0863769221234,
+      "y": 918.8174105817923,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 437.0863769221234,
+      "fy": 918.8174105817923,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-cloudhsm"
+    },
+    {
+      "id": "d5-s3",
+      "text": "Amazon S3",
+      "x": 240.37589646275228,
+      "y": 1012.3557861010506,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 240.37589646275228,
+      "fy": 1012.3557861010506,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-s3"
+    },
+    {
+      "id": "d5-rds",
+      "text": "Amazon RDS",
+      "x": 373.05523836959884,
+      "y": 985.0292451553014,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 373.05523836959884,
+      "fy": 985.0292451553014,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-rds"
+    },
+    {
+      "id": "d5-dynamodb",
+      "text": "Amazon DynamoDB",
+      "x": 310.462891595748,
+      "y": 1073.154460791411,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 310.462891595748,
+      "fy": 1073.154460791411,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-dynamodb"
+    },
+    {
+      "id": "d5-ebs",
+      "text": "Amazon EBS",
+      "x": 368.6288072070991,
+      "y": 862.4448552195965,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 368.6288072070991,
+      "fy": 862.4448552195965,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-ebs"
+    },
+    {
+      "id": "d5-efs",
+      "text": "Amazon EFS",
+      "x": 303.52658478584004,
+      "y": 941.8894159245293,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 303.52658478584004,
+      "fy": 941.8894159245293,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-efs"
+    },
+    {
+      "id": "d5-sqs",
+      "text": "Amazon SQS",
+      "x": 285.39948872816876,
+      "y": 854.2126935608561,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 285.39948872816876,
+      "fy": 854.2126935608561,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-sqs"
+    },
+    {
+      "id": "d5-redshift",
+      "text": "Amazon Redshift",
+      "x": 194.8371600105733,
+      "y": 909.890493203565,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 194.8371600105733,
+      "fy": 909.890493203565,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-redshift"
+    },
+    {
+      "id": "d5-api-gateway",
+      "text": "Amazon API Gateway",
+      "x": 408.97819970065996,
+      "y": 745.0662722685845,
+      "parent": "d5-task2",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 408.97819970065996,
+      "fy": 745.0662722685845,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-api-gateway"
+    },
+    {
+      "id": "d5-task3",
+      "text": "5.3: Data Lifecycle Management",
+      "x": 471.99900291878055,
+      "y": 807.0248555373491,
+      "parent": "domain5",
+      "collapsed": false,
+      "color": "#E67E22",
+      "fx": 471.99900291878055,
+      "fy": 807.0248555373491,
+      "depth": 2,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-s3-lifecycle",
+      "text": "S3 Lifecycle Policies",
+      "x": 194.12275183737088,
+      "y": 808.8467758858751,
+      "parent": "d5-task3",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 194.12275183737088,
+      "fy": 808.8467758858751,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-s3-lifecycle"
+    },
+    {
+      "id": "d5-s3-object-lock",
+      "text": "S3 Object Lock",
+      "x": 307.260257255146,
+      "y": 753.4926973587724,
+      "parent": "d5-task3",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 307.260257255146,
+      "fy": 753.4926973587724,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-s3-object-lock"
+    },
+    {
+      "id": "d5-glacier-vault-lock",
+      "text": "S3 Glacier Vault Lock",
+      "x": 203.7475271216967,
+      "y": 737.9077703771572,
+      "parent": "d5-task3",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 203.7475271216967,
+      "fy": 737.9077703771572,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-glacier-vault-lock"
+    },
+    {
+      "id": "d5-backup",
+      "text": "AWS Backup",
+      "x": 344.13067376825444,
+      "y": 665.9428979022052,
+      "parent": "d5-task3",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 344.13067376825444,
+      "fy": 665.9428979022052,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-backup"
+    },
+    {
+      "id": "d5-dlm",
+      "text": "Amazon Data Lifecycle Manager",
+      "x": 241.7141677374019,
+      "y": 668.0352532003564,
+      "parent": "d5-task3",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 241.7141677374019,
+      "fy": 668.0352532003564,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-dlm"
+    },
+    {
+      "id": "d5-task4",
+      "text": "5.4: Secrets & Keys Management",
+      "x": 496.5025163744107,
+      "y": 708.2763411606893,
+      "parent": "domain5",
+      "collapsed": false,
+      "color": "#E67E22",
+      "fx": 496.5025163744107,
+      "fy": 708.2763411606893,
+      "depth": 2,
+      "cluster": "domain5"
+    },
+    {
+      "id": "d5-secrets-manager",
+      "text": "AWS Secrets Manager",
+      "x": 437.13509109053336,
+      "y": 614.8183563229454,
+      "parent": "d5-task4",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 437.13509109053336,
+      "fy": 614.8183563229454,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-secrets-manager"
+    },
+    {
+      "id": "d5-parameter-store",
+      "text": "Systems Manager Parameter Store",
+      "x": 333.8504802311555,
+      "y": 580.5330670934377,
+      "parent": "d5-task4",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 333.8504802311555,
+      "fy": 580.5330670934377,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-parameter-store"
+    },
+    {
+      "id": "d5-kms-keys",
+      "text": "AWS KMS Key Management",
+      "x": 535.6272909415393,
+      "y": 627.6677907018986,
+      "parent": "d5-task4",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 535.6272909415393,
+      "fy": 627.6677907018986,
+      "depth": 3,
+      "cluster": "domain5",
+      "hasNote": true,
+      "noteId": "note-d5-kms-keys"
+    },
+    {
+      "id": "domain6",
+      "text": "Domain 6: Management & Security Governance (14%)",
+      "x": 786.1455567370538,
+      "y": 412.62347905936963,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#1ABC9C",
+      "fx": 786.1455567370538,
+      "fy": 412.62347905936963,
+      "depth": 1,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-task1",
+      "text": "6.1: Centralize Account Management",
+      "x": 705.254811890918,
+      "y": 521.92048440702,
+      "parent": "domain6",
+      "collapsed": false,
+      "color": "#1ABC9C",
+      "fx": 705.254811890918,
+      "fy": 521.92048440702,
+      "depth": 2,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-organizations",
+      "text": "AWS Organizations",
+      "x": 482.7242566942981,
+      "y": 471.92398847703663,
+      "parent": "d6-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 482.7242566942981,
+      "fy": 471.92398847703663,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-organizations"
+    },
+    {
+      "id": "d6-control-tower",
+      "text": "AWS Control Tower",
+      "x": 418.6538035887901,
+      "y": 526.1900359288568,
+      "parent": "d6-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 418.6538035887901,
+      "fy": 526.1900359288568,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-control-tower"
+    },
+    {
+      "id": "d6-scps",
+      "text": "Service Control Policies",
+      "x": 563.4491530019488,
+      "y": 531.4255294296202,
+      "parent": "d6-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 563.4491530019488,
+      "fy": 531.4255294296202,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-scps"
+    },
+    {
+      "id": "d6-security-hub",
+      "text": "AWS Security Hub",
+      "x": 365.65258008960643,
+      "y": 414.4315521202137,
+      "parent": "d6-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 365.65258008960643,
+      "fy": 414.4315521202137,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-security-hub"
+    },
+    {
+      "id": "d6-config-aggregators",
+      "text": "AWS Config Aggregators",
+      "x": 479.17779325163025,
+      "y": 392.2883549712765,
+      "parent": "d6-task1",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 479.17779325163025,
+      "fy": 392.2883549712765,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-config-aggregators"
+    },
+    {
+      "id": "d6-task2",
+      "text": "6.2: Secure Deployment Strategy",
+      "x": 613.9157259242628,
+      "y": 391.1769877822288,
+      "parent": "domain6",
+      "collapsed": false,
+      "color": "#1ABC9C",
+      "fx": 613.9157259242628,
+      "fy": 391.1769877822288,
+      "depth": 2,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-cloudformation",
+      "text": "AWS CloudFormation",
+      "x": 409.3796189863298,
+      "y": 331.16155056983024,
+      "parent": "d6-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 409.3796189863298,
+      "fy": 331.16155056983024,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-cloudformation"
+    },
+    {
+      "id": "d6-service-catalog",
+      "text": "AWS Service Catalog",
+      "x": 443.2634676500568,
+      "y": 252.97820142393124,
+      "parent": "d6-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 443.2634676500568,
+      "fy": 252.97820142393124,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-service-catalog"
+    },
+    {
+      "id": "d6-firewall-manager",
+      "text": "AWS Firewall Manager",
+      "x": 513.7238034783728,
+      "y": 315.59887122817224,
+      "parent": "d6-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 513.7238034783728,
+      "fy": 315.59887122817224,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-firewall-manager"
+    },
+    {
+      "id": "d6-ram",
+      "text": "AWS Resource Access Manager",
+      "x": 493.2354815663645,
+      "y": 154.55770450131746,
+      "parent": "d6-task2",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 493.2354815663645,
+      "fy": 154.55770450131746,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-ram"
+    },
+    {
+      "id": "d6-task3",
+      "text": "6.3: Evaluate Compliance",
+      "x": 667.4721861578557,
+      "y": 319.3707813516211,
+      "parent": "domain6",
+      "collapsed": false,
+      "color": "#1ABC9C",
+      "fx": 667.4721861578557,
+      "fy": 319.3707813516211,
+      "depth": 2,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-config",
+      "text": "AWS Config Rules",
+      "x": 570.7579927666083,
+      "y": 249.44039756975468,
+      "parent": "d6-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 570.7579927666083,
+      "fy": 249.44039756975468,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-config"
+    },
+    {
+      "id": "d6-audit-manager",
+      "text": "AWS Audit Manager",
+      "x": 565.0766732903834,
+      "y": 114.24270904084065,
+      "parent": "d6-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 565.0766732903834,
+      "fy": 114.24270904084065,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-audit-manager"
+    },
+    {
+      "id": "d6-macie",
+      "text": "Amazon Macie",
+      "x": 630.0923227732037,
+      "y": 197.59644406768706,
+      "parent": "d6-task3",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 630.0923227732037,
+      "fy": 197.59644406768706,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-macie"
+    },
+    {
+      "id": "d6-task4",
+      "text": "6.4: Identify Security Gaps",
+      "x": 797.8409778441699,
+      "y": 303.245580574575,
+      "parent": "domain6",
+      "collapsed": false,
+      "color": "#1ABC9C",
+      "fx": 797.8409778441699,
+      "fy": 303.245580574575,
+      "depth": 2,
+      "cluster": "domain6"
+    },
+    {
+      "id": "d6-well-architected",
+      "text": "AWS Well-Architected Tool",
+      "x": 679.840606791179,
+      "y": 109.44740541780294,
+      "parent": "d6-task4",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 679.840606791179,
+      "fy": 109.44740541780294,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-well-architected"
+    },
+    {
+      "id": "d6-trusted-advisor",
+      "text": "AWS Trusted Advisor",
+      "x": 720.5509724376948,
+      "y": 212.29819651645437,
+      "parent": "d6-task4",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 720.5509724376948,
+      "fy": 212.29819651645437,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-trusted-advisor"
+    },
+    {
+      "id": "d6-cost-explorer",
+      "text": "AWS Cost Explorer",
+      "x": 772.9270191597893,
+      "y": 156.925043758938,
+      "parent": "d6-task4",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 772.9270191597893,
+      "fy": 156.925043758938,
+      "depth": 3,
+      "cluster": "domain6",
+      "hasNote": true,
+      "noteId": "note-d6-cost-explorer"
+    }
+  ],
+  "links": [
+    {
+      "source": "root",
+      "target": "domain1"
+    },
+    {
+      "source": "root",
+      "target": "domain2"
+    },
+    {
+      "source": "root",
+      "target": "domain3"
+    },
+    {
+      "source": "root",
+      "target": "domain4"
+    },
+    {
+      "source": "root",
+      "target": "domain5"
+    },
+    {
+      "source": "root",
+      "target": "domain6"
+    },
+    {
+      "source": "domain1",
+      "target": "d1-task1"
+    },
+    {
+      "source": "domain1",
+      "target": "d1-task2"
+    },
+    {
+      "source": "domain1",
+      "target": "d1-task3"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-security-hub"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-macie"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-guardduty"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-inspector"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-config"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-detective"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-iam-access-analyzer"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-eventbridge"
+    },
+    {
+      "source": "d1-task1",
+      "target": "d1-secrets-manager"
+    },
+    {
+      "source": "d1-task2",
+      "target": "d1-t2-athena"
+    },
+    {
+      "source": "d1-task2",
+      "target": "d1-t2-cloudwatch"
+    },
+    {
+      "source": "d1-task2",
+      "target": "d1-t2-detective"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-lambda"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-step-functions"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-systems-manager"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-ec2"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-ebs"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-s3"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-s3-object-lock"
+    },
+    {
+      "source": "d1-task3",
+      "target": "d1-t3-s3-lifecycle"
+    },
+    {
+      "source": "domain2",
+      "target": "d2-task1"
+    },
+    {
+      "source": "domain2",
+      "target": "d2-task2"
+    },
+    {
+      "source": "domain2",
+      "target": "d2-task3"
+    },
+    {
+      "source": "domain2",
+      "target": "d2-task4"
+    },
+    {
+      "source": "domain2",
+      "target": "d2-task5"
+    },
+    {
+      "source": "d2-task1",
+      "target": "d2-cloudwatch"
+    },
+    {
+      "source": "d2-task1",
+      "target": "d2-eventbridge"
+    },
+    {
+      "source": "d2-task1",
+      "target": "d2-lambda"
+    },
+    {
+      "source": "d2-task1",
+      "target": "d2-sns"
+    },
+    {
+      "source": "d2-task3",
+      "target": "d2-vpc-flow-logs"
+    },
+    {
+      "source": "d2-task3",
+      "target": "d2-dns-logs"
+    },
+    {
+      "source": "d2-task3",
+      "target": "d2-cloudtrail"
+    },
+    {
+      "source": "d2-task3",
+      "target": "d2-cloudwatch-logs"
+    },
+    {
+      "source": "d2-task5",
+      "target": "d2-athena"
+    },
+    {
+      "source": "d2-task5",
+      "target": "d2-cloudwatch-insights"
+    },
+    {
+      "source": "d2-task5",
+      "target": "d2-cloudtrail-insights"
+    },
+    {
+      "source": "d2-task5",
+      "target": "d2-security-hub-insights"
+    },
+    {
+      "source": "domain3",
+      "target": "d3-task1"
+    },
+    {
+      "source": "domain3",
+      "target": "d3-task2"
+    },
+    {
+      "source": "domain3",
+      "target": "d3-task3"
+    },
+    {
+      "source": "domain3",
+      "target": "d3-task4"
+    },
+    {
+      "source": "d3-task1",
+      "target": "d3-waf"
+    },
+    {
+      "source": "d3-task1",
+      "target": "d3-shield"
+    },
+    {
+      "source": "d3-task1",
+      "target": "d3-cloudfront"
+    },
+    {
+      "source": "d3-task1",
+      "target": "d3-route53"
+    },
+    {
+      "source": "d3-task1",
+      "target": "d3-elb"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-security-groups"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-nacls"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-network-firewall"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-transit-gateway"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-vpc-endpoints"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-vpn"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-direct-connect"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-traffic-mirroring"
+    },
+    {
+      "source": "d3-task2",
+      "target": "d3-firewall-manager"
+    },
+    {
+      "source": "d3-task3",
+      "target": "d3-ec2"
+    },
+    {
+      "source": "d3-task3",
+      "target": "d3-ec2-image-builder"
+    },
+    {
+      "source": "d3-task3",
+      "target": "d3-inspector"
+    },
+    {
+      "source": "d3-task3",
+      "target": "d3-ecr"
+    },
+    {
+      "source": "d3-task3",
+      "target": "d3-systems-manager"
+    },
+    {
+      "source": "d3-task4",
+      "target": "d3-reachability-analyzer"
+    },
+    {
+      "source": "d3-task4",
+      "target": "d3-inspector-network"
+    },
+    {
+      "source": "d3-task4",
+      "target": "d3-vpc-flow-logs"
+    },
+    {
+      "source": "domain4",
+      "target": "d4-task1"
+    },
+    {
+      "source": "domain4",
+      "target": "d4-task2"
+    },
+    {
+      "source": "d4-task1",
+      "target": "d4-iam"
+    },
+    {
+      "source": "d4-task1",
+      "target": "d4-identity-center"
+    },
+    {
+      "source": "d4-task1",
+      "target": "d4-cognito"
+    },
+    {
+      "source": "d4-task1",
+      "target": "d4-sts"
+    },
+    {
+      "source": "d4-task1",
+      "target": "d4-directory-service"
+    },
+    {
+      "source": "d4-task2",
+      "target": "d4-iam-policies"
+    },
+    {
+      "source": "d4-task2",
+      "target": "d4-access-advisor"
+    },
+    {
+      "source": "d4-task2",
+      "target": "d4-policy-simulator"
+    },
+    {
+      "source": "d4-task2",
+      "target": "d4-cloudtrail"
+    },
+    {
+      "source": "domain5",
+      "target": "d5-task1"
+    },
+    {
+      "source": "domain5",
+      "target": "d5-task2"
+    },
+    {
+      "source": "domain5",
+      "target": "d5-task3"
+    },
+    {
+      "source": "domain5",
+      "target": "d5-task4"
+    },
+    {
+      "source": "d5-task1",
+      "target": "d5-acm"
+    },
+    {
+      "source": "d5-task1",
+      "target": "d5-vpn"
+    },
+    {
+      "source": "d5-task1",
+      "target": "d5-direct-connect"
+    },
+    {
+      "source": "d5-task1",
+      "target": "d5-session-manager"
+    },
+    {
+      "source": "d5-task1",
+      "target": "d5-instance-connect"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-kms"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-cloudhsm"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-s3"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-rds"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-dynamodb"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-ebs"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-efs"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-sqs"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-redshift"
+    },
+    {
+      "source": "d5-task2",
+      "target": "d5-api-gateway"
+    },
+    {
+      "source": "d5-task3",
+      "target": "d5-s3-lifecycle"
+    },
+    {
+      "source": "d5-task3",
+      "target": "d5-s3-object-lock"
+    },
+    {
+      "source": "d5-task3",
+      "target": "d5-glacier-vault-lock"
+    },
+    {
+      "source": "d5-task3",
+      "target": "d5-backup"
+    },
+    {
+      "source": "d5-task3",
+      "target": "d5-dlm"
+    },
+    {
+      "source": "d5-task4",
+      "target": "d5-secrets-manager"
+    },
+    {
+      "source": "d5-task4",
+      "target": "d5-parameter-store"
+    },
+    {
+      "source": "d5-task4",
+      "target": "d5-kms-keys"
+    },
+    {
+      "source": "domain6",
+      "target": "d6-task1"
+    },
+    {
+      "source": "domain6",
+      "target": "d6-task2"
+    },
+    {
+      "source": "domain6",
+      "target": "d6-task3"
+    },
+    {
+      "source": "domain6",
+      "target": "d6-task4"
+    },
+    {
+      "source": "d6-task1",
+      "target": "d6-organizations"
+    },
+    {
+      "source": "d6-task1",
+      "target": "d6-control-tower"
+    },
+    {
+      "source": "d6-task1",
+      "target": "d6-scps"
+    },
+    {
+      "source": "d6-task1",
+      "target": "d6-security-hub"
+    },
+    {
+      "source": "d6-task1",
+      "target": "d6-config-aggregators"
+    },
+    {
+      "source": "d6-task2",
+      "target": "d6-cloudformation"
+    },
+    {
+      "source": "d6-task2",
+      "target": "d6-service-catalog"
+    },
+    {
+      "source": "d6-task2",
+      "target": "d6-firewall-manager"
+    },
+    {
+      "source": "d6-task2",
+      "target": "d6-ram"
+    },
+    {
+      "source": "d6-task3",
+      "target": "d6-config"
+    },
+    {
+      "source": "d6-task3",
+      "target": "d6-audit-manager"
+    },
+    {
+      "source": "d6-task3",
+      "target": "d6-macie"
+    },
+    {
+      "source": "d6-task4",
+      "target": "d6-well-architected"
+    },
+    {
+      "source": "d6-task4",
+      "target": "d6-trusted-advisor"
+    },
+    {
+      "source": "d6-task4",
+      "target": "d6-cost-explorer"
+    }
+  ],
+  "selectedNodeId": null,
+  "editingNodeId": null,
+  "notes": [
+    {
+      "id": "note-d1-config",
+      "nodeId": "d1-config",
+      "content": "<p>Tracks configuration changes; evaluates compliance via Config Rules; can auto-remediate with Systems Manager.</p>",
+      "contentType": "tiptap",
+      "plainText": "Tracks configuration changes; evaluates compliance via Config Rules; can auto-remediate with Systems Manager.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-detective",
+      "nodeId": "d1-detective",
+      "content": "<p>Graph-based investigation of GuardDuty and CloudTrail findings; helps identify root causes.</p>",
+      "contentType": "tiptap",
+      "plainText": "Graph-based investigation of GuardDuty and CloudTrail findings; helps identify root causes.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-eventbridge",
+      "nodeId": "d1-eventbridge",
+      "content": "<p>Routes Security Hub and GuardDuty findings to Lambda or Step Functions for automated response.</p>",
+      "contentType": "tiptap",
+      "plainText": "Routes Security Hub and GuardDuty findings to Lambda or Step Functions for automated response.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-guardduty",
+      "nodeId": "d1-guardduty",
+      "content": "<p>Threat detection using ML and threat intelligence; integrates with Security Hub and EventBridge.</p>",
+      "contentType": "tiptap",
+      "plainText": "Threat detection using ML and threat intelligence; integrates with Security Hub and EventBridge.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-iam-access-analyzer",
+      "nodeId": "d1-iam-access-analyzer",
+      "content": "<p>Finds public or cross-account access via IAM policies; results appear in Security Hub.</p>",
+      "contentType": "tiptap",
+      "plainText": "Finds public or cross-account access via IAM policies; results appear in Security Hub.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-inspector",
+      "nodeId": "d1-inspector",
+      "content": "<p>Scans EC2 and ECR for vulnerabilities; integrates with Security Hub.</p>",
+      "contentType": "tiptap",
+      "plainText": "Scans EC2 and ECR for vulnerabilities; integrates with Security Hub.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-macie",
+      "nodeId": "d1-macie",
+      "content": "<p>Uses ML to classify sensitive data in S3; findings go to Security Hub.</p>",
+      "contentType": "tiptap",
+      "plainText": "Uses ML to classify sensitive data in S3; findings go to Security Hub.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-secrets-manager",
+      "nodeId": "d1-secrets-manager",
+      "content": "<p>Manages and rotates secrets; integrates with CloudTrail for audit logging.</p>",
+      "contentType": "tiptap",
+      "plainText": "Manages and rotates secrets; integrates with CloudTrail for audit logging.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-security-hub",
+      "nodeId": "d1-security-hub",
+      "content": "<p>Centralizes findings from GuardDuty, Inspector, Macie, and Config; maps to compliance frameworks like CIS and PCI.</p>",
+      "contentType": "tiptap",
+      "plainText": "Centralizes findings from GuardDuty, Inspector, Macie, and Config; maps to compliance frameworks like CIS and PCI.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-t2-athena",
+      "nodeId": "d1-t2-athena",
+      "content": "<p>Query CloudTrail or VPC logs in S3 with SQL; supports incident analysis.</p>",
+      "contentType": "tiptap",
+      "plainText": "Query CloudTrail or VPC logs in S3 with SQL; supports incident analysis.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-t2-cloudwatch",
+      "nodeId": "d1-t2-cloudwatch",
+      "content": "<p>Central metrics and log monitoring; detects anomalies or spikes.</p>",
+      "contentType": "tiptap",
+      "plainText": "Central metrics and log monitoring; detects anomalies or spikes.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-t2-detective",
+      "nodeId": "d1-t2-detective",
+      "content": "<p>Investigates GuardDuty or Security Hub findings; visual link analysis.</p>",
+      "contentType": "tiptap",
+      "plainText": "Investigates GuardDuty or Security Hub findings; visual link analysis.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-t3-ebs",
+      "nodeId": "d1-t3-ebs",
+      "content": "<p>Snapshot forensics tool during compromise; snapshot before remediation.</p>",
+      "contentType": "tiptap",
+      "plainText": "Snapshot forensics tool during compromise; snapshot before remediation.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-t3-ec2",
+      "nodeId": "d1-t3-ec2",
+      "content": "<p>Compute service; isolate compromised instances using SG changes or stop commands.</p>",
+      "contentType": "tiptap",
+      "plainText": "Compute service; isolate compromised instances using SG changes or stop commands.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-t3-lambda",
+      "nodeId": "d1-t3-lambda",
+      "content": "<p>Automates remediation actions triggered by EventBridge events.</p>",
+      "contentType": "tiptap",
+      "plainText": "Automates remediation actions triggered by EventBridge events.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-t3-s3",
+      "nodeId": "d1-t3-s3",
+      "content": "<p>Store forensic evidence or logs; use Object Lock for immutability.</p>",
+      "contentType": "tiptap",
+      "plainText": "Store forensic evidence or logs; use Object Lock for immutability.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-t3-s3-lifecycle",
+      "nodeId": "d1-t3-s3-lifecycle",
+      "content": "<p>Automates data retention and archival; preserve or expire logs.</p>",
+      "contentType": "tiptap",
+      "plainText": "Automates data retention and archival; preserve or expire logs.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-t3-s3-object-lock",
+      "nodeId": "d1-t3-s3-object-lock",
+      "content": "<p>Prevents deletion/modification (WORM) for evidence retention.</p>",
+      "contentType": "tiptap",
+      "plainText": "Prevents deletion/modification (WORM) for evidence retention.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-t3-step-functions",
+      "nodeId": "d1-t3-step-functions",
+      "content": "<p>Orchestrates multi-step incident response workflows.</p>",
+      "contentType": "tiptap",
+      "plainText": "Orchestrates multi-step incident response workflows.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d1-t3-systems-manager",
+      "nodeId": "d1-t3-systems-manager",
+      "content": "<p>Used for patching, isolation, and command execution in incidents.</p>",
+      "contentType": "tiptap",
+      "plainText": "Used for patching, isolation, and command execution in incidents.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d2-athena",
+      "nodeId": "d2-athena",
+      "content": "<p>Queries S3 logs (CloudTrail/VPC) using SQL; fast log analysis tool.</p>",
+      "contentType": "tiptap",
+      "plainText": "Queries S3 logs (CloudTrail/VPC) using SQL; fast log analysis tool.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d2-cloudtrail",
+      "nodeId": "d2-cloudtrail",
+      "content": "<p>Records all API calls; key for governance, audit, and forensic analysis.</p>",
+      "contentType": "tiptap",
+      "plainText": "Records all API calls; key for governance, audit, and forensic analysis.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d2-cloudtrail-insights",
+      "nodeId": "d2-cloudtrail-insights",
+      "content": "<p>Detects unusual API activity automatically within CloudTrail.</p>",
+      "contentType": "tiptap",
+      "plainText": "Detects unusual API activity automatically within CloudTrail.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d2-cloudwatch",
+      "nodeId": "d2-cloudwatch",
+      "content": "<p>Monitors metrics, logs, and alarms; integrates with SNS/EventBridge for alerting.</p>",
+      "contentType": "tiptap",
+      "plainText": "Monitors metrics, logs, and alarms; integrates with SNS/EventBridge for alerting.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d2-cloudwatch-insights",
+      "nodeId": "d2-cloudwatch-insights",
+      "content": "<p>Interactive query engine for CloudWatch Logs to detect issues.</p>",
+      "contentType": "tiptap",
+      "plainText": "Interactive query engine for CloudWatch Logs to detect issues.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d2-cloudwatch-logs",
+      "nodeId": "d2-cloudwatch-logs",
+      "content": "<p>Centralized log storage; integrates with Logs Insights for analysis.</p>",
+      "contentType": "tiptap",
+      "plainText": "Centralized log storage; integrates with Logs Insights for analysis.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d2-dns-logs",
+      "nodeId": "d2-dns-logs",
+      "content": "<p>Logs Route 53 DNS queries; useful for detecting domain abuse or data exfiltration.</p>",
+      "contentType": "tiptap",
+      "plainText": "Logs Route 53 DNS queries; useful for detecting domain abuse or data exfiltration.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d2-eventbridge",
+      "nodeId": "d2-eventbridge",
+      "content": "<p>Routes monitoring and security events to automated targets like Lambda.</p>",
+      "contentType": "tiptap",
+      "plainText": "Routes monitoring and security events to automated targets like Lambda.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d2-lambda",
+      "nodeId": "d2-lambda",
+      "content": "<p>Processes or enriches log data automatically for analysis or response.</p>",
+      "contentType": "tiptap",
+      "plainText": "Processes or enriches log data automatically for analysis or response.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d2-security-hub-insights",
+      "nodeId": "d2-security-hub-insights",
+      "content": "<p>Aggregates findings and insights from integrated AWS services.</p>",
+      "contentType": "tiptap",
+      "plainText": "Aggregates findings and insights from integrated AWS services.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d2-sns",
+      "nodeId": "d2-sns",
+      "content": "<p>Delivers alert notifications to users or triggers Lambda actions.</p>",
+      "contentType": "tiptap",
+      "plainText": "Delivers alert notifications to users or triggers Lambda actions.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d2-vpc-flow-logs",
+      "nodeId": "d2-vpc-flow-logs",
+      "content": "<p>Captures IP traffic metadata for network analysis and troubleshooting.</p>",
+      "contentType": "tiptap",
+      "plainText": "Captures IP traffic metadata for network analysis and troubleshooting.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-cloudfront",
+      "nodeId": "d3-cloudfront",
+      "content": "<p>Global CDN that enforces TLS and integrates with WAF/Shield for edge protection.</p>",
+      "contentType": "tiptap",
+      "plainText": "Global CDN that enforces TLS and integrates with WAF/Shield for edge protection.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-direct-connect",
+      "nodeId": "d3-direct-connect",
+      "content": "<p>Dedicated private line to AWS; optional MACsec encryption.</p>",
+      "contentType": "tiptap",
+      "plainText": "Dedicated private line to AWS; optional MACsec encryption.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-ec2",
+      "nodeId": "d3-ec2",
+      "content": "<p>Elastic compute; isolate compromised instances, enforce IMDSv2 for metadata security.</p>",
+      "contentType": "tiptap",
+      "plainText": "Elastic compute; isolate compromised instances, enforce IMDSv2 for metadata security.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-ec2-image-builder",
+      "nodeId": "d3-ec2-image-builder",
+      "content": "<p>Automates secure AMI builds with patching and scanning.</p>",
+      "contentType": "tiptap",
+      "plainText": "Automates secure AMI builds with patching and scanning.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-ecr",
+      "nodeId": "d3-ecr",
+      "content": "<p>Container image repository with integrated vulnerability scanning.</p>",
+      "contentType": "tiptap",
+      "plainText": "Container image repository with integrated vulnerability scanning.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-elb",
+      "nodeId": "d3-elb",
+      "content": "<p>Distributes traffic; supports access logs and WAF integration.</p>",
+      "contentType": "tiptap",
+      "plainText": "Distributes traffic; supports access logs and WAF integration.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-firewall-manager",
+      "nodeId": "d3-firewall-manager",
+      "content": "<p>Central policy management for WAF, Shield, and Network Firewall.</p>",
+      "contentType": "tiptap",
+      "plainText": "Central policy management for WAF, Shield, and Network Firewall.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-inspector",
+      "nodeId": "d3-inspector",
+      "content": "<p>Scans EC2 and ECR for vulnerabilities; integrated with Security Hub.</p>",
+      "contentType": "tiptap",
+      "plainText": "Scans EC2 and ECR for vulnerabilities; integrated with Security Hub.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-inspector-network",
+      "nodeId": "d3-inspector-network",
+      "content": "<p>Assesses network reachability exposure on EC2 instances.</p>",
+      "contentType": "tiptap",
+      "plainText": "Assesses network reachability exposure on EC2 instances.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-nacls",
+      "nodeId": "d3-nacls",
+      "content": "<p>Stateless subnet-level network filters; rules processed in order.</p>",
+      "contentType": "tiptap",
+      "plainText": "Stateless subnet-level network filters; rules processed in order.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-network-firewall",
+      "nodeId": "d3-network-firewall",
+      "content": "<p>Managed firewall for VPCs; allows Layer 3-7 filtering and inspection.</p>",
+      "contentType": "tiptap",
+      "plainText": "Managed firewall for VPCs; allows Layer 3-7 filtering and inspection.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-reachability-analyzer",
+      "nodeId": "d3-reachability-analyzer",
+      "content": "<p>Tests network paths; verifies if traffic is reachable between resources.</p>",
+      "contentType": "tiptap",
+      "plainText": "Tests network paths; verifies if traffic is reachable between resources.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-route53",
+      "nodeId": "d3-route53",
+      "content": "<p>DNS with support for DNSSEC and traffic policies; used for secure failover.</p>",
+      "contentType": "tiptap",
+      "plainText": "DNS with support for DNSSEC and traffic policies; used for secure failover.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-security-groups",
+      "nodeId": "d3-security-groups",
+      "content": "<p>Stateful firewall at instance level; controls inbound/outbound rules.</p>",
+      "contentType": "tiptap",
+      "plainText": "Stateful firewall at instance level; controls inbound/outbound rules.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-shield",
+      "nodeId": "d3-shield",
+      "content": "<p>Managed DDoS protection; Standard is free, Advanced adds 24/7 SOC support and cost protection.</p>",
+      "contentType": "tiptap",
+      "plainText": "Managed DDoS protection; Standard is free, Advanced adds 24/7 SOC support and cost protection.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-systems-manager",
+      "nodeId": "d3-systems-manager",
+      "content": "<p>Manages patching, inventory, and secure remote access via Session Manager.</p>",
+      "contentType": "tiptap",
+      "plainText": "Manages patching, inventory, and secure remote access via Session Manager.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-traffic-mirroring",
+      "nodeId": "d3-traffic-mirroring",
+      "content": "<p>Copies network traffic for analysis and threat inspection.</p>",
+      "contentType": "tiptap",
+      "plainText": "Copies network traffic for analysis and threat inspection.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-transit-gateway",
+      "nodeId": "d3-transit-gateway",
+      "content": "<p>Central hub for inter-VPC communication; supports inspection routing.</p>",
+      "contentType": "tiptap",
+      "plainText": "Central hub for inter-VPC communication; supports inspection routing.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-vpc-endpoints",
+      "nodeId": "d3-vpc-endpoints",
+      "content": "<p>Private connectivity to AWS services without Internet exposure.</p>",
+      "contentType": "tiptap",
+      "plainText": "Private connectivity to AWS services without Internet exposure.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-vpc-flow-logs",
+      "nodeId": "d3-vpc-flow-logs",
+      "content": "<p>Captures VPC network metadata; used for troubleshooting and forensics.</p>",
+      "contentType": "tiptap",
+      "plainText": "Captures VPC network metadata; used for troubleshooting and forensics.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-vpn",
+      "nodeId": "d3-vpn",
+      "content": "<p>Encrypted IPSec tunnel between AWS and on-premises networks.</p>",
+      "contentType": "tiptap",
+      "plainText": "Encrypted IPSec tunnel between AWS and on-premises networks.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d3-waf",
+      "nodeId": "d3-waf",
+      "content": "<p>Web ACLs blocking OWASP top threats like SQLi/XSS; integrates with CloudFront and ALB.</p>",
+      "contentType": "tiptap",
+      "plainText": "Web ACLs blocking OWASP top threats like SQLi/XSS; integrates with CloudFront and ALB.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d4-access-advisor",
+      "nodeId": "d4-access-advisor",
+      "content": "<p>Shows service usage history to identify unused permissions.</p>",
+      "contentType": "tiptap",
+      "plainText": "Shows service usage history to identify unused permissions.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d4-cloudtrail",
+      "nodeId": "d4-cloudtrail",
+      "content": "<p>Audits IAM and API actions for accountability and traceability.</p>",
+      "contentType": "tiptap",
+      "plainText": "Audits IAM and API actions for accountability and traceability.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d4-cognito",
+      "nodeId": "d4-cognito",
+      "content": "<p>Manages app user sign-up/sign-in with support for social and enterprise IdPs.</p>",
+      "contentType": "tiptap",
+      "plainText": "Manages app user sign-up/sign-in with support for social and enterprise IdPs.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d4-directory-service",
+      "nodeId": "d4-directory-service",
+      "content": "<p>Managed Microsoft AD integration; supports Kerberos and LDAP.</p>",
+      "contentType": "tiptap",
+      "plainText": "Managed Microsoft AD integration; supports Kerberos and LDAP.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d4-iam",
+      "nodeId": "d4-iam",
+      "content": "<p>Central identity and permissions management; enforce least privilege and MFA.</p>",
+      "contentType": "tiptap",
+      "plainText": "Central identity and permissions management; enforce least privilege and MFA.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d4-iam-policies",
+      "nodeId": "d4-iam-policies",
+      "content": "<p>JSON policy docs defining actions; explicit deny overrides allow.</p>",
+      "contentType": "tiptap",
+      "plainText": "JSON policy docs defining actions; explicit deny overrides allow.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d4-identity-center",
+      "nodeId": "d4-identity-center",
+      "content": "<p>SSO for AWS and external IdPs via SAML/OIDC; simplifies federated access.</p>",
+      "contentType": "tiptap",
+      "plainText": "SSO for AWS and external IdPs via SAML/OIDC; simplifies federated access.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d4-policy-simulator",
+      "nodeId": "d4-policy-simulator",
+      "content": "<p>Simulates and tests IAM policy effects for troubleshooting.</p>",
+      "contentType": "tiptap",
+      "plainText": "Simulates and tests IAM policy effects for troubleshooting.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d4-sts",
+      "nodeId": "d4-sts",
+      "content": "<p>Provides temporary credentials for role-based access; key for cross-account operations.</p>",
+      "contentType": "tiptap",
+      "plainText": "Provides temporary credentials for role-based access; key for cross-account operations.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-acm",
+      "nodeId": "d5-acm",
+      "content": "<p>Issues and manages TLS certificates; automates renewal for ACM-integrated services.</p>",
+      "contentType": "tiptap",
+      "plainText": "Issues and manages TLS certificates; automates renewal for ACM-integrated services.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-api-gateway",
+      "nodeId": "d5-api-gateway",
+      "content": "<p>Enforces TLS for client communication; integrates with ACM for certificates.</p>",
+      "contentType": "tiptap",
+      "plainText": "Enforces TLS for client communication; integrates with ACM for certificates.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-backup",
+      "nodeId": "d5-backup",
+      "content": "<p>Centralized backup orchestration for AWS services; automates retention.</p>",
+      "contentType": "tiptap",
+      "plainText": "Centralized backup orchestration for AWS services; automates retention.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-cloudhsm",
+      "nodeId": "d5-cloudhsm",
+      "content": "<p>Dedicated hardware HSM for FIPS 140-2 Level 3 workloads.</p>",
+      "contentType": "tiptap",
+      "plainText": "Dedicated hardware HSM for FIPS 140-2 Level 3 workloads.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-direct-connect",
+      "nodeId": "d5-direct-connect",
+      "content": "<p>Dedicated line for hybrid connections; optional encryption with MACsec.</p>",
+      "contentType": "tiptap",
+      "plainText": "Dedicated line for hybrid connections; optional encryption with MACsec.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-dlm",
+      "nodeId": "d5-dlm",
+      "content": "<p>Automates EBS snapshot creation and lifecycle management.</p>",
+      "contentType": "tiptap",
+      "plainText": "Automates EBS snapshot creation and lifecycle management.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-dynamodb",
+      "nodeId": "d5-dynamodb",
+      "content": "<p>Fully encrypted NoSQL service; integrates with KMS seamlessly.</p>",
+      "contentType": "tiptap",
+      "plainText": "Fully encrypted NoSQL service; integrates with KMS seamlessly.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-ebs",
+      "nodeId": "d5-ebs",
+      "content": "<p>Block storage encrypted by KMS; supports snapshot-level encryption.</p>",
+      "contentType": "tiptap",
+      "plainText": "Block storage encrypted by KMS; supports snapshot-level encryption.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-efs",
+      "nodeId": "d5-efs",
+      "content": "<p>Managed file storage with per-file encryption via KMS.</p>",
+      "contentType": "tiptap",
+      "plainText": "Managed file storage with per-file encryption via KMS.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-glacier-vault-lock",
+      "nodeId": "d5-glacier-vault-lock",
+      "content": "<p>Immutable vault lock policy for regulatory retention.</p>",
+      "contentType": "tiptap",
+      "plainText": "Immutable vault lock policy for regulatory retention.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-instance-connect",
+      "nodeId": "d5-instance-connect",
+      "content": "<p>Grants temporary SSH keys for secure, auditable access.</p>",
+      "contentType": "tiptap",
+      "plainText": "Grants temporary SSH keys for secure, auditable access.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-kms",
+      "nodeId": "d5-kms",
+      "content": "<p>Managed key service for encryption; exam focus: CMK types and usage grants.</p>",
+      "contentType": "tiptap",
+      "plainText": "Managed key service for encryption; exam focus: CMK types and usage grants.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-kms-keys",
+      "nodeId": "d5-kms-keys",
+      "content": "<p>Creates, rotates, and manages customer-managed encryption keys.</p>",
+      "contentType": "tiptap",
+      "plainText": "Creates, rotates, and manages customer-managed encryption keys.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-parameter-store",
+      "nodeId": "d5-parameter-store",
+      "content": "<p>Holds config data and secrets encrypted with KMS.</p>",
+      "contentType": "tiptap",
+      "plainText": "Holds config data and secrets encrypted with KMS.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-rds",
+      "nodeId": "d5-rds",
+      "content": "<p>Database encryption via KMS; supports TDE for Oracle/SQL Server.</p>",
+      "contentType": "tiptap",
+      "plainText": "Database encryption via KMS; supports TDE for Oracle/SQL Server.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-redshift",
+      "nodeId": "d5-redshift",
+      "content": "<p>Data warehouse with automatic KMS encryption; supports HSM integration.</p>",
+      "contentType": "tiptap",
+      "plainText": "Data warehouse with automatic KMS encryption; supports HSM integration.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-s3",
+      "nodeId": "d5-s3",
+      "content": "<p>Object storage with default encryption support and fine-grained access control.</p>",
+      "contentType": "tiptap",
+      "plainText": "Object storage with default encryption support and fine-grained access control.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-s3-lifecycle",
+      "nodeId": "d5-s3-lifecycle",
+      "content": "<p>Manages object retention, transitions, and expirations automatically.</p>",
+      "contentType": "tiptap",
+      "plainText": "Manages object retention, transitions, and expirations automatically.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-s3-object-lock",
+      "nodeId": "d5-s3-object-lock",
+      "content": "<p>Enforces WORM compliance; protects data from modification/deletion.</p>",
+      "contentType": "tiptap",
+      "plainText": "Enforces WORM compliance; protects data from modification/deletion.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-secrets-manager",
+      "nodeId": "d5-secrets-manager",
+      "content": "<p>Securely stores and rotates database credentials and API keys.</p>",
+      "contentType": "tiptap",
+      "plainText": "Securely stores and rotates database credentials and API keys.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-session-manager",
+      "nodeId": "d5-session-manager",
+      "content": "<p>Provides encrypted remote shell access without SSH keys.</p>",
+      "contentType": "tiptap",
+      "plainText": "Provides encrypted remote shell access without SSH keys.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-sqs",
+      "nodeId": "d5-sqs",
+      "content": "<p>Encrypted message queues using KMS; ensure key rotation per policy.</p>",
+      "contentType": "tiptap",
+      "plainText": "Encrypted message queues using KMS; ensure key rotation per policy.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d5-vpn",
+      "nodeId": "d5-vpn",
+      "content": "<p>Encrypts data in transit between on-prem and AWS with IPSec tunnels.</p>",
+      "contentType": "tiptap",
+      "plainText": "Encrypts data in transit between on-prem and AWS with IPSec tunnels.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-audit-manager",
+      "nodeId": "d6-audit-manager",
+      "content": "<p>Maps AWS controls to compliance frameworks and collects evidence.</p>",
+      "contentType": "tiptap",
+      "plainText": "Maps AWS controls to compliance frameworks and collects evidence.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-cloudformation",
+      "nodeId": "d6-cloudformation",
+      "content": "<p>Infrastructure as Code with drift detection and change sets.</p>",
+      "contentType": "tiptap",
+      "plainText": "Infrastructure as Code with drift detection and change sets.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-config",
+      "nodeId": "d6-config",
+      "content": "<p>Evaluates compliance via Config Rules; integrates with Security Hub.</p>",
+      "contentType": "tiptap",
+      "plainText": "Evaluates compliance via Config Rules; integrates with Security Hub.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-config-aggregators",
+      "nodeId": "d6-config-aggregators",
+      "content": "<p>Aggregates Config data from multiple accounts/regions.</p>",
+      "contentType": "tiptap",
+      "plainText": "Aggregates Config data from multiple accounts/regions.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-control-tower",
+      "nodeId": "d6-control-tower",
+      "content": "<p>Sets up and governs multi-account landing zones automatically.</p>",
+      "contentType": "tiptap",
+      "plainText": "Sets up and governs multi-account landing zones automatically.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-cost-explorer",
+      "nodeId": "d6-cost-explorer",
+      "content": "<p>Analyzes costs and identifies anomalies for governance oversight.</p>",
+      "contentType": "tiptap",
+      "plainText": "Analyzes costs and identifies anomalies for governance oversight.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-firewall-manager",
+      "nodeId": "d6-firewall-manager",
+      "content": "<p>Manages and enforces organization-wide firewall policies.</p>",
+      "contentType": "tiptap",
+      "plainText": "Manages and enforces organization-wide firewall policies.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-macie",
+      "nodeId": "d6-macie",
+      "content": "<p>Finds and classifies sensitive data for compliance validation.</p>",
+      "contentType": "tiptap",
+      "plainText": "Finds and classifies sensitive data for compliance validation.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-organizations",
+      "nodeId": "d6-organizations",
+      "content": "<p>Manages multi-account environments; applies Service Control Policies.</p>",
+      "contentType": "tiptap",
+      "plainText": "Manages multi-account environments; applies Service Control Policies.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-ram",
+      "nodeId": "d6-ram",
+      "content": "<p>Shares AWS resources securely across accounts or orgs.</p>",
+      "contentType": "tiptap",
+      "plainText": "Shares AWS resources securely across accounts or orgs.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-scps",
+      "nodeId": "d6-scps",
+      "content": "<p>Restricts actions across accounts; applied at the organization or OU level.</p>",
+      "contentType": "tiptap",
+      "plainText": "Restricts actions across accounts; applied at the organization or OU level.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-security-hub",
+      "nodeId": "d6-security-hub",
+      "content": "<p>Central dashboard for compliance findings across accounts.</p>",
+      "contentType": "tiptap",
+      "plainText": "Central dashboard for compliance findings across accounts.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-service-catalog",
+      "nodeId": "d6-service-catalog",
+      "content": "<p>Publishes approved IaC products for compliant deployments.</p>",
+      "contentType": "tiptap",
+      "plainText": "Publishes approved IaC products for compliant deployments.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-trusted-advisor",
+      "nodeId": "d6-trusted-advisor",
+      "content": "<p>Recommends security, cost, and performance optimizations.</p>",
+      "contentType": "tiptap",
+      "plainText": "Recommends security, cost, and performance optimizations.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-d6-well-architected",
+      "nodeId": "d6-well-architected",
+      "content": "<p>Reviews workloads against AWS best practices and security pillars.</p>",
+      "contentType": "tiptap",
+      "plainText": "Reviews workloads against AWS best practices and security pillars.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2025-11-08T13:29:23.176Z",
+      "updatedAt": "2025-11-08T13:29:23.176Z"
+    },
+    {
+      "id": "note-domain-1",
+      "nodeId": "node-domain-1",
+      "content": "<p><strong>Content Domain 1: Detection</strong></p>\n<p>This domain represents <strong>16%</strong> of the scored exam content.</p>\n<p>Tasks in this domain are represented as child nodes. Each task then has its own child skill nodes (for example,  1.1.1, 1.1.2, and so on).</p>",
+      "contentType": "tiptap",
+      "plainText": "Content Domain 1: Detection. Weight: 16% of the exam. Tasks and their skills are represented as child nodes.",
+      "tags": [
+        "domain",
+        "aws-security-specialty"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-domain-2",
+      "nodeId": "node-domain-2",
+      "content": "<p><strong>Content Domain 2: Incident Response</strong></p>\n<p>This domain represents <strong>14%</strong> of the scored exam content.</p>\n<p>Tasks in this domain are represented as child nodes. Each task then has its own child skill nodes (for example,  2.1.1, 2.1.2, and so on).</p>",
+      "contentType": "tiptap",
+      "plainText": "Content Domain 2: Incident Response. Weight: 14% of the exam. Tasks and their skills are represented as child nodes.",
+      "tags": [
+        "domain",
+        "aws-security-specialty"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-domain-3",
+      "nodeId": "node-domain-3",
+      "content": "<p><strong>Content Domain 3: Infrastructure Security</strong></p>\n<p>This domain represents <strong>18%</strong> of the scored exam content.</p>\n<p>Tasks in this domain are represented as child nodes. Each task then has its own child skill nodes (for example,  3.1.1, 3.1.2, and so on).</p>",
+      "contentType": "tiptap",
+      "plainText": "Content Domain 3: Infrastructure Security. Weight: 18% of the exam. Tasks and their skills are represented as child nodes.",
+      "tags": [
+        "domain",
+        "aws-security-specialty"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-domain-4",
+      "nodeId": "node-domain-4",
+      "content": "<p><strong>Content Domain 4: Identity and Access Management</strong></p>\n<p>This domain represents <strong>20%</strong> of the scored exam content.</p>\n<p>Tasks in this domain are represented as child nodes. Each task then has its own child skill nodes (for example,  4.1.1, 4.1.2, and so on).</p>",
+      "contentType": "tiptap",
+      "plainText": "Content Domain 4: Identity and Access Management. Weight: 20% of the exam. Tasks and their skills are represented as child nodes.",
+      "tags": [
+        "domain",
+        "aws-security-specialty"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-domain-5",
+      "nodeId": "node-domain-5",
+      "content": "<p><strong>Content Domain 5: Data Protection</strong></p>\n<p>This domain represents <strong>18%</strong> of the scored exam content.</p>\n<p>Tasks in this domain are represented as child nodes. Each task then has its own child skill nodes (for example,  5.1.1, 5.1.2, and so on).</p>",
+      "contentType": "tiptap",
+      "plainText": "Content Domain 5: Data Protection. Weight: 18% of the exam. Tasks and their skills are represented as child nodes.",
+      "tags": [
+        "domain",
+        "aws-security-specialty"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-domain-6",
+      "nodeId": "node-domain-6",
+      "content": "<p><strong>Content Domain 6: Security Foundations and Governance</strong></p>\n<p>This domain represents <strong>14%</strong> of the scored exam content.</p>\n<p>Tasks in this domain are represented as child nodes. Each task then has its own child skill nodes (for example,  6.1.1, 6.1.2, and so on).</p>",
+      "contentType": "tiptap",
+      "plainText": "Content Domain 6: Security Foundations and Governance. Weight: 14% of the exam. Tasks and their skills are represented as child nodes.",
+      "tags": [
+        "domain",
+        "aws-security-specialty"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-root",
+      "nodeId": "node-root",
+      "content": "<p><strong>AWS Certified Security – Specialty (SCS-C03)</strong> exam blueprint mind map based on the official exam guide.</p>\n<p>This map organizes the exam into six content domains, their task statements, and the detailed skill statements that AWS expects candidates to master.</p>\n<ul>\n  <li>Content Domain 1: Detection (16%)</li>\n  <li>Content Domain 2: Incident Response (14%)</li>\n  <li>Content Domain 3: Infrastructure Security (18%)</li>\n  <li>Content Domain 4: Identity and Access Management (20%)</li>\n  <li>Content Domain 5: Data Protection (18%)</li>\n  <li>Content Domain 6: Security Foundations and Governance (14%)</li>\n</ul>\n<p>Hierarchy:</p>\n<ul>\n  <li>Root → Domain</li>\n  <li>Domain → Task</li>\n  <li>Task → Skill (each 1.2.1-style statement is its own node)</li>\n</ul>",
+      "contentType": "tiptap",
+      "plainText": "AWS Certified Security – Specialty (SCS-C03) exam blueprint mind map, organized into domains, tasks, and individual skill statements (each 1.x.x is its own node).",
+      "tags": [
+        "overview",
+        "aws-security-specialty",
+        "exam-blueprint"
+      ],
+      "isPinned": true,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-1-1",
+      "nodeId": "node-skill-1-1-1",
+      "content": "<p><strong>Skill 1.1.1:</strong> Analyze workloads to determine monitoring requirements.</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.1.1: Analyze workloads to determine monitoring requirements.",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-1-2",
+      "nodeId": "node-skill-1-1-2",
+      "content": "<p><strong>Skill 1.1.2:</strong> Design and implement workload monitoring strategies (for example, by configuring resource health checks).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.1.2: Design and implement workload monitoring strategies (for example, by configuring resource health checks).",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-1-3",
+      "nodeId": "node-skill-1-1-3",
+      "content": "<p><strong>Skill 1.1.3:</strong> Aggregate security and monitoring events.</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.1.3: Aggregate security and monitoring events.",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-1-4",
+      "nodeId": "node-skill-1-1-4",
+      "content": "<p><strong>Skill 1.1.4:</strong> Create metrics, alerts, and dashboards to detect anomalous data and events (for example, Amazon GuardDuty, Amazon Security Lake, AWS Security Hub, Amazon Macie).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.1.4: Create metrics, alerts, and dashboards to detect anomalous data and events (for example, Amazon GuardDuty, Amazon Security Lake, AWS Security Hub, Amazon Macie).",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-1-5",
+      "nodeId": "node-skill-1-1-5",
+      "content": "<p><strong>Skill 1.1.5:</strong> Create and manage automations to perform regular assessments and investigations (for example, by deploying AWS Config conformance packs, Security Hub, AWS Systems Manager State Manager).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.1.5: Create and manage automations to perform regular assessments and investigations (for example, by deploying AWS Config conformance packs, Security Hub, AWS Systems Manager State Manager).",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-2-1",
+      "nodeId": "node-skill-1-2-1",
+      "content": "<p><strong>Skill 1.2.1:</strong> Identify sources for log ingestion and storage based on requirements.</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.2.1: Identify sources for log ingestion and storage based on requirements.",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-2-2",
+      "nodeId": "node-skill-1-2-2",
+      "content": "<p><strong>Skill 1.2.2:</strong> Configure logging for AWS services and applications (for example, by configuring an AWS CloudTrail trail for an organization, by creating a dedicated Amazon CloudWatch logging account, by configuring the Amazon CloudWatch Logs agent).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.2.2: Configure logging for AWS services and applications (for example, by configuring an AWS CloudTrail trail for an organization, by creating a dedicated Amazon CloudWatch logging account, by configuring the Amazon CloudWatch Logs agent).",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-2-3",
+      "nodeId": "node-skill-1-2-3",
+      "content": "<p><strong>Skill 1.2.3:</strong> Implement log storage and log data lakes (for example, Security Lake) and integrate with third -party security tools.</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.2.3: Implement log storage and log data lakes (for example, Security Lake) and integrate with third -party security tools.",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-2-4",
+      "nodeId": "node-skill-1-2-4",
+      "content": "<p><strong>Skill 1.2.4:</strong> Use AWS services to analyze logs (for example, CloudWatch Logs Insights, Amazon Athena, Security Hub findings).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.2.4: Use AWS services to analyze logs (for example, CloudWatch Logs Insights, Amazon Athena, Security Hub findings).",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-2-5",
+      "nodeId": "node-skill-1-2-5",
+      "content": "<p><strong>Skill 1.2.5:</strong> Use AWS services to normalize, parse, and correlate logs (for example, Amazon OpenSearch Service , AWS Lambda, Amazon Managed Grafana).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.2.5: Use AWS services to normalize, parse, and correlate logs (for example, Amazon OpenSearch Service , AWS Lambda, Amazon Managed Grafana).",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-2-6",
+      "nodeId": "node-skill-1-2-6",
+      "content": "<p><strong>Skill 1.2.6:</strong> Determine and configure appropriate log sources based on network design, threats, and attacks (for example, VPC Flow Logs, transit gateway flow logs, Amazon Route 53 Resolver logs).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.2.6: Determine and configure appropriate log sources based on network design, threats, and attacks (for example, VPC Flow Logs, transit gateway flow logs, Amazon Route 53 Resolver logs).",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-3-1",
+      "nodeId": "node-skill-1-3-1",
+      "content": "<p><strong>Skill 1.3.1:</strong> Analyze the functionality, permissions, and configuration of resources (for example, Lambda function logging, Amazon API Gateway logging, health checks, Amazon CloudFront logging).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.3.1: Analyze the functionality, permissions, and configuration of resources (for example, Lambda function logging, Amazon API Gateway logging, health checks, Amazon CloudFront logging).",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-1-3-2",
+      "nodeId": "node-skill-1-3-2",
+      "content": "<p><strong>Skill 1.3.2:</strong> Remediate misconfiguration of resources (for example, by troubleshooting CloudWatch Agent configurations, troubleshooting missing logs).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 1.3.2: Remediate misconfiguration of resources (for example, by troubleshooting CloudWatch Agent configurations, troubleshooting missing logs).",
+      "tags": [
+        "skill",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-2-1-1",
+      "nodeId": "node-skill-2-1-1",
+      "content": "<p><strong>Skill 2.1.1:</strong> Design and implement response plans and runbooks to respond to security incidents (for example, Systems Manager OpsCenter, Amazon SageMaker AI notebooks).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 2.1.1: Design and implement response plans and runbooks to respond to security incidents (for example, Systems Manager OpsCenter, Amazon SageMaker AI notebooks).",
+      "tags": [
+        "skill",
+        "domain-2"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-2-1-2",
+      "nodeId": "node-skill-2-1-2",
+      "content": "<p><strong>Skill 2.1.2:</strong> Use AWS service features and capabilities to configure services to be prepared for incidents (for example, by provisioning access, deploying security tools, minimizing the blast radius, configuring AWS Shield Advanced protections).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 2.1.2: Use AWS service features and capabilities to configure services to be prepared for incidents (for example, by provisioning access, deploying security tools, minimizing the blast radius, configuring AWS Shield Advanced protections).",
+      "tags": [
+        "skill",
+        "domain-2"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-2-1-3",
+      "nodeId": "node-skill-2-1-3",
+      "content": "<p><strong>Skill 2.1.3:</strong> Recommend procedures to test and validate the effectiveness of an incident response plan (for example, AWS Fault Injection Service, AWS Resilience Hub).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 2.1.3: Recommend procedures to test and validate the effectiveness of an incident response plan (for example, AWS Fault Injection Service, AWS Resilience Hub).",
+      "tags": [
+        "skill",
+        "domain-2"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-2-1-4",
+      "nodeId": "node-skill-2-1-4",
+      "content": "<p><strong>Skill 2.1.4:</strong> Use AWS services to automatically remediate incidents (for example, Systems Manager, Automated Forensics Orchestrator for Amazon EC2, AWS Step Functions, Amazon Application Recovery Controller, Lambda functions).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 2.1.4: Use AWS services to automatically remediate incidents (for example, Systems Manager, Automated Forensics Orchestrator for Amazon EC2, AWS Step Functions, Amazon Application Recovery Controller, Lambda functions).",
+      "tags": [
+        "skill",
+        "domain-2"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-2-2-1",
+      "nodeId": "node-skill-2-2-1",
+      "content": "<p><strong>Skill 2.2.1:</strong> Capture and store relevant system and application logs as forensic artifacts.</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 2.2.1: Capture and store relevant system and application logs as forensic artifacts.",
+      "tags": [
+        "skill",
+        "domain-2"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-2-2-2",
+      "nodeId": "node-skill-2-2-2",
+      "content": "<p><strong>Skill 2.2.2:</strong> Search and correlate logs for security events across applications and AWS services.</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 2.2.2: Search and correlate logs for security events across applications and AWS services.",
+      "tags": [
+        "skill",
+        "domain-2"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-2-2-3",
+      "nodeId": "node-skill-2-2-3",
+      "content": "<p><strong>Skill 2.2.3:</strong> Validate findings from AWS security services to assess the scope and impact of an event.</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 2.2.3: Validate findings from AWS security services to assess the scope and impact of an event.",
+      "tags": [
+        "skill",
+        "domain-2"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-2-2-4",
+      "nodeId": "node-skill-2-2-4",
+      "content": "<p><strong>Skill 2.2.4:</strong> Respond to affected resources by containing and eradicating threats, and recover resources (for example, by implementing network containment controls, restoring backups).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 2.2.4: Respond to affected resources by containing and eradicating threats, and recover resources (for example, by implementing network containment controls, restoring backups).",
+      "tags": [
+        "skill",
+        "domain-2"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-2-2-5",
+      "nodeId": "node-skill-2-2-5",
+      "content": "<p><strong>Skill 2.2.5:</strong> Describe methods to conduct root cause analysis (for example, Amazon Detective).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 2.2.5: Describe methods to conduct root cause analysis (for example, Amazon Detective).",
+      "tags": [
+        "skill",
+        "domain-2"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-1-1",
+      "nodeId": "node-skill-3-1-1",
+      "content": "<p><strong>Skill 3.1.1:</strong> Define and select edge security strategies based on anticipated threats and attacks.</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.1.1: Define and select edge security strategies based on anticipated threats and attacks.",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-1-2",
+      "nodeId": "node-skill-3-1-2",
+      "content": "<p><strong>Skill 3.1.2:</strong> Implement appropriate network edge protection (for example, CloudFront headers, AWS WAF, AWS IoT policies, protecting against OWASP Top 10 threats, Amazon S3 cross -origin resource sharing [CORS], Shield Advanced).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.1.2: Implement appropriate network edge protection (for example, CloudFront headers, AWS WAF, AWS IoT policies, protecting against OWASP Top 10 threats, Amazon S3 cross -origin resource sharing [CORS], Shield Advanced).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-1-3",
+      "nodeId": "node-skill-3-1-3",
+      "content": "<p><strong>Skill 3.1.3:</strong> Design and implement AWS edge controls and rules based on requirements (for example, geography, geolocation, rate limiting, client fingerprinting).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.1.3: Design and implement AWS edge controls and rules based on requirements (for example, geography, geolocation, rate limiting, client fingerprinting).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-1-4",
+      "nodeId": "node-skill-3-1-4",
+      "content": "<p><strong>Skill 3.1.4:</strong> Configure integrations with AWS edge services and third -party services (for example, by ingesting data in Open Cybersecurity Schema Framework [OCSF] format, by using third -party WAF rules).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.1.4: Configure integrations with AWS edge services and third -party services (for example, by ingesting data in Open Cybersecurity Schema Framework [OCSF] format, by using third -party WAF rules).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-2-1",
+      "nodeId": "node-skill-3-2-1",
+      "content": "<p><strong>Skill 3.2.1:</strong> Design and implement hardened Amazon EC2 AMIs and container images to secure compute workloads and embed security controls (for example, Systems Manager, EC2 Image Builder).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.2.1: Design and implement hardened Amazon EC2 AMIs and container images to secure compute workloads and embed security controls (for example, Systems Manager, EC2 Image Builder).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-2-2",
+      "nodeId": "node-skill-3-2-2",
+      "content": "<p><strong>Skill 3.2.2:</strong> Apply instance profiles, service roles, and execution roles appropriately to authorize compute workloads.</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.2.2: Apply instance profiles, service roles, and execution roles appropriately to authorize compute workloads.",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-2-3",
+      "nodeId": "node-skill-3-2-3",
+      "content": "<p><strong>Skill 3.2.3:</strong> Scan compute resources for known vulnerabilities (for example, scan container images and Lambda functions by using Amazon Inspector, monitor compute runtimes by using GuardDuty).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.2.3: Scan compute resources for known vulnerabilities (for example, scan container images and Lambda functions by using Amazon Inspector, monitor compute runtimes by using GuardDuty).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-2-4",
+      "nodeId": "node-skill-3-2-4",
+      "content": "<p><strong>Skill 3.2.4:</strong> Deploy patches across compute resources to maintain secure and compliant environments by automating update processes and by integrating continuous validation (for example, Systems Manager Patch Manager, Amazon Inspector).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.2.4: Deploy patches across compute resources to maintain secure and compliant environments by automating update processes and by integrating continuous validation (for example, Systems Manager Patch Manager, Amazon Inspector).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-2-5",
+      "nodeId": "node-skill-3-2-5",
+      "content": "<p><strong>Skill 3.2.5:</strong> Configure secure administrative access to compute resources (for example, Systems Manager Session Manager, EC2 Instance Connect).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.2.5: Configure secure administrative access to compute resources (for example, Systems Manager Session Manager, EC2 Instance Connect).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-2-6",
+      "nodeId": "node-skill-3-2-6",
+      "content": "<p><strong>Skill 3.2.6:</strong> Configure security tools to discover and remediate vulnerabilities within a pipeline (for example, Amazon Q Developer, Amazon CodeGuru Security).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.2.6: Configure security tools to discover and remediate vulnerabilities within a pipeline (for example, Amazon Q Developer, Amazon CodeGuru Security).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-2-7",
+      "nodeId": "node-skill-3-2-7",
+      "content": "<p><strong>Skill 3.2.7:</strong> Implement protections and guardrails for generative AI applications (for example, by applying GenAI OWASP Top 10 for LLM Applications protections).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.2.7: Implement protections and guardrails for generative AI applications (for example, by applying GenAI OWASP Top 10 for LLM Applications protections).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-3-1",
+      "nodeId": "node-skill-3-3-1",
+      "content": "<p><strong>Skill 3.3.1:</strong> Design and troubleshoot appropriate network controls to permit or prevent network traffic as required (for example, security groups, network ACLs, AWS Network Firewall).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.3.1: Design and troubleshoot appropriate network controls to permit or prevent network traffic as required (for example, security groups, network ACLs, AWS Network Firewall).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-3-2",
+      "nodeId": "node-skill-3-3-2",
+      "content": "<p><strong>Skill 3.3.2:</strong> Design secure connectivity between hybrid and multi -cloud networks (for example, AWS Site -to-Site VPN, AWS Direct Connect, MAC Security [MACsec]).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.3.2: Design secure connectivity between hybrid and multi -cloud networks (for example, AWS Site -to-Site VPN, AWS Direct Connect, MAC Security [MACsec]).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-3-3",
+      "nodeId": "node-skill-3-3-3",
+      "content": "<p><strong>Skill 3.3.3:</strong> Determine and configure security workload requirements for communication between hybrid environments and AWS (for example, by using AWS Verified Access).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.3.3: Determine and configure security workload requirements for communication between hybrid environments and AWS (for example, by using AWS Verified Access).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-3-4",
+      "nodeId": "node-skill-3-3-4",
+      "content": "<p><strong>Skill 3.3.4:</strong> Design network segmentation based on security requirements (for example, north/south and east/west traffic protections, isolated subnets).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.3.4: Design network segmentation based on security requirements (for example, north/south and east/west traffic protections, isolated subnets).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-3-3-5",
+      "nodeId": "node-skill-3-3-5",
+      "content": "<p><strong>Skill 3.3.5:</strong> Identify unnecessary network access (for example, AWS Verified Acces s, Network Access Analyzer, Amazon Inspector network reachability findings).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 3.3.5: Identify unnecessary network access (for example, AWS Verified Acces s, Network Access Analyzer, Amazon Inspector network reachability findings).",
+      "tags": [
+        "skill",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-4-1-1",
+      "nodeId": "node-skill-4-1-1",
+      "content": "<p><strong>Skill 4.1.1:</strong> Design and establish identity solutions for human, application, and system authentication (for example, AWS IAM Identity Center, Amazon Cognito, multi -factor authentication [MFA], identity provider [IdP] integration).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 4.1.1: Design and establish identity solutions for human, application, and system authentication (for example, AWS IAM Identity Center, Amazon Cognito, multi -factor authentication [MFA], identity provider [IdP] integration).",
+      "tags": [
+        "skill",
+        "domain-4"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-4-1-2",
+      "nodeId": "node-skill-4-1-2",
+      "content": "<p><strong>Skill 4.1.2:</strong> Configure mechanisms to issue temporary credentials (for example, AWS Security Token Service [AWS STS], Amazon S3 presigned URLs).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 4.1.2: Configure mechanisms to issue temporary credentials (for example, AWS Security Token Service [AWS STS], Amazon S3 presigned URLs).",
+      "tags": [
+        "skill",
+        "domain-4"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-4-1-3",
+      "nodeId": "node-skill-4-1-3",
+      "content": "<p><strong>Skill 4.1.3:</strong> Troubleshooting authentication issues (for example, CloudTrail, Amazon Cognito, IAM Identity Center permission sets, AWS Directory Service).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 4.1.3: Troubleshooting authentication issues (for example, CloudTrail, Amazon Cognito, IAM Identity Center permission sets, AWS Directory Service).",
+      "tags": [
+        "skill",
+        "domain-4"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-4-2-1",
+      "nodeId": "node-skill-4-2-1",
+      "content": "<p><strong>Skill 4.2.1:</strong> Design and evaluate authorization controls for human, application, and system access (for example, Amazon Verified Permissions, IAM paths, IAM Roles Anywhere, resource policies for cross -account access, IAM role trust policies).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 4.2.1: Design and evaluate authorization controls for human, application, and system access (for example, Amazon Verified Permissions, IAM paths, IAM Roles Anywhere, resource policies for cross -account access, IAM role trust policies).",
+      "tags": [
+        "skill",
+        "domain-4"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-4-2-2",
+      "nodeId": "node-skill-4-2-2",
+      "content": "<p><strong>Skill 4.2.2:</strong> Design attribute -based access control (ABAC) and role -based access control (RBAC) strategies (for example, by configuring resource access based on tags or attributes).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 4.2.2: Design attribute -based access control (ABAC) and role -based access control (RBAC) strategies (for example, by configuring resource access based on tags or attributes).",
+      "tags": [
+        "skill",
+        "domain-4"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-4-2-3",
+      "nodeId": "node-skill-4-2-3",
+      "content": "<p><strong>Skill 4.2.3:</strong> Design, interpret, and implement IAM policies by following the principle of least privilege (for example, permission boundaries, session policies).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 4.2.3: Design, interpret, and implement IAM policies by following the principle of least privilege (for example, permission boundaries, session policies).",
+      "tags": [
+        "skill",
+        "domain-4"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-4-2-4",
+      "nodeId": "node-skill-4-2-4",
+      "content": "<p><strong>Skill 4.2.4:</strong> Analyze authorization failures to determine causes or effects (for example, IAM Policy Simulator, IAM Access Analyzer).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 4.2.4: Analyze authorization failures to determine causes or effects (for example, IAM Policy Simulator, IAM Access Analyzer).",
+      "tags": [
+        "skill",
+        "domain-4"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-4-2-5",
+      "nodeId": "node-skill-4-2-5",
+      "content": "<p><strong>Skill 4.2.5:</strong> Investigate and correct unintended permissions, authorizations, or privileges granted to a resource, service, or entity (for example, IAM Access Analyzer).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 4.2.5: Investigate and correct unintended permissions, authorizations, or privileges granted to a resource, service, or entity (for example, IAM Access Analyzer).",
+      "tags": [
+        "skill",
+        "domain-4"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-5-1-1",
+      "nodeId": "node-skill-5-1-1",
+      "content": "<p><strong>Skill 5.1.1:</strong> Design and configure mechanisms to require encryption when connecting to connect to resources (for example, by configuring Elastic Load Balancing [ELB] security policies, by enforcing TLS configurations).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 5.1.1: Design and configure mechanisms to require encryption when connecting to connect to resources (for example, by configuring Elastic Load Balancing [ELB] security policies, by enforcing TLS configurations).",
+      "tags": [
+        "skill",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-5-1-2",
+      "nodeId": "node-skill-5-1-2",
+      "content": "<p><strong>Skill 5.1.2:</strong> Design and configure mechanisms for secure and private access to resources (for example, AWS PrivateLink, VPC endpoints, AWS Client VPN, AWS Verified Access).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 5.1.2: Design and configure mechanisms for secure and private access to resources (for example, AWS PrivateLink, VPC endpoints, AWS Client VPN, AWS Verified Access).",
+      "tags": [
+        "skill",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-5-1-3",
+      "nodeId": "node-skill-5-1-3",
+      "content": "<p><strong>Skill 5.1.3:</strong> Design and configure inter -resource encryption in transit (for example, inter -node encryption configurations for Amazon EMR, Amazon Elastic Kubernetes Service [Amazon EKS], SageMaker AI, Nitro encryption).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 5.1.3: Design and configure inter -resource encryption in transit (for example, inter -node encryption configurations for Amazon EMR, Amazon Elastic Kubernetes Service [Amazon EKS], SageMaker AI, Nitro encryption).",
+      "tags": [
+        "skill",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-5-2-1",
+      "nodeId": "node-skill-5-2-1",
+      "content": "<p><strong>Skill 5.2.1:</strong> Design, implement, and configure data encryption at rest based on specific requirements (for example, by selecting the appropriate encryption key service such as AWS CloudHSM or AWS Key Management Service [AWS KMS] or by selecting the appropriate encryption type such as client -side encryption or server - side encryption).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 5.2.1: Design, implement, and configure data encryption at rest based on specific requirements (for example, by selecting the appropriate encryption key service such as AWS CloudHSM or AWS Key Management Service [AWS KMS] or by selecting the appropriate encryption type such as client -side encryption or server - side encryption).",
+      "tags": [
+        "skill",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-5-2-2",
+      "nodeId": "node-skill-5-2-2",
+      "content": "<p><strong>Skill 5.2.2:</strong> Design and configure mechanisms to protect data integrity (for example, S3 Object Lock, S3 Glacier Vault Lock, versioning, digital code signing, file validation).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 5.2.2: Design and configure mechanisms to protect data integrity (for example, S3 Object Lock, S3 Glacier Vault Lock, versioning, digital code signing, file validation).",
+      "tags": [
+        "skill",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-5-2-3",
+      "nodeId": "node-skill-5-2-3",
+      "content": "<p><strong>Skill 5.2.3:</strong> Design automatic lifecycle management and retention solutions for data (for example, S3 Lifecycle policies, S3 Object Lock, Amazon Elastic File System [Amazon EFS] Lifecycle policies, Amazon FSx for Lustre backup policies).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 5.2.3: Design automatic lifecycle management and retention solutions for data (for example, S3 Lifecycle policies, S3 Object Lock, Amazon Elastic File System [Amazon EFS] Lifecycle policies, Amazon FSx for Lustre backup policies).",
+      "tags": [
+        "skill",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-5-2-4",
+      "nodeId": "node-skill-5-2-4",
+      "content": "<p><strong>Skill 5.2.4:</strong> Design and configure secure data replication and backup solutions (for example, Amazon Data Lifecycle Manager, AWS Backup, ransomware protection, AWS DataSync).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 5.2.4: Design and configure secure data replication and backup solutions (for example, Amazon Data Lifecycle Manager, AWS Backup, ransomware protection, AWS DataSync).",
+      "tags": [
+        "skill",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-5-3-1",
+      "nodeId": "node-skill-5-3-1",
+      "content": "<p><strong>Skill 5.3.1:</strong> Design management and rotation of credentials and secrets (for example, AWS Secrets Manager).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 5.3.1: Design management and rotation of credentials and secrets (for example, AWS Secrets Manager).",
+      "tags": [
+        "skill",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-5-3-2",
+      "nodeId": "node-skill-5-3-2",
+      "content": "<p><strong>Skill 5.3.2:</strong> Manage and use imported key material (for example, by managing and rotating imported key material, by managing and configuring external key stores).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 5.3.2: Manage and use imported key material (for example, by managing and rotating imported key material, by managing and configuring external key stores).",
+      "tags": [
+        "skill",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-5-3-3",
+      "nodeId": "node-skill-5-3-3",
+      "content": "<p><strong>Skill 5.3.3:</strong> Describe the differences between imported key material and AWS generated key material.</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 5.3.3: Describe the differences between imported key material and AWS generated key material.",
+      "tags": [
+        "skill",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-5-3-4",
+      "nodeId": "node-skill-5-3-4",
+      "content": "<p><strong>Skill 5.3.4:</strong> Mask sensitive data (for example, CloudWatch Logs data protection policies, Amazon Simple Notification Service [Amazon SNS] message data protection).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 5.3.4: Mask sensitive data (for example, CloudWatch Logs data protection policies, Amazon Simple Notification Service [Amazon SNS] message data protection).",
+      "tags": [
+        "skill",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-5-3-5",
+      "nodeId": "node-skill-5-3-5",
+      "content": "<p><strong>Skill 5.3.5:</strong> Create and manage encryption keys and certificates across a single AWS Region or multiple Regions (for example, AWS KMS customer managed AWS KMS keys, AWS Private Certificate Authority).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 5.3.5: Create and manage encryption keys and certificates across a single AWS Region or multiple Regions (for example, AWS KMS customer managed AWS KMS keys, AWS Private Certificate Authority).",
+      "tags": [
+        "skill",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-6-1-1",
+      "nodeId": "node-skill-6-1-1",
+      "content": "<p><strong>Skill 6.1.1:</strong> Deploy and configure organizations by using AWS Organizations.</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 6.1.1: Deploy and configure organizations by using AWS Organizations.",
+      "tags": [
+        "skill",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-6-1-2",
+      "nodeId": "node-skill-6-1-2",
+      "content": "<p><strong>Skill 6.1.2:</strong> Implement and manage AWS Control Tower in new and existing environments, and deploy optional and custom controls.</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 6.1.2: Implement and manage AWS Control Tower in new and existing environments, and deploy optional and custom controls.",
+      "tags": [
+        "skill",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-6-1-3",
+      "nodeId": "node-skill-6-1-3",
+      "content": "<p><strong>Skill 6.1.3:</strong> Implement organization policies to manage permissions (for example, SCPs, RCPs, AI service opt -out policies, declarative policies).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 6.1.3: Implement organization policies to manage permissions (for example, SCPs, RCPs, AI service opt -out policies, declarative policies).",
+      "tags": [
+        "skill",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-6-1-4",
+      "nodeId": "node-skill-6-1-4",
+      "content": "<p><strong>Skill 6.1.4:</strong> Centrally manage security services (for example, delegated administrator accounts).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 6.1.4: Centrally manage security services (for example, delegated administrator accounts).",
+      "tags": [
+        "skill",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-6-1-5",
+      "nodeId": "node-skill-6-1-5",
+      "content": "<p><strong>Skill 6.1.5:</strong> Manage AWS account root user credentials (for example, by centralizing root access for member accounts, managing MFA, designing break - glass procedures).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 6.1.5: Manage AWS account root user credentials (for example, by centralizing root access for member accounts, managing MFA, designing break - glass procedures).",
+      "tags": [
+        "skill",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-6-2-1",
+      "nodeId": "node-skill-6-2-1",
+      "content": "<p><strong>Skill 6.2.1:</strong> Use infrastructure as code (IaC) to deploy cloud resources consistently and securely across accounts (for example, CloudFormation stack sets, third -party IaC tools, CloudFormation Guard, cfn -lint).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 6.2.1: Use infrastructure as code (IaC) to deploy cloud resources consistently and securely across accounts (for example, CloudFormation stack sets, third -party IaC tools, CloudFormation Guard, cfn -lint).",
+      "tags": [
+        "skill",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-6-2-2",
+      "nodeId": "node-skill-6-2-2",
+      "content": "<p><strong>Skill 6.2.2:</strong> Use tags to organize AWS resources into groups for management (for example, by grouping by department, cost center, environment).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 6.2.2: Use tags to organize AWS resources into groups for management (for example, by grouping by department, cost center, environment).",
+      "tags": [
+        "skill",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-6-2-3",
+      "nodeId": "node-skill-6-2-3",
+      "content": "<p><strong>Skill 6.2.3:</strong> Deploy and enforce policies and configurations from a central source (for example, AWS Firewall Manager).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 6.2.3: Deploy and enforce policies and configurations from a central source (for example, AWS Firewall Manager).",
+      "tags": [
+        "skill",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-6-2-4",
+      "nodeId": "node-skill-6-2-4",
+      "content": "<p><strong>Skill 6.2.4:</strong> Securely share resources across AWS accounts (for example, AWS Service Catalog, AWS Resource Access Manager [AWS RAM]).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 6.2.4: Securely share resources across AWS accounts (for example, AWS Service Catalog, AWS Resource Access Manager [AWS RAM]).",
+      "tags": [
+        "skill",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-6-3-1",
+      "nodeId": "node-skill-6-3-1",
+      "content": "<p><strong>Skill 6.3.1:</strong> Create or enable rules to detect and remediate noncompliant AWS resources and to send notifications (for example, by using AWS Config to aggregate alerts and remediate non -compliant resources, Security Hub).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 6.3.1: Create or enable rules to detect and remediate noncompliant AWS resources and to send notifications (for example, by using AWS Config to aggregate alerts and remediate non -compliant resources, Security Hub).",
+      "tags": [
+        "skill",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-6-3-2",
+      "nodeId": "node-skill-6-3-2",
+      "content": "<p><strong>Skill 6.3.2:</strong> Use AWS audit services to collect and organize evidence (for example, AWS Audit Manager, AWS Artifact).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 6.3.2: Use AWS audit services to collect and organize evidence (for example, AWS Audit Manager, AWS Artifact).",
+      "tags": [
+        "skill",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-skill-6-3-3",
+      "nodeId": "node-skill-6-3-3",
+      "content": "<p><strong>Skill 6.3.3:</strong> Use AWS services to evaluate architecture for compliance with AWS security best practices (for example, AWS Well -Architected Framework tool).</p>",
+      "contentType": "tiptap",
+      "plainText": "Skill 6.3.3: Use AWS services to evaluate architecture for compliance with AWS security best practices (for example, AWS Well -Architected Framework tool).",
+      "tags": [
+        "skill",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-1-1",
+      "nodeId": "node-task-1-1",
+      "content": "<p><strong>Task 1.1:</strong> Design and implement monitoring and alerting solutions for an AWS</p>\n<p>This task has 5 skill statements (1.1.1–1.1.5). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 1.1: Design and implement monitoring and alerting solutions for an AWS. This task has 5 skill statements (1.1.1–1.1.5). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-1-2",
+      "nodeId": "node-task-1-2",
+      "content": "<p><strong>Task 1.2:</strong> Design and implement logging solutions.</p>\n<p>This task has 6 skill statements (1.2.1–1.2.6). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 1.2: Design and implement logging solutions.. This task has 6 skill statements (1.2.1–1.2.6). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-1-3",
+      "nodeId": "node-task-1-3",
+      "content": "<p><strong>Task 1.3:</strong> Troubleshoot security monitoring, logging, and alerting solutions.</p>\n<p>This task has 2 skill statements (1.3.1–1.3.2). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 1.3: Troubleshoot security monitoring, logging, and alerting solutions.. This task has 2 skill statements (1.3.1–1.3.2). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-1"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-2-1",
+      "nodeId": "node-task-2-1",
+      "content": "<p><strong>Task 2.1:</strong> Design and test an incident response plan.</p>\n<p>This task has 4 skill statements (2.1.1–2.1.4). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 2.1: Design and test an incident response plan.. This task has 4 skill statements (2.1.1–2.1.4). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-2"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-2-2",
+      "nodeId": "node-task-2-2",
+      "content": "<p><strong>Task 2.2:</strong> Respond to security events.</p>\n<p>This task has 5 skill statements (2.2.1–2.2.5). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 2.2: Respond to security events.. This task has 5 skill statements (2.2.1–2.2.5). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-2"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-3-1",
+      "nodeId": "node-task-3-1",
+      "content": "<p><strong>Task 3.1:</strong> Design, implement, and troubleshoot security controls for network edge</p>\n<p>This task has 4 skill statements (3.1.1–3.1.4). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 3.1: Design, implement, and troubleshoot security controls for network edge. This task has 4 skill statements (3.1.1–3.1.4). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-3-2",
+      "nodeId": "node-task-3-2",
+      "content": "<p><strong>Task 3.2:</strong> Design, implement, and troubleshoot security controls for compute</p>\n<p>This task has 7 skill statements (3.2.1–3.2.7). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 3.2: Design, implement, and troubleshoot security controls for compute. This task has 7 skill statements (3.2.1–3.2.7). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-3-3",
+      "nodeId": "node-task-3-3",
+      "content": "<p><strong>Task 3.3:</strong> Design and troubleshoot network security controls.</p>\n<p>This task has 5 skill statements (3.3.1–3.3.5). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 3.3: Design and troubleshoot network security controls.. This task has 5 skill statements (3.3.1–3.3.5). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-3"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-4-1",
+      "nodeId": "node-task-4-1",
+      "content": "<p><strong>Task 4.1:</strong> Design, implement, and troubleshoot authentication strategies.</p>\n<p>This task has 3 skill statements (4.1.1–4.1.3). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 4.1: Design, implement, and troubleshoot authentication strategies.. This task has 3 skill statements (4.1.1–4.1.3). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-4"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-4-2",
+      "nodeId": "node-task-4-2",
+      "content": "<p><strong>Task 4.2:</strong> Design, implement, and troubleshoot authorization strategies.</p>\n<p>This task has 5 skill statements (4.2.1–4.2.5). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 4.2: Design, implement, and troubleshoot authorization strategies.. This task has 5 skill statements (4.2.1–4.2.5). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-4"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-5-1",
+      "nodeId": "node-task-5-1",
+      "content": "<p><strong>Task 5.1:</strong> Design and implement controls for data in transit.</p>\n<p>This task has 3 skill statements (5.1.1–5.1.3). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 5.1: Design and implement controls for data in transit.. This task has 3 skill statements (5.1.1–5.1.3). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-5-2",
+      "nodeId": "node-task-5-2",
+      "content": "<p><strong>Task 5.2:</strong> Design and implement controls for data at rest.</p>\n<p>This task has 4 skill statements (5.2.1–5.2.4). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 5.2: Design and implement controls for data at rest.. This task has 4 skill statements (5.2.1–5.2.4). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-5-3",
+      "nodeId": "node-task-5-3",
+      "content": "<p><strong>Task 5.3:</strong> Design and implement controls to protect confidential data, credentials,</p>\n<p>This task has 5 skill statements (5.3.1–5.3.5). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 5.3: Design and implement controls to protect confidential data, credentials,. This task has 5 skill statements (5.3.1–5.3.5). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-5"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-6-1",
+      "nodeId": "node-task-6-1",
+      "content": "<p><strong>Task 6.1:</strong> Develop a strategy to centrally deploy and manage AWS accounts.</p>\n<p>This task has 5 skill statements (6.1.1–6.1.5). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 6.1: Develop a strategy to centrally deploy and manage AWS accounts.. This task has 5 skill statements (6.1.1–6.1.5). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-6-2",
+      "nodeId": "node-task-6-2",
+      "content": "<p><strong>Task 6.2:</strong> Implement a secure and consistent deployment strategy for cloud resources.</p>\n<p>This task has 4 skill statements (6.2.1–6.2.4). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 6.2: Implement a secure and consistent deployment strategy for cloud resources.. This task has 4 skill statements (6.2.1–6.2.4). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "note-task-6-3",
+      "nodeId": "node-task-6-3",
+      "content": "<p><strong>Task 6.3:</strong> Evaluate the compliance of AWS resources.</p>\n<p>This task has 3 skill statements (6.3.1–6.3.3). Each skill is represented as a child node.</p>",
+      "contentType": "tiptap",
+      "plainText": "Task 6.3: Evaluate the compliance of AWS resources.. This task has 3 skill statements (6.3.1–6.3.3). Each skill is represented as a child node.",
+      "tags": [
+        "task",
+        "domain-6"
+      ],
+      "isPinned": false,
+      "createdAt": "2025-11-19T11:22:31.000Z",
+      "updatedAt": "2025-11-19T11:22:31.000Z"
+    },
+    {
+      "id": "fdc5d39c-be5c-405c-9325-b555bba2f374",
+      "nodeId": "root",
+      "content": "<p><strong>Four-step plan</strong>: <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://skillbuilder.aws/category/exam-prep/security-specialty-scs-c03\">https://skillbuilder.aws/category/exam-prep/security-specialty-scs-c03</a><br><br><strong>Exam guide</strong>: <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://docs.aws.amazon.com/aws-certification/latest/examguides/security-specialty-03.html\">https://docs.aws.amazon.com/aws-certification/latest/examguides/security-specialty-03.html</a><br></p>",
+      "contentJson": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "Four-step plan"
+              },
+              {
+                "type": "text",
+                "text": ": "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://skillbuilder.aws/category/exam-prep/security-specialty-scs-c03",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "https://skillbuilder.aws/category/exam-prep/security-specialty-scs-c03"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "Exam guide"
+              },
+              {
+                "type": "text",
+                "text": ": "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://docs.aws.amazon.com/aws-certification/latest/examguides/security-specialty-03.html",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "https://docs.aws.amazon.com/aws-certification/latest/examguides/security-specialty-03.html"
+              },
+              {
+                "type": "hardBreak"
+              }
+            ]
+          }
+        ]
+      },
+      "contentType": "tiptap",
+      "plainText": "Four-step plan: https://skillbuilder.aws/category/exam-prep/security-specialty-scs-c03\n\nExam guide: https://docs.aws.amazon.com/aws-certification/latest/examguides/security-specialty-03.html\n",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-18T10:59:18.408Z",
+      "updatedAt": "2026-02-18T11:00:39.227Z"
+    }
+  ],
+  "exportedAt": "2026-02-18T11:10:57.169Z"
+}

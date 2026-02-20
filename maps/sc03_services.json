@@ -1,0 +1,2606 @@
+{
+  "nodes": [
+    {
+      "id": "root",
+      "text": "AWS Security \u2014 SCS-C03",
+      "x": 900,
+      "y": 700,
+      "parent": null,
+      "collapsed": false,
+      "color": "#2C3E50",
+      "fx": 900,
+      "fy": 700,
+      "depth": 0,
+      "hasNote": true,
+      "noteId": "note-root"
+    },
+    {
+      "id": "security-hub",
+      "text": "AWS Security Hub",
+      "x": 900.0,
+      "y": 450.0,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#E74C3C",
+      "fx": 900.0,
+      "fy": 450.0,
+      "depth": 1,
+      "cluster": "security-hub",
+      "hasNote": true,
+      "noteId": "note-security-hub"
+    },
+    {
+      "id": "cloudtrail",
+      "text": "AWS CloudTrail",
+      "x": 1076.78,
+      "y": 523.22,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#E74C3C",
+      "fx": 1076.78,
+      "fy": 523.22,
+      "depth": 1,
+      "cluster": "cloudtrail",
+      "hasNote": true,
+      "noteId": "note-cloudtrail"
+    },
+    {
+      "id": "iam",
+      "text": "AWS IAM",
+      "x": 1076.78,
+      "y": 876.78,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8E44AD",
+      "fx": 1076.78,
+      "fy": 876.78,
+      "depth": 1,
+      "cluster": "iam",
+      "hasNote": true,
+      "noteId": "note-iam"
+    },
+    {
+      "id": "kms",
+      "text": "AWS KMS",
+      "x": 723.22,
+      "y": 876.78,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#E67E22",
+      "fx": 723.22,
+      "fy": 876.78,
+      "depth": 1,
+      "cluster": "kms",
+      "hasNote": true,
+      "noteId": "note-kms"
+    },
+    {
+      "id": "s3",
+      "text": "Amazon S3",
+      "x": 658.52,
+      "y": 764.7,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#E67E22",
+      "fx": 658.52,
+      "fy": 764.7,
+      "depth": 1,
+      "cluster": "s3",
+      "hasNote": true,
+      "noteId": "note-s3"
+    },
+    {
+      "id": "organizations",
+      "text": "AWS Organizations",
+      "x": 665.08,
+      "y": 614.49,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#1ABC9C",
+      "fx": 665.08,
+      "fy": 614.49,
+      "depth": 1,
+      "cluster": "organizations",
+      "hasNote": true,
+      "noteId": "note-organizations"
+    },
+    {
+      "id": "cloudwatch",
+      "text": "Amazon CloudWatch",
+      "x": 1134.92,
+      "y": 614.49,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#E74C3C",
+      "fx": 1134.92,
+      "fy": 614.49,
+      "depth": 1,
+      "cluster": "cloudwatch",
+      "hasNote": true,
+      "noteId": "note-cloudwatch"
+    },
+    {
+      "id": "guardduty",
+      "text": "Amazon GuardDuty",
+      "x": 775.0,
+      "y": 483.49,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#E74C3C",
+      "fx": 775.0,
+      "fy": 483.49,
+      "depth": 1,
+      "cluster": "guardduty",
+      "hasNote": true,
+      "noteId": "note-guardduty"
+    },
+    {
+      "id": "lambda",
+      "text": "AWS Lambda",
+      "x": 1150.0,
+      "y": 700.0,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#F39C12",
+      "fx": 1150.0,
+      "fy": 700.0,
+      "depth": 1,
+      "cluster": "lambda",
+      "hasNote": true,
+      "noteId": "note-lambda"
+    },
+    {
+      "id": "vpc",
+      "text": "Amazon VPC",
+      "x": 900.0,
+      "y": 950.0,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#2980B9",
+      "fx": 900.0,
+      "fy": 950.0,
+      "depth": 1,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-vpc"
+    },
+    {
+      "id": "inspector",
+      "text": "Amazon Inspector",
+      "x": 735.79,
+      "y": 406.0,
+      "parent": "security-hub",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 735.79,
+      "fy": 406.0,
+      "depth": 2,
+      "cluster": "security-hub",
+      "hasNote": true,
+      "noteId": "note-inspector"
+    },
+    {
+      "id": "macie",
+      "text": "Amazon Macie",
+      "x": 779.79,
+      "y": 329.79,
+      "parent": "security-hub",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 779.79,
+      "fy": 329.79,
+      "depth": 2,
+      "cluster": "security-hub",
+      "hasNote": true,
+      "noteId": "note-macie"
+    },
+    {
+      "id": "config",
+      "text": "AWS Config",
+      "x": 856.0,
+      "y": 285.79,
+      "parent": "security-hub",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 856.0,
+      "fy": 285.79,
+      "depth": 2,
+      "cluster": "security-hub",
+      "hasNote": true,
+      "noteId": "note-config"
+    },
+    {
+      "id": "eventbridge",
+      "text": "Amazon EventBridge",
+      "x": 944.0,
+      "y": 285.79,
+      "parent": "security-hub",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 944.0,
+      "fy": 285.79,
+      "depth": 2,
+      "cluster": "security-hub",
+      "hasNote": true,
+      "noteId": "note-eventbridge"
+    },
+    {
+      "id": "shield",
+      "text": "AWS Shield",
+      "x": 1020.21,
+      "y": 329.79,
+      "parent": "security-hub",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1020.21,
+      "fy": 329.79,
+      "depth": 2,
+      "cluster": "security-hub",
+      "hasNote": true,
+      "noteId": "note-shield"
+    },
+    {
+      "id": "trusted-advisor",
+      "text": "AWS Trusted Advisor",
+      "x": 1064.21,
+      "y": 406.0,
+      "parent": "security-hub",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1064.21,
+      "fy": 406.0,
+      "depth": 2,
+      "cluster": "security-hub",
+      "hasNote": true,
+      "noteId": "note-trusted-advisor"
+    },
+    {
+      "id": "detective",
+      "text": "Amazon Detective",
+      "x": 690.0,
+      "y": 336.27,
+      "parent": "guardduty",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 690.0,
+      "fy": 336.27,
+      "depth": 2,
+      "cluster": "guardduty",
+      "hasNote": true,
+      "noteId": "note-detective"
+    },
+    {
+      "id": "security-lake",
+      "text": "Amazon Security Lake",
+      "x": 1098.97,
+      "y": 354.67,
+      "parent": "cloudtrail",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1098.97,
+      "fy": 354.67,
+      "depth": 2,
+      "cluster": "cloudtrail",
+      "hasNote": true,
+      "noteId": "note-security-lake"
+    },
+    {
+      "id": "athena",
+      "text": "Amazon Athena",
+      "x": 1196.99,
+      "y": 403.01,
+      "parent": "cloudtrail",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1196.99,
+      "fy": 403.01,
+      "depth": 2,
+      "cluster": "cloudtrail",
+      "hasNote": true,
+      "noteId": "note-athena"
+    },
+    {
+      "id": "cloudtrail-lake",
+      "text": "AWS CloudTrail Lake",
+      "x": 1245.33,
+      "y": 501.03,
+      "parent": "cloudtrail",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1245.33,
+      "fy": 501.03,
+      "depth": 2,
+      "cluster": "cloudtrail",
+      "hasNote": true,
+      "noteId": "note-cloudtrail-lake"
+    },
+    {
+      "id": "opensearch",
+      "text": "Amazon OpenSearch Service",
+      "x": 1193.06,
+      "y": 454.74,
+      "parent": "cloudwatch",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1193.06,
+      "fy": 454.74,
+      "depth": 2,
+      "cluster": "cloudwatch",
+      "hasNote": true,
+      "noteId": "note-opensearch"
+    },
+    {
+      "id": "managed-grafana",
+      "text": "Amazon Managed Grafana",
+      "x": 1271.28,
+      "y": 512.97,
+      "parent": "cloudwatch",
+      "collapsed": false,
+      "color": "#EC7063",
+      "fx": 1271.28,
+      "fy": 512.97,
+      "depth": 2,
+      "cluster": "cloudwatch",
+      "hasNote": true,
+      "noteId": "note-managed-grafana"
+    },
+    {
+      "id": "sns",
+      "text": "Amazon SNS",
+      "x": 1304.63,
+      "y": 604.6,
+      "parent": "cloudwatch",
+      "collapsed": false,
+      "color": "#F7DC6F",
+      "fx": 1304.63,
+      "fy": 604.6,
+      "depth": 2,
+      "cluster": "cloudwatch",
+      "hasNote": true,
+      "noteId": "note-sns"
+    },
+    {
+      "id": "user-notifications",
+      "text": "AWS User Notifications",
+      "x": 1282.15,
+      "y": 699.49,
+      "parent": "cloudwatch",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 1282.15,
+      "fy": 699.49,
+      "depth": 2,
+      "cluster": "cloudwatch",
+      "hasNote": true,
+      "noteId": "note-user-notifications"
+    },
+    {
+      "id": "step-functions",
+      "text": "AWS Step Functions",
+      "x": 1228.5,
+      "y": 549.21,
+      "parent": "lambda",
+      "collapsed": false,
+      "color": "#F7DC6F",
+      "fx": 1228.5,
+      "fy": 549.21,
+      "depth": 2,
+      "cluster": "lambda",
+      "hasNote": true,
+      "noteId": "note-step-functions"
+    },
+    {
+      "id": "systems-manager",
+      "text": "AWS Systems Manager",
+      "x": 1295.34,
+      "y": 611.81,
+      "parent": "lambda",
+      "collapsed": false,
+      "color": "#F7DC6F",
+      "fx": 1295.34,
+      "fy": 611.81,
+      "depth": 2,
+      "cluster": "lambda",
+      "hasNote": true,
+      "noteId": "note-systems-manager"
+    },
+    {
+      "id": "api-gateway",
+      "text": "Amazon API Gateway",
+      "x": 1320.0,
+      "y": 700.0,
+      "parent": "lambda",
+      "collapsed": false,
+      "color": "#F7DC6F",
+      "fx": 1320.0,
+      "fy": 700.0,
+      "depth": 2,
+      "cluster": "lambda",
+      "hasNote": true,
+      "noteId": "note-api-gateway"
+    },
+    {
+      "id": "bedrock",
+      "text": "Amazon Bedrock",
+      "x": 1295.34,
+      "y": 788.19,
+      "parent": "lambda",
+      "collapsed": false,
+      "color": "#F7DC6F",
+      "fx": 1295.34,
+      "fy": 788.19,
+      "depth": 2,
+      "cluster": "lambda",
+      "hasNote": true,
+      "noteId": "note-bedrock"
+    },
+    {
+      "id": "sagemaker",
+      "text": "Amazon SageMaker AI",
+      "x": 1228.5,
+      "y": 850.79,
+      "parent": "lambda",
+      "collapsed": false,
+      "color": "#F7DC6F",
+      "fx": 1228.5,
+      "fy": 850.79,
+      "depth": 2,
+      "cluster": "lambda",
+      "hasNote": true,
+      "noteId": "note-sagemaker"
+    },
+    {
+      "id": "forensics-orchestrator",
+      "text": "Automated Forensics Orchestrator",
+      "x": 1273.48,
+      "y": 385.27,
+      "parent": "step-functions",
+      "collapsed": false,
+      "color": "#F7DC6F",
+      "fx": 1273.48,
+      "fy": 385.27,
+      "depth": 2,
+      "cluster": "step-functions",
+      "hasNote": true,
+      "noteId": "note-forensics-orchestrator"
+    },
+    {
+      "id": "fis",
+      "text": "AWS Fault Injection Service",
+      "x": 1356.17,
+      "y": 436.96,
+      "parent": "step-functions",
+      "collapsed": false,
+      "color": "#F7DC6F",
+      "fx": 1356.17,
+      "fy": 436.96,
+      "depth": 2,
+      "cluster": "step-functions",
+      "hasNote": true,
+      "noteId": "note-fis"
+    },
+    {
+      "id": "resilience-hub",
+      "text": "AWS Resilience Hub",
+      "x": 1396.85,
+      "y": 525.58,
+      "parent": "step-functions",
+      "collapsed": false,
+      "color": "#F7DC6F",
+      "fx": 1396.85,
+      "fy": 525.58,
+      "depth": 2,
+      "cluster": "step-functions",
+      "hasNote": true,
+      "noteId": "note-resilience-hub"
+    },
+    {
+      "id": "app-recovery-controller",
+      "text": "Application Recovery Controller",
+      "x": 1382.14,
+      "y": 621.98,
+      "parent": "step-functions",
+      "collapsed": false,
+      "color": "#F7DC6F",
+      "fx": 1382.14,
+      "fy": 621.98,
+      "depth": 2,
+      "cluster": "step-functions",
+      "hasNote": true,
+      "noteId": "note-app-recovery-controller"
+    },
+    {
+      "id": "waf",
+      "text": "AWS WAF",
+      "x": 1067.42,
+      "y": 920.48,
+      "parent": "vpc",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1067.42,
+      "fy": 920.48,
+      "depth": 2,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-waf"
+    },
+    {
+      "id": "cloudfront",
+      "text": "Amazon CloudFront",
+      "x": 1068.27,
+      "y": 974.19,
+      "parent": "vpc",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1068.27,
+      "fy": 974.19,
+      "depth": 2,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-cloudfront"
+    },
+    {
+      "id": "route53",
+      "text": "Amazon Route 53",
+      "x": 1052.32,
+      "y": 1025.49,
+      "parent": "vpc",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1052.32,
+      "fy": 1025.49,
+      "depth": 2,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-route53"
+    },
+    {
+      "id": "elb",
+      "text": "Elastic Load Balancing",
+      "x": 1021.16,
+      "y": 1069.25,
+      "parent": "vpc",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 1021.16,
+      "fy": 1069.25,
+      "depth": 2,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-elb"
+    },
+    {
+      "id": "network-firewall",
+      "text": "AWS Network Firewall",
+      "x": 977.9,
+      "y": 1101.1,
+      "parent": "vpc",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 977.9,
+      "fy": 1101.1,
+      "depth": 2,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-network-firewall"
+    },
+    {
+      "id": "direct-connect",
+      "text": "AWS Direct Connect",
+      "x": 926.86,
+      "y": 1117.86,
+      "parent": "vpc",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 926.86,
+      "fy": 1117.86,
+      "depth": 2,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-direct-connect"
+    },
+    {
+      "id": "vpn",
+      "text": "AWS VPN",
+      "x": 873.14,
+      "y": 1117.86,
+      "parent": "vpc",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 873.14,
+      "fy": 1117.86,
+      "depth": 2,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-vpn"
+    },
+    {
+      "id": "transit-gateway",
+      "text": "AWS Transit Gateway",
+      "x": 822.1,
+      "y": 1101.1,
+      "parent": "vpc",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 822.1,
+      "fy": 1101.1,
+      "depth": 2,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-transit-gateway"
+    },
+    {
+      "id": "verified-access",
+      "text": "AWS Verified Access",
+      "x": 778.84,
+      "y": 1069.25,
+      "parent": "vpc",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 778.84,
+      "fy": 1069.25,
+      "depth": 2,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-verified-access"
+    },
+    {
+      "id": "network-access-analyzer",
+      "text": "Network Access Analyzer",
+      "x": 747.68,
+      "y": 1025.49,
+      "parent": "vpc",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 747.68,
+      "fy": 1025.49,
+      "depth": 2,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-network-access-analyzer"
+    },
+    {
+      "id": "ec2",
+      "text": "Amazon EC2",
+      "x": 731.73,
+      "y": 974.19,
+      "parent": "vpc",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 731.73,
+      "fy": 974.19,
+      "depth": 2,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-ec2"
+    },
+    {
+      "id": "iot-core",
+      "text": "AWS IoT Core",
+      "x": 732.58,
+      "y": 920.48,
+      "parent": "vpc",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 732.58,
+      "fy": 920.48,
+      "depth": 2,
+      "cluster": "vpc",
+      "hasNote": true,
+      "noteId": "note-iot-core"
+    },
+    {
+      "id": "firewall-manager",
+      "text": "AWS Firewall Manager",
+      "x": 635.56,
+      "y": 781.91,
+      "parent": "organizations",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 635.56,
+      "fy": 781.91,
+      "depth": 2,
+      "cluster": "organizations",
+      "hasNote": true,
+      "noteId": "note-firewall-manager"
+    },
+    {
+      "id": "control-tower",
+      "text": "AWS Control Tower",
+      "x": 559.08,
+      "y": 747.4,
+      "parent": "organizations",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 559.08,
+      "fy": 747.4,
+      "depth": 2,
+      "cluster": "organizations",
+      "hasNote": true,
+      "noteId": "note-control-tower"
+    },
+    {
+      "id": "cloudformation",
+      "text": "AWS CloudFormation",
+      "x": 508.43,
+      "y": 680.52,
+      "parent": "organizations",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 508.43,
+      "fy": 680.52,
+      "depth": 2,
+      "cluster": "organizations",
+      "hasNote": true,
+      "noteId": "note-cloudformation"
+    },
+    {
+      "id": "service-catalog",
+      "text": "AWS Service Catalog",
+      "x": 495.93,
+      "y": 597.56,
+      "parent": "organizations",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 495.93,
+      "fy": 597.56,
+      "depth": 2,
+      "cluster": "organizations",
+      "hasNote": true,
+      "noteId": "note-service-catalog"
+    },
+    {
+      "id": "ram",
+      "text": "AWS Resource Access Manager",
+      "x": 524.62,
+      "y": 518.72,
+      "parent": "organizations",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 524.62,
+      "fy": 518.72,
+      "depth": 2,
+      "cluster": "organizations",
+      "hasNote": true,
+      "noteId": "note-ram"
+    },
+    {
+      "id": "audit-manager",
+      "text": "AWS Audit Manager",
+      "x": 587.53,
+      "y": 463.21,
+      "parent": "organizations",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 587.53,
+      "fy": 463.21,
+      "depth": 2,
+      "cluster": "organizations",
+      "hasNote": true,
+      "noteId": "note-audit-manager"
+    },
+    {
+      "id": "artifact",
+      "text": "AWS Artifact",
+      "x": 669.32,
+      "y": 444.54,
+      "parent": "organizations",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 669.32,
+      "fy": 444.54,
+      "depth": 2,
+      "cluster": "organizations",
+      "hasNote": true,
+      "noteId": "note-artifact"
+    },
+    {
+      "id": "well-architected",
+      "text": "AWS Well-Architected Tool",
+      "x": 750.08,
+      "y": 467.27,
+      "parent": "organizations",
+      "collapsed": false,
+      "color": "#48C9B0",
+      "fx": 750.08,
+      "fy": 467.27,
+      "depth": 2,
+      "cluster": "organizations",
+      "hasNote": true,
+      "noteId": "note-well-architected"
+    },
+    {
+      "id": "ec2-image-builder",
+      "text": "EC2 Image Builder",
+      "x": 889.86,
+      "y": 1036.6,
+      "parent": "ec2",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 889.86,
+      "fy": 1036.6,
+      "depth": 2,
+      "cluster": "ec2",
+      "hasNote": true,
+      "noteId": "note-ec2-image-builder"
+    },
+    {
+      "id": "ecr",
+      "text": "Amazon ECR",
+      "x": 840.76,
+      "y": 1104.62,
+      "parent": "ec2",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 840.76,
+      "fy": 1104.62,
+      "depth": 2,
+      "cluster": "ec2",
+      "hasNote": true,
+      "noteId": "note-ecr"
+    },
+    {
+      "id": "dlm",
+      "text": "Amazon Data Lifecycle Manager",
+      "x": 765.1,
+      "y": 1140.88,
+      "parent": "ec2",
+      "collapsed": false,
+      "color": "#F0B27A",
+      "fx": 765.1,
+      "fy": 1140.88,
+      "depth": 2,
+      "cluster": "ec2",
+      "hasNote": true,
+      "noteId": "note-dlm"
+    },
+    {
+      "id": "ebs",
+      "text": "Amazon EBS",
+      "x": 681.31,
+      "y": 1136.54,
+      "parent": "ec2",
+      "collapsed": false,
+      "color": "#F0B27A",
+      "fx": 681.31,
+      "fy": 1136.54,
+      "depth": 2,
+      "cluster": "ec2",
+      "hasNote": true,
+      "noteId": "note-ebs"
+    },
+    {
+      "id": "q-developer",
+      "text": "Amazon Q Developer",
+      "x": 609.81,
+      "y": 1092.66,
+      "parent": "ec2",
+      "collapsed": false,
+      "color": "#F7DC6F",
+      "fx": 609.81,
+      "fy": 1092.66,
+      "depth": 2,
+      "cluster": "ec2",
+      "hasNote": true,
+      "noteId": "note-q-developer"
+    },
+    {
+      "id": "codeguru",
+      "text": "Amazon CodeGuru Security",
+      "x": 568.0,
+      "y": 1019.92,
+      "parent": "ec2",
+      "collapsed": false,
+      "color": "#F7DC6F",
+      "fx": 568.0,
+      "fy": 1019.92,
+      "depth": 2,
+      "cluster": "ec2",
+      "hasNote": true,
+      "noteId": "note-codeguru"
+    },
+    {
+      "id": "eks",
+      "text": "Amazon EKS",
+      "x": 566.06,
+      "y": 936.05,
+      "parent": "ec2",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 566.06,
+      "fy": 936.05,
+      "depth": 2,
+      "cluster": "ec2",
+      "hasNote": true,
+      "noteId": "note-eks"
+    },
+    {
+      "id": "emr",
+      "text": "Amazon EMR",
+      "x": 604.48,
+      "y": 861.46,
+      "parent": "ec2",
+      "collapsed": false,
+      "color": "#5DADE2",
+      "fx": 604.48,
+      "fy": 861.46,
+      "depth": 2,
+      "cluster": "ec2",
+      "hasNote": true,
+      "noteId": "note-emr"
+    },
+    {
+      "id": "identity-center",
+      "text": "IAM Identity Center",
+      "x": 1224.0,
+      "y": 791.78,
+      "parent": "iam",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1224.0,
+      "fy": 791.78,
+      "depth": 2,
+      "cluster": "iam",
+      "hasNote": true,
+      "noteId": "note-identity-center"
+    },
+    {
+      "id": "cognito",
+      "text": "Amazon Cognito",
+      "x": 1246.78,
+      "y": 876.78,
+      "parent": "iam",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1246.78,
+      "fy": 876.78,
+      "depth": 2,
+      "cluster": "iam",
+      "hasNote": true,
+      "noteId": "note-cognito"
+    },
+    {
+      "id": "sts",
+      "text": "AWS STS",
+      "x": 1224.0,
+      "y": 961.78,
+      "parent": "iam",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1224.0,
+      "fy": 961.78,
+      "depth": 2,
+      "cluster": "iam",
+      "hasNote": true,
+      "noteId": "note-sts"
+    },
+    {
+      "id": "directory-service",
+      "text": "AWS Directory Service",
+      "x": 1161.78,
+      "y": 1024.0,
+      "parent": "iam",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1161.78,
+      "fy": 1024.0,
+      "depth": 2,
+      "cluster": "iam",
+      "hasNote": true,
+      "noteId": "note-directory-service"
+    },
+    {
+      "id": "verified-permissions",
+      "text": "Amazon Verified Permissions",
+      "x": 1076.78,
+      "y": 1046.78,
+      "parent": "iam",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 1076.78,
+      "fy": 1046.78,
+      "depth": 2,
+      "cluster": "iam",
+      "hasNote": true,
+      "noteId": "note-verified-permissions"
+    },
+    {
+      "id": "iam-roles-anywhere",
+      "text": "IAM Roles Anywhere",
+      "x": 991.78,
+      "y": 1024.0,
+      "parent": "iam",
+      "collapsed": false,
+      "color": "#AF7AC5",
+      "fx": 991.78,
+      "fy": 1024.0,
+      "depth": 2,
+      "cluster": "iam",
+      "hasNote": true,
+      "noteId": "note-iam-roles-anywhere"
+    },
+    {
+      "id": "cloudhsm",
+      "text": "AWS CloudHSM",
+      "x": 738.04,
+      "y": 1046.13,
+      "parent": "kms",
+      "collapsed": false,
+      "color": "#F0B27A",
+      "fx": 738.04,
+      "fy": 1046.13,
+      "depth": 2,
+      "cluster": "kms",
+      "hasNote": true,
+      "noteId": "note-cloudhsm"
+    },
+    {
+      "id": "acm",
+      "text": "AWS Certificate Manager",
+      "x": 642.54,
+      "y": 1026.41,
+      "parent": "kms",
+      "collapsed": false,
+      "color": "#F0B27A",
+      "fx": 642.54,
+      "fy": 1026.41,
+      "depth": 2,
+      "cluster": "kms",
+      "hasNote": true,
+      "noteId": "note-acm"
+    },
+    {
+      "id": "private-ca",
+      "text": "AWS Private Certificate Authority",
+      "x": 573.59,
+      "y": 957.46,
+      "parent": "kms",
+      "collapsed": false,
+      "color": "#F0B27A",
+      "fx": 573.59,
+      "fy": 957.46,
+      "depth": 2,
+      "cluster": "kms",
+      "hasNote": true,
+      "noteId": "note-private-ca"
+    },
+    {
+      "id": "secrets-manager",
+      "text": "AWS Secrets Manager",
+      "x": 553.87,
+      "y": 861.96,
+      "parent": "kms",
+      "collapsed": false,
+      "color": "#F0B27A",
+      "fx": 553.87,
+      "fy": 861.96,
+      "depth": 2,
+      "cluster": "kms",
+      "hasNote": true,
+      "noteId": "note-secrets-manager"
+    },
+    {
+      "id": "parameter-store",
+      "text": "Systems Manager Parameter Store",
+      "x": 1461.26,
+      "y": 574.8,
+      "parent": "systems-manager",
+      "collapsed": false,
+      "color": "#F0B27A",
+      "fx": 1461.26,
+      "fy": 574.8,
+      "depth": 2,
+      "cluster": "systems-manager",
+      "hasNote": true,
+      "noteId": "note-parameter-store"
+    },
+    {
+      "id": "backup",
+      "text": "AWS Backup",
+      "x": 555.03,
+      "y": 899.57,
+      "parent": "s3",
+      "collapsed": false,
+      "color": "#F0B27A",
+      "fx": 555.03,
+      "fy": 899.57,
+      "depth": 2,
+      "cluster": "s3",
+      "hasNote": true,
+      "noteId": "note-backup"
+    },
+    {
+      "id": "datasync",
+      "text": "AWS DataSync",
+      "x": 494.31,
+      "y": 808.7,
+      "parent": "s3",
+      "collapsed": false,
+      "color": "#F0B27A",
+      "fx": 494.31,
+      "fy": 808.7,
+      "depth": 2,
+      "cluster": "s3",
+      "hasNote": true,
+      "noteId": "note-datasync"
+    },
+    {
+      "id": "efs",
+      "text": "Amazon EFS",
+      "x": 501.46,
+      "y": 699.64,
+      "parent": "s3",
+      "collapsed": false,
+      "color": "#F0B27A",
+      "fx": 501.46,
+      "fy": 699.64,
+      "depth": 2,
+      "cluster": "s3",
+      "hasNote": true,
+      "noteId": "note-efs"
+    }
+  ],
+  "links": [
+    {
+      "source": "root",
+      "target": "security-hub"
+    },
+    {
+      "source": "root",
+      "target": "cloudtrail"
+    },
+    {
+      "source": "root",
+      "target": "iam"
+    },
+    {
+      "source": "root",
+      "target": "kms"
+    },
+    {
+      "source": "root",
+      "target": "s3"
+    },
+    {
+      "source": "root",
+      "target": "organizations"
+    },
+    {
+      "source": "root",
+      "target": "cloudwatch"
+    },
+    {
+      "source": "root",
+      "target": "guardduty"
+    },
+    {
+      "source": "root",
+      "target": "lambda"
+    },
+    {
+      "source": "root",
+      "target": "vpc"
+    },
+    {
+      "source": "security-hub",
+      "target": "inspector"
+    },
+    {
+      "source": "inspector",
+      "target": "guardduty"
+    },
+    {
+      "source": "inspector",
+      "target": "lambda"
+    },
+    {
+      "source": "security-hub",
+      "target": "macie"
+    },
+    {
+      "source": "macie",
+      "target": "s3"
+    },
+    {
+      "source": "security-hub",
+      "target": "config"
+    },
+    {
+      "source": "config",
+      "target": "organizations"
+    },
+    {
+      "source": "security-hub",
+      "target": "eventbridge"
+    },
+    {
+      "source": "eventbridge",
+      "target": "guardduty"
+    },
+    {
+      "source": "eventbridge",
+      "target": "lambda"
+    },
+    {
+      "source": "eventbridge",
+      "target": "cloudwatch"
+    },
+    {
+      "source": "security-hub",
+      "target": "shield"
+    },
+    {
+      "source": "shield",
+      "target": "waf"
+    },
+    {
+      "source": "shield",
+      "target": "cloudfront"
+    },
+    {
+      "source": "shield",
+      "target": "route53"
+    },
+    {
+      "source": "security-hub",
+      "target": "trusted-advisor"
+    },
+    {
+      "source": "guardduty",
+      "target": "detective"
+    },
+    {
+      "source": "detective",
+      "target": "security-hub"
+    },
+    {
+      "source": "detective",
+      "target": "cloudtrail"
+    },
+    {
+      "source": "cloudtrail",
+      "target": "security-lake"
+    },
+    {
+      "source": "security-lake",
+      "target": "security-hub"
+    },
+    {
+      "source": "security-lake",
+      "target": "s3"
+    },
+    {
+      "source": "cloudtrail",
+      "target": "athena"
+    },
+    {
+      "source": "athena",
+      "target": "s3"
+    },
+    {
+      "source": "athena",
+      "target": "security-lake"
+    },
+    {
+      "source": "cloudtrail",
+      "target": "cloudtrail-lake"
+    },
+    {
+      "source": "cloudwatch",
+      "target": "opensearch"
+    },
+    {
+      "source": "opensearch",
+      "target": "lambda"
+    },
+    {
+      "source": "cloudwatch",
+      "target": "managed-grafana"
+    },
+    {
+      "source": "managed-grafana",
+      "target": "opensearch"
+    },
+    {
+      "source": "cloudwatch",
+      "target": "sns"
+    },
+    {
+      "source": "sns",
+      "target": "eventbridge"
+    },
+    {
+      "source": "sns",
+      "target": "kms"
+    },
+    {
+      "source": "cloudwatch",
+      "target": "user-notifications"
+    },
+    {
+      "source": "lambda",
+      "target": "step-functions"
+    },
+    {
+      "source": "step-functions",
+      "target": "eventbridge"
+    },
+    {
+      "source": "lambda",
+      "target": "systems-manager"
+    },
+    {
+      "source": "systems-manager",
+      "target": "config"
+    },
+    {
+      "source": "systems-manager",
+      "target": "inspector"
+    },
+    {
+      "source": "lambda",
+      "target": "api-gateway"
+    },
+    {
+      "source": "api-gateway",
+      "target": "cognito"
+    },
+    {
+      "source": "api-gateway",
+      "target": "waf"
+    },
+    {
+      "source": "lambda",
+      "target": "bedrock"
+    },
+    {
+      "source": "lambda",
+      "target": "sagemaker"
+    },
+    {
+      "source": "sagemaker",
+      "target": "kms"
+    },
+    {
+      "source": "step-functions",
+      "target": "forensics-orchestrator"
+    },
+    {
+      "source": "forensics-orchestrator",
+      "target": "lambda"
+    },
+    {
+      "source": "step-functions",
+      "target": "fis"
+    },
+    {
+      "source": "step-functions",
+      "target": "resilience-hub"
+    },
+    {
+      "source": "step-functions",
+      "target": "app-recovery-controller"
+    },
+    {
+      "source": "vpc",
+      "target": "waf"
+    },
+    {
+      "source": "waf",
+      "target": "cloudfront"
+    },
+    {
+      "source": "waf",
+      "target": "firewall-manager"
+    },
+    {
+      "source": "vpc",
+      "target": "cloudfront"
+    },
+    {
+      "source": "cloudfront",
+      "target": "s3"
+    },
+    {
+      "source": "vpc",
+      "target": "route53"
+    },
+    {
+      "source": "vpc",
+      "target": "elb"
+    },
+    {
+      "source": "elb",
+      "target": "waf"
+    },
+    {
+      "source": "elb",
+      "target": "s3"
+    },
+    {
+      "source": "vpc",
+      "target": "network-firewall"
+    },
+    {
+      "source": "network-firewall",
+      "target": "firewall-manager"
+    },
+    {
+      "source": "vpc",
+      "target": "direct-connect"
+    },
+    {
+      "source": "direct-connect",
+      "target": "vpn"
+    },
+    {
+      "source": "vpc",
+      "target": "vpn"
+    },
+    {
+      "source": "vpc",
+      "target": "transit-gateway"
+    },
+    {
+      "source": "transit-gateway",
+      "target": "network-firewall"
+    },
+    {
+      "source": "vpc",
+      "target": "verified-access"
+    },
+    {
+      "source": "verified-access",
+      "target": "identity-center"
+    },
+    {
+      "source": "vpc",
+      "target": "network-access-analyzer"
+    },
+    {
+      "source": "vpc",
+      "target": "ec2"
+    },
+    {
+      "source": "ec2",
+      "target": "inspector"
+    },
+    {
+      "source": "ec2",
+      "target": "systems-manager"
+    },
+    {
+      "source": "vpc",
+      "target": "iot-core"
+    },
+    {
+      "source": "organizations",
+      "target": "firewall-manager"
+    },
+    {
+      "source": "firewall-manager",
+      "target": "shield"
+    },
+    {
+      "source": "organizations",
+      "target": "control-tower"
+    },
+    {
+      "source": "organizations",
+      "target": "cloudformation"
+    },
+    {
+      "source": "organizations",
+      "target": "service-catalog"
+    },
+    {
+      "source": "service-catalog",
+      "target": "cloudformation"
+    },
+    {
+      "source": "organizations",
+      "target": "ram"
+    },
+    {
+      "source": "organizations",
+      "target": "audit-manager"
+    },
+    {
+      "source": "audit-manager",
+      "target": "config"
+    },
+    {
+      "source": "audit-manager",
+      "target": "cloudtrail"
+    },
+    {
+      "source": "audit-manager",
+      "target": "security-hub"
+    },
+    {
+      "source": "organizations",
+      "target": "artifact"
+    },
+    {
+      "source": "organizations",
+      "target": "well-architected"
+    },
+    {
+      "source": "ec2",
+      "target": "ec2-image-builder"
+    },
+    {
+      "source": "ec2-image-builder",
+      "target": "inspector"
+    },
+    {
+      "source": "ec2",
+      "target": "ecr"
+    },
+    {
+      "source": "ecr",
+      "target": "inspector"
+    },
+    {
+      "source": "ecr",
+      "target": "kms"
+    },
+    {
+      "source": "ec2",
+      "target": "dlm"
+    },
+    {
+      "source": "dlm",
+      "target": "backup"
+    },
+    {
+      "source": "ec2",
+      "target": "ebs"
+    },
+    {
+      "source": "ebs",
+      "target": "kms"
+    },
+    {
+      "source": "ec2",
+      "target": "q-developer"
+    },
+    {
+      "source": "ec2",
+      "target": "codeguru"
+    },
+    {
+      "source": "codeguru",
+      "target": "q-developer"
+    },
+    {
+      "source": "ec2",
+      "target": "eks"
+    },
+    {
+      "source": "eks",
+      "target": "guardduty"
+    },
+    {
+      "source": "eks",
+      "target": "ecr"
+    },
+    {
+      "source": "ec2",
+      "target": "emr"
+    },
+    {
+      "source": "emr",
+      "target": "kms"
+    },
+    {
+      "source": "iam",
+      "target": "identity-center"
+    },
+    {
+      "source": "identity-center",
+      "target": "organizations"
+    },
+    {
+      "source": "iam",
+      "target": "cognito"
+    },
+    {
+      "source": "cognito",
+      "target": "waf"
+    },
+    {
+      "source": "iam",
+      "target": "sts"
+    },
+    {
+      "source": "sts",
+      "target": "s3"
+    },
+    {
+      "source": "iam",
+      "target": "directory-service"
+    },
+    {
+      "source": "directory-service",
+      "target": "identity-center"
+    },
+    {
+      "source": "iam",
+      "target": "verified-permissions"
+    },
+    {
+      "source": "verified-permissions",
+      "target": "cognito"
+    },
+    {
+      "source": "iam",
+      "target": "iam-roles-anywhere"
+    },
+    {
+      "source": "iam-roles-anywhere",
+      "target": "private-ca"
+    },
+    {
+      "source": "kms",
+      "target": "cloudhsm"
+    },
+    {
+      "source": "kms",
+      "target": "acm"
+    },
+    {
+      "source": "acm",
+      "target": "cloudfront"
+    },
+    {
+      "source": "acm",
+      "target": "elb"
+    },
+    {
+      "source": "kms",
+      "target": "private-ca"
+    },
+    {
+      "source": "kms",
+      "target": "secrets-manager"
+    },
+    {
+      "source": "secrets-manager",
+      "target": "lambda"
+    },
+    {
+      "source": "systems-manager",
+      "target": "parameter-store"
+    },
+    {
+      "source": "parameter-store",
+      "target": "kms"
+    },
+    {
+      "source": "s3",
+      "target": "backup"
+    },
+    {
+      "source": "backup",
+      "target": "kms"
+    },
+    {
+      "source": "s3",
+      "target": "datasync"
+    },
+    {
+      "source": "s3",
+      "target": "efs"
+    },
+    {
+      "source": "efs",
+      "target": "kms"
+    },
+    {
+      "source": "security-hub",
+      "target": "guardduty"
+    },
+    {
+      "source": "security-hub",
+      "target": "cloudtrail"
+    },
+    {
+      "source": "security-hub",
+      "target": "cloudwatch"
+    },
+    {
+      "source": "security-hub",
+      "target": "organizations"
+    },
+    {
+      "source": "cloudtrail",
+      "target": "s3"
+    },
+    {
+      "source": "cloudtrail",
+      "target": "cloudwatch"
+    },
+    {
+      "source": "cloudtrail",
+      "target": "lambda"
+    },
+    {
+      "source": "kms",
+      "target": "s3"
+    },
+    {
+      "source": "iam",
+      "target": "organizations"
+    },
+    {
+      "source": "iam",
+      "target": "lambda"
+    },
+    {
+      "source": "iam",
+      "target": "vpc"
+    },
+    {
+      "source": "vpc",
+      "target": "cloudwatch"
+    },
+    {
+      "source": "guardduty",
+      "target": "cloudtrail"
+    },
+    {
+      "source": "guardduty",
+      "target": "vpc"
+    },
+    {
+      "source": "lambda",
+      "target": "cloudwatch"
+    },
+    {
+      "source": "kms",
+      "target": "iam"
+    }
+  ],
+  "selectedNodeId": null,
+  "editingNodeId": null,
+  "notes": [
+    {
+      "id": "note-root",
+      "nodeId": "root",
+      "content": "<p><strong>AWS Certified Security - Specialty (SCS-C03)</strong><br><br><strong>6 Domains:</strong> Detection (16%) \u00b7 Incident Response (14%) \u00b7 Infrastructure Security (18%) \u00b7 Identity & Access Management (20%) \u00b7 Data Protection (18%) \u00b7 Security Foundations & Governance (14%)<br><br><strong>Exam:</strong> 50 scored + 15 unscored questions \u00b7 750/1000 to pass \u00b7 170 minutes<br><br><strong>Exam guide:</strong> https://docs.aws.amazon.com/aws-certification/latest/examguides/security-specialty-03.html</p>",
+      "contentType": "tiptap",
+      "plainText": "AWS Certified Security - Specialty (SCS-C03)\n\n6 Domains: Detection (16%) \u00b7 Incident Response (14%) \u00b7 Infrastructure Security (18%) \u00b7 Identity & Access Management (20%) \u00b7 Data Protection (18%) \u00b7 Security Foundations & Governance (14%)\n\nExam: 50 scored + 15 unscored questions \u00b7 750/1000 to pass \u00b7 170 minutes\n\nExam guide: https://docs.aws.amazon.com/aws-certification/latest/examguides/security-specialty-03.html",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-security-hub",
+      "nodeId": "security-hub",
+      "content": "<p><strong>Domains: 1, 2, 6</strong><br><br>Central aggregation point for security findings from GuardDuty, Inspector, Macie, Config, Firewall Manager, IAM Access Analyzer, and third-party tools. Maps findings to compliance frameworks (CIS, PCI DSS, NIST). Custom insights for trend analysis. Automated response via EventBridge rules. Cross-account aggregation with delegated administrator. Key for Domain 1 (monitoring/alerting) and Domain 6 (compliance evaluation).</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1, 2, 6\n\nCentral aggregation point for security findings from GuardDuty, Inspector, Macie, Config, Firewall Manager, IAM Access Analyzer, and third-party tools. Maps findings to compliance frameworks (CIS, PCI DSS, NIST). Custom insights for trend analysis. Automated response via EventBridge rules. Cross-account aggregation with delegated administrator. Key for Domain 1 (monitoring/alerting) and Domain 6 (compliance evaluation).",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-cloudtrail",
+      "nodeId": "cloudtrail",
+      "content": "<p><strong>Domains: 1, 4, 6</strong><br><br>Records API calls across your AWS account \u2014 the definitive audit log. Organization trails for multi-account coverage. CloudTrail Lake enables SQL-based querying of events directly (new for C03). Integrates with CloudWatch Logs for real-time alerting, Athena for ad-hoc S3 log analysis, and Security Lake for OCSF normalization. CloudTrail Insights detects unusual API activity patterns automatically. Critical for incident investigation, authentication troubleshooting (Domain 4), and compliance evidence (Domain 6).</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1, 4, 6\n\nRecords API calls across your AWS account \u2014 the definitive audit log. Organization trails for multi-account coverage. CloudTrail Lake enables SQL-based querying of events directly (new for C03). Integrates with CloudWatch Logs for real-time alerting, Athena for ad-hoc S3 log analysis, and Security Lake for OCSF normalization. CloudTrail Insights detects unusual API activity patterns automatically. Critical for incident investigation, authentication troubleshooting (Domain 4), and compliance evidence (Domain 6).",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-iam",
+      "nodeId": "iam",
+      "content": "<p><strong>Domains: 4 (primary), 3, 6</strong><br><br>Foundation of all AWS access control. Users, groups, roles, policies. Exam focuses heavily on: policy evaluation logic (identity vs resource vs session vs SCP vs permissions boundary), least privilege design, ABAC with tags, RBAC patterns, IAM Roles Anywhere for on-prem workloads, and cross-account role assumption. Access Analyzer validates policies and finds unintended external access. Access Advisor shows last-accessed data. Policy Simulator tests before deployment. Domain 4 is 20% of the exam \u2014 IAM is the biggest topic.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 4 (primary), 3, 6\n\nFoundation of all AWS access control. Users, groups, roles, policies. Exam focuses heavily on: policy evaluation logic (identity vs resource vs session vs SCP vs permissions boundary), least privilege design, ABAC with tags, RBAC patterns, IAM Roles Anywhere for on-prem workloads, and cross-account role assumption. Access Analyzer validates policies and finds unintended external access. Access Advisor shows last-accessed data. Policy Simulator tests before deployment. Domain 4 is 20% of the exam \u2014 IAM is the biggest topic.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-kms",
+      "nodeId": "kms",
+      "content": "<p><strong>Domains: 5 (primary), 1, 3</strong><br><br>Managed encryption key service. Symmetric (AES-256) and asymmetric keys. Key policies + IAM policies + grants control access. Automatic annual rotation for customer managed keys. Envelope encryption pattern is heavily tested. Multi-Region keys for cross-region encrypt/decrypt. Imported key material vs AWS-generated (new C03 topic). External key stores (XKS) for keys outside AWS. Integrates with virtually every storage/database service. Know: key policy default, key deletion waiting period (7-30 days), grants vs policies, CMK types.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 5 (primary), 1, 3\n\nManaged encryption key service. Symmetric (AES-256) and asymmetric keys. Key policies + IAM policies + grants control access. Automatic annual rotation for customer managed keys. Envelope encryption pattern is heavily tested. Multi-Region keys for cross-region encrypt/decrypt. Imported key material vs AWS-generated (new C03 topic). External key stores (XKS) for keys outside AWS. Integrates with virtually every storage/database service. Know: key policy default, key deletion waiting period (7-30 days), grants vs policies, CMK types.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-s3",
+      "nodeId": "s3",
+      "content": "<p><strong>Domains: 5, 1, 2, 3</strong><br><br>Appears everywhere on this exam. Bucket policies, ACLs (legacy), Block Public Access (account + bucket level), Object Lock (Governance vs Compliance mode + legal hold), SSE-S3/SSE-KMS/SSE-C/DSSE-KMS encryption. Presigned URLs (Domain 4 \u2014 temporary access). CORS configuration (Domain 3 edge security). Access Logs and S3 event notifications. Lifecycle policies for tiering/expiration. Cross-region and same-region replication. Glacier Vault Lock for archival compliance. Macie scans S3 for sensitive data. Central log destination for CloudTrail, VPC Flow Logs, ELB, CloudFront.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 5, 1, 2, 3\n\nAppears everywhere on this exam. Bucket policies, ACLs (legacy), Block Public Access (account + bucket level), Object Lock (Governance vs Compliance mode + legal hold), SSE-S3/SSE-KMS/SSE-C/DSSE-KMS encryption. Presigned URLs (Domain 4 \u2014 temporary access). CORS configuration (Domain 3 edge security). Access Logs and S3 event notifications. Lifecycle policies for tiering/expiration. Cross-region and same-region replication. Glacier Vault Lock for archival compliance. Macie scans S3 for sensitive data. Central log destination for CloudTrail, VPC Flow Logs, ELB, CloudFront.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-organizations",
+      "nodeId": "organizations",
+      "content": "<p><strong>Domains: 6 (primary), 4</strong><br><br>Multi-account management. OUs for structural governance. SCPs restrict maximum permissions across accounts (new for C03: also RCPs \u2014 Resource Control Policies, AI service opt-out policies, declarative policies). Delegated administrator for security services (Security Hub, GuardDuty, Config, Macie, Inspector). Root account credential management \u2014 centralized root access for member accounts, break-glass procedures. Integration with Control Tower, RAM, CloudFormation StackSets, Firewall Manager.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 6 (primary), 4\n\nMulti-account management. OUs for structural governance. SCPs restrict maximum permissions across accounts (new for C03: also RCPs \u2014 Resource Control Policies, AI service opt-out policies, declarative policies). Delegated administrator for security services (Security Hub, GuardDuty, Config, Macie, Inspector). Root account credential management \u2014 centralized root access for member accounts, break-glass procedures. Integration with Control Tower, RAM, CloudFormation StackSets, Firewall Manager.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-cloudwatch",
+      "nodeId": "cloudwatch",
+      "content": "<p><strong>Domains: 1, 3</strong><br><br>Metrics, alarms, dashboards, and logs. CloudWatch Logs agent for custom log ingestion. Metric filters create custom metrics from log patterns (e.g., failed SSH attempts). CloudWatch Logs Insights for interactive SQL-like queries. Logs data protection policies mask sensitive data (new C03 topic \u2014 PII/PHI masking in logs). Cross-account log aggregation with dedicated logging account. Anomaly detection on metrics. Composite alarms. Integration with SNS for alerts, EventBridge for automation.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1, 3\n\nMetrics, alarms, dashboards, and logs. CloudWatch Logs agent for custom log ingestion. Metric filters create custom metrics from log patterns (e.g., failed SSH attempts). CloudWatch Logs Insights for interactive SQL-like queries. Logs data protection policies mask sensitive data (new C03 topic \u2014 PII/PHI masking in logs). Cross-account log aggregation with dedicated logging account. Anomaly detection on metrics. Composite alarms. Integration with SNS for alerts, EventBridge for automation.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-guardduty",
+      "nodeId": "guardduty",
+      "content": "<p><strong>Domains: 1, 3</strong><br><br>ML-powered threat detection. Analyzes CloudTrail management/data events, VPC Flow Logs, DNS logs, S3 data events, EKS audit logs, Lambda network activity, and RDS login activity. Finding types: Recon, UnauthorizedAccess, Trojan, CryptoCurrency, Impact, etc. Multi-account management via delegated admin. Findings flow to Security Hub and EventBridge. Suppression rules filter expected findings. Trusted/threat IP lists. Runtime monitoring for EC2 and EKS containers (Domain 3 \u2014 compute security). Malware Protection scans EBS volumes attached to EC2.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1, 3\n\nML-powered threat detection. Analyzes CloudTrail management/data events, VPC Flow Logs, DNS logs, S3 data events, EKS audit logs, Lambda network activity, and RDS login activity. Finding types: Recon, UnauthorizedAccess, Trojan, CryptoCurrency, Impact, etc. Multi-account management via delegated admin. Findings flow to Security Hub and EventBridge. Suppression rules filter expected findings. Trusted/threat IP lists. Runtime monitoring for EC2 and EKS containers (Domain 3 \u2014 compute security). Malware Protection scans EBS volumes attached to EC2.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-lambda",
+      "nodeId": "lambda",
+      "content": "<p><strong>Domains: 1, 2, 3, 5</strong><br><br>The glue of security automation. Executes remediation in response to EventBridge/Security Hub events (isolate EC2, revoke credentials, update NACLs). Processes and enriches log data. Rotates secrets in Secrets Manager. Domain 3: execution roles, VPC configuration, code signing, reserved concurrency, function URLs. Inspector scans Lambda functions for vulnerabilities. GuardDuty monitors Lambda network activity. Domain 1: log normalization and parsing alongside OpenSearch. Domain 5: data protection in transit.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1, 2, 3, 5\n\nThe glue of security automation. Executes remediation in response to EventBridge/Security Hub events (isolate EC2, revoke credentials, update NACLs). Processes and enriches log data. Rotates secrets in Secrets Manager. Domain 3: execution roles, VPC configuration, code signing, reserved concurrency, function URLs. Inspector scans Lambda functions for vulnerabilities. GuardDuty monitors Lambda network activity. Domain 1: log normalization and parsing alongside OpenSearch. Domain 5: data protection in transit.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-vpc",
+      "nodeId": "vpc",
+      "content": "<p><strong>Domains: 3 (primary), 1, 5</strong><br><br>Network foundation. Security groups (stateful, allow-only, instance-level), NACLs (stateless, allow+deny, subnet-level). VPC endpoints (gateway for S3/DynamoDB, interface for other services via PrivateLink). VPC Flow Logs \u2014 critical log source for detection and troubleshooting. Transit Gateway for hub-spoke. Network segmentation (north/south, east/west). Peering, route tables, NAT gateways. Reachability Analyzer tests paths. Network Access Analyzer identifies unintended access. Traffic Mirroring for deep packet inspection.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3 (primary), 1, 5\n\nNetwork foundation. Security groups (stateful, allow-only, instance-level), NACLs (stateless, allow+deny, subnet-level). VPC endpoints (gateway for S3/DynamoDB, interface for other services via PrivateLink). VPC Flow Logs \u2014 critical log source for detection and troubleshooting. Transit Gateway for hub-spoke. Network segmentation (north/south, east/west). Peering, route tables, NAT gateways. Reachability Analyzer tests paths. Network Access Analyzer identifies unintended access. Traffic Mirroring for deep packet inspection.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-inspector",
+      "nodeId": "inspector",
+      "content": "<p><strong>Domains: 1, 3</strong><br><br>Automated vulnerability scanning for EC2 instances, Lambda functions, and ECR container images \u2014 all three are testable. Continuous scanning (not one-time). Findings in Security Hub with severity scores. Network reachability assessments identify exposed ports/paths (Domain 3 troubleshooting). Integrates with Systems Manager for patch remediation. EventBridge triggers automated response.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1, 3\n\nAutomated vulnerability scanning for EC2 instances, Lambda functions, and ECR container images \u2014 all three are testable. Continuous scanning (not one-time). Findings in Security Hub with severity scores. Network reachability assessments identify exposed ports/paths (Domain 3 troubleshooting). Integrates with Systems Manager for patch remediation. EventBridge triggers automated response.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-macie",
+      "nodeId": "macie",
+      "content": "<p><strong>Domains: 1, 6</strong><br><br>ML-powered sensitive data discovery in S3. Identifies PII, PHI, financial data, credentials. Automated and scheduled discovery jobs. Custom data identifiers for org-specific patterns. Findings go to Security Hub. Multi-account via Organizations. Domain 6: data governance compliance \u2014 know which S3 buckets contain sensitive data.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1, 6\n\nML-powered sensitive data discovery in S3. Identifies PII, PHI, financial data, credentials. Automated and scheduled discovery jobs. Custom data identifiers for org-specific patterns. Findings go to Security Hub. Multi-account via Organizations. Domain 6: data governance compliance \u2014 know which S3 buckets contain sensitive data.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-config",
+      "nodeId": "config",
+      "content": "<p><strong>Domains: 1, 6</strong><br><br>Tracks resource configuration history and evaluates compliance. Managed rules (150+) and custom rules (Lambda). Conformance packs bundle rules for frameworks (CIS, PCI). Auto-remediation via Systems Manager Automation. Config Aggregator for multi-account/multi-region views. Findings flow to Security Hub. Domain 1: continuous monitoring/alerting. Domain 6: compliance evaluation and evidence.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1, 6\n\nTracks resource configuration history and evaluates compliance. Managed rules (150+) and custom rules (Lambda). Conformance packs bundle rules for frameworks (CIS, PCI). Auto-remediation via Systems Manager Automation. Config Aggregator for multi-account/multi-region views. Findings flow to Security Hub. Domain 1: continuous monitoring/alerting. Domain 6: compliance evaluation and evidence.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-eventbridge",
+      "nodeId": "eventbridge",
+      "content": "<p><strong>Domains: 1, 2</strong><br><br>Event bus that routes security findings to automated targets. Pattern matching on Security Hub findings, GuardDuty findings, Config rule changes, CloudTrail API calls. Targets: Lambda, Step Functions, SNS, SQS, Systems Manager. Critical for building automated incident response pipelines. Example: GuardDuty detects crypto mining \u2192 EventBridge \u2192 Lambda isolates the EC2 instance.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1, 2\n\nEvent bus that routes security findings to automated targets. Pattern matching on Security Hub findings, GuardDuty findings, Config rule changes, CloudTrail API calls. Targets: Lambda, Step Functions, SNS, SQS, Systems Manager. Critical for building automated incident response pipelines. Example: GuardDuty detects crypto mining \u2192 EventBridge \u2192 Lambda isolates the EC2 instance.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-shield",
+      "nodeId": "shield",
+      "content": "<p><strong>Domains: 2, 3</strong><br><br>DDoS protection. Standard: automatic, free, always-on for all AWS resources. Advanced: $3000/month \u2014 dedicated DRT (DDoS Response Team), cost protection during attacks, enhanced detection for CloudFront, Route 53, ELB, EC2, Global Accelerator. Health-based detection. Proactive engagement. SRT access to WAF rules. Domain 2: Shield Advanced protections as incident preparedness (Skill 2.1.2). Domain 3: edge protection.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 2, 3\n\nDDoS protection. Standard: automatic, free, always-on for all AWS resources. Advanced: $3000/month \u2014 dedicated DRT (DDoS Response Team), cost protection during attacks, enhanced detection for CloudFront, Route 53, ELB, EC2, Global Accelerator. Health-based detection. Proactive engagement. SRT access to WAF rules. Domain 2: Shield Advanced protections as incident preparedness (Skill 2.1.2). Domain 3: edge protection.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-trusted-advisor",
+      "nodeId": "trusted-advisor",
+      "content": "<p><strong>Domains: 6</strong><br><br>Checks for security best practices: open security groups, IAM use, MFA on root, S3 bucket permissions, exposed access keys, CloudTrail enabled. Full checks require Business or Enterprise Support. Integrates with Security Hub. Priority-based alerting with EventBridge.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 6\n\nChecks for security best practices: open security groups, IAM use, MFA on root, S3 bucket permissions, exposed access keys, CloudTrail enabled. Full checks require Business or Enterprise Support. Integrates with Security Hub. Priority-based alerting with EventBridge.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-detective",
+      "nodeId": "detective",
+      "content": "<p><strong>Domains: 1, 2</strong><br><br>Graph-based investigation and root cause analysis. Automatically correlates data from GuardDuty, CloudTrail, VPC Flow Logs, EKS audit logs, and Security Hub findings. Visualizes resource interactions and API call patterns over time. Pivotal for Domain 2 (Incident Response) \u2014 answering 'what happened and why' after GuardDuty detects a threat.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1, 2\n\nGraph-based investigation and root cause analysis. Automatically correlates data from GuardDuty, CloudTrail, VPC Flow Logs, EKS audit logs, and Security Hub findings. Visualizes resource interactions and API call patterns over time. Pivotal for Domain 2 (Incident Response) \u2014 answering 'what happened and why' after GuardDuty detects a threat.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-security-lake",
+      "nodeId": "security-lake",
+      "content": "<p><strong>Domains: 1</strong><br><br>Centralizes security data into a purpose-built data lake in S3. Normalizes logs to OCSF format (Open Cybersecurity Schema Framework \u2014 new C03 topic). Ingests from CloudTrail, VPC Flow Logs, Route 53, Security Hub, Lambda data events, S3 data events, and third-party sources. Query with Athena or feed to OpenSearch/SIEM tools. Subscriber model for data consumers.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1\n\nCentralizes security data into a purpose-built data lake in S3. Normalizes logs to OCSF format (Open Cybersecurity Schema Framework \u2014 new C03 topic). Ingests from CloudTrail, VPC Flow Logs, Route 53, Security Hub, Lambda data events, S3 data events, and third-party sources. Query with Athena or feed to OpenSearch/SIEM tools. Subscriber model for data consumers.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-athena",
+      "nodeId": "athena",
+      "content": "<p><strong>Domains: 1</strong><br><br>Serverless SQL queries against S3-stored logs. Query CloudTrail logs, VPC Flow Logs, ALB access logs, CloudFront logs, Security Lake data. No infrastructure to manage. Partition projection for efficient log querying. Federated queries across data sources. Key tool for ad-hoc incident investigation and log analysis.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1\n\nServerless SQL queries against S3-stored logs. Query CloudTrail logs, VPC Flow Logs, ALB access logs, CloudFront logs, Security Lake data. No infrastructure to manage. Partition projection for efficient log querying. Federated queries across data sources. Key tool for ad-hoc incident investigation and log analysis.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-cloudtrail-lake",
+      "nodeId": "cloudtrail-lake",
+      "content": "<p><strong>Domains: 1</strong><br><br>Managed data lake for CloudTrail events \u2014 query directly with SQL without setting up S3 + Athena. New in C03. Event data stores with configurable retention. Supports organization-level event collection. Dashboard and saved queries. Alternative to the traditional CloudTrail \u2192 S3 \u2192 Athena pipeline.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1\n\nManaged data lake for CloudTrail events \u2014 query directly with SQL without setting up S3 + Athena. New in C03. Event data stores with configurable retention. Supports organization-level event collection. Dashboard and saved queries. Alternative to the traditional CloudTrail \u2192 S3 \u2192 Athena pipeline.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-opensearch",
+      "nodeId": "opensearch",
+      "content": "<p><strong>Domains: 1</strong><br><br>Real-time log analytics, visualization, and dashboarding. Ingest via Kinesis Data Firehose, Lambda, or CloudWatch Logs subscription filters. Parse, normalize, and correlate security logs at scale. Used alongside or instead of Athena for continuous monitoring vs ad-hoc queries. Integration with Managed Grafana for visualization.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1\n\nReal-time log analytics, visualization, and dashboarding. Ingest via Kinesis Data Firehose, Lambda, or CloudWatch Logs subscription filters. Parse, normalize, and correlate security logs at scale. Used alongside or instead of Athena for continuous monitoring vs ad-hoc queries. Integration with Managed Grafana for visualization.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-managed-grafana",
+      "nodeId": "managed-grafana",
+      "content": "<p><strong>Domains: 1</strong><br><br>Managed visualization and dashboarding for security metrics and log data. Data sources: CloudWatch, OpenSearch, Athena, X-Ray, and more. New in C03 \u2014 used for security monitoring dashboards and log correlation visualization.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1\n\nManaged visualization and dashboarding for security metrics and log data. Data sources: CloudWatch, OpenSearch, Athena, X-Ray, and more. New in C03 \u2014 used for security monitoring dashboards and log correlation visualization.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-sns",
+      "nodeId": "sns",
+      "content": "<p><strong>Domains: 1</strong><br><br>Pub/sub notification service. Delivers security alerts to email, SMS, HTTP endpoints, Lambda, SQS. CloudWatch Alarms \u2192 SNS for threshold-based alerts. EventBridge \u2192 SNS for event-based alerts. Message data protection policies can detect and mask PII in messages (new C03 topic). Encryption at rest with KMS.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1\n\nPub/sub notification service. Delivers security alerts to email, SMS, HTTP endpoints, Lambda, SQS. CloudWatch Alarms \u2192 SNS for threshold-based alerts. EventBridge \u2192 SNS for event-based alerts. Message data protection policies can detect and mask PII in messages (new C03 topic). Encryption at rest with KMS.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-user-notifications",
+      "nodeId": "user-notifications",
+      "content": "<p><strong>Domains: 1</strong><br><br>Centralized notification management. Configure delivery channels (email, Chatbot). Aggregate notifications from multiple AWS services. New in C03 in-scope services list.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 1\n\nCentralized notification management. Configure delivery channels (email, Chatbot). Aggregate notifications from multiple AWS services. New in C03 in-scope services list.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-step-functions",
+      "nodeId": "step-functions",
+      "content": "<p><strong>Domains: 2</strong><br><br>Orchestrates multi-step incident response workflows with visual state machines. Branching logic, error handling, parallel execution, wait states. Example: receive GuardDuty finding \u2192 enrich with Detective \u2192 decide severity \u2192 isolate instance OR just notify \u2192 create ticket. Integrates with Lambda, Systems Manager, SNS, DynamoDB.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 2\n\nOrchestrates multi-step incident response workflows with visual state machines. Branching logic, error handling, parallel execution, wait states. Example: receive GuardDuty finding \u2192 enrich with Detective \u2192 decide severity \u2192 isolate instance OR just notify \u2192 create ticket. Integrates with Lambda, Systems Manager, SNS, DynamoDB.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-systems-manager",
+      "nodeId": "systems-manager",
+      "content": "<p><strong>Domains: 2, 3, 5</strong><br><br>Swiss army knife for operations. Key capabilities for the exam: Run Command (execute scripts on EC2 without SSH), Automation runbooks (incident response playbooks), Session Manager (secure shell access without opening ports \u2014 Domain 3/5), Patch Manager (automated patching \u2014 Domain 3), State Manager (desired state enforcement \u2014 Domain 1), Parameter Store (SecureString with KMS \u2014 Domain 5), OpsCenter (incident management \u2014 Domain 2). Agent-based \u2014 requires SSM Agent on instances.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 2, 3, 5\n\nSwiss army knife for operations. Key capabilities for the exam: Run Command (execute scripts on EC2 without SSH), Automation runbooks (incident response playbooks), Session Manager (secure shell access without opening ports \u2014 Domain 3/5), Patch Manager (automated patching \u2014 Domain 3), State Manager (desired state enforcement \u2014 Domain 1), Parameter Store (SecureString with KMS \u2014 Domain 5), OpsCenter (incident management \u2014 Domain 2). Agent-based \u2014 requires SSM Agent on instances.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-api-gateway",
+      "nodeId": "api-gateway",
+      "content": "<p><strong>Domains: 3, 4, 5</strong><br><br>API management service. Security features: IAM authorization, Lambda authorizers, Cognito authorizers. Resource policies for cross-account access. API keys + usage plans for throttling. Mutual TLS (mTLS). WAF integration. Request validation. CloudWatch logging and X-Ray tracing. Domain 1: logging/troubleshooting (Skill 1.3.1).</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3, 4, 5\n\nAPI management service. Security features: IAM authorization, Lambda authorizers, Cognito authorizers. Resource policies for cross-account access. API keys + usage plans for throttling. Mutual TLS (mTLS). WAF integration. Request validation. CloudWatch logging and X-Ray tracing. Domain 1: logging/troubleshooting (Skill 1.3.1).",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-bedrock",
+      "nodeId": "bedrock",
+      "content": "<p><strong>Domains: 3</strong><br><br>Managed foundation model service. New C03 topic: Skill 3.2.7 \u2014 implement protections and guardrails for generative AI applications. GenAI OWASP Top 10 for LLM Applications. Bedrock Guardrails: content filters, denied topics, word filters, PII redaction. Model access via IAM. Data encryption. VPC endpoints for private access.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3\n\nManaged foundation model service. New C03 topic: Skill 3.2.7 \u2014 implement protections and guardrails for generative AI applications. GenAI OWASP Top 10 for LLM Applications. Bedrock Guardrails: content filters, denied topics, word filters, PII redaction. Model access via IAM. Data encryption. VPC endpoints for private access.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-sagemaker",
+      "nodeId": "sagemaker",
+      "content": "<p><strong>Domains: 2, 5</strong><br><br>ML platform. SageMaker AI notebooks used in incident response for investigation/analysis (Domain 2 Skill 2.1.1). Nitro encryption for inter-node training traffic (Domain 5 Skill 5.1.3). VPC deployment, KMS encryption, IAM roles for training jobs.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 2, 5\n\nML platform. SageMaker AI notebooks used in incident response for investigation/analysis (Domain 2 Skill 2.1.1). Nitro encryption for inter-node training traffic (Domain 5 Skill 5.1.3). VPC deployment, KMS encryption, IAM roles for training jobs.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-forensics-orchestrator",
+      "nodeId": "forensics-orchestrator",
+      "content": "<p><strong>Domains: 2</strong><br><br>AWS solution for automated forensic evidence collection from EC2 instances. Captures memory dumps, disk snapshots, instance metadata. Uses Step Functions for orchestration. New in C03 \u2014 specifically called out in incident response task 2.1.4.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 2\n\nAWS solution for automated forensic evidence collection from EC2 instances. Captures memory dumps, disk snapshots, instance metadata. Uses Step Functions for orchestration. New in C03 \u2014 specifically called out in incident response task 2.1.4.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-fis",
+      "nodeId": "fis",
+      "content": "<p><strong>Domains: 2</strong><br><br>Chaos engineering service to test incident response plans. Inject failures into EC2, ECS, EKS, RDS. Validates that monitoring detects issues and runbooks execute correctly. New in C03 \u2014 tests and validates effectiveness of incident response plans.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 2\n\nChaos engineering service to test incident response plans. Inject failures into EC2, ECS, EKS, RDS. Validates that monitoring detects issues and runbooks execute correctly. New in C03 \u2014 tests and validates effectiveness of incident response plans.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-resilience-hub",
+      "nodeId": "resilience-hub",
+      "content": "<p><strong>Domains: 2</strong><br><br>Assesses application resilience against RTO/RPO targets. Identifies resilience weaknesses. Recommends improvements. New in C03 \u2014 validates incident response and recovery readiness.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 2\n\nAssesses application resilience against RTO/RPO targets. Identifies resilience weaknesses. Recommends improvements. New in C03 \u2014 validates incident response and recovery readiness.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-app-recovery-controller",
+      "nodeId": "app-recovery-controller",
+      "content": "<p><strong>Domains: 2</strong><br><br>Manages application failover across Regions and AZs. Routing controls and readiness checks. Used in disaster recovery scenarios \u2014 critical for incident response recovery phase.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 2\n\nManages application failover across Regions and AZs. Routing controls and readiness checks. Used in disaster recovery scenarios \u2014 critical for incident response recovery phase.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-waf",
+      "nodeId": "waf",
+      "content": "<p><strong>Domains: 3</strong><br><br>Web application firewall. Attach to CloudFront, ALB, API Gateway, AppSync, Cognito. Rule types: rate-based, IP set, regex, geo-match, SQL injection, XSS, custom. Managed rule groups (AWS + Marketplace) \u2014 including Bot Control and Account Takeover Prevention. OWASP Top 10 protection (explicitly tested). Third-party WAF rules via Marketplace (new C03). Logging to S3, CloudWatch, Kinesis Data Firehose. Firewall Manager deploys WAF rules at scale.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3\n\nWeb application firewall. Attach to CloudFront, ALB, API Gateway, AppSync, Cognito. Rule types: rate-based, IP set, regex, geo-match, SQL injection, XSS, custom. Managed rule groups (AWS + Marketplace) \u2014 including Bot Control and Account Takeover Prevention. OWASP Top 10 protection (explicitly tested). Third-party WAF rules via Marketplace (new C03). Logging to S3, CloudWatch, Kinesis Data Firehose. Firewall Manager deploys WAF rules at scale.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-cloudfront",
+      "nodeId": "cloudfront",
+      "content": "<p><strong>Domains: 3, 1</strong><br><br>Global CDN. Origin Access Control (OAC) for S3 \u2014 replaces legacy OAI. TLS/SSL certificate management via ACM. Custom headers for origin validation. Field-level encryption for sensitive form data. Geo-restriction. Signed URLs and signed cookies for private content. CloudFront Functions and Lambda@Edge for request/response manipulation. Access logs to S3. Integration with WAF and Shield for edge protection. CORS headers configuration (Domain 3 edge security).</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3, 1\n\nGlobal CDN. Origin Access Control (OAC) for S3 \u2014 replaces legacy OAI. TLS/SSL certificate management via ACM. Custom headers for origin validation. Field-level encryption for sensitive form data. Geo-restriction. Signed URLs and signed cookies for private content. CloudFront Functions and Lambda@Edge for request/response manipulation. Access logs to S3. Integration with WAF and Shield for edge protection. CORS headers configuration (Domain 3 edge security).",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-route53",
+      "nodeId": "route53",
+      "content": "<p><strong>Domains: 3, 1</strong><br><br>DNS service with DNSSEC signing for domain integrity. Health checks and DNS failover. Routing policies: simple, weighted, latency, failover, geolocation, geoproximity, multivalue. Resolver DNS Firewall \u2014 block DNS queries to known-bad domains (data exfiltration prevention). Resolver query logging \u2014 critical log source for Domain 1 detection. Transit gateway flow logs capture cross-VPC DNS traffic.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3, 1\n\nDNS service with DNSSEC signing for domain integrity. Health checks and DNS failover. Routing policies: simple, weighted, latency, failover, geolocation, geoproximity, multivalue. Resolver DNS Firewall \u2014 block DNS queries to known-bad domains (data exfiltration prevention). Resolver query logging \u2014 critical log source for Domain 1 detection. Transit gateway flow logs capture cross-VPC DNS traffic.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-elb",
+      "nodeId": "elb",
+      "content": "<p><strong>Domains: 3, 5</strong><br><br>ALB (Layer 7): WAF integration, OIDC authentication, access logs, redirect HTTP\u2192HTTPS. NLB (Layer 4): TLS termination, static IPs, preserves source IP. Security policies control TLS cipher suites (Domain 5 \u2014 data in transit). Access logs to S3 for analysis. Target group health checks. Mutual TLS (mTLS) with ACM Private CA.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3, 5\n\nALB (Layer 7): WAF integration, OIDC authentication, access logs, redirect HTTP\u2192HTTPS. NLB (Layer 4): TLS termination, static IPs, preserves source IP. Security policies control TLS cipher suites (Domain 5 \u2014 data in transit). Access logs to S3 for analysis. Target group health checks. Mutual TLS (mTLS) with ACM Private CA.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-network-firewall",
+      "nodeId": "network-firewall",
+      "content": "<p><strong>Domains: 3</strong><br><br>Managed stateful firewall for VPCs. Layer 3-7 filtering. Suricata-compatible IDS/IPS rules. Deep packet inspection. TLS inspection for encrypted traffic. Centralize via Firewall Manager across accounts. Deployed in dedicated firewall subnets. Alert and flow logs to S3, CloudWatch, Kinesis. North/south (internet) and east/west (inter-VPC) traffic protection.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3\n\nManaged stateful firewall for VPCs. Layer 3-7 filtering. Suricata-compatible IDS/IPS rules. Deep packet inspection. TLS inspection for encrypted traffic. Centralize via Firewall Manager across accounts. Deployed in dedicated firewall subnets. Alert and flow logs to S3, CloudWatch, Kinesis. North/south (internet) and east/west (inter-VPC) traffic protection.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-direct-connect",
+      "nodeId": "direct-connect",
+      "content": "<p><strong>Domains: 3, 5</strong><br><br>Dedicated private network connection to AWS. Does NOT encrypt by default. MACsec (Layer 2 encryption) for dedicated connections \u2014 new emphasis in C03. Virtual interfaces: private VIF (VPC), public VIF (public AWS services), transit VIF (Transit Gateway). Combine with VPN for encrypted overlay. Domain 5: secure connectivity for data in transit.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3, 5\n\nDedicated private network connection to AWS. Does NOT encrypt by default. MACsec (Layer 2 encryption) for dedicated connections \u2014 new emphasis in C03. Virtual interfaces: private VIF (VPC), public VIF (public AWS services), transit VIF (Transit Gateway). Combine with VPN for encrypted overlay. Domain 5: secure connectivity for data in transit.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-vpn",
+      "nodeId": "vpn",
+      "content": "<p><strong>Domains: 3, 5</strong><br><br>Site-to-Site VPN: IPSec tunnels over internet to VPC or Transit Gateway. Client VPN: OpenVPN-based remote access with AD/SAML authentication. Domain 5: encrypted private connectivity (PrivateLink, VPC endpoints as alternatives). Accelerated Site-to-Site VPN uses Global Accelerator for improved performance.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3, 5\n\nSite-to-Site VPN: IPSec tunnels over internet to VPC or Transit Gateway. Client VPN: OpenVPN-based remote access with AD/SAML authentication. Domain 5: encrypted private connectivity (PrivateLink, VPC endpoints as alternatives). Accelerated Site-to-Site VPN uses Global Accelerator for improved performance.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-transit-gateway",
+      "nodeId": "transit-gateway",
+      "content": "<p><strong>Domains: 3</strong><br><br>Hub-and-spoke network connectivity. Route tables for network segmentation between VPCs. Transit gateway flow logs for network monitoring. Peering across Regions. Integrates with Network Firewall for centralized inspection. Domain 3: network segmentation based on security requirements (north/south, east/west).</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3\n\nHub-and-spoke network connectivity. Route tables for network segmentation between VPCs. Transit gateway flow logs for network monitoring. Peering across Regions. Integrates with Network Firewall for centralized inspection. Domain 3: network segmentation based on security requirements (north/south, east/west).",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-verified-access",
+      "nodeId": "verified-access",
+      "content": "<p><strong>Domains: 3, 5</strong><br><br>Zero-trust network access to applications WITHOUT a VPN. Verifies user identity (via IAM Identity Center, OIDC) AND device posture before granting access. New emphasis in C03 \u2014 appears in Domain 3 (network security) and Domain 5 (secure private access). Replaces traditional VPN for application access in many scenarios.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3, 5\n\nZero-trust network access to applications WITHOUT a VPN. Verifies user identity (via IAM Identity Center, OIDC) AND device posture before granting access. New emphasis in C03 \u2014 appears in Domain 3 (network security) and Domain 5 (secure private access). Replaces traditional VPN for application access in many scenarios.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-network-access-analyzer",
+      "nodeId": "network-access-analyzer",
+      "content": "<p><strong>Domains: 3</strong><br><br>Identifies unintended network access to resources in your VPCs. Evaluates security groups, NACLs, route tables, VPC peering, and VPN connections. New in C03 \u2014 Domain 3 troubleshooting (Skill 3.3.5).</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3\n\nIdentifies unintended network access to resources in your VPCs. Evaluates security groups, NACLs, route tables, VPC peering, and VPN connections. New in C03 \u2014 Domain 3 troubleshooting (Skill 3.3.5).",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-ec2",
+      "nodeId": "ec2",
+      "content": "<p><strong>Domains: 2, 3</strong><br><br>Core compute. Security focus areas: IMDSv2 enforcement (prevent SSRF metadata theft), instance profiles for IAM roles (never embed credentials), Nitro Enclaves for confidential computing, Nitro encryption for inter-node traffic (new C03 topic). EC2 Image Builder for hardened AMI pipelines. EC2 Instance Connect for secure SSH without key management. Domain 2: isolate compromised instances (swap security group), snapshot EBS for forensics. Domain 3: compute hardening, vulnerability scanning, patch management.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 2, 3\n\nCore compute. Security focus areas: IMDSv2 enforcement (prevent SSRF metadata theft), instance profiles for IAM roles (never embed credentials), Nitro Enclaves for confidential computing, Nitro encryption for inter-node traffic (new C03 topic). EC2 Image Builder for hardened AMI pipelines. EC2 Instance Connect for secure SSH without key management. Domain 2: isolate compromised instances (swap security group), snapshot EBS for forensics. Domain 3: compute hardening, vulnerability scanning, patch management.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-iot-core",
+      "nodeId": "iot-core",
+      "content": "<p><strong>Domains: 3</strong><br><br>IoT device connectivity. IoT policies control device permissions. X.509 certificate-based authentication. Domain 3 Skill 3.1.2 \u2014 edge security with IoT policies.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3\n\nIoT device connectivity. IoT policies control device permissions. X.509 certificate-based authentication. Domain 3 Skill 3.1.2 \u2014 edge security with IoT policies.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-firewall-manager",
+      "nodeId": "firewall-manager",
+      "content": "<p><strong>Domains: 3, 6</strong><br><br>Central policy management across accounts for: WAF rules, Shield Advanced protections, Network Firewall policies, security groups, Route 53 Resolver DNS Firewall rules. Requires Organizations. Auto-applies policies to new accounts/resources. Domain 6: secure deployment strategy. Domain 3: infrastructure security at scale.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3, 6\n\nCentral policy management across accounts for: WAF rules, Shield Advanced protections, Network Firewall policies, security groups, Route 53 Resolver DNS Firewall rules. Requires Organizations. Auto-applies policies to new accounts/resources. Domain 6: secure deployment strategy. Domain 3: infrastructure security at scale.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-control-tower",
+      "nodeId": "control-tower",
+      "content": "<p><strong>Domains: 6</strong><br><br>Automated landing zone setup. Guardrails: preventive (SCPs), detective (Config rules), proactive (CloudFormation hooks). Account Factory for standardized account provisioning. Optional and custom controls for organizational requirements. Manages log archive and audit accounts automatically. Domain 6 Skill 6.1.2 \u2014 implement in new AND existing environments.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 6\n\nAutomated landing zone setup. Guardrails: preventive (SCPs), detective (Config rules), proactive (CloudFormation hooks). Account Factory for standardized account provisioning. Optional and custom controls for organizational requirements. Manages log archive and audit accounts automatically. Domain 6 Skill 6.1.2 \u2014 implement in new AND existing environments.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-cloudformation",
+      "nodeId": "cloudformation",
+      "content": "<p><strong>Domains: 6</strong><br><br>Infrastructure as Code. StackSets deploy across multiple accounts/Regions. CloudFormation Guard: policy-as-code validation of templates. cfn-lint for template linting. Drift detection identifies manual changes. Nested stacks for modular templates. Domain 6 Skill 6.2.1 \u2014 secure, consistent, auditable deployments.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 6\n\nInfrastructure as Code. StackSets deploy across multiple accounts/Regions. CloudFormation Guard: policy-as-code validation of templates. cfn-lint for template linting. Drift detection identifies manual changes. Nested stacks for modular templates. Domain 6 Skill 6.2.1 \u2014 secure, consistent, auditable deployments.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-service-catalog",
+      "nodeId": "service-catalog",
+      "content": "<p><strong>Domains: 6</strong><br><br>Pre-approved CloudFormation templates as products. Portfolios shared across accounts. Launch constraints control which IAM role provisions resources. TagOption library enforces tagging. Self-service provisioning with governance. Domain 6 Skill 6.2.4 \u2014 securely share resources across accounts.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 6\n\nPre-approved CloudFormation templates as products. Portfolios shared across accounts. Launch constraints control which IAM role provisions resources. TagOption library enforces tagging. Self-service provisioning with governance. Domain 6 Skill 6.2.4 \u2014 securely share resources across accounts.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-ram",
+      "nodeId": "ram",
+      "content": "<p><strong>Domains: 6</strong><br><br>Share AWS resources across accounts without duplication. Shareable: subnets, Transit Gateways, Route 53 Resolver rules, License Manager configs, and more. Integration with Organizations for trusted sharing. Domain 6 Skill 6.2.4.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 6\n\nShare AWS resources across accounts without duplication. Shareable: subnets, Transit Gateways, Route 53 Resolver rules, License Manager configs, and more. Integration with Organizations for trusted sharing. Domain 6 Skill 6.2.4.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-audit-manager",
+      "nodeId": "audit-manager",
+      "content": "<p><strong>Domains: 6</strong><br><br>Continuously collects evidence for compliance audits. Pre-built frameworks: SOC 2, PCI DSS, HIPAA, GDPR, CIS, NIST, FedRAMP. Automated evidence from Config, CloudTrail, Security Hub. Manual evidence uploads. Assessment reports for auditors. Domain 6 Skill 6.3.2.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 6\n\nContinuously collects evidence for compliance audits. Pre-built frameworks: SOC 2, PCI DSS, HIPAA, GDPR, CIS, NIST, FedRAMP. Automated evidence from Config, CloudTrail, Security Hub. Manual evidence uploads. Assessment reports for auditors. Domain 6 Skill 6.3.2.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-artifact",
+      "nodeId": "artifact",
+      "content": "<p><strong>Domains: 6</strong><br><br>On-demand access to AWS compliance reports and agreements. SOC reports, PCI attestation, ISO certifications, BAAs (Business Associate Agreements for HIPAA). No technical configuration \u2014 purely documentation/evidence retrieval. Domain 6 Skill 6.3.2.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 6\n\nOn-demand access to AWS compliance reports and agreements. SOC reports, PCI attestation, ISO certifications, BAAs (Business Associate Agreements for HIPAA). No technical configuration \u2014 purely documentation/evidence retrieval. Domain 6 Skill 6.3.2.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-well-architected",
+      "nodeId": "well-architected",
+      "content": "<p><strong>Domains: 6</strong><br><br>Self-service review of architectures against AWS best practices. Security Pillar: IAM, detection, infrastructure protection, data protection, incident response. Generates improvement plans. Custom lenses for organizational standards. Domain 6 Skill 6.3.3 \u2014 evaluate architecture for compliance with security best practices.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 6\n\nSelf-service review of architectures against AWS best practices. Security Pillar: IAM, detection, infrastructure protection, data protection, incident response. Generates improvement plans. Custom lenses for organizational standards. Domain 6 Skill 6.3.3 \u2014 evaluate architecture for compliance with security best practices.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-ec2-image-builder",
+      "nodeId": "ec2-image-builder",
+      "content": "<p><strong>Domains: 3</strong><br><br>Automated AMI and container image build pipelines. Embed security controls: CIS hardening, patching, vulnerability scanning, custom components. Distributes images across accounts/Regions. Integrates with Inspector for scanning. Ensures compute workloads start from a known-good baseline.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3\n\nAutomated AMI and container image build pipelines. Embed security controls: CIS hardening, patching, vulnerability scanning, custom components. Distributes images across accounts/Regions. Integrates with Inspector for scanning. Ensures compute workloads start from a known-good baseline.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-ecr",
+      "nodeId": "ecr",
+      "content": "<p><strong>Domains: 3</strong><br><br>Container image registry. Basic and enhanced scanning (via Inspector) for vulnerabilities. Image signing for provenance verification. Lifecycle policies for image cleanup. Encryption at rest with KMS. Cross-account and cross-Region replication. Pull-through cache for public registries.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3\n\nContainer image registry. Basic and enhanced scanning (via Inspector) for vulnerabilities. Image signing for provenance verification. Lifecycle policies for image cleanup. Encryption at rest with KMS. Cross-account and cross-Region replication. Pull-through cache for public registries.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-dlm",
+      "nodeId": "dlm",
+      "content": "<p><strong>Domains: 5</strong><br><br>Automated EBS snapshot and AMI lifecycle policies. Schedule creation, retention, and cross-Region/cross-account copy of snapshots. Works alongside AWS Backup for complementary coverage. Domain 5 Skill 5.2.4.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 5\n\nAutomated EBS snapshot and AMI lifecycle policies. Schedule creation, retention, and cross-Region/cross-account copy of snapshots. Works alongside AWS Backup for complementary coverage. Domain 5 Skill 5.2.4.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-ebs",
+      "nodeId": "ebs",
+      "content": "<p><strong>Domains: 2, 5</strong><br><br>Block storage for EC2. Encryption at rest with KMS (default encryption settable per account/Region). Snapshots encrypted with same key. Cross-account snapshot sharing requires key policy grants. Domain 2: snapshot compromised volumes for forensic analysis before termination. Domain 5: encryption and lifecycle management.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 2, 5\n\nBlock storage for EC2. Encryption at rest with KMS (default encryption settable per account/Region). Snapshots encrypted with same key. Cross-account snapshot sharing requires key policy grants. Domain 2: snapshot compromised volumes for forensic analysis before termination. Domain 5: encryption and lifecycle management.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-q-developer",
+      "nodeId": "q-developer",
+      "content": "<p><strong>Domains: 3</strong><br><br>AI-powered code assistant with security scanning capabilities. Discovers and remediates vulnerabilities in CI/CD pipelines (Domain 3 Skill 3.2.6). Replaces Amazon CodeGuru Security for code analysis. New in C03.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3\n\nAI-powered code assistant with security scanning capabilities. Discovers and remediates vulnerabilities in CI/CD pipelines (Domain 3 Skill 3.2.6). Replaces Amazon CodeGuru Security for code analysis. New in C03.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-codeguru",
+      "nodeId": "codeguru",
+      "content": "<p><strong>Domains: 3</strong><br><br>Static application security testing (SAST) for code repositories. Detects security vulnerabilities, hardcoded secrets, and code quality issues. Domain 3 Skill 3.2.6 \u2014 discover and remediate vulnerabilities within a pipeline.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3\n\nStatic application security testing (SAST) for code repositories. Detects security vulnerabilities, hardcoded secrets, and code quality issues. Domain 3 Skill 3.2.6 \u2014 discover and remediate vulnerabilities within a pipeline.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-eks",
+      "nodeId": "eks",
+      "content": "<p><strong>Domains: 3, 5</strong><br><br>Managed Kubernetes. Pod security standards, RBAC, IRSA (IAM Roles for Service Accounts). GuardDuty EKS audit log monitoring and runtime monitoring. Inter-node encryption in transit (Domain 5 Skill 5.1.3). ECR for container images. Inspector for container vulnerability scanning.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 3, 5\n\nManaged Kubernetes. Pod security standards, RBAC, IRSA (IAM Roles for Service Accounts). GuardDuty EKS audit log monitoring and runtime monitoring. Inter-node encryption in transit (Domain 5 Skill 5.1.3). ECR for container images. Inspector for container vulnerability scanning.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-emr",
+      "nodeId": "emr",
+      "content": "<p><strong>Domains: 5</strong><br><br>Big data processing. Security: Kerberos authentication, encryption in transit (TLS) between nodes, encryption at rest with KMS. Lake Formation integration for fine-grained access. Domain 5 Skill 5.1.3 \u2014 inter-resource encryption in transit.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 5\n\nBig data processing. Security: Kerberos authentication, encryption in transit (TLS) between nodes, encryption at rest with KMS. Lake Formation integration for fine-grained access. Domain 5 Skill 5.1.3 \u2014 inter-resource encryption in transit.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-identity-center",
+      "nodeId": "identity-center",
+      "content": "<p><strong>Domains: 4</strong><br><br>Centralized SSO across all AWS accounts in your Organization. Permission sets define what users can do in each account. Federation with external IdPs via SAML 2.0 and OIDC. Built-in identity store or connect to AD. Troubleshooting: permission sets, user/group assignments, session duration (Domain 4 Skill 4.1.3). Integrates with Verified Access for zero-trust application access.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 4\n\nCentralized SSO across all AWS accounts in your Organization. Permission sets define what users can do in each account. Federation with external IdPs via SAML 2.0 and OIDC. Built-in identity store or connect to AD. Troubleshooting: permission sets, user/group assignments, session duration (Domain 4 Skill 4.1.3). Integrates with Verified Access for zero-trust application access.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-cognito",
+      "nodeId": "cognito",
+      "content": "<p><strong>Domains: 4</strong><br><br>User Pools: application-level authentication with sign-up/sign-in, MFA, password policies, hosted UI, Lambda triggers for customization. Federation with social and SAML IdPs. Identity Pools: federated access to AWS resources (S3, DynamoDB, API Gateway). Token-based auth (ID token, access token, refresh token). Troubleshooting auth issues (Domain 4 Skill 4.1.3). WAF integration for bot protection.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 4\n\nUser Pools: application-level authentication with sign-up/sign-in, MFA, password policies, hosted UI, Lambda triggers for customization. Federation with social and SAML IdPs. Identity Pools: federated access to AWS resources (S3, DynamoDB, API Gateway). Token-based auth (ID token, access token, refresh token). Troubleshooting auth issues (Domain 4 Skill 4.1.3). WAF integration for bot protection.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-sts",
+      "nodeId": "sts",
+      "content": "<p><strong>Domains: 4</strong><br><br>Issues temporary security credentials. Key API calls: AssumeRole (cross-account), AssumeRoleWithSAML (enterprise federation), AssumeRoleWithWebIdentity (web/mobile apps), GetSessionToken (MFA-protected API access), GetFederationToken. Session policies scope down assumed role permissions. Trust policies on roles control WHO can assume them. S3 presigned URLs use STS credentials for time-limited object access.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 4\n\nIssues temporary security credentials. Key API calls: AssumeRole (cross-account), AssumeRoleWithSAML (enterprise federation), AssumeRoleWithWebIdentity (web/mobile apps), GetSessionToken (MFA-protected API access), GetFederationToken. Session policies scope down assumed role permissions. Trust policies on roles control WHO can assume them. S3 presigned URLs use STS credentials for time-limited object access.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-directory-service",
+      "nodeId": "directory-service",
+      "content": "<p><strong>Domains: 4</strong><br><br>Managed Microsoft Active Directory for hybrid environments. AD Connector: proxy for on-prem AD (no data replicated to cloud). Simple AD: basic AD-compatible directory. Managed Microsoft AD: full Windows AD, trust relationships with on-prem. Integration with IAM Identity Center, Amazon RDS, WorkSpaces, FSx. Domain 4 Skill 4.1.3 troubleshooting.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 4\n\nManaged Microsoft Active Directory for hybrid environments. AD Connector: proxy for on-prem AD (no data replicated to cloud). Simple AD: basic AD-compatible directory. Managed Microsoft AD: full Windows AD, trust relationships with on-prem. Integration with IAM Identity Center, Amazon RDS, WorkSpaces, FSx. Domain 4 Skill 4.1.3 troubleshooting.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-verified-permissions",
+      "nodeId": "verified-permissions",
+      "content": "<p><strong>Domains: 4</strong><br><br>Fine-grained authorization for custom applications using Cedar policy language. Centralized policy store. Evaluates authorization requests against policies. New in C03 \u2014 Domain 4 Skill 4.2.1. Decouples authorization logic from application code. Schema-based policy validation. Integrates with Cognito for identity tokens.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 4\n\nFine-grained authorization for custom applications using Cedar policy language. Centralized policy store. Evaluates authorization requests against policies. New in C03 \u2014 Domain 4 Skill 4.2.1. Decouples authorization logic from application code. Schema-based policy validation. Integrates with Cognito for identity tokens.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-iam-roles-anywhere",
+      "nodeId": "iam-roles-anywhere",
+      "content": "<p><strong>Domains: 4</strong><br><br>Extends IAM roles to workloads outside AWS using X.509 certificates. On-prem servers, IoT devices, and other external systems can obtain temporary AWS credentials. Trust anchors use ACM Private CA or external CAs. New in C03 \u2014 Domain 4 Skill 4.2.1 authorization controls.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 4\n\nExtends IAM roles to workloads outside AWS using X.509 certificates. On-prem servers, IoT devices, and other external systems can obtain temporary AWS credentials. Trust anchors use ACM Private CA or external CAs. New in C03 \u2014 Domain 4 Skill 4.2.1 authorization controls.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-cloudhsm",
+      "nodeId": "cloudhsm",
+      "content": "<p><strong>Domains: 5</strong><br><br>Dedicated hardware security modules in AWS cloud. FIPS 140-2 Level 3 validated. You control the keys \u2014 AWS has NO access (unlike KMS where AWS manages infrastructure). Use cases: regulatory requirements for dedicated HSMs, custom key stores for KMS, SSL/TLS offloading, Oracle TDE, code signing. Cluster of 2+ HSMs for HA. VPC-based deployment. Can back a KMS custom key store for envelope encryption pattern with CloudHSM-held root keys.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 5\n\nDedicated hardware security modules in AWS cloud. FIPS 140-2 Level 3 validated. You control the keys \u2014 AWS has NO access (unlike KMS where AWS manages infrastructure). Use cases: regulatory requirements for dedicated HSMs, custom key stores for KMS, SSL/TLS offloading, Oracle TDE, code signing. Cluster of 2+ HSMs for HA. VPC-based deployment. Can back a KMS custom key store for envelope encryption pattern with CloudHSM-held root keys.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-acm",
+      "nodeId": "acm",
+      "content": "<p><strong>Domains: 5</strong><br><br>Provisions and manages TLS/SSL certificates. Free public certificates with auto-renewal. Automatic deployment to CloudFront, ELB, API Gateway. DNS or email validation. Cannot export ACM-managed private keys (enforces AWS-managed lifecycle). For private CAs or on-prem use \u2192 AWS Private Certificate Authority.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 5\n\nProvisions and manages TLS/SSL certificates. Free public certificates with auto-renewal. Automatic deployment to CloudFront, ELB, API Gateway. DNS or email validation. Cannot export ACM-managed private keys (enforces AWS-managed lifecycle). For private CAs or on-prem use \u2192 AWS Private Certificate Authority.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-private-ca",
+      "nodeId": "private-ca",
+      "content": "<p><strong>Domains: 5</strong><br><br>Managed private CA for issuing private certificates. Mutual TLS (mTLS), code signing, IoT device certificates. Multi-Region support for cross-Region private certificates (new C03 Skill 5.3.5). Integrates with IAM Roles Anywhere for on-prem workload authentication. Hierarchical CA structure (root + subordinate).</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 5\n\nManaged private CA for issuing private certificates. Mutual TLS (mTLS), code signing, IoT device certificates. Multi-Region support for cross-Region private certificates (new C03 Skill 5.3.5). Integrates with IAM Roles Anywhere for on-prem workload authentication. Hierarchical CA structure (root + subordinate).",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-secrets-manager",
+      "nodeId": "secrets-manager",
+      "content": "<p><strong>Domains: 5</strong><br><br>Manages database credentials, API keys, OAuth tokens, and other secrets. Automatic rotation using Lambda functions (built-in for RDS, Redshift, DocumentDB). Cross-account sharing via resource policies. Encryption with KMS. Versioning (AWSCURRENT, AWSPREVIOUS, AWSPENDING). Domain 5 Skill 5.3.1 \u2014 credential management and rotation strategy.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 5\n\nManages database credentials, API keys, OAuth tokens, and other secrets. Automatic rotation using Lambda functions (built-in for RDS, Redshift, DocumentDB). Cross-account sharing via resource policies. Encryption with KMS. Versioning (AWSCURRENT, AWSPREVIOUS, AWSPENDING). Domain 5 Skill 5.3.1 \u2014 credential management and rotation strategy.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-parameter-store",
+      "nodeId": "parameter-store",
+      "content": "<p><strong>Domains: 5</strong><br><br>Hierarchical configuration store. Standard and Advanced tiers. SecureString parameters encrypted with KMS. Free for standard parameters. Versioning and labels. Policies for expiration notifications. vs Secrets Manager: no built-in rotation (need custom Lambda), no cross-account sharing, but free, supports hierarchies, and integrates natively with CloudFormation/SSM.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 5\n\nHierarchical configuration store. Standard and Advanced tiers. SecureString parameters encrypted with KMS. Free for standard parameters. Versioning and labels. Policies for expiration notifications. vs Secrets Manager: no built-in rotation (need custom Lambda), no cross-account sharing, but free, supports hierarchies, and integrates natively with CloudFormation/SSM.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-backup",
+      "nodeId": "backup",
+      "content": "<p><strong>Domains: 5</strong><br><br>Centralized backup management across EC2, EBS, RDS, DynamoDB, EFS, FSx, S3, and more. Backup plans with schedules and lifecycle rules. Backup vaults with access policies and vault lock (WORM). Cross-account and cross-Region backup copies. Ransomware protection: immutable backups via vault lock. Domain 5 Skill 5.2.4 \u2014 secure data replication and backup.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 5\n\nCentralized backup management across EC2, EBS, RDS, DynamoDB, EFS, FSx, S3, and more. Backup plans with schedules and lifecycle rules. Backup vaults with access policies and vault lock (WORM). Cross-account and cross-Region backup copies. Ransomware protection: immutable backups via vault lock. Domain 5 Skill 5.2.4 \u2014 secure data replication and backup.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-datasync",
+      "nodeId": "datasync",
+      "content": "<p><strong>Domains: 5</strong><br><br>Automated data transfer between on-prem storage and AWS (S3, EFS, FSx). Encryption in transit (TLS). Bandwidth throttling. File integrity verification. New in C03 \u2014 Domain 5 Skill 5.2.4 (secure data replication).</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 5\n\nAutomated data transfer between on-prem storage and AWS (S3, EFS, FSx). Encryption in transit (TLS). Bandwidth throttling. File integrity verification. New in C03 \u2014 Domain 5 Skill 5.2.4 (secure data replication).",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    },
+    {
+      "id": "note-efs",
+      "nodeId": "efs",
+      "content": "<p><strong>Domains: 5</strong><br><br>Managed NFS file system. Encryption at rest (KMS) and in transit (TLS mount helper). IAM authorization and POSIX permissions for access control. EFS Lifecycle policies for cost optimization (IA storage class). EFS access points for application-specific entry points with enforced UID/GID.</p>",
+      "contentType": "tiptap",
+      "plainText": "Domains: 5\n\nManaged NFS file system. Encryption at rest (KMS) and in transit (TLS mount helper). IAM authorization and POSIX permissions for access control. EFS Lifecycle policies for cost optimization (IA storage class). EFS access points for application-specific entry points with enforced UID/GID.",
+      "tags": [],
+      "isPinned": false,
+      "createdAt": "2026-02-19T10:19:45.000Z",
+      "updatedAt": "2026-02-19T10:19:45.000Z"
+    }
+  ],
+  "exportedAt": "2026-02-19T10:19:45.577Z"
+}
