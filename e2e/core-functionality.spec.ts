@@ -9,7 +9,7 @@ test.describe('Mind Map Core Functionality', () => {
   test('should render canvas and toolbar', async ({ page }) => {
     // Basic smoke test - app loads without crashing
     await expect(page.locator('[data-testid="toolbar"]')).toBeVisible();
-    await expect(page.locator('svg')).toHaveCount(9); // 1 back arrow + 1 layout dropdown + 1 background selector + 3 toolbar buttons + 1 search + 1 help guide + 1 main canvas
+    await expect(page.locator('svg')).toHaveCount(9); // 1 back arrow + 1 layout dropdown + 1 background selector + 1 export dropdown + 2 toolbar buttons + 1 search + 1 help guide + 1 main canvas
   });
 
   test('should have initial nodes', async ({ page }) => {
@@ -35,7 +35,7 @@ test.describe('Mind Map Core Functionality', () => {
     await expect(initialNodes).toHaveCount(initialCount + 1);
   });
 
-  test('should export JSON', async ({ page }) => {
+  test('should export JSON via dropdown', async ({ page }) => {
     // Core export functionality - create some nodes first
     const rootNode = page.locator('[data-testid="mind-map-node"]').first();
     await rootNode.hover();
@@ -44,8 +44,13 @@ test.describe('Mind Map Core Functionality', () => {
     await addButton.click();
     await page.waitForTimeout(500);
 
+    // Open export dropdown
+    await page.click('button[title="Export mind map"]');
+    await page.waitForTimeout(200);
+
     const downloadPromise = page.waitForEvent('download');
-    await page.click('button[title="Export as JSON"]');
+    // Click the JSON option in the dropdown
+    await page.getByText('JSON').click();
     const download = await downloadPromise;
 
     expect(download.suggestedFilename()).toMatch(/mindmap-\d+\.json/);
@@ -57,11 +62,11 @@ test.describe('Mind Map Core Functionality', () => {
 
     // Check all essential buttons are visible and clickable
     await expect(toolbar.locator('button[title="Fit all nodes in viewport"]')).toBeVisible();
-    await expect(toolbar.locator('button[title="Export as JSON"]')).toBeVisible();
+    await expect(toolbar.locator('button[title="Export mind map"]')).toBeVisible();
     await expect(toolbar.locator('button[title="Import JSON data"]')).toBeVisible();
 
     // Test toolbar buttons are clickable
-    await toolbar.locator('button[title="Export as JSON"]').click({ trial: true });
+    await toolbar.locator('button[title="Export mind map"]').click({ trial: true });
 
     // Should have loaded nodes
     const nodes = page.locator('[data-testid="mind-map-node"]');

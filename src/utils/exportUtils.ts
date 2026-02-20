@@ -1,4 +1,6 @@
 import type { MindMapState, Node, NodeNote } from '../types';
+import { prepareSVGForExport } from './svgExportUtils';
+import type { CanvasBackground } from '../components/BackgroundSelector';
 
 export const exportToJSON = (state: MindMapState, notes?: Map<string, NodeNote>, onSuccess?: () => void): void => {
   try {
@@ -38,6 +40,113 @@ export const exportToJSON = (state: MindMapState, notes?: Map<string, NodeNote>,
   }
 };
 
+
+type BBox = { x: number; y: number; width: number; height: number };
+
+export function exportToSVG(
+  svgEl: SVGSVGElement,
+  bbox: BBox,
+  canvasBackground: CanvasBackground,
+  onSuccess?: () => void
+): void {
+  const { svgString } = prepareSVGForExport(svgEl, bbox, canvasBackground);
+  const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `mindmap-${Date.now()}.svg`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  onSuccess?.();
+}
+
+export async function exportToPNG(
+  svgEl: SVGSVGElement,
+  bbox: BBox,
+  canvasBackground: CanvasBackground,
+  onSuccess?: () => void
+): Promise<void> {
+  const scale = 2;
+  const { svgString, width, height } = prepareSVGForExport(svgEl, bbox, canvasBackground);
+  const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+  const svgUrl = URL.createObjectURL(svgBlob);
+
+  return new Promise<void>((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = width * scale;
+      canvas.height = height * scale;
+      const ctx = canvas.getContext('2d')!;
+      ctx.scale(scale, scale);
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(svgUrl);
+
+      canvas.toBlob((blob) => {
+        if (!blob) { reject(new Error('Canvas toBlob returned null')); return; }
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `mindmap-${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        onSuccess?.();
+        resolve();
+      }, 'image/png');
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(svgUrl);
+      reject(new Error('Failed to load SVG for PNG rasterization'));
+    };
+    img.src = svgUrl;
+  });
+}
+
+export async function exportToPDF(
+  svgEl: SVGSVGElement,
+  bbox: BBox,
+  canvasBackground: CanvasBackground,
+  onSuccess?: () => void
+): Promise<void> {
+  const scale = 2;
+  const { svgString, width, height } = prepareSVGForExport(svgEl, bbox, canvasBackground);
+  const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+  const svgUrl = URL.createObjectURL(svgBlob);
+
+  const pngDataUrl = await new Promise<string>((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = width * scale;
+      canvas.height = height * scale;
+      const ctx = canvas.getContext('2d')!;
+      ctx.scale(scale, scale);
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(svgUrl);
+      resolve(canvas.toDataURL('image/png'));
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(svgUrl);
+      reject(new Error('Failed to load SVG for PDF rasterization'));
+    };
+    img.src = svgUrl;
+  });
+
+  const { jsPDF } = await import('jspdf');
+  const orientation = width > height ? 'landscape' : 'portrait';
+  const pxToMm = (px: number) => (px * 25.4) / 96;
+  const docW = pxToMm(width);
+  const docH = pxToMm(height);
+
+  const doc = new jsPDF({ orientation, unit: 'mm', format: [docW, docH] });
+  doc.addImage(pngDataUrl, 'PNG', 0, 0, docW, docH);
+  doc.save(`mindmap-${Date.now()}.pdf`);
+  onSuccess?.();
+}
 
 export interface ImportResult {
   state: MindMapState;

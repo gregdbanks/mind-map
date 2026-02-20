@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import * as d3 from 'd3';
 import { useNavigate } from 'react-router-dom';
 import { useMindMap } from '../../context/MindMapContext';
@@ -20,6 +20,7 @@ import type { ForceNode, ForceLink } from '../../utils/forceDirectedLayout';
 import { getAllConnectedNodes } from '../../utils/getNodeDescendants';
 import { NotesModal } from '../NotesModal';
 import { HelpGuideModal } from '../HelpGuideModal';
+import { ExportSelector } from '../ExportSelector';
 import type { NodeNote } from '../../types';
 import { useMapNotes } from '../../hooks/useMapNotes';
 import { v4 as uuidv4 } from 'uuid';
@@ -199,6 +200,14 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     setCanvasBackground(bg);
     saveCanvasBackground(bg);
   };
+
+  // Provide bounding box of the main group for export
+  const getMainGroupBBox = useCallback(() => {
+    const node = gRef.current?.node();
+    if (!node) return null;
+    const bbox = node.getBBox();
+    return { x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height };
+  }, []);
 
   // Handle layout changes
   const handleLayoutChange = (newLayout: LayoutType) => {
@@ -1512,15 +1521,14 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           </svg>
         </button>
         
-        <button 
-          className={styles.iconButton}
-          onClick={() => exportToJSON(state, notes, markClean)}
-          title="Export as JSON"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-          </svg>
-        </button>
+        <ExportSelector
+          svgRef={svgRef}
+          getMainGroupBBox={getMainGroupBBox}
+          canvasBackground={canvasBackground}
+          state={state}
+          notes={notes}
+          onExportSuccess={markClean}
+        />
         
         
         <button
