@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiArrowLeft, FiCheck } from 'react-icons/fi';
+import { FiArrowLeft, FiCheck, FiShare2 } from 'react-icons/fi';
 import { useMapTitle } from '../../hooks/useMapTitle';
+import { useAuth } from '../../context/AuthContext';
+import { ShareModal } from '../ShareModal/ShareModal';
 import styles from './EditorHeader.module.css';
 
 export type SaveStatus = 'idle' | 'saving' | 'saved' | 'syncing' | 'synced' | 'sync-error' | 'offline';
@@ -13,9 +15,11 @@ interface EditorHeaderProps {
 
 export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus }) => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const { title, loading: titleLoading, rename } = useMapTitle(mapId);
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState('');
+  const [showShareModal, setShowShareModal] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -54,61 +58,78 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus })
   const showStatus = saveStatus !== 'idle';
 
   return (
-    <div className={styles.header}>
-      <button
-        className={styles.backButton}
-        onClick={() => navigate('/')}
-        title="Back to Dashboard"
-        aria-label="Back to Dashboard"
-      >
-        <FiArrowLeft size={18} />
-      </button>
+    <>
+      <div className={styles.header}>
+        <button
+          className={styles.backButton}
+          onClick={() => navigate('/')}
+          title="Back to Dashboard"
+          aria-label="Back to Dashboard"
+        >
+          <FiArrowLeft size={18} />
+        </button>
 
-      <div className={styles.titleSection}>
-        {titleLoading ? null : isEditing ? (
-          <input
-            ref={inputRef}
-            className={styles.titleInput}
-            value={editValue}
-            onChange={(e) => setEditValue(e.target.value)}
-            onBlur={handleSave}
-            onKeyDown={handleKeyDown}
-          />
-        ) : (
-          <span
-            className={styles.title}
-            onClick={handleStartEdit}
-            title="Click to rename"
+        <div className={styles.titleSection}>
+          {titleLoading ? null : isEditing ? (
+            <input
+              ref={inputRef}
+              className={styles.titleInput}
+              value={editValue}
+              onChange={(e) => setEditValue(e.target.value)}
+              onBlur={handleSave}
+              onKeyDown={handleKeyDown}
+            />
+          ) : (
+            <span
+              className={styles.title}
+              onClick={handleStartEdit}
+              title="Click to rename"
+            >
+              {title}
+            </span>
+          )}
+        </div>
+
+        <div
+          className={`${styles.saveStatus} ${showStatus ? styles.saveStatusVisible : styles.saveStatusHidden}`}
+        >
+          {saveStatus === 'saving' && <span>Saving...</span>}
+          {saveStatus === 'saved' && (
+            <>
+              <FiCheck size={14} className={styles.checkIcon} />
+              <span>Saved locally</span>
+            </>
+          )}
+          {saveStatus === 'syncing' && <span>Syncing...</span>}
+          {saveStatus === 'synced' && (
+            <>
+              <FiCheck size={14} className={styles.cloudCheckIcon} />
+              <span>Synced</span>
+            </>
+          )}
+          {saveStatus === 'sync-error' && (
+            <span className={styles.syncError}>Cloud sync failed</span>
+          )}
+          {saveStatus === 'offline' && (
+            <span className={styles.offlineStatus}>Offline — saved locally</span>
+          )}
+        </div>
+
+        {isAuthenticated && (
+          <button
+            className={styles.shareButton}
+            onClick={() => setShowShareModal(true)}
+            title="Share"
+            aria-label="Share mind map"
           >
-            {title}
-          </span>
+            <FiShare2 size={16} />
+          </button>
         )}
       </div>
 
-      <div
-        className={`${styles.saveStatus} ${showStatus ? styles.saveStatusVisible : styles.saveStatusHidden}`}
-      >
-        {saveStatus === 'saving' && <span>Saving...</span>}
-        {saveStatus === 'saved' && (
-          <>
-            <FiCheck size={14} className={styles.checkIcon} />
-            <span>Saved locally</span>
-          </>
-        )}
-        {saveStatus === 'syncing' && <span>Syncing...</span>}
-        {saveStatus === 'synced' && (
-          <>
-            <FiCheck size={14} className={styles.cloudCheckIcon} />
-            <span>Synced</span>
-          </>
-        )}
-        {saveStatus === 'sync-error' && (
-          <span className={styles.syncError}>Cloud sync failed</span>
-        )}
-        {saveStatus === 'offline' && (
-          <span className={styles.offlineStatus}>Offline — saved locally</span>
-        )}
-      </div>
-    </div>
+      {showShareModal && (
+        <ShareModal mapId={mapId} onClose={() => setShowShareModal(false)} />
+      )}
+    </>
   );
 };

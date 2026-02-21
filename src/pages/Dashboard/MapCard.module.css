@@ -144,3 +144,11 @@
   background: rgba(99, 102, 241, 0.15);
   color: #818cf8;
 }
+
+.syncBadgeShared {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+}
