@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: thoughtnet-db
+    environment:
+      POSTGRES_USER: thoughtnet
+      POSTGRES_PASSWORD: thoughtnet_local
+      POSTGRES_DB: thoughtnet
+    ports:
+      - '5433:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./server/src/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U thoughtnet']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: thoughtnet-api
+    environment:
+      NODE_ENV: development
+      PORT: '4001'
+      PG_URI: postgres://thoughtnet:thoughtnet_local@postgres:5432/thoughtnet
+      COGNITO_USER_POOL_ID: us-east-1_twFVbF8LP
+      COGNITO_CLIENT_ID: 7stqb9j40tmd7nkv0gt3kvvgqt
+      LOCAL_AUTH_BYPASS: 'true'
+    ports:
+      - '4001:4001'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./server/src:/usr/src/app/src
+    command: npm run dev
+
+volumes:
+  pgdata:
