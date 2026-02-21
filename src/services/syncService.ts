@@ -2,7 +2,7 @@ import { apiClient, ApiError } from './apiClient';
 import { getDatabase } from './database';
 import type { Node, Link, MapMetadata } from '../types/mindMap';
 import type { NodeNote } from '../types/notes';
-import type { CloudMapData, CloudMapMeta, SerializedNote } from '../types/sync';
+import type { CloudMapData, CloudMapMeta, CloudMapListResponse, SerializedNote } from '../types/sync';
 
 // In-flight lock to prevent concurrent pushes of the same map
 const inFlightPushes = new Set<string>();
@@ -128,8 +128,8 @@ export async function pushMapToCloud(mapId: string): Promise<CloudMapMeta> {
   }
 }
 
-/** Fetch all cloud maps and return metadata array */
-export async function pullCloudMapList(): Promise<CloudMapMeta[]> {
+/** Fetch all cloud maps and return the full response (maps + plan info) */
+export async function pullCloudMapList(): Promise<CloudMapListResponse> {
   return apiClient.getMaps();
 }
 

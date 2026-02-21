@@ -1,5 +1,6 @@
 import { cognitoService } from './cognitoService';
-import type { CloudMapMeta, CloudMapFull, CreateMapPayload, UpdateMapPayload } from '../types/sync';
+import type { CloudMapMeta, CloudMapFull, CreateMapPayload, UpdateMapPayload, CloudMapListResponse } from '../types/sync';
+import type { ShareInfo, ShareStatus } from '../types/sharing';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
@@ -91,7 +92,7 @@ async function request<T>(options: RequestOptions): Promise<T> {
 
 export const apiClient = {
   getMaps: () =>
-    request<CloudMapMeta[]>({ method: 'GET', path: '/mindmaps' }),
+    request<CloudMapListResponse>({ method: 'GET', path: '/mindmaps' }),
 
   getMap: (id: string) =>
     request<CloudMapFull>({ method: 'GET', path: `/mindmaps/${id}` }),
@@ -104,4 +105,38 @@ export const apiClient = {
 
   deleteMap: (id: string) =>
     request<void>({ method: 'DELETE', path: `/mindmaps/${id}` }),
+
+  // Sharing
+  getShareStatus: (id: string) =>
+    request<ShareStatus>({ method: 'GET', path: `/mindmaps/${id}/share` }),
+
+  shareMap: (id: string) =>
+    request<ShareInfo>({ method: 'POST', path: `/mindmaps/${id}/share` }),
+
+  unshareMap: (id: string) =>
+    request<void>({ method: 'DELETE', path: `/mindmaps/${id}/share` }),
+
+  // Stripe / Plan
+  createCheckout: (priceId: string) =>
+    request<{ url: string }>({ method: 'POST', path: '/stripe/create-checkout', body: { priceId } }),
+
+  createPortal: () =>
+    request<{ url: string }>({ method: 'POST', path: '/stripe/create-portal' }),
+
+  getPlanStatus: () =>
+    request<{ plan: string; mapCount: number; mapLimit: number | null; hasStripeCustomer: boolean; monthlyPriceId: string; annualPriceId: string }>({ method: 'GET', path: '/stripe/status' }),
+
+  // Public map (no auth required)
+  getPublicMap: async (shareToken: string) => {
+    const url = `${API_BASE_URL}/public/maps/${shareToken}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new ApiError(
+        `HTTP ${response.status}`,
+        response.status,
+        await response.json().catch(() => null)
+      );
+    }
+    return response.json();
+  },
 };

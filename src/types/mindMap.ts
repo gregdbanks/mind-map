@@ -48,6 +48,8 @@ export interface MapMetadata {
   nodeCount: number;
   lastSyncedAt?: string;
   syncStatus?: 'local' | 'synced' | 'cloud-only';
+  isPublic?: boolean;
+  shareToken?: string;
 }
 
 export interface StoredMindMap {

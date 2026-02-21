@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { useMapMetadata } from '../../hooks/useMapMetadata';
 import { useAuth } from '../../context/AuthContext';
 import { useCloudSync } from '../../hooks/useCloudSync';
@@ -37,6 +37,8 @@ function mergeMaps(
         updatedAt: new Date(cloud.updated_at) > new Date(existing.updatedAt)
           ? cloud.updated_at
           : existing.updatedAt,
+        isPublic: cloud.is_public,
+        shareToken: cloud.share_token,
       });
     } else {
       // Cloud-only map
@@ -48,6 +50,8 @@ function mergeMaps(
         nodeCount: cloud.node_count,
         syncStatus: 'cloud-only',
         lastSyncedAt: cloud.updated_at,
+        isPublic: cloud.is_public,
+        shareToken: cloud.share_token,
       });
     }
   }
@@ -63,9 +67,21 @@ export const Dashboard: React.FC = () => {
   const { isAuthenticated } = useAuth();
   const { fetchCloudMaps, saveToCloud, deleteFromCloud, pullMap, isOnline } = useCloudSync();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [mergedMaps, setMergedMaps] = useState<MapMetadata[]>([]);
   const [cloudLoading, setCloudLoading] = useState(false);
+  const [planInfo, setPlanInfo] = useState<{ plan: string; mapCount: number; mapLimit: number | null } | null>(null);
+  const [checkoutSuccess, setCheckoutSuccess] = useState(false);
+
+  // Handle checkout redirect
+  useEffect(() => {
+    if (searchParams.get('checkout') === 'success') {
+      setCheckoutSuccess(true);
+      setSearchParams({}, { replace: true });
+      setTimeout(() => setCheckoutSuccess(false), 5000);
+    }
+  }, [searchParams, setSearchParams]);
 
   // Merge local + cloud maps
   const refreshMergedMaps = useCallback(async () => {
@@ -75,8 +91,9 @@ export const Dashboard: React.FC = () => {
     }
 
     setCloudLoading(true);
-    const cloudMaps = await fetchCloudMaps();
-    setMergedMaps(mergeMaps(localMaps, cloudMaps));
+    const response = await fetchCloudMaps();
+    setMergedMaps(mergeMaps(localMaps, response.maps));
+    setPlanInfo({ plan: response.plan, mapCount: response.mapCount, mapLimit: response.mapLimit });
     setCloudLoading(false);
   }, [localMaps, isAuthenticated, isOnline, fetchCloudMaps]);
 
@@ -85,6 +102,7 @@ export const Dashboard: React.FC = () => {
   }, [refreshMergedMaps]);
 
   const displayMaps = isAuthenticated ? mergedMaps : localMaps;
+  const isAtLimit = planInfo && planInfo.plan !== 'pro' && planInfo.mapLimit !== null && planInfo.mapCount >= planInfo.mapLimit;
 
   const handleCreateMap = async () => {
     const id = await createMap('Untitled Map');
@@ -150,6 +168,16 @@ export const Dashboard: React.FC = () => {
     return <div className={styles.loading}>Loading maps...</div>;
   }
 
+  const footerText = () => {
+    if (!isAuthenticated) return 'Sign in to sync maps across devices';
+    if (checkoutSuccess) return 'Welcome to Pro! Unlimited cloud maps and sharing.';
+    if (planInfo?.plan === 'pro') return 'Pro — Unlimited cloud maps and sharing';
+    if (planInfo && planInfo.mapLimit !== null) {
+      return `${planInfo.mapCount} of ${planInfo.mapLimit} cloud maps used`;
+    }
+    return 'Cloud sync enabled';
+  };
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -176,6 +204,12 @@ export const Dashboard: React.FC = () => {
         />
       </header>
 
+      {checkoutSuccess && (
+        <div className={styles.successBanner}>
+          Upgrade successful! You now have unlimited cloud maps and sharing.
+        </div>
+      )}
+
       {displayMaps.length === 0 && !cloudLoading ? (
         <div className={styles.emptyState}>
           <h2>Welcome to ThoughtNet</h2>
@@ -193,7 +227,7 @@ export const Dashboard: React.FC = () => {
               onOpen={handleOpenMap}
               onRename={renameMap}
               onDelete={handleDeleteMap}
-              onSaveToCloud={isAuthenticated ? handleSaveToCloud : undefined}
+              onSaveToCloud={isAuthenticated && !isAtLimit ? handleSaveToCloud : undefined}
               isAuthenticated={isAuthenticated}
             />
           ))}
@@ -201,7 +235,7 @@ export const Dashboard: React.FC = () => {
       )}
 
       <footer className={styles.proBanner}>
-        {isAuthenticated ? 'Cloud sync enabled' : 'Sign in to sync maps across devices'}
+        {footerText()}
       </footer>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FiUser, FiLogOut } from 'react-icons/fi';
+import { FiUser, FiLogOut, FiCreditCard } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
+import { apiClient } from '../../services/apiClient';
 import styles from './ProfileDropdown.module.css';
 
 export const ProfileDropdown: React.FC = () => {
@@ -32,6 +33,16 @@ export const ProfileDropdown: React.FC = () => {
     signOut();
   };
 
+  const handleManageSubscription = async () => {
+    setIsOpen(false);
+    try {
+      const { url } = await apiClient.createPortal();
+      window.location.href = url;
+    } catch {
+      // If no Stripe customer, this will fail — that's fine, just ignore
+    }
+  };
+
   return (
     <div className={styles.profileDropdown}>
       <button
@@ -49,6 +60,10 @@ export const ProfileDropdown: React.FC = () => {
             <span className={styles.username}>{user?.username}</span>
             {user?.email && <span className={styles.email}>{user.email}</span>}
           </div>
+          <button className={styles.menuButton} onClick={handleManageSubscription}>
+            <FiCreditCard size={14} />
+            Manage subscription
+          </button>
           <button className={styles.signOutButton} onClick={handleSignOut}>
             <FiLogOut size={14} />
             Sign out

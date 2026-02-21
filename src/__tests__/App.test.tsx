@@ -17,6 +17,24 @@ jest.mock('../pages/Editor', () => ({
   Editor: () => <div data-testid="editor">Editor</div>,
 }));
 
+// Mock the shared map viewer (uses apiClient which needs import.meta.env)
+jest.mock('../pages/SharedMap/SharedMap', () => ({
+  SharedMap: () => <div data-testid="shared-map">SharedMap</div>,
+}));
+
+// Mock auth pages
+jest.mock('../pages/Login', () => ({
+  Login: () => <div data-testid="login">Login</div>,
+}));
+
+jest.mock('../pages/Signup', () => ({
+  Signup: () => <div data-testid="signup">Signup</div>,
+}));
+
+jest.mock('../pages/ForgotPassword', () => ({
+  ForgotPassword: () => <div data-testid="forgot-password">ForgotPassword</div>,
+}));
+
 describe('App', () => {
   it('should render dashboard at root route', async () => {
     render(

@@ -1,0 +1,180 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #1e1e2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+  width: 420px;
+  max-width: 90vw;
+  color: #e0e0e0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.closeButton:hover {
+  color: #fff;
+}
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.toggleLabel {
+  font-size: 14px;
+}
+
+.toggleDescription {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 4px;
+}
+
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.toggle.active {
+  background: #7c8aff;
+}
+
+.toggle.loading {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.toggleKnob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.toggle.active .toggleKnob {
+  transform: translateX(20px);
+}
+
+.urlSection {
+  margin-top: 16px;
+}
+
+.urlLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 8px;
+}
+
+.urlRow {
+  display: flex;
+  gap: 8px;
+}
+
+.urlInput {
+  flex: 1;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 13px;
+  font-family: monospace;
+}
+
+.urlInput:focus {
+  outline: none;
+  border-color: #7c8aff;
+}
+
+.copyButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #7c8aff;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.copyButton:hover {
+  background: #6b79f0;
+}
+
+.copyButton.copied {
+  background: #4caf50;
+}
+
+.disabledSection {
+  margin-top: 16px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.disabledText {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.error {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid rgba(244, 67, 54, 0.2);
+  border-radius: 6px;
+  color: #f44336;
+  font-size: 13px;
+}

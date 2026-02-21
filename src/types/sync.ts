@@ -7,6 +7,8 @@ export interface CloudMapMeta {
   node_count: number;
   created_at: string;
   updated_at: string;
+  is_public?: boolean;
+  share_token?: string;
 }
 
 /** Note format serialized for cloud storage (dates as ISO strings) */
@@ -53,3 +55,11 @@ export interface UpdateMapPayload {
 export type SyncStatus = 'local' | 'synced' | 'cloud-only';
 
 export type CloudSyncState = 'idle' | 'syncing' | 'synced' | 'error' | 'offline';
+
+/** Response shape from GET /mindmaps (includes plan info) */
+export interface CloudMapListResponse {
+  maps: CloudMapMeta[];
+  plan: 'free' | 'pro';
+  mapCount: number;
+  mapLimit: number | null;
+}

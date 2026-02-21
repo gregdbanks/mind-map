@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FiTrash2, FiEdit2, FiMap, FiUploadCloud } from 'react-icons/fi';
+import { FiTrash2, FiEdit2, FiMap, FiUploadCloud, FiShare2 } from 'react-icons/fi';
 import type { MapMetadata } from '../../types/mindMap';
 import styles from './MapCard.module.css';
 
@@ -93,6 +93,11 @@ export const MapCard: React.FC<MapCardProps> = ({ map, onOpen, onRename, onDelet
           )}
           {isAuthenticated && (!map.syncStatus || map.syncStatus === 'local') && (
             <span className={`${styles.syncBadge} ${styles.syncBadgeLocal}`}>Local</span>
+          )}
+          {map.isPublic && (
+            <span className={`${styles.syncBadge} ${styles.syncBadgeShared}`}>
+              <FiShare2 size={10} /> Shared
+            </span>
           )}
         </div>
       </div>

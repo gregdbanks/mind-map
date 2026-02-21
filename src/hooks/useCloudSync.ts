@@ -6,7 +6,8 @@ import {
   pullMapFromCloud,
   deleteMapFromCloud,
 } from '../services/syncService';
-import type { CloudMapMeta, CloudSyncState } from '../types/sync';
+import { ApiError } from '../services/apiClient';
+import type { CloudMapMeta, CloudMapListResponse, CloudSyncState } from '../types/sync';
 
 const QUEUE_STORAGE_KEY = 'thoughtnet-sync-queue';
 
@@ -98,7 +99,12 @@ export function useCloudSync() {
       await pushMapToCloud(mapId);
       setSyncStatus('synced');
       return true;
-    } catch {
+    } catch (err) {
+      // Don't enqueue if it's a plan limit issue
+      if (err instanceof ApiError && err.status === 403) {
+        setSyncStatus('error');
+        return false;
+      }
       setSyncStatus('error');
       enqueue(mapId);
       return false;
@@ -116,13 +122,13 @@ export function useCloudSync() {
     }
   }, [canSync]);
 
-  /** Fetch cloud map list for dashboard merging */
-  const fetchCloudMaps = useCallback(async (): Promise<CloudMapMeta[]> => {
-    if (!canSync) return [];
+  /** Fetch cloud map list for dashboard merging (returns maps + plan info) */
+  const fetchCloudMaps = useCallback(async (): Promise<CloudMapListResponse> => {
+    if (!canSync) return { maps: [], plan: 'free', mapCount: 0, mapLimit: 3 };
     try {
       return await pullCloudMapList();
     } catch {
-      return [];
+      return { maps: [], plan: 'free', mapCount: 0, mapLimit: 3 };
     }
   }, [canSync]);
 
