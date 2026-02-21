@@ -4,7 +4,7 @@ import { FiArrowLeft, FiCheck } from 'react-icons/fi';
 import { useMapTitle } from '../../hooks/useMapTitle';
 import styles from './EditorHeader.module.css';
 
-export type SaveStatus = 'idle' | 'saving' | 'saved';
+export type SaveStatus = 'idle' | 'saving' | 'saved' | 'syncing' | 'synced' | 'sync-error' | 'offline';
 
 interface EditorHeaderProps {
   mapId: string;
@@ -94,6 +94,19 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus })
             <FiCheck size={14} className={styles.checkIcon} />
             <span>Saved locally</span>
           </>
+        )}
+        {saveStatus === 'syncing' && <span>Syncing...</span>}
+        {saveStatus === 'synced' && (
+          <>
+            <FiCheck size={14} className={styles.cloudCheckIcon} />
+            <span>Synced</span>
+          </>
+        )}
+        {saveStatus === 'sync-error' && (
+          <span className={styles.syncError}>Cloud sync failed</span>
+        )}
+        {saveStatus === 'offline' && (
+          <span className={styles.offlineStatus}>Offline — saved locally</span>
         )}
       </div>
     </div>

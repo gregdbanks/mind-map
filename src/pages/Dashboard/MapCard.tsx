@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FiTrash2, FiEdit2, FiMap } from 'react-icons/fi';
+import { FiTrash2, FiEdit2, FiMap, FiUploadCloud } from 'react-icons/fi';
 import type { MapMetadata } from '../../types/mindMap';
 import styles from './MapCard.module.css';
 
@@ -8,9 +8,11 @@ interface MapCardProps {
   onOpen: (id: string) => void;
   onRename: (id: string, title: string) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
+  onSaveToCloud?: (id: string) => Promise<void>;
+  isAuthenticated?: boolean;
 }
 
-export const MapCard: React.FC<MapCardProps> = ({ map, onOpen, onRename, onDelete }) => {
+export const MapCard: React.FC<MapCardProps> = ({ map, onOpen, onRename, onDelete, onSaveToCloud, isAuthenticated }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(map.title);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -83,9 +85,27 @@ export const MapCard: React.FC<MapCardProps> = ({ map, onOpen, onRename, onDelet
         <div className={styles.cardMeta}>
           <span>{map.nodeCount} nodes</span>
           <span>{formatRelativeTime(map.updatedAt)}</span>
+          {map.syncStatus === 'synced' && (
+            <span className={`${styles.syncBadge} ${styles.syncBadgeSynced}`}>Synced</span>
+          )}
+          {map.syncStatus === 'cloud-only' && (
+            <span className={`${styles.syncBadge} ${styles.syncBadgeCloud}`}>Cloud</span>
+          )}
+          {isAuthenticated && (!map.syncStatus || map.syncStatus === 'local') && (
+            <span className={`${styles.syncBadge} ${styles.syncBadgeLocal}`}>Local</span>
+          )}
         </div>
       </div>
       <div className={styles.cardActions}>
+        {onSaveToCloud && (!map.syncStatus || map.syncStatus === 'local') && (
+          <button
+            className={styles.actionButton}
+            onClick={(e) => { e.stopPropagation(); onSaveToCloud(map.id); }}
+            title="Save to cloud"
+          >
+            <FiUploadCloud size={14} />
+          </button>
+        )}
         <button
           className={styles.actionButton}
           onClick={(e) => { e.stopPropagation(); setIsEditing(true); }}

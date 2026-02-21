@@ -1,25 +1,118 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useMapMetadata } from '../../hooks/useMapMetadata';
 import { useAuth } from '../../context/AuthContext';
+import { useCloudSync } from '../../hooks/useCloudSync';
 import { importFromJSONText } from '../../utils/exportUtils';
 import { ProfileDropdown } from '../../components/ProfileDropdown';
 import { MapCard } from './MapCard';
+import type { MapMetadata } from '../../types/mindMap';
+import type { CloudMapMeta } from '../../types/sync';
 import styles from './Dashboard.module.css';
 
+/** Merge local IDB maps with cloud API maps by UUID */
+function mergeMaps(
+  localMaps: MapMetadata[],
+  cloudMaps: CloudMapMeta[]
+): MapMetadata[] {
+  const merged = new Map<string, MapMetadata>();
+
+  // Start with local maps
+  for (const local of localMaps) {
+    merged.set(local.id, {
+      ...local,
+      syncStatus: local.syncStatus ?? 'local',
+    });
+  }
+
+  // Overlay cloud maps
+  for (const cloud of cloudMaps) {
+    const existing = merged.get(cloud.id);
+    if (existing) {
+      // Exists both locally and in cloud → synced
+      merged.set(cloud.id, {
+        ...existing,
+        syncStatus: 'synced',
+        lastSyncedAt: cloud.updated_at,
+        updatedAt: new Date(cloud.updated_at) > new Date(existing.updatedAt)
+          ? cloud.updated_at
+          : existing.updatedAt,
+      });
+    } else {
+      // Cloud-only map
+      merged.set(cloud.id, {
+        id: cloud.id,
+        title: cloud.title,
+        createdAt: cloud.created_at,
+        updatedAt: cloud.updated_at,
+        nodeCount: cloud.node_count,
+        syncStatus: 'cloud-only',
+        lastSyncedAt: cloud.updated_at,
+      });
+    }
+  }
+
+  // Sort by updatedAt descending
+  return Array.from(merged.values()).sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+  );
+}
+
 export const Dashboard: React.FC = () => {
-  const { maps, loading, createMap, renameMap, deleteMap, importMap } = useMapMetadata();
+  const { maps: localMaps, loading, createMap, renameMap, deleteMap, importMap, refreshMaps } = useMapMetadata();
   const { isAuthenticated } = useAuth();
+  const { fetchCloudMaps, saveToCloud, deleteFromCloud, pullMap, isOnline } = useCloudSync();
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [mergedMaps, setMergedMaps] = useState<MapMetadata[]>([]);
+  const [cloudLoading, setCloudLoading] = useState(false);
+
+  // Merge local + cloud maps
+  const refreshMergedMaps = useCallback(async () => {
+    if (!isAuthenticated || !isOnline) {
+      setMergedMaps(localMaps.map((m) => ({ ...m, syncStatus: m.syncStatus ?? 'local' })));
+      return;
+    }
+
+    setCloudLoading(true);
+    const cloudMaps = await fetchCloudMaps();
+    setMergedMaps(mergeMaps(localMaps, cloudMaps));
+    setCloudLoading(false);
+  }, [localMaps, isAuthenticated, isOnline, fetchCloudMaps]);
+
+  useEffect(() => {
+    refreshMergedMaps();
+  }, [refreshMergedMaps]);
+
+  const displayMaps = isAuthenticated ? mergedMaps : localMaps;
 
   const handleCreateMap = async () => {
     const id = await createMap('Untitled Map');
     if (id) navigate(`/map/${id}`);
   };
 
-  const handleOpenMap = (id: string) => {
+  const handleOpenMap = async (id: string) => {
+    const map = displayMaps.find((m) => m.id === id);
+    if (map?.syncStatus === 'cloud-only') {
+      await pullMap(id);
+      await refreshMaps();
+    }
     navigate(`/map/${id}`);
+  };
+
+  const handleDeleteMap = async (id: string) => {
+    const map = displayMaps.find((m) => m.id === id);
+    await deleteMap(id);
+    if (map?.syncStatus === 'synced' || map?.syncStatus === 'cloud-only') {
+      await deleteFromCloud(id);
+    }
+  };
+
+  const handleSaveToCloud = async (id: string) => {
+    const success = await saveToCloud(id);
+    if (success) {
+      await refreshMergedMaps();
+    }
   };
 
   const handleImportClick = () => {
@@ -83,7 +176,7 @@ export const Dashboard: React.FC = () => {
         />
       </header>
 
-      {maps.length === 0 ? (
+      {displayMaps.length === 0 && !cloudLoading ? (
         <div className={styles.emptyState}>
           <h2>Welcome to ThoughtNet</h2>
           <p>Create your first mind map to get started</p>
@@ -93,20 +186,22 @@ export const Dashboard: React.FC = () => {
         </div>
       ) : (
         <div className={styles.grid}>
-          {maps.map((map) => (
+          {displayMaps.map((map) => (
             <MapCard
               key={map.id}
               map={map}
               onOpen={handleOpenMap}
               onRename={renameMap}
-              onDelete={deleteMap}
+              onDelete={handleDeleteMap}
+              onSaveToCloud={isAuthenticated ? handleSaveToCloud : undefined}
+              isAuthenticated={isAuthenticated}
             />
           ))}
         </div>
       )}
 
       <footer className={styles.proBanner}>
-        Coming soon: Cloud sync, exports &amp; sharing
+        {isAuthenticated ? 'Cloud sync enabled' : 'Sign in to sync maps across devices'}
       </footer>
     </div>
   );

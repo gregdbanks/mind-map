@@ -10,6 +10,20 @@ import { useMapNotes } from '../../../hooks/useMapNotes';
 jest.mock('../../../hooks/useForceSimulation');
 jest.mock('../../../hooks/useMapPersistence');
 jest.mock('../../../hooks/useMapNotes');
+jest.mock('../../../hooks/useCloudSync', () => ({
+  useCloudSync: () => ({
+    canSync: false,
+    isOnline: true,
+    syncStatus: 'idle' as const,
+    setSyncStatus: jest.fn(),
+    pendingCount: 0,
+    pushMap: jest.fn(),
+    saveToCloud: jest.fn(),
+    fetchCloudMaps: jest.fn().mockResolvedValue([]),
+    pullMap: jest.fn(),
+    deleteFromCloud: jest.fn(),
+  }),
+}));
 
 // Mock D3 to avoid SVG property errors in tests
 jest.mock('d3', () => {
@@ -218,7 +232,7 @@ describe('MindMapCanvas', () => {
   it('should pass mapId to persistence hooks', () => {
     renderWithProvider(<MindMapCanvas mapId={TEST_MAP_ID} />);
 
-    expect(mockUseMapPersistence).toHaveBeenCalledWith(TEST_MAP_ID);
+    expect(mockUseMapPersistence).toHaveBeenCalledWith(TEST_MAP_ID, expect.any(Object));
     expect(mockUseMapNotes).toHaveBeenCalledWith(TEST_MAP_ID);
   });
 });

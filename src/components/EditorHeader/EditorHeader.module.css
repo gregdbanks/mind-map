@@ -100,3 +100,15 @@
 .checkIcon {
   color: #22c55e;
 }
+
+.cloudCheckIcon {
+  color: #6366f1;
+}
+
+.syncError {
+  color: #ef4444;
+}
+
+.offlineStatus {
+  color: #94a3b8;
+}
