@@ -23,6 +23,7 @@ import { HelpGuideModal } from '../HelpGuideModal';
 import { ExportSelector } from '../ExportSelector';
 import type { NodeNote } from '../../types';
 import { useMapNotes } from '../../hooks/useMapNotes';
+import { useCloudSync } from '../../hooks/useCloudSync';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './MindMapCanvas.module.css';
 
@@ -75,6 +76,9 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     currentLayoutRef.current = currentLayout;
   }, [currentLayout]);
 
+  // Cloud sync
+  const { pushMap, canSync } = useCloudSync();
+
   // Use IndexedDB for notes storage
   const { notes, saveNote, deleteNote, getNote } = useMapNotes(mapId);
 
@@ -87,7 +91,9 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     markClean,
   } = useMindMap();
 
-  const { loading: persistenceLoading, mapNotFound } = useMapPersistence(mapId);
+  const { loading: persistenceLoading, mapNotFound } = useMapPersistence(mapId, {
+    onSaved: canSync ? (id) => { pushMap(id); } : undefined,
+  });
   const navigateToHome = useNavigate();
   const [loadingTimeout, setLoadingTimeout] = useState(false);
   

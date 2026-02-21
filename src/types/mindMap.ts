@@ -46,6 +46,8 @@ export interface MapMetadata {
   createdAt: string;
   updatedAt: string;
   nodeCount: number;
+  lastSyncedAt?: string;
+  syncStatus?: 'local' | 'synced' | 'cloud-only';
 }
 
 export interface StoredMindMap {

@@ -5,7 +5,11 @@ import type { MindMap, Node, StoredMindMap } from '../types/mindMap';
 
 const AUTOSAVE_DELAY = 500;
 
-export function useMapPersistence(mapId: string) {
+interface MapPersistenceOptions {
+  onSaved?: (mapId: string) => void;
+}
+
+export function useMapPersistence(mapId: string, options?: MapPersistenceOptions) {
   const { state, dispatch } = useMindMap();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -84,6 +88,7 @@ export function useMapPersistence(mapId: string) {
 
           txMindmaps.oncomplete = () => {
             dispatch({ type: 'MARK_CLEAN' });
+            options?.onSaved?.(mapId);
           };
 
           txMindmaps.onerror = () => {
