@@ -72,6 +72,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
   // React roots for inline note editors mounted into D3-created foreignObjects
   const inlineNoteRootsRef = useRef<Map<string, Root>>(new Map());
   const expandAnimatingRef = useRef<Set<string>>(new Set());
+  const hasAutoFitRef = useRef(false);
 
   // Keep refs in sync with state so D3 event handler closures always see latest values
   useEffect(() => {
@@ -892,7 +893,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
                 });
 
                 // Position action buttons at expanded positions
-                sel.select('.node-actions').selectAll<SVGGElement, unknown>('g').each(function(_, i) {
+                sel.select('.node-actions').selectAll<SVGGElement, unknown>(':scope > g').each(function(_, i) {
                   const halfW = w / 2;
                   const halfH = h / 2;
                   const btn = d3.select(this);
@@ -963,7 +964,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
 
           // Action buttons visible and positioned for expanded state
           sel.select('.node-actions').style('opacity', 1).style('pointer-events', 'all');
-          sel.select('.node-actions').selectAll<SVGGElement, unknown>('g').each(function(_, i) {
+          sel.select('.node-actions').selectAll<SVGGElement, unknown>(':scope > g').each(function(_, i) {
             const halfW = w / 2;
             const halfH = h / 2;
             const btn = d3.select(this);
@@ -1019,7 +1020,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
 
         // Restore action button interactivity and default positions
         sel.select('.node-actions').style('pointer-events', 'all');
-        sel.select('.node-actions').selectAll<SVGGElement, unknown>('g').each(function(_, i) {
+        sel.select('.node-actions').selectAll<SVGGElement, unknown>(':scope > g').each(function(_, i) {
           const btn = d3.select(this);
           switch (i) {
             case 0: btn.attr('transform', 'translate(0, -35)'); break;
@@ -1329,11 +1330,11 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     const attachActionHandlers = function(selection: d3.Selection<SVGGElement, Node, any, any>) {
       selection.each(function(d: Node) {
         const nodeElement = d3.select(this);
-        const actionButtons = nodeElement.select('.node-actions').selectAll('g');
-        
+        const actionButtons = nodeElement.select('.node-actions').selectAll(':scope > g');
+
         // Remove any existing handlers to prevent duplicates
         actionButtons.on('click', null);
-        
+
         actionButtons.each(function(this: any, _buttonData: any, i: number) {
           const button = d3.select(this);
           
@@ -1361,23 +1362,18 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           } else if (i === 3) { // Notes button
             button.on('click', function(event: MouseEvent) {
               event.stopPropagation();
-              if (!d.hasNote) {
-                // No note yet — open modal to create one
-                setNotesModalNodeId(d.id);
-              } else {
-                // Toggle inline expansion — accordion: only one note open at a time
-                const newExpanded = !d.noteExpanded;
-                if (newExpanded) {
-                  // Collapse any other expanded notes first
-                  state.nodes.forEach((n, id) => {
-                    if (id !== d.id && n.noteExpanded) {
-                      expandAnimatingRef.current.delete(id);
-                      operations.updateNode(id, { noteExpanded: false });
-                    }
-                  });
-                }
-                operations.updateNode(d.id, { noteExpanded: newExpanded });
+              // Toggle inline expansion — accordion: only one note open at a time
+              const newExpanded = !d.noteExpanded;
+              if (newExpanded) {
+                // Collapse any other expanded notes first
+                state.nodes.forEach((n, id) => {
+                  if (id !== d.id && n.noteExpanded) {
+                    expandAnimatingRef.current.delete(id);
+                    operations.updateNode(id, { noteExpanded: false });
+                  }
+                });
               }
+              operations.updateNode(d.id, { noteExpanded: newExpanded });
             });
           }
         });
@@ -1388,6 +1384,11 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     attachActionHandlers(nodeEnter);
     attachActionHandlers(nodeUpdate);
 
+    // Auto-fit viewport on first render with nodes
+    if (!hasAutoFitRef.current && nodes.length > 0) {
+      hasAutoFitRef.current = true;
+      requestAnimationFrame(() => fitToViewport());
+    }
 
   }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, operations, currentLayout, canvasBackground]);
 
