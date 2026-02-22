@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
 import pool from '../db/pool';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder', {
   apiVersion: '2026-01-28.clover',
 });
 
@@ -100,7 +100,7 @@ export async function getStatus(userId: string) {
   return {
     plan,
     mapCount: parseInt(countRows[0].count, 10),
-    mapLimit: plan === 'pro' ? null : 0,
+    mapLimit: plan === 'pro' ? null : 3,
     hasStripeCustomer: !!userRows[0].stripe_customer_id,
     monthlyPriceId: MONTHLY_PRICE_ID,
     annualPriceId: '',

@@ -4,9 +4,9 @@ import { app } from '../src/app';
 describe('Maps API', () => {
   let createdMapId: string;
 
-  it('POST /api/maps - creates a new map', async () => {
+  it('POST /mindmaps - creates a new map', async () => {
     const res = await request(app)
-      .post('/api/maps')
+      .post('/mindmaps')
       .send({
         title: 'Test Mind Map',
         data: {
@@ -26,51 +26,56 @@ describe('Maps API', () => {
     createdMapId = res.body.id;
   });
 
-  it('POST /api/maps - rejects missing title', async () => {
+  it('POST /mindmaps - rejects missing title', async () => {
     const res = await request(app)
-      .post('/api/maps')
+      .post('/mindmaps')
       .send({ data: { nodes: [], links: [] } });
 
     expect(res.status).toBe(400);
     expect(res.body.error).toBe('title and data are required');
   });
 
-  it('POST /api/maps - rejects missing data', async () => {
+  it('POST /mindmaps - rejects missing data', async () => {
     const res = await request(app)
-      .post('/api/maps')
+      .post('/mindmaps')
       .send({ title: 'No Data Map' });
 
     expect(res.status).toBe(400);
   });
 
-  it('GET /api/maps - lists maps for user', async () => {
-    const res = await request(app).get('/api/maps');
+  it('GET /mindmaps - lists maps for user', async () => {
+    const res = await request(app).get('/mindmaps');
     expect(res.status).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
-    expect(res.body.length).toBeGreaterThan(0);
+    expect(res.body).toHaveProperty('maps');
+    expect(res.body).toHaveProperty('plan');
+    expect(res.body).toHaveProperty('mapCount');
+    expect(res.body).toHaveProperty('mapLimit');
+    const { maps } = res.body;
+    expect(Array.isArray(maps)).toBe(true);
+    expect(maps.length).toBeGreaterThan(0);
     // Listing should NOT include full data blob
-    expect(res.body[0]).not.toHaveProperty('data');
-    expect(res.body[0]).toHaveProperty('title');
-    expect(res.body[0]).toHaveProperty('node_count');
+    expect(maps[0]).not.toHaveProperty('data');
+    expect(maps[0]).toHaveProperty('title');
+    expect(maps[0]).toHaveProperty('node_count');
   });
 
-  it('GET /api/maps/:id - gets full map with data', async () => {
-    const res = await request(app).get(`/api/maps/${createdMapId}`);
+  it('GET /mindmaps/:id - gets full map with data', async () => {
+    const res = await request(app).get(`/mindmaps/${createdMapId}`);
     expect(res.status).toBe(200);
     expect(res.body.data).toBeDefined();
     expect(res.body.data.nodes).toHaveLength(1);
     expect(res.body.data.nodes[0].text).toBe('Central Topic');
   });
 
-  it('GET /api/maps/:id - returns 404 for non-existent map', async () => {
+  it('GET /mindmaps/:id - returns 404 for non-existent map', async () => {
     const res = await request(app)
-      .get('/api/maps/00000000-0000-0000-0000-000000000000');
+      .get('/mindmaps/00000000-0000-0000-0000-000000000000');
     expect(res.status).toBe(404);
   });
 
-  it('PUT /api/maps/:id - updates map title and data', async () => {
+  it('PUT /mindmaps/:id - updates map title and data', async () => {
     const res = await request(app)
-      .put(`/api/maps/${createdMapId}`)
+      .put(`/mindmaps/${createdMapId}`)
       .send({
         title: 'Updated Title',
         data: {
@@ -89,32 +94,32 @@ describe('Maps API', () => {
     expect(res.body.node_count).toBe(2);
   });
 
-  it('PUT /api/maps/:id - rejects empty body', async () => {
+  it('PUT /mindmaps/:id - rejects empty body', async () => {
     const res = await request(app)
-      .put(`/api/maps/${createdMapId}`)
+      .put(`/mindmaps/${createdMapId}`)
       .send({});
 
     expect(res.status).toBe(400);
   });
 
-  it('PUT /api/maps/:id - returns 404 for non-existent map', async () => {
+  it('PUT /mindmaps/:id - returns 404 for non-existent map', async () => {
     const res = await request(app)
-      .put('/api/maps/00000000-0000-0000-0000-000000000000')
+      .put('/mindmaps/00000000-0000-0000-0000-000000000000')
       .send({ title: 'Ghost Map' });
     expect(res.status).toBe(404);
   });
 
-  it('DELETE /api/maps/:id - deletes a map', async () => {
-    const res = await request(app).delete(`/api/maps/${createdMapId}`);
+  it('DELETE /mindmaps/:id - deletes a map', async () => {
+    const res = await request(app).delete(`/mindmaps/${createdMapId}`);
     expect(res.status).toBe(204);
 
-    const checkRes = await request(app).get(`/api/maps/${createdMapId}`);
+    const checkRes = await request(app).get(`/mindmaps/${createdMapId}`);
     expect(checkRes.status).toBe(404);
   });
 
-  it('DELETE /api/maps/:id - returns 404 for non-existent map', async () => {
+  it('DELETE /mindmaps/:id - returns 404 for non-existent map', async () => {
     const res = await request(app)
-      .delete('/api/maps/00000000-0000-0000-0000-000000000000');
+      .delete('/mindmaps/00000000-0000-0000-0000-000000000000');
     expect(res.status).toBe(404);
   });
 });

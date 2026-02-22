@@ -8,7 +8,7 @@ describe('Stripe API', () => {
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('plan', 'free');
       expect(res.body).toHaveProperty('mapCount');
-      expect(res.body).toHaveProperty('mapLimit', 0);
+      expect(res.body).toHaveProperty('mapLimit', 3);
       expect(res.body).toHaveProperty('hasStripeCustomer', false);
       expect(res.body).toHaveProperty('monthlyPriceId');
       expect(res.body).toHaveProperty('annualPriceId', '');
