@@ -18,6 +18,9 @@ export interface Node {
   textColor?: string; // Optional text color (hex, rgb, or CSS color name)
   noteId?: string; // Reference to associated note
   hasNote?: boolean; // Quick flag to check if node has a note
+  noteExpanded?: boolean; // Whether the note container is open (renders as rounded rect)
+  noteWidth?: number; // Current width of expanded note container
+  noteHeight?: number; // Current height of expanded note container
 }
 
 export interface Link {

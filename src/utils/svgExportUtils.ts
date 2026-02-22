@@ -26,6 +26,9 @@ export function prepareSVGForExport(
   clone.querySelectorAll('.node-actions').forEach((el) => el.remove());
   clone.querySelectorAll('.marquee-group').forEach((el) => el.remove());
   clone.querySelectorAll('.multi-select-indicator').forEach((el) => el.remove());
+  clone.querySelectorAll('.note-content-fo').forEach((el) => el.remove());
+  clone.querySelectorAll('.node-rect').forEach((el) => el.remove());
+  clone.querySelectorAll('.resize-handles').forEach((el) => el.remove());
 
   // Reset zoom transform on main group
   const mainGroup = clone.querySelector('.main-group') as SVGGElement | null;

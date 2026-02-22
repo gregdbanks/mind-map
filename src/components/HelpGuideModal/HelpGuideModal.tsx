@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { FiX } from 'react-icons/fi';
+import { X } from 'lucide-react';
 import styles from './HelpGuideModal.module.css';
 
 interface HelpGuideModalProps {
@@ -80,7 +80,7 @@ export const HelpGuideModal: React.FC<HelpGuideModalProps> = ({
             title="Close (Esc)"
             type="button"
           >
-            <FiX />
+            <X />
           </button>
         </div>
 

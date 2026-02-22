@@ -180,14 +180,27 @@
   height: 0;
 }
 
-/* Minimal mode */
+/* Minimal mode — transparent, borderless for inline embedding */
 .minimal {
   border: none;
+  background: transparent;
+}
+
+.minimal .toolbar {
+  background: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.minimal .select {
+  background: transparent;
+  border-color: rgba(0, 0, 0, 0.15);
 }
 
 .minimal .content {
   min-height: auto;
+  max-height: none;
   padding: 0;
+  overflow: visible;
 }
 
 /* Read-only mode */

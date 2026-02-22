@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Grid3X3, Check } from 'lucide-react';
 import styles from './BackgroundSelector.module.css';
 
 export type CanvasBackground = 'white' | 'light-gray' | 'warm-gray' | 'dark' | 'dot-grid' | 'dot-grid-dark' | 'line-grid';
@@ -167,13 +168,7 @@ export const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({ current,
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-          <line x1="3" y1="9" x2="21" y2="9" strokeDasharray="2 2" />
-          <line x1="3" y1="15" x2="21" y2="15" strokeDasharray="2 2" />
-          <line x1="9" y1="3" x2="9" y2="21" strokeDasharray="2 2" />
-          <line x1="15" y1="3" x2="15" y2="21" strokeDasharray="2 2" />
-        </svg>
+        <Grid3X3 size={16} />
       </button>
 
       {isOpen && (
@@ -193,9 +188,7 @@ export const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({ current,
                 <div className={styles.optionDescription}>{option.description}</div>
               </div>
               {current === option.type && (
-                <svg className={styles.checkIcon} width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                </svg>
+                <Check className={styles.checkIcon} size={16} />
               )}
             </button>
           ))}
