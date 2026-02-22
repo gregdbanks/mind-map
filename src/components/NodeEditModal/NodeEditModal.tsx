@@ -1,5 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { getAutoTextColor } from '../../utils/colorContrast';
 import styles from './NodeEditModal.module.css';
+
+// Curated palette — every color is pre-tested for good contrast with auto black/white text
+const COLOR_PALETTE = [
+  // Row 1: Blues & Purples
+  { bg: '#4285F4', label: 'Blue' },
+  { bg: '#1A73E8', label: 'Dark Blue' },
+  { bg: '#7B1FA2', label: 'Purple' },
+  { bg: '#9C27B0', label: 'Light Purple' },
+  // Row 2: Greens & Teals
+  { bg: '#0F9D58', label: 'Green' },
+  { bg: '#00897B', label: 'Teal' },
+  { bg: '#2E7D32', label: 'Dark Green' },
+  { bg: '#43A047', label: 'Light Green' },
+  // Row 3: Warm colors
+  { bg: '#F4B400', label: 'Yellow' },
+  { bg: '#FB8C00', label: 'Orange' },
+  { bg: '#DB4437', label: 'Red' },
+  { bg: '#E91E63', label: 'Pink' },
+  // Row 4: Neutrals & Dark
+  { bg: '#455A64', label: 'Blue Grey' },
+  { bg: '#616161', label: 'Grey' },
+  { bg: '#263238', label: 'Dark' },
+  { bg: '#37474F', label: 'Charcoal' },
+];
+
+const DEFAULT_COLOR = '#4285F4';
 
 interface NodeEditModalProps {
   nodeId: string;
@@ -15,20 +42,17 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
   nodeId,
   initialText,
   initialColor,
-  initialTextColor,
   isOpen,
   onSave,
   onCancel
 }) => {
   const [text, setText] = useState(initialText);
   const [color, setColor] = useState(initialColor || '');
-  const [textColor, setTextColor] = useState(initialTextColor || '');
   const inputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
-      // Focus and select all text when modal opens
       inputRef.current.focus();
       inputRef.current.select();
     }
@@ -37,14 +61,21 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
   useEffect(() => {
     setText(initialText);
     setColor(initialColor || '');
-    setTextColor(initialTextColor || '');
-  }, [initialText, initialColor, initialTextColor]);
+  }, [initialText, initialColor]);
+
+  const effectiveBgColor = color || DEFAULT_COLOR;
+  const textColor = getAutoTextColor(effectiveBgColor);
+
+  const handleColorSelect = (newColor: string) => {
+    setColor(newColor);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const trimmedText = text.trim();
     if (trimmedText) {
-      onSave(nodeId, trimmedText, color || undefined, textColor || undefined);
+      const finalTextColor = getAutoTextColor(color || DEFAULT_COLOR);
+      onSave(nodeId, trimmedText, color || undefined, finalTextColor);
     } else {
       onCancel();
     }
@@ -87,46 +118,29 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
             />
           </div>
 
-          <div className={styles.colorRow}>
-            <div className={styles.inputGroup}>
-              <label className={styles.inputLabel}>Node Color</label>
-              <div className={styles.colorPickerContainer}>
-                <input
-                  type="color"
-                  value={color || '#4A90E2'}
-                  onChange={(e) => setColor(e.target.value)}
-                  className={styles.colorInput}
-                />
+          <div className={styles.inputGroup}>
+            <label className={styles.inputLabel}>Node Color</label>
+            <div className={styles.swatchGrid}>
+              {COLOR_PALETTE.map((swatch) => (
                 <button
+                  key={swatch.bg}
                   type="button"
-                  onClick={() => setColor('')}
-                  className={styles.resetColorButton}
-                  title="Reset to default color"
-                >
-                  Reset
-                </button>
-              </div>
-            </div>
-
-            <div className={styles.inputGroup}>
-              <label className={styles.inputLabel}>Text Color</label>
-              <div className={styles.colorPickerContainer}>
-                <input
-                  type="color"
-                  value={textColor || '#1a237e'}
-                  onChange={(e) => setTextColor(e.target.value)}
-                  className={styles.colorInput}
+                  className={`${styles.swatch} ${effectiveBgColor.toLowerCase() === swatch.bg.toLowerCase() ? styles.swatchSelected : ''}`}
+                  style={{ backgroundColor: swatch.bg }}
+                  onClick={() => handleColorSelect(swatch.bg)}
+                  title={swatch.label}
                 />
-                <button
-                  type="button"
-                  onClick={() => setTextColor('')}
-                  className={styles.resetColorButton}
-                  title="Reset to default text color"
-                >
-                  Reset
-                </button>
-              </div>
+              ))}
             </div>
+            {color && (
+              <button
+                type="button"
+                onClick={() => setColor('')}
+                className={styles.resetColorButton}
+              >
+                Reset to default
+              </button>
+            )}
           </div>
 
           <div className={styles.previewContainer}>
@@ -134,8 +148,8 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
             <div
               className={styles.previewSwatch}
               style={{
-                backgroundColor: color || '#4A90E2',
-                color: textColor || '#1a237e',
+                backgroundColor: effectiveBgColor,
+                color: textColor,
               }}
             >
               {text || 'Preview'}

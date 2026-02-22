@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { User, LogOut, CreditCard } from 'lucide-react';
+import { User, LogOut, CreditCard, Star } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { apiClient } from '../../services/apiClient';
 import styles from './ProfileDropdown.module.css';
@@ -7,8 +7,15 @@ import styles from './ProfileDropdown.module.css';
 export const ProfileDropdown: React.FC = () => {
   const { user, signOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [isPro, setIsPro] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    apiClient.getPlanStatus().then((status) => {
+      setIsPro(status.plan === 'pro');
+    }).catch(() => {});
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -52,6 +59,11 @@ export const ProfileDropdown: React.FC = () => {
         title={user?.email || user?.username || 'Profile'}
       >
         <User size={18} />
+        {isPro && (
+          <span className={styles.proBadge} title="Pro member">
+            <Star size={10} fill="currentColor" />
+          </span>
+        )}
       </button>
 
       {isOpen && (

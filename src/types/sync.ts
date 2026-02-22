@@ -32,6 +32,7 @@ export interface CloudMapData {
   links: Link[];
   notes: SerializedNote[];
   lastModified: string;
+  canvasBackground?: string;
 }
 
 /** Server response shape from GET /mindmaps/:id */

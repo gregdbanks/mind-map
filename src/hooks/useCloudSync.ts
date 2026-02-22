@@ -100,9 +100,9 @@ export function useCloudSync() {
       setSyncStatus('synced');
       return true;
     } catch (err) {
-      // Don't enqueue if it's a plan limit issue
-      if (err instanceof ApiError && err.status === 403) {
-        setSyncStatus('error');
+      // Don't enqueue if it's a plan limit or map not in cloud yet
+      if (err instanceof ApiError && (err.status === 403 || err.status === 404)) {
+        setSyncStatus('idle');
         return false;
       }
       setSyncStatus('error');
@@ -115,7 +115,7 @@ export function useCloudSync() {
   const saveToCloud = useCallback(async (mapId: string): Promise<boolean> => {
     if (!canSync) return false;
     try {
-      await pushMapToCloud(mapId);
+      await pushMapToCloud(mapId, true);
       return true;
     } catch {
       return false;
@@ -124,11 +124,11 @@ export function useCloudSync() {
 
   /** Fetch cloud map list for dashboard merging (returns maps + plan info) */
   const fetchCloudMaps = useCallback(async (): Promise<CloudMapListResponse> => {
-    if (!canSync) return { maps: [], plan: 'free', mapCount: 0, mapLimit: 3 };
+    if (!canSync) return { maps: [], plan: 'free', mapCount: 0, mapLimit: 0 };
     try {
       return await pullCloudMapList();
     } catch {
-      return { maps: [], plan: 'free', mapCount: 0, mapLimit: 3 };
+      return { maps: [], plan: 'free', mapCount: 0, mapLimit: 0 };
     }
   }, [canSync]);
 

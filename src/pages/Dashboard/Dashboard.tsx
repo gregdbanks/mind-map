@@ -6,6 +6,7 @@ import { useCloudSync } from '../../hooks/useCloudSync';
 import { importFromJSONText } from '../../utils/exportUtils';
 import { ProfileDropdown } from '../../components/ProfileDropdown';
 import { MapCard } from './MapCard';
+import { apiClient } from '../../services/apiClient';
 import type { MapMetadata } from '../../types/mindMap';
 import type { CloudMapMeta } from '../../types/sync';
 import styles from './Dashboard.module.css';
@@ -71,17 +72,28 @@ export const Dashboard: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [mergedMaps, setMergedMaps] = useState<MapMetadata[]>([]);
   const [cloudLoading, setCloudLoading] = useState(false);
-  const [planInfo, setPlanInfo] = useState<{ plan: string; mapCount: number; mapLimit: number | null } | null>(null);
+  const [planInfo, setPlanInfo] = useState<{ plan: string; mapCount: number; mapLimit: number | null; monthlyPriceId?: string } | null>(null);
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
+  const [upgrading, setUpgrading] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   // Handle checkout redirect
+  const checkoutParam = searchParams.get('checkout');
   useEffect(() => {
-    if (searchParams.get('checkout') === 'success') {
+    if (checkoutParam === 'success') {
       setCheckoutSuccess(true);
       setSearchParams({}, { replace: true });
       setTimeout(() => setCheckoutSuccess(false), 5000);
     }
-  }, [searchParams, setSearchParams]);
+  }, [checkoutParam, setSearchParams]);
+
+  // Fetch Stripe plan status (includes monthlyPriceId)
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    apiClient.getPlanStatus().then((status) => {
+      setPlanInfo({ plan: status.plan, mapCount: status.mapCount, mapLimit: status.mapLimit, monthlyPriceId: status.monthlyPriceId });
+    }).catch(() => {});
+  }, [isAuthenticated, checkoutSuccess]);
 
   // Merge local + cloud maps
   const refreshMergedMaps = useCallback(async () => {
@@ -93,13 +105,21 @@ export const Dashboard: React.FC = () => {
     setCloudLoading(true);
     const response = await fetchCloudMaps();
     setMergedMaps(mergeMaps(localMaps, response.maps));
-    setPlanInfo({ plan: response.plan, mapCount: response.mapCount, mapLimit: response.mapLimit });
+    setPlanInfo((prev) => ({ plan: response.plan, mapCount: response.mapCount, mapLimit: response.mapLimit, monthlyPriceId: prev?.monthlyPriceId }));
     setCloudLoading(false);
   }, [localMaps, isAuthenticated, isOnline, fetchCloudMaps]);
 
   useEffect(() => {
     refreshMergedMaps();
   }, [refreshMergedMaps]);
+
+  // Re-fetch maps after checkout success (plan may have changed)
+  useEffect(() => {
+    if (checkoutSuccess) {
+      refreshMaps();
+      refreshMergedMaps();
+    }
+  }, [checkoutSuccess, refreshMaps, refreshMergedMaps]);
 
   const displayMaps = isAuthenticated ? mergedMaps : localMaps;
   const isAtLimit = planInfo && planInfo.plan !== 'pro' && planInfo.mapLimit !== null && planInfo.mapCount >= planInfo.mapLimit;
@@ -127,6 +147,10 @@ export const Dashboard: React.FC = () => {
   };
 
   const handleSaveToCloud = async (id: string) => {
+    if (isAtLimit) {
+      setShowUpgradeModal(true);
+      return;
+    }
     const success = await saveToCloud(id);
     if (success) {
       await refreshMergedMaps();
@@ -135,6 +159,17 @@ export const Dashboard: React.FC = () => {
 
   const handleImportClick = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleUpgrade = async () => {
+    if (!planInfo?.monthlyPriceId) return;
+    setUpgrading(true);
+    try {
+      const { url } = await apiClient.createCheckout(planInfo.monthlyPriceId);
+      window.location.href = url;
+    } catch {
+      setUpgrading(false);
+    }
   };
 
   const handleFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -168,12 +203,17 @@ export const Dashboard: React.FC = () => {
     return <div className={styles.loading}>Loading maps...</div>;
   }
 
+  const isOverLimit = planInfo && planInfo.plan !== 'pro' && planInfo.mapLimit !== null && planInfo.mapCount > planInfo.mapLimit;
+
   const footerText = () => {
     if (!isAuthenticated) return 'Sign in to sync maps across devices';
     if (checkoutSuccess) return 'Welcome to Pro! Unlimited cloud maps and sharing.';
     if (planInfo?.plan === 'pro') return 'Pro — Unlimited cloud maps and sharing';
-    if (planInfo && planInfo.mapLimit !== null) {
-      return `${planInfo.mapCount} of ${planInfo.mapLimit} cloud maps used`;
+    if (planInfo && planInfo.plan !== 'pro' && planInfo.mapCount > 0) {
+      return `${planInfo.mapCount} cloud maps synced — Existing maps will continue to sync. Upgrade to Pro to save new maps to the cloud.`;
+    }
+    if (planInfo && planInfo.plan !== 'pro') {
+      return 'Upgrade to Pro to save maps to the cloud';
     }
     return 'Cloud sync enabled';
   };
@@ -227,7 +267,7 @@ export const Dashboard: React.FC = () => {
               onOpen={handleOpenMap}
               onRename={renameMap}
               onDelete={handleDeleteMap}
-              onSaveToCloud={isAuthenticated && !isAtLimit ? handleSaveToCloud : undefined}
+              onSaveToCloud={isAuthenticated ? handleSaveToCloud : undefined}
               isAuthenticated={isAuthenticated}
             />
           ))}
@@ -236,7 +276,29 @@ export const Dashboard: React.FC = () => {
 
       <footer className={styles.proBanner}>
         {footerText()}
+        {isAuthenticated && planInfo && planInfo.plan !== 'pro' && (
+          <button className={styles.upgradeButton} onClick={handleUpgrade} disabled={upgrading}>
+            {upgrading ? 'Redirecting...' : 'Upgrade to Pro — $5/mo'}
+          </button>
+        )}
       </footer>
+
+      {showUpgradeModal && (
+        <div className={styles.modalOverlay} onClick={() => setShowUpgradeModal(false)}>
+          <div className={styles.upgradeModal} onClick={(e) => e.stopPropagation()}>
+            <h2>Upgrade to Pro</h2>
+            <p>Save your mind maps to the cloud and access them from any device. Pro members get unlimited cloud saves and sharing.</p>
+            <div className={styles.upgradeModalActions}>
+              <button className={styles.upgradeButton} onClick={() => { setShowUpgradeModal(false); handleUpgrade(); }} disabled={upgrading}>
+                {upgrading ? 'Redirecting...' : 'Upgrade to Pro — $5/mo'}
+              </button>
+              <button className={styles.modalCancelButton} onClick={() => setShowUpgradeModal(false)}>
+                Not now
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

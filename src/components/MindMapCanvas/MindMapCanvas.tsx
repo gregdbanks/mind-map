@@ -9,7 +9,7 @@ import type { Node, Link } from '../../types';
 import { exportToJSON, importFromJSONText } from '../../utils/exportUtils';
 import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties } from '../../utils/nodeHierarchy';
 import { isAWSService } from '../../utils/awsServices';
-import { NodeTooltip } from '../NodeTooltip';
+import { getAutoTextColor, getContrastSafeTextColor } from '../../utils/colorContrast';
 import { NodeEditModal } from '../NodeEditModal';
 import { ImportModal } from '../ImportModal';
 import { SearchBar } from '../SearchBar';
@@ -73,6 +73,10 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
   const inlineNoteRootsRef = useRef<Map<string, Root>>(new Map());
   const expandAnimatingRef = useRef<Set<string>>(new Set());
   const hasAutoFitRef = useRef(false);
+  // Track nodes that have been expanded at least once (for auto-fit on first expansion)
+  const expandedOnceRef = useRef<Set<string>>(new Set());
+  // Pending auto-fit: set to a node ID when first expansion triggers, cleared after fit
+  const [pendingAutoFitNodeId, setPendingAutoFitNodeId] = useState<string | null>(null);
 
   // Keep refs in sync with state so D3 event handler closures always see latest values
   useEffect(() => {
@@ -728,8 +732,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     nodeUpdate.select('text')
       .text((d: any) => (d as Node).text)
       .style('font-size', (d: any) => {
-        const node = d as Node;
-        const depth = nodeDepths.get(node.id) || 0;
+        const depth = nodeDepths.get((d as Node).id) || 0;
         return `${getNodeVisualProperties(depth).fontSize}px`;
       })
       .style('font-weight', (d: any) => {
@@ -739,15 +742,26 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       })
       .attr('fill', (d: any) => {
         const node = d as Node;
-        if (node.textColor) {
-          return node.textColor;
-        }
-        if (isAWSService(node.text)) {
-          return '#FFFFFF'; // White text for AWS services (good contrast with orange)
-        }
         const depth = nodeDepths.get(node.id) || 0;
-        // Text color matches the stroke color for consistency
-        return getNodeVisualProperties(depth).strokeColor;
+
+        // Determine the effective background color for this node
+        let bgColor: string;
+        if (node.color) {
+          bgColor = node.color;
+        } else if (isAWSService(node.text)) {
+          bgColor = '#FF9900'; // AWS orange
+        } else {
+          bgColor = getNodeVisualProperties(depth).fillColor;
+        }
+
+        // If the user explicitly set a text color, validate its contrast
+        // against the background and auto-correct if needed
+        if (node.textColor) {
+          return getContrastSafeTextColor(node.textColor, bgColor);
+        }
+
+        // No explicit text color: auto-pick the best contrast color
+        return getAutoTextColor(bgColor);
       });
 
     // Update note indicator — hide when node is expanded (rect is the indicator)
@@ -1362,9 +1376,13 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           } else if (i === 3) { // Notes button
             button.on('click', function(event: MouseEvent) {
               event.stopPropagation();
+              // Always select the node when clicking the note tab
+              selectNode(d.id);
               // Toggle inline expansion — accordion: only one note open at a time
               const newExpanded = !d.noteExpanded;
+              const isFirstExpansion = newExpanded && !expandedOnceRef.current.has(d.id);
               if (newExpanded) {
+                expandedOnceRef.current.add(d.id);
                 // Collapse any other expanded notes first
                 state.nodes.forEach((n, id) => {
                   if (id !== d.id && n.noteExpanded) {
@@ -1374,6 +1392,11 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
                 });
               }
               operations.updateNode(d.id, { noteExpanded: newExpanded });
+              // Auto-fit viewport on first expansion (schedule via state so fitToViewport
+              // runs in a render cycle where selectedNodeId is already set)
+              if (isFirstExpansion) {
+                setPendingAutoFitNodeId(d.id);
+              }
             });
           }
         });
@@ -1391,6 +1414,18 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     }
 
   }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, operations, currentLayout, canvasBackground]);
+
+  // Auto-fit viewport after first expansion of a note (delayed to let animation finish)
+  useEffect(() => {
+    if (!pendingAutoFitNodeId) return;
+    // Wait for the expand animation (~500ms for rect + ~100ms for content fade)
+    const timer = setTimeout(() => {
+      fitToViewport();
+      setPendingAutoFitNodeId(null);
+    }, 650);
+    return () => clearTimeout(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingAutoFitNodeId]);
 
   // Re-render inline note components when notes load/change (fixes race condition on refresh)
   useEffect(() => {
@@ -1881,15 +1916,6 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     );
   }
 
-  // Get hovered node details for tooltip
-  const hoveredNode = hoveredNodeId ? state.nodes.get(hoveredNodeId) : null;
-  const nodeDepths = calculateNodeDepths(state.nodes);
-  const hoveredNodeDepth = hoveredNode ? nodeDepths.get(hoveredNode.id) || 0 : 0;
-  
-  // Count children of hovered node
-  const hoveredNodeChildCount = hoveredNode ? 
-    nodes.filter(n => n.parent === hoveredNode.id).length : 0;
-
   // Get editing node details
   const editingNode = state.editingNodeId ? state.nodes.get(state.editingNodeId) : null;
 
@@ -1952,14 +1978,6 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         onNodeSelect={panToNode}
         isVisible={!state.editingNodeId}
       />
-
-      {hoveredNode && !state.editingNodeId && (
-        <NodeTooltip
-          node={hoveredNode}
-          depth={hoveredNodeDepth}
-          childCount={hoveredNodeChildCount}
-        />
-      )}
 
       <div className={styles.canvasContainer} style={getBackgroundStyle(canvasBackground)}>
 
