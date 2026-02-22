@@ -119,7 +119,8 @@ export const Dashboard: React.FC = () => {
       refreshMaps();
       refreshMergedMaps();
     }
-  }, [checkoutSuccess, refreshMaps, refreshMergedMaps]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkoutSuccess]);
 
   const displayMaps = isAuthenticated ? mergedMaps : localMaps;
   const isAtLimit = planInfo && planInfo.plan !== 'pro' && planInfo.mapLimit !== null && planInfo.mapCount >= planInfo.mapLimit;
