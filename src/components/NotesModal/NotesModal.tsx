@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { FiX, FiSave } from 'react-icons/fi';
+import { X, Save } from 'lucide-react';
 import { RichTextEditor } from '../RichTextEditor';
 import type { NodeNote } from '../../types';
 import styles from './NotesModal.module.css';
@@ -106,7 +106,7 @@ export const NotesModal: React.FC<NotesModalProps> = ({
             title="Close (Esc)"
             type="button"
           >
-            <FiX />
+            <X />
           </button>
         </div>
 
@@ -147,7 +147,7 @@ export const NotesModal: React.FC<NotesModalProps> = ({
               type="button"
               disabled={!content.trim() && !contentJson}
             >
-              <FiSave />
+              <Save />
               Save Note
             </button>
           </div>

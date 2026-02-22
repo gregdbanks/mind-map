@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FiTrash2, FiEdit2, FiMap, FiUploadCloud, FiShare2 } from 'react-icons/fi';
+import { Trash2, Pencil, Map, UploadCloud, Share2 } from 'lucide-react';
 import type { MapMetadata } from '../../types/mindMap';
 import styles from './MapCard.module.css';
 
@@ -63,7 +63,7 @@ export const MapCard: React.FC<MapCardProps> = ({ map, onOpen, onRename, onDelet
   return (
     <div className={styles.card} onClick={() => onOpen(map.id)} role="button" tabIndex={0}>
       <div className={styles.cardIcon}>
-        <FiMap size={24} />
+        <Map size={24} />
       </div>
       <div className={styles.cardContent}>
         {isEditing ? (
@@ -96,7 +96,7 @@ export const MapCard: React.FC<MapCardProps> = ({ map, onOpen, onRename, onDelet
           )}
           {map.isPublic && (
             <span className={`${styles.syncBadge} ${styles.syncBadgeShared}`}>
-              <FiShare2 size={10} /> Shared
+              <Share2 size={10} /> Shared
             </span>
           )}
         </div>
@@ -108,7 +108,7 @@ export const MapCard: React.FC<MapCardProps> = ({ map, onOpen, onRename, onDelet
             onClick={(e) => { e.stopPropagation(); onSaveToCloud(map.id); }}
             title="Save to cloud"
           >
-            <FiUploadCloud size={14} />
+            <UploadCloud size={14} />
           </button>
         )}
         <button
@@ -116,14 +116,14 @@ export const MapCard: React.FC<MapCardProps> = ({ map, onOpen, onRename, onDelet
           onClick={(e) => { e.stopPropagation(); setIsEditing(true); }}
           title="Rename"
         >
-          <FiEdit2 size={14} />
+          <Pencil size={14} />
         </button>
         <button
           className={`${styles.actionButton} ${confirmDelete ? styles.confirmDelete : ''}`}
           onClick={handleDelete}
           title={confirmDelete ? 'Click again to confirm' : 'Delete'}
         >
-          <FiTrash2 size={14} />
+          <Trash2 size={14} />
         </button>
       </div>
     </div>

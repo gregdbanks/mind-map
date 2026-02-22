@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiArrowLeft, FiCheck, FiShare2 } from 'react-icons/fi';
+import { ArrowLeft, Check, Share2 } from 'lucide-react';
 import { useMapTitle } from '../../hooks/useMapTitle';
 import { useAuth } from '../../context/AuthContext';
 import { ShareModal } from '../ShareModal/ShareModal';
@@ -66,7 +66,7 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus })
           title="Back to Dashboard"
           aria-label="Back to Dashboard"
         >
-          <FiArrowLeft size={18} />
+          <ArrowLeft size={18} />
         </button>
 
         <div className={styles.titleSection}>
@@ -96,14 +96,14 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus })
           {saveStatus === 'saving' && <span>Saving...</span>}
           {saveStatus === 'saved' && (
             <>
-              <FiCheck size={14} className={styles.checkIcon} />
+              <Check size={14} className={styles.checkIcon} />
               <span>Saved locally</span>
             </>
           )}
           {saveStatus === 'syncing' && <span>Syncing...</span>}
           {saveStatus === 'synced' && (
             <>
-              <FiCheck size={14} className={styles.cloudCheckIcon} />
+              <Check size={14} className={styles.cloudCheckIcon} />
               <span>Synced</span>
             </>
           )}
@@ -122,7 +122,7 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus })
             title="Share"
             aria-label="Share mind map"
           >
-            <FiShare2 size={16} />
+            <Share2 size={16} />
           </button>
         )}
       </div>

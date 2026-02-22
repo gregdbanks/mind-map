@@ -24,7 +24,7 @@ export default {
     }]
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(d3|d3-.*|internmap|delaunator|robust-predicates|uuid|@tiptap|prosemirror-.*|lowlight|highlight.js|react-router|react-router-dom)/)'
+    'node_modules/(?!(d3|d3-.*|internmap|delaunator|robust-predicates|uuid|@tiptap|prosemirror-.*|lowlight|highlight.js|react-router|react-router-dom|lucide-react)/)'
   ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',

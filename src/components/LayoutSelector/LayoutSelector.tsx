@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Network, Check } from 'lucide-react';
 import styles from './LayoutSelector.module.css';
 
 export type LayoutType = 'custom' | 'improved-cluster' | 'hierarchical' | 'hybrid-tree' | 'cluster' | 'force-directed';
@@ -93,17 +94,7 @@ export const LayoutSelector: React.FC<LayoutSelectorProps> = ({
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          {/* Layout icon - hierarchical tree structure */}
-          <circle cx="12" cy="4" r="2"/>
-          <circle cx="6" cy="12" r="2"/>
-          <circle cx="18" cy="12" r="2"/>
-          <circle cx="4" cy="20" r="2"/>
-          <circle cx="8" cy="20" r="2"/>
-          <circle cx="16" cy="20" r="2"/>
-          <circle cx="20" cy="20" r="2"/>
-          <path d="M12 6v4M12 10h-6M12 10h6M6 14v4M18 14v4" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-        </svg>
+        <Network size={16} />
       </button>
 
       {isOpen && (
@@ -124,15 +115,7 @@ export const LayoutSelector: React.FC<LayoutSelectorProps> = ({
                 <div className={styles.optionDescription}>{option.description}</div>
               </div>
               {currentLayout === option.type && (
-                <svg 
-                  className={styles.checkIcon}
-                  width="16" 
-                  height="16" 
-                  viewBox="0 0 24 24" 
-                  fill="currentColor"
-                >
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
+                <Check className={styles.checkIcon} size={16} />
               )}
             </button>
           ))}

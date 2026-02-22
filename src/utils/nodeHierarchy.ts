@@ -85,7 +85,51 @@ export function getNodeVisualProperties(depth: number) {
     strokeColor,
     fillColor,
     fontSize,
-    fontWeight
+    fontWeight,
+    minNoteWidth: 480,
+    minNoteHeight: 240,
+    maxNoteWidth: 500,
+    maxNoteHeight: 800,
+  };
+}
+
+/**
+ * Calculate the point where a link should attach to a node's edge.
+ * For circle nodes: point on circumference toward the other node.
+ * For expanded rect nodes: intersection of line with rect edge.
+ */
+export function getLinkEndpoint(
+  nodeX: number,
+  nodeY: number,
+  otherX: number,
+  otherY: number,
+  node: Node,
+  depth: number
+): { x: number; y: number } {
+  if (node.noteExpanded && node.noteWidth && node.noteHeight) {
+    const halfW = node.noteWidth / 2;
+    const halfH = node.noteHeight / 2;
+    const dx = otherX - nodeX;
+    const dy = otherY - nodeY;
+
+    if (dx === 0 && dy === 0) return { x: nodeX, y: nodeY };
+
+    const tX = dx !== 0 ? halfW / Math.abs(dx) : Infinity;
+    const tY = dy !== 0 ? halfH / Math.abs(dy) : Infinity;
+    const t = Math.min(tX, tY);
+
+    return {
+      x: nodeX + dx * t,
+      y: nodeY + dy * t,
+    };
+  }
+
+  // Circle: point on circumference
+  const props = getNodeVisualProperties(depth);
+  const angle = Math.atan2(otherY - nodeY, otherX - nodeX);
+  return {
+    x: nodeX + props.radius * Math.cos(angle),
+    y: nodeY + props.radius * Math.sin(angle),
   };
 }
 

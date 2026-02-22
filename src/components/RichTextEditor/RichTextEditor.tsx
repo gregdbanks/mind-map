@@ -15,13 +15,7 @@ import sql from 'highlight.js/lib/languages/sql';
 import xml from 'highlight.js/lib/languages/xml';
 import markdown from 'highlight.js/lib/languages/markdown';
 
-import {
-  FiBold,
-  FiItalic,
-  FiCode,
-  FiList,
-  FiAlignLeft,
-} from 'react-icons/fi';
+import { Bold, Italic, Code, List, AlignLeft } from 'lucide-react';
 import styles from './RichTextEditor.module.css';
 import { detectCodeLanguage, formatCode } from '../../utils/codeLanguageDetector';
 
@@ -207,14 +201,14 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               active={editor.isActive('bold')}
               title="Bold (Ctrl+B)"
             >
-              <FiBold />
+              <Bold size={16} />
             </MenuButton>
             <MenuButton
               onClick={() => editor.chain().focus().toggleItalic().run()}
               active={editor.isActive('italic')}
               title="Italic (Ctrl+I)"
             >
-              <FiItalic />
+              <Italic size={16} />
             </MenuButton>
             <MenuButton
               onClick={() => {
@@ -238,7 +232,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               active={editor.isActive('code')}
               title="Inline Code (Ctrl+E)"
             >
-              <FiCode />
+              <Code size={16} />
             </MenuButton>
           </div>
 
@@ -281,7 +275,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               active={editor.isActive('bulletList')}
               title="Bullet List"
             >
-              <FiList />
+              <List size={16} />
             </MenuButton>
             <MenuButton
               onClick={() => editor.chain().focus().toggleOrderedList().run()}
@@ -351,7 +345,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
                   }}
                   title="Format code"
                 >
-                  <FiAlignLeft />
+                  <AlignLeft size={16} />
                 </MenuButton>
               </div>
             </>

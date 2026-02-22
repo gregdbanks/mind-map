@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FiUser, FiLogOut, FiCreditCard } from 'react-icons/fi';
+import { User, LogOut, CreditCard } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { apiClient } from '../../services/apiClient';
 import styles from './ProfileDropdown.module.css';
@@ -51,7 +51,7 @@ export const ProfileDropdown: React.FC = () => {
         onClick={() => setIsOpen(!isOpen)}
         title={user?.email || user?.username || 'Profile'}
       >
-        <FiUser size={18} />
+        <User size={18} />
       </button>
 
       {isOpen && (
@@ -61,11 +61,11 @@ export const ProfileDropdown: React.FC = () => {
             {user?.email && <span className={styles.email}>{user.email}</span>}
           </div>
           <button className={styles.menuButton} onClick={handleManageSubscription}>
-            <FiCreditCard size={14} />
+            <CreditCard size={14} />
             Manage subscription
           </button>
           <button className={styles.signOutButton} onClick={handleSignOut}>
-            <FiLogOut size={14} />
+            <LogOut size={14} />
             Sign out
           </button>
         </div>

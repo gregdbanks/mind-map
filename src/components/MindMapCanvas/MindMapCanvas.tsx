@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { createRoot, type Root } from 'react-dom/client';
 import * as d3 from 'd3';
 import { useNavigate } from 'react-router-dom';
 import { useMindMap } from '../../context/MindMapContext';
@@ -20,6 +21,9 @@ import type { ForceNode, ForceLink } from '../../utils/forceDirectedLayout';
 import { getAllConnectedNodes } from '../../utils/getNodeDescendants';
 import { NotesModal } from '../NotesModal';
 import { HelpGuideModal } from '../HelpGuideModal';
+import { InlineNoteContent } from '../InlineNoteContent/InlineNoteContent';
+import { Maximize, Upload, HelpCircle } from 'lucide-react';
+import { ICON_PLUS, ICON_PENCIL, ICON_X, ICON_FILE_TEXT, renderLucideIconD3 } from '../../utils/lucideIconPaths';
 import { ExportSelector } from '../ExportSelector';
 import type { NodeNote } from '../../types';
 import { useMapNotes } from '../../hooks/useMapNotes';
@@ -65,6 +69,10 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
   const marqueeGroupRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
   const currentLayoutRef = useRef(currentLayout);
 
+  // React roots for inline note editors mounted into D3-created foreignObjects
+  const inlineNoteRootsRef = useRef<Map<string, Root>>(new Map());
+  const expandAnimatingRef = useRef<Set<string>>(new Set());
+
   // Keep refs in sync with state so D3 event handler closures always see latest values
   useEffect(() => {
     multiSelectedNodeIdsRef.current = multiSelectedNodeIds;
@@ -81,6 +89,12 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
 
   // Use IndexedDB for notes storage
   const { notes, saveNote, deleteNote, getNote } = useMapNotes(mapId);
+
+  // Stable ref for getNote so D3 rendering can access without causing re-renders
+  const getNodeNoteRef = useRef(getNote);
+  useEffect(() => {
+    getNodeNoteRef.current = getNote;
+  }, [getNote]);
 
   const {
     state,
@@ -409,6 +423,37 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     svg.call(zoomBehavior);
     zoomBehaviorRef.current = zoomBehavior;
 
+    // Prevent ALL browser-level zoom so only D3 controls zoom inside the canvas.
+    // Ctrl+wheel (all browsers)
+    const preventWheelZoom = (e: WheelEvent) => {
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+      }
+    };
+    // Safari trackpad pinch gestures
+    const preventGesture = (e: Event) => { e.preventDefault(); };
+    // Ctrl+plus / Ctrl+minus / Ctrl+0 keyboard zoom
+    const preventKeyboardZoom = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === '=' || e.key === '+' || e.key === '-' || e.key === '0')) {
+        e.preventDefault();
+      }
+    };
+
+    // Use CAPTURE phase so these fire before any content stopPropagation calls
+    // (e.g. InlineNoteContent's onWheel={stopPropagation} would otherwise block bubbling)
+    document.addEventListener('wheel', preventWheelZoom, { passive: false, capture: true });
+    document.addEventListener('gesturestart', preventGesture, { passive: false, capture: true } as any);
+    document.addEventListener('gesturechange', preventGesture, { passive: false, capture: true } as any);
+    document.addEventListener('gestureend', preventGesture, { passive: false, capture: true } as any);
+    document.addEventListener('keydown', preventKeyboardZoom, { capture: true });
+
+    return () => {
+      document.removeEventListener('wheel', preventWheelZoom, { capture: true });
+      document.removeEventListener('gesturestart', preventGesture, { capture: true } as any);
+      document.removeEventListener('gesturechange', preventGesture, { capture: true } as any);
+      document.removeEventListener('gestureend', preventGesture, { capture: true } as any);
+      document.removeEventListener('keydown', preventKeyboardZoom, { capture: true });
+    };
   }, [svgElement, isPanMode, isInitialized]); // Run when svgElement is set or pan mode changes
 
   // Update visualization when data changes
@@ -450,8 +495,19 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     const node = g.selectAll<SVGGElement, Node>('.node')
       .data(nodes, (d: Node) => d.id);
 
-    // Remove old nodes
-    node.exit().remove();
+    // Remove old nodes — clean up inline note React roots before removing DOM
+    const exitSelection = node.exit();
+    if (typeof exitSelection.each === 'function') {
+      exitSelection.each(function(d: any) {
+        const nodeData = d as Node;
+        const root = inlineNoteRootsRef.current.get(nodeData.id);
+        if (root) {
+          root.unmount();
+          inlineNoteRootsRef.current.delete(nodeData.id);
+        }
+      });
+    }
+    exitSelection.remove();
 
     // Add new nodes
     const nodeEnter = node.enter()
@@ -485,6 +541,26 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       .style('display', 'none')
       .style('pointer-events', 'none');
 
+    // Add note container rect (hidden by default, shown when noteExpanded)
+    nodeEnter.append('rect')
+      .attr('class', 'node-rect')
+      .attr('rx', 12)
+      .attr('ry', 12)
+      .attr('width', 0)
+      .attr('height', 0)
+      .attr('x', 0)
+      .attr('y', 0)
+      .style('opacity', 0)
+      .style('cursor', 'pointer');
+
+    // Add foreignObject for inline note content (hidden by default)
+    nodeEnter.append('foreignObject')
+      .attr('class', 'note-content-fo')
+      .attr('width', 0)
+      .attr('height', 0)
+      .style('display', 'none')
+      .style('pointer-events', 'none');
+
     // Add action buttons group for each NEW node only
     const actionsGroup = nodeEnter.append('g')
       .attr('class', 'node-actions')
@@ -504,14 +580,10 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       .attr('stroke-width', 2)
       .style('pointer-events', 'all'); // Make circle clickable
     
-    addButton.append('text')
-      .text('+')
-      .attr('text-anchor', 'middle')
-      .attr('dy', '.35em')
-      .attr('fill', '#fff')
-      .style('font-size', '16px')
-      .style('font-weight', 'bold')
+    const addIcon = addButton.append('g')
+      .attr('transform', 'translate(-7, -7) scale(0.58)')
       .style('pointer-events', 'none');
+    renderLucideIconD3(addIcon, ICON_PLUS, '#fff', 2.5);
 
     // Edit action button
     const editButton = actionsGroup.append('g')
@@ -526,13 +598,10 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       .attr('stroke-width', 2)
       .style('pointer-events', 'all'); // Make circle clickable
     
-    editButton.append('text')
-      .text('✎')
-      .attr('text-anchor', 'middle')
-      .attr('dy', '.35em')
-      .attr('fill', '#fff')
-      .style('font-size', '14px')
+    const editIcon = editButton.append('g')
+      .attr('transform', 'translate(-7, -7) scale(0.58)')
       .style('pointer-events', 'none');
+    renderLucideIconD3(editIcon, ICON_PENCIL, '#fff', 2);
 
     // Delete action button
     const deleteButton = actionsGroup.append('g')
@@ -547,14 +616,10 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       .attr('stroke-width', 2)
       .style('pointer-events', 'all'); // Make circle clickable
     
-    deleteButton.append('text')
-      .text('×')
-      .attr('text-anchor', 'middle')
-      .attr('dy', '.35em')
-      .attr('fill', '#fff')
-      .style('font-size', '20px')
-      .style('font-weight', 'bold')
+    const deleteIcon = deleteButton.append('g')
+      .attr('transform', 'translate(-7, -7) scale(0.58)')
       .style('pointer-events', 'none');
+    renderLucideIconD3(deleteIcon, ICON_X, '#fff', 2.5);
 
     // Notes action button
     const notesButton = actionsGroup.append('g')
@@ -569,40 +634,42 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       .attr('stroke-width', 2)
       .style('pointer-events', 'all'); // Make circle clickable
     
-    notesButton.append('text')
-      .text('📝')
-      .attr('text-anchor', 'middle')
-      .attr('dy', '.35em')
-      .attr('fill', '#fff')
-      .style('font-size', '10px')
+    const noteIcon = notesButton.append('g')
+      .attr('transform', 'translate(-7, -7) scale(0.58)')
       .style('pointer-events', 'none');
+    renderLucideIconD3(noteIcon, ICON_FILE_TEXT, '#fff', 2);
 
     // Update all nodes
     const nodeUpdate = nodeEnter.merge(node);
 
     // Apply background stroke for visual separation from lines
     // Apply to both new and existing nodes to ensure consistency
+    // Skip expanded nodes — their circle is hidden, rect handles visuals
     nodeUpdate.selectAll('.node-background')
       .attr('r', (d: any) => {
         const node = d as Node;
+        if (node.noteExpanded) return 0;
         const depth = nodeDepths.get(node.id) || 0;
         const radius = getNodeVisualProperties(depth).radius;
-        // Use proportional buffer: 6px for root nodes, 4px for others
         const buffer = depth === 0 ? 6 : 4;
         return radius + buffer;
       })
-      .attr('fill', getBackgroundColor(canvasBackground)) // Match canvas background color
+      .style('opacity', (d: any) => (d as Node).noteExpanded ? 0 : 1)
+      .attr('fill', getBackgroundColor(canvasBackground))
       .attr('stroke', getBackgroundColor(canvasBackground))
       .attr('stroke-width', 4)
-      .style('pointer-events', 'none'); // Ensure background doesn't interfere with interactions
+      .style('pointer-events', 'none');
 
     // Apply visual hierarchy to main circles
+    // Skip expanded nodes to prevent flicker (transition handles circle→0)
     nodeUpdate.select('.node-main')
       .attr('r', (d: any) => {
         const node = d as Node;
+        if (node.noteExpanded) return 0;
         const depth = nodeDepths.get(node.id) || 0;
         return getNodeVisualProperties(depth).radius;
       })
+      .style('opacity', (d: any) => (d as Node).noteExpanded ? 0 : 1)
       .attr('fill', (d: any) => {
         const node = d as Node;
         // Use custom color if specified
@@ -682,22 +749,287 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         return getNodeVisualProperties(depth).strokeColor;
       });
 
-    // Update note indicator
+    // Update note indicator — hide when node is expanded (rect is the indicator)
     nodeUpdate.select('.note-indicator')
       .style('display', (d: any) => {
         const node = d as Node;
+        if (node.noteExpanded) return 'none';
         return node.hasNote ? 'block' : 'none';
       })
       .attr('transform', (d: any) => {
         const node = d as Node;
         const depth = nodeDepths.get(node.id) || 0;
         const radius = getNodeVisualProperties(depth).radius;
-        // Position at top-right of the node
-        const angle = -Math.PI / 4; // 45 degrees
+        const angle = -Math.PI / 4;
         const x = radius * Math.cos(angle);
         const y = radius * Math.sin(angle);
         return `translate(${x}, ${y})`;
       });
+
+    // Handle note expansion: circle ↔ rounded rect transition
+    nodeUpdate.each(function(d: any) {
+      const node = d as Node;
+      const sel = d3.select(this);
+      const depth = nodeDepths.get(node.id) || 0;
+      const props = getNodeVisualProperties(depth);
+
+      if (node.noteExpanded) {
+        // Raise expanded nodes to top of SVG draw order so they render above other nodes
+        sel.raise();
+
+        const w = node.noteWidth || props.minNoteWidth;
+        const h = node.noteHeight || props.minNoteHeight;
+        const headerHeight = 28;
+
+        // If this node is mid-animation from a previous render, skip all updates
+        // to avoid disrupting the in-progress transition
+        if (expandAnimatingRef.current.has(node.id)) {
+          return;
+        }
+
+        // Detect initial expand: rect currently has 0 width means we're starting fresh
+        const currentRectW = parseFloat(sel.select('.node-rect').attr('width')) || 0;
+        const isInitialExpand = currentRectW < 1;
+
+        if (isInitialExpand) {
+          // Lock this node — no D3 updates until animation completes
+          expandAnimatingRef.current.add(node.id);
+
+          // Phase 1: Fade circle and title out (150ms)
+          sel.select('.node-main')
+            .transition().duration(150)
+            .attr('r', 0)
+            .style('opacity', 0);
+
+          sel.select('.node-background')
+            .transition().duration(150)
+            .attr('r', 0)
+            .style('opacity', 0);
+
+          sel.select('text')
+            .transition().duration(150)
+            .style('opacity', 0);
+
+          // Hide action buttons during animation
+          sel.select('.node-actions').style('opacity', 0).style('pointer-events', 'none');
+
+          // Ensure foreignObject is completely hidden
+          const fo = sel.select('.note-content-fo');
+          fo.style('display', 'none')
+            .style('opacity', 0)
+            .style('pointer-events', 'none')
+            .attr('x', -w / 2 + 8)
+            .attr('y', -h / 2 + headerHeight)
+            .attr('width', w - 16)
+            .attr('height', h - headerHeight - 8);
+
+          // Phase 2: After circle fades out, expand the rect (350ms)
+          setTimeout(() => {
+            sel.select('.node-rect')
+              .attr('fill', node.color || props.fillColor)
+              .attr('stroke', state.selectedNodeId === node.id ? '#0066cc' : props.strokeColor)
+              .attr('stroke-width', props.strokeWidth + 1)
+              .style('filter', depth <= 1 ? 'drop-shadow(0px 2px 6px rgba(0,0,0,0.15))' : 'none')
+              .transition().duration(350).ease(d3.easeCubicOut)
+              .attr('x', -w / 2)
+              .attr('y', -h / 2)
+              .attr('width', w)
+              .attr('height', h)
+              .style('opacity', 1)
+              .on('end', () => {
+                // Phase 3: Rect finished — show title at new position
+                sel.select('text')
+                  .attr('dy', `${-h / 2 + 18}px`)
+                  .style('font-weight', '600')
+                  .style('font-size', '13px')
+                  .transition().duration(150)
+                  .style('opacity', 1);
+
+                // Phase 4: Mount React editor, wait for render, then fade in
+                const foNode = fo.node() as Element | null;
+                if (foNode) {
+                  let root = inlineNoteRootsRef.current.get(node.id);
+                  if (!root) {
+                    root = createRoot(foNode);
+                    inlineNoteRootsRef.current.set(node.id, root);
+                  }
+                  const noteData = getNodeNoteRef.current(node.id);
+                  root.render(
+                    <InlineNoteContent
+                      nodeId={node.id}
+                      note={noteData || null}
+                      onSave={handleNoteSave(node.id)}
+                      onResize={(newW, newH) => {
+                        operations.updateNode(node.id, { noteWidth: newW, noteHeight: newH });
+                      }}
+                      minWidth={props.minNoteWidth}
+                      minHeight={props.minNoteHeight}
+                      maxWidth={props.maxNoteWidth}
+                      maxHeight={props.maxNoteHeight}
+                    />
+                  );
+                }
+
+                // Double rAF: let React render off-screen, then fade in
+                requestAnimationFrame(() => {
+                  requestAnimationFrame(() => {
+                    fo.style('display', 'block');
+                    fo.transition().duration(200)
+                      .style('opacity', 1)
+                      .on('end', function() {
+                        d3.select(this).style('pointer-events', 'all');
+                      });
+
+                    // Show action buttons
+                    sel.select('.node-actions')
+                      .style('pointer-events', 'all')
+                      .transition().duration(150)
+                      .style('opacity', 1);
+
+                    // Unlock — future D3 updates can proceed
+                    expandAnimatingRef.current.delete(node.id);
+                  });
+                });
+
+                // Position action buttons at expanded positions
+                sel.select('.node-actions').selectAll<SVGGElement, unknown>('g').each(function(_, i) {
+                  const halfW = w / 2;
+                  const halfH = h / 2;
+                  const btn = d3.select(this);
+                  switch (i) {
+                    case 0: btn.attr('transform', `translate(0, ${-halfH - 20})`); break;
+                    case 1: btn.attr('transform', `translate(${halfW + 20}, 0)`); break;
+                    case 2: btn.attr('transform', `translate(0, ${halfH + 20})`); break;
+                    case 3: btn.attr('transform', `translate(${-halfW - 20}, 0)`); break;
+                  }
+                });
+              });
+          }, 150);
+
+        } else {
+          // Already expanded — no animation, just ensure correct state
+          sel.select('.node-main').attr('r', 0).style('opacity', 0);
+          sel.select('.node-background').attr('r', 0).style('opacity', 0);
+
+          sel.select('text')
+            .attr('dy', `${-h / 2 + 18}px`)
+            .style('font-weight', '600')
+            .style('font-size', '13px');
+
+          sel.select('.node-rect')
+            .attr('fill', node.color || props.fillColor)
+            .attr('stroke', state.selectedNodeId === node.id ? '#0066cc' : props.strokeColor)
+            .attr('stroke-width', props.strokeWidth + 1)
+            .style('filter', depth <= 1 ? 'drop-shadow(0px 2px 6px rgba(0,0,0,0.15))' : 'none')
+            .attr('x', -w / 2)
+            .attr('y', -h / 2)
+            .attr('width', w)
+            .attr('height', h)
+            .style('opacity', 1);
+
+          const fo = sel.select('.note-content-fo');
+          fo.attr('x', -w / 2 + 8)
+            .attr('y', -h / 2 + headerHeight)
+            .attr('width', w - 16)
+            .attr('height', h - headerHeight - 8)
+            .style('display', 'block')
+            .style('opacity', 1)
+            .style('pointer-events', 'all');
+
+          // Mount/update editor
+          const foNode = fo.node() as Element | null;
+          if (foNode) {
+            let root = inlineNoteRootsRef.current.get(node.id);
+            if (!root) {
+              root = createRoot(foNode);
+              inlineNoteRootsRef.current.set(node.id, root);
+            }
+            const noteData = getNodeNoteRef.current(node.id);
+            root.render(
+              <InlineNoteContent
+                nodeId={node.id}
+                note={noteData || null}
+                onSave={handleNoteSave(node.id)}
+                onResize={(newW, newH) => {
+                  operations.updateNode(node.id, { noteWidth: newW, noteHeight: newH });
+                }}
+                minWidth={props.minNoteWidth}
+                minHeight={props.minNoteHeight}
+                maxWidth={props.maxNoteWidth}
+                maxHeight={props.maxNoteHeight}
+              />
+            );
+          }
+
+          // Action buttons visible and positioned for expanded state
+          sel.select('.node-actions').style('opacity', 1).style('pointer-events', 'all');
+          sel.select('.node-actions').selectAll<SVGGElement, unknown>('g').each(function(_, i) {
+            const halfW = w / 2;
+            const halfH = h / 2;
+            const btn = d3.select(this);
+            switch (i) {
+              case 0: btn.attr('transform', `translate(0, ${-halfH - 20})`); break;
+              case 1: btn.attr('transform', `translate(${halfW + 20}, 0)`); break;
+              case 2: btn.attr('transform', `translate(0, ${halfH + 20})`); break;
+              case 3: btn.attr('transform', `translate(${-halfW - 20}, 0)`); break;
+            }
+          });
+        }
+
+      } else {
+        // Clear animation lock if collapsing during animation
+        expandAnimatingRef.current.delete(node.id);
+
+        // Collapse: rect out, circle back in
+        sel.select('.node-rect')
+          .transition().duration(300)
+          .attr('width', 0)
+          .attr('height', 0)
+          .attr('x', 0)
+          .attr('y', 0)
+          .style('opacity', 0);
+
+        sel.select('.node-main')
+          .transition().duration(300)
+          .attr('r', props.radius)
+          .style('opacity', 1);
+
+        sel.select('.node-background')
+          .transition().duration(300)
+          .attr('r', props.radius + (depth === 0 ? 6 : 4))
+          .style('opacity', 1);
+
+        // Restore title position
+        sel.select('text')
+          .transition().duration(300)
+          .attr('dy', '.35em');
+
+        // Hide foreignObject and unmount React root
+        sel.select('.note-content-fo')
+          .style('display', 'none')
+          .attr('width', 0)
+          .attr('height', 0)
+          .style('pointer-events', 'none');
+
+        const existingRoot = inlineNoteRootsRef.current.get(node.id);
+        if (existingRoot) {
+          existingRoot.unmount();
+          inlineNoteRootsRef.current.delete(node.id);
+        }
+
+        // Restore action button interactivity and default positions
+        sel.select('.node-actions').style('pointer-events', 'all');
+        sel.select('.node-actions').selectAll<SVGGElement, unknown>('g').each(function(_, i) {
+          const btn = d3.select(this);
+          switch (i) {
+            case 0: btn.attr('transform', 'translate(0, -35)'); break;
+            case 1: btn.attr('transform', 'translate(35, 0)'); break;
+            case 2: btn.attr('transform', 'translate(0, 35)'); break;
+            case 3: btn.attr('transform', 'translate(-35, 0)'); break;
+          }
+        });
+      }
+    });
 
     // Apply selected layout - only to nodes without positions (preserves IndexedDB and user drags)
     const nodesWithoutPositions = nodes.filter(n => n.x === undefined || n.y === undefined);
@@ -917,6 +1249,16 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           dragStartPositionsRef.current = new Map();
           isDraggingRef.current = false;
           setIsDragging(false);
+
+          // Restore action button visibility for expanded notes
+          // (drag start hides them, but mouseout won't re-show for expanded nodes)
+          if (d.noteExpanded) {
+            g.selectAll<SVGGElement, Node>('.node')
+              .filter((nd: Node) => nd.id === d.id)
+              .select('.node-actions')
+              .style('opacity', 1)
+              .style('pointer-events', 'all');
+          }
         });
 
       nodeUpdate.call(drag);
@@ -970,10 +1312,12 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
             .style('opacity', 1);
         }
       })
-      .on('mouseout.hover', function(_event: MouseEvent, _d: Node) {
+      .on('mouseout.hover', function(_event: MouseEvent, d: Node) {
         if (!isDraggingRef.current) {
           setHoveredNodeId(null);
-          // Always hide action buttons on mouse out
+          // Keep action buttons visible for expanded notes (mouseout fires when entering foreignObject)
+          if (d.noteExpanded) return;
+          // Hide action buttons on mouse out
           d3.select(this).select('.node-actions')
             .transition()
             .duration(200)
@@ -1017,7 +1361,23 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           } else if (i === 3) { // Notes button
             button.on('click', function(event: MouseEvent) {
               event.stopPropagation();
-              setNotesModalNodeId(d.id);
+              if (!d.hasNote) {
+                // No note yet — open modal to create one
+                setNotesModalNodeId(d.id);
+              } else {
+                // Toggle inline expansion — accordion: only one note open at a time
+                const newExpanded = !d.noteExpanded;
+                if (newExpanded) {
+                  // Collapse any other expanded notes first
+                  state.nodes.forEach((n, id) => {
+                    if (id !== d.id && n.noteExpanded) {
+                      expandAnimatingRef.current.delete(id);
+                      operations.updateNode(id, { noteExpanded: false });
+                    }
+                  });
+                }
+                operations.updateNode(d.id, { noteExpanded: newExpanded });
+              }
             });
           }
         });
@@ -1028,7 +1388,39 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     attachActionHandlers(nodeEnter);
     attachActionHandlers(nodeUpdate);
 
+
   }, [nodes.length, links.length, state.selectedNodeId, state.editingNodeId, isInitialized, selectNode, startEditing, state.nodes, operations, currentLayout, canvasBackground]);
+
+  // Re-render inline note components when notes load/change (fixes race condition on refresh)
+  useEffect(() => {
+    if (inlineNoteRootsRef.current.size === 0) return;
+    const nodeDepths = calculateNodeDepths(state.nodes);
+
+    inlineNoteRootsRef.current.forEach((root, nodeId) => {
+      const node = state.nodes.get(nodeId);
+      if (!node || !node.noteExpanded) return;
+
+      const depth = nodeDepths.get(nodeId) || 0;
+      const props = getNodeVisualProperties(depth);
+      const noteData = getNote(nodeId);
+
+      root.render(
+        <InlineNoteContent
+          nodeId={nodeId}
+          note={noteData || null}
+          onSave={handleNoteSave(nodeId)}
+          onResize={(newW, newH) => {
+            operations.updateNode(nodeId, { noteWidth: newW, noteHeight: newH });
+          }}
+          minWidth={props.minNoteWidth}
+          minHeight={props.minNoteHeight}
+          maxWidth={props.maxNoteWidth}
+          maxHeight={props.maxNoteHeight}
+        />
+      );
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [notes]);
 
   // Hide all action buttons when editing starts
   useEffect(() => {
@@ -1461,13 +1853,16 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     };
   }, [state, operations, stopEditing, isPanMode, markClean, startEditing]);
 
-  // Cleanup simulation on unmount
+  // Cleanup simulation and inline note roots on unmount
   useEffect(() => {
     return () => {
       if (simulationRef.current) {
         layoutManager.stopSimulation(simulationRef.current);
         simulationRef.current = null;
       }
+      // Unmount all inline note React roots
+      inlineNoteRootsRef.current.forEach(root => root.unmount());
+      inlineNoteRootsRef.current.clear();
     };
   }, []);
 
@@ -1520,11 +1915,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           onClick={fitToViewport}
           title="Fit all nodes in viewport"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
-            <path d="M15,3H6A3,3,0,0,0,3,6V15a1,1,0,0,0,2,0V6A1,1,0,0,1,6,5h9a1,1,0,0,0,0-2Z"/>
-            <path d="M21,9a1,1,0,0,0-1,1v8a1,1,0,0,1-1,1H11a1,1,0,0,0,0,2h8a3,3,0,0,0,3-3V10A1,1,0,0,0,21,9Z"/>
-          </svg>
+          <Maximize size={16} />
         </button>
         
         <ExportSelector
@@ -1542,9 +1933,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           onClick={() => setIsImportModalOpen(true)}
           title="Import JSON data"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"/>
-          </svg>
+          <Upload size={16} />
         </button>
 
         <button
@@ -1553,9 +1942,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           title="Help & keyboard shortcuts (?)"
           data-testid="help-button"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10-4.48 10-10S17.52,2 12,2zm1,17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45,12.9 13,13.5 13,15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2,.9-2,2H8c0-2.21 1.79-4 4-4s4,1.79 4,4c0,.88-.36,1.68-.93,2.25z"/>
-          </svg>
+          <HelpCircle size={16} />
         </button>
       </div>
 
