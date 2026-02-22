@@ -3,6 +3,7 @@ import { getDatabase } from './database';
 import type { Node, Link, MapMetadata } from '../types/mindMap';
 import type { NodeNote } from '../types/notes';
 import type { CloudMapData, CloudMapMeta, CloudMapListResponse, SerializedNote } from '../types/sync';
+import { loadCanvasBackground } from '../components/BackgroundSelector';
 
 // In-flight lock to prevent concurrent pushes of the same map
 const inFlightPushes = new Set<string>();
@@ -44,6 +45,7 @@ function buildCloudData(nodes: Node[], links: Link[], notes: NodeNote[]): CloudM
     links,
     notes: serializeNotes(notes),
     lastModified: new Date().toISOString(),
+    canvasBackground: loadCanvasBackground(),
   };
 }
 
@@ -68,8 +70,8 @@ async function updateSyncMetadata(
   });
 }
 
-/** Push a single map to cloud. Creates if not yet synced, updates if already synced. */
-export async function pushMapToCloud(mapId: string): Promise<CloudMapMeta> {
+/** Push a single map to cloud. If createIfMissing is true, creates when not in cloud. Otherwise only updates existing. */
+export async function pushMapToCloud(mapId: string, createIfMissing = false): Promise<CloudMapMeta> {
   if (inFlightPushes.has(mapId)) {
     throw new Error('Push already in progress');
   }
@@ -104,12 +106,12 @@ export async function pushMapToCloud(mapId: string): Promise<CloudMapMeta> {
     const notes = await getNotesForMap(mapId);
     const cloudData = buildCloudData(mapData.nodes, mapData.links, notes);
 
-    // Try update first (PUT). If 404, create (POST).
+    // Try update first (PUT). If 404 and createIfMissing, create (POST).
     let result: CloudMapMeta;
     try {
       result = await apiClient.updateMap(mapId, { title, data: cloudData });
     } catch (err) {
-      if (err instanceof ApiError && err.status === 404) {
+      if (err instanceof ApiError && err.status === 404 && createIfMissing) {
         result = await apiClient.createMap({ id: mapId, title, data: cloudData });
       } else {
         throw err;
