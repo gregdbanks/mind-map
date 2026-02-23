@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { User, LogOut, CreditCard, Star } from 'lucide-react';
+import { User, LogOut, CreditCard, Star, Sparkles } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { apiClient } from '../../services/apiClient';
 import styles from './ProfileDropdown.module.css';
@@ -8,12 +8,14 @@ export const ProfileDropdown: React.FC = () => {
   const { user, signOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isPro, setIsPro] = useState(false);
+  const [monthlyPriceId, setMonthlyPriceId] = useState<string | undefined>();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     apiClient.getPlanStatus().then((status) => {
       setIsPro(status.plan === 'pro');
+      setMonthlyPriceId(status.monthlyPriceId);
     }).catch(() => {});
   }, []);
 
@@ -50,6 +52,17 @@ export const ProfileDropdown: React.FC = () => {
     }
   };
 
+  const handleUpgrade = async () => {
+    if (!monthlyPriceId) return;
+    setIsOpen(false);
+    try {
+      const { url } = await apiClient.createCheckout(monthlyPriceId);
+      window.location.href = url;
+    } catch {
+      // Checkout creation failed — ignore
+    }
+  };
+
   return (
     <div className={styles.profileDropdown}>
       <button
@@ -72,10 +85,17 @@ export const ProfileDropdown: React.FC = () => {
             <span className={styles.username}>{user?.username}</span>
             {user?.email && <span className={styles.email}>{user.email}</span>}
           </div>
-          <button className={styles.menuButton} onClick={handleManageSubscription}>
-            <CreditCard size={14} />
-            Manage subscription
-          </button>
+          {isPro ? (
+            <button className={styles.menuButton} onClick={handleManageSubscription}>
+              <CreditCard size={14} />
+              Manage subscription
+            </button>
+          ) : (
+            <button className={styles.upgradeMenuButton} onClick={handleUpgrade}>
+              <Sparkles size={14} />
+              Upgrade to Pro
+            </button>
+          )}
           <button className={styles.signOutButton} onClick={handleSignOut}>
             <LogOut size={14} />
             Sign out

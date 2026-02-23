@@ -28,6 +28,8 @@ import { ExportSelector } from '../ExportSelector';
 import type { NodeNote } from '../../types';
 import { useMapNotes } from '../../hooks/useMapNotes';
 import { useCloudSync } from '../../hooks/useCloudSync';
+import { useAuth } from '../../context/AuthContext';
+import { apiClient } from '../../services/apiClient';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './MindMapCanvas.module.css';
 
@@ -56,6 +58,14 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
   const [notesModalNodeId, setNotesModalNodeId] = useState<string | null>(null);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [canvasBackground, setCanvasBackground] = useState<CanvasBackground>(() => loadCanvasBackground());
+
+  // Plan status for gating Pro features (exports)
+  const { isAuthenticated } = useAuth();
+  const [isPro, setIsPro] = useState(false);
+  useEffect(() => {
+    if (!isAuthenticated) { setIsPro(false); return; }
+    apiClient.getPlanStatus().then((s) => setIsPro(s.plan === 'pro')).catch(() => {});
+  }, [isAuthenticated]);
 
   // Multi-select state
   const [multiSelectedNodeIds, setMultiSelectedNodeIds] = useState<Set<string>>(new Set());
@@ -1952,6 +1962,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           state={state}
           notes={notes}
           onExportSuccess={markClean}
+          isPro={isPro}
         />
         
         

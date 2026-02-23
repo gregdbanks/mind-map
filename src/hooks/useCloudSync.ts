@@ -6,8 +6,8 @@ import {
   pullMapFromCloud,
   deleteMapFromCloud,
 } from '../services/syncService';
-import { ApiError } from '../services/apiClient';
-import type { CloudMapMeta, CloudMapListResponse, CloudSyncState } from '../types/sync';
+import { ApiError, apiClient } from '../services/apiClient';
+import type { CloudMapListResponse, CloudSyncState } from '../types/sync';
 
 const QUEUE_STORAGE_KEY = 'thoughtnet-sync-queue';
 
@@ -32,8 +32,15 @@ export function useCloudSync() {
   const [syncStatus, setSyncStatus] = useState<CloudSyncState>('idle');
   const [queue, setQueue] = useState<string[]>(loadQueue);
   const processingRef = useRef(false);
+  const planRef = useRef<string>('free');
 
   const canSync = isAuthenticated && isOnline;
+
+  // Fetch plan status for sync gating
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    apiClient.getPlanStatus().then((s) => { planRef.current = s.plan; }).catch(() => {});
+  }, [isAuthenticated]);
 
   // Track online/offline
   useEffect(() => {
@@ -59,6 +66,14 @@ export function useCloudSync() {
   // Process the offline queue
   const processQueue = useCallback(async () => {
     if (processingRef.current || !isAuthenticated || !isOnline) return;
+
+    // Don't process queue for downgraded users
+    if (planRef.current !== 'pro') {
+      setQueue([]);
+      saveQueue([]);
+      return;
+    }
+
     processingRef.current = true;
 
     const currentQueue = loadQueue();
@@ -87,6 +102,12 @@ export function useCloudSync() {
   /** Push map to cloud immediately, or enqueue if offline */
   const pushMap = useCallback(async (mapId: string): Promise<boolean> => {
     if (!isAuthenticated) return false;
+
+    // Downgraded users: edits save locally only
+    if (planRef.current !== 'pro') {
+      setSyncStatus('idle');
+      return false;
+    }
 
     if (!isOnline) {
       enqueue(mapId);

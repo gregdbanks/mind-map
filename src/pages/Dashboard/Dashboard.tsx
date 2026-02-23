@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useCloudSync } from '../../hooks/useCloudSync';
 import { importFromJSONText } from '../../utils/exportUtils';
 import { ProfileDropdown } from '../../components/ProfileDropdown';
+import { UpgradeModal } from '../../components/UpgradeModal';
 import { MapCard } from './MapCard';
 import { apiClient } from '../../services/apiClient';
 import type { MapMetadata } from '../../types/mindMap';
@@ -74,7 +75,6 @@ export const Dashboard: React.FC = () => {
   const [cloudLoading, setCloudLoading] = useState(false);
   const [planInfo, setPlanInfo] = useState<{ plan: string; mapCount: number; mapLimit: number | null; monthlyPriceId?: string } | null>(null);
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
-  const [upgrading, setUpgrading] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   // Handle checkout redirect
@@ -162,17 +162,6 @@ export const Dashboard: React.FC = () => {
     fileInputRef.current?.click();
   };
 
-  const handleUpgrade = async () => {
-    if (!planInfo?.monthlyPriceId) return;
-    setUpgrading(true);
-    try {
-      const { url } = await apiClient.createCheckout(planInfo.monthlyPriceId);
-      window.location.href = url;
-    } catch {
-      setUpgrading(false);
-    }
-  };
-
   const handleFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -211,10 +200,11 @@ export const Dashboard: React.FC = () => {
     if (checkoutSuccess) return 'Welcome to Pro! Unlimited cloud maps and sharing.';
     if (planInfo?.plan === 'pro') return 'Pro — Unlimited cloud maps and sharing';
     if (planInfo && planInfo.plan !== 'pro' && planInfo.mapCount > 0) {
-      return `${planInfo.mapCount} cloud maps synced — Existing maps will continue to sync. Upgrade to Pro to save new maps to the cloud.`;
+      const mapLabel = planInfo.mapCount === 1 ? 'cloud map' : 'cloud maps';
+      return `${planInfo.mapCount} ${mapLabel} synced — Free plan includes 1 cloud save. Upgrade to Pro for unlimited.`;
     }
     if (planInfo && planInfo.plan !== 'pro') {
-      return 'Upgrade to Pro to save maps to the cloud';
+      return 'Free plan — 1 cloud save included. Upgrade to Pro for unlimited.';
     }
     return 'Cloud sync enabled';
   };
@@ -278,27 +268,14 @@ export const Dashboard: React.FC = () => {
       <footer className={styles.proBanner}>
         {footerText()}
         {isAuthenticated && planInfo && planInfo.plan !== 'pro' && (
-          <button className={styles.upgradeButton} onClick={handleUpgrade} disabled={upgrading}>
-            {upgrading ? 'Redirecting...' : 'Upgrade to Pro — $5/mo'}
+          <button className={styles.upgradeButton} onClick={() => setShowUpgradeModal(true)}>
+            Upgrade to Pro
           </button>
         )}
       </footer>
 
       {showUpgradeModal && (
-        <div className={styles.modalOverlay} onClick={() => setShowUpgradeModal(false)}>
-          <div className={styles.upgradeModal} onClick={(e) => e.stopPropagation()}>
-            <h2>Upgrade to Pro</h2>
-            <p>Save your mind maps to the cloud and access them from any device. Pro members get unlimited cloud saves and sharing.</p>
-            <div className={styles.upgradeModalActions}>
-              <button className={styles.upgradeButton} onClick={() => { setShowUpgradeModal(false); handleUpgrade(); }} disabled={upgrading}>
-                {upgrading ? 'Redirecting...' : 'Upgrade to Pro — $5/mo'}
-              </button>
-              <button className={styles.modalCancelButton} onClick={() => setShowUpgradeModal(false)}>
-                Not now
-              </button>
-            </div>
-          </div>
-        </div>
+        <UpgradeModal onClose={() => setShowUpgradeModal(false)} />
       )}
     </div>
   );
