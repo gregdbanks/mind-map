@@ -25,6 +25,22 @@ jest.mock('../../../hooks/useCloudSync', () => ({
   }),
 }));
 
+// Mock apiClient to avoid import.meta.env issues in tests
+jest.mock('../../../services/apiClient', () => ({
+  apiClient: {
+    getPlanStatus: jest.fn().mockResolvedValue({ plan: 'free', mapCount: 0, mapLimit: 1, monthlyPriceId: 'price_test', annualPriceId: 'price_test_annual', hasStripeCustomer: false }),
+  },
+  ApiError: class ApiError extends Error {
+    status: number;
+    constructor(message: string, status: number) { super(message); this.status = status; }
+  },
+}));
+
+// Mock AuthContext
+jest.mock('../../../context/AuthContext', () => ({
+  useAuth: () => ({ isAuthenticated: false, user: null, signIn: jest.fn(), signOut: jest.fn() }),
+}));
+
 // Mock D3 to avoid SVG property errors in tests
 jest.mock('d3', () => {
   const mockSelection: any = {

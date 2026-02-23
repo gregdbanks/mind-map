@@ -6,13 +6,26 @@ import { MindMapCanvas } from '../../components/MindMapCanvas/MindMapCanvas';
 import { EditorHeader } from '../../components/EditorHeader';
 import type { SaveStatus } from '../../components/EditorHeader';
 import { useCloudSync } from '../../hooks/useCloudSync';
+import { useAuth } from '../../context/AuthContext';
+import { apiClient } from '../../services/apiClient';
 
 const EditorContent: React.FC<{ mapId: string }> = ({ mapId }) => {
   const { state } = useMindMap();
   const { syncStatus, canSync, isOnline } = useCloudSync();
+  const { isAuthenticated } = useAuth();
   const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
+  const [isPro, setIsPro] = useState(false);
+  const [isAtCloudLimit, setIsAtCloudLimit] = useState(false);
   const prevDirtyRef = useRef(state.isDirty);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    apiClient.getPlanStatus().then((status) => {
+      setIsPro(status.plan === 'pro');
+      setIsAtCloudLimit(status.plan !== 'pro' && status.mapLimit !== null && status.mapCount >= status.mapLimit);
+    }).catch(() => {});
+  }, [isAuthenticated]);
 
   useEffect(() => {
     const wasDirty = prevDirtyRef.current;
@@ -63,7 +76,7 @@ const EditorContent: React.FC<{ mapId: string }> = ({ mapId }) => {
 
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
-      <EditorHeader mapId={mapId} saveStatus={saveStatus} />
+      <EditorHeader mapId={mapId} saveStatus={saveStatus} isPro={isPro} isAtCloudLimit={isAtCloudLimit} />
       <MindMapCanvas mapId={mapId} />
     </div>
   );

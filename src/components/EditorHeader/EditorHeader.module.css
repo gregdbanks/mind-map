@@ -113,6 +113,21 @@
   color: #94a3b8;
 }
 
+.clickableStatus {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin: -2px -6px;
+  transition: background 0.15s;
+}
+
+.clickableStatus:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
 .shareButton {
   width: 32px;
   height: 32px;

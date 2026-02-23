@@ -4,6 +4,7 @@ import { ArrowLeft, Check, Share2 } from 'lucide-react';
 import { useMapTitle } from '../../hooks/useMapTitle';
 import { useAuth } from '../../context/AuthContext';
 import { ShareModal } from '../ShareModal/ShareModal';
+import { UpgradeModal } from '../UpgradeModal';
 import styles from './EditorHeader.module.css';
 
 export type SaveStatus = 'idle' | 'saving' | 'saved' | 'syncing' | 'synced' | 'sync-error' | 'offline';
@@ -11,15 +12,18 @@ export type SaveStatus = 'idle' | 'saving' | 'saved' | 'syncing' | 'synced' | 's
 interface EditorHeaderProps {
   mapId: string;
   saveStatus: SaveStatus;
+  isPro?: boolean;
+  isAtCloudLimit?: boolean;
 }
 
-export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus }) => {
+export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, isPro = false, isAtCloudLimit = false }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const { title, loading: titleLoading, rename } = useMapTitle(mapId);
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState('');
   const [showShareModal, setShowShareModal] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -95,10 +99,21 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus })
         >
           {saveStatus === 'saving' && <span>Saving...</span>}
           {saveStatus === 'saved' && (
-            <>
+            <span
+              className={styles.clickableStatus}
+              onClick={() => {
+                if (!isAuthenticated) {
+                  navigate('/login');
+                } else if (isAtCloudLimit && !isPro) {
+                  setShowUpgradeModal(true);
+                }
+              }}
+              role={!isAuthenticated || (isAtCloudLimit && !isPro) ? 'button' : undefined}
+              tabIndex={!isAuthenticated || (isAtCloudLimit && !isPro) ? 0 : undefined}
+            >
               <Check size={14} className={styles.checkIcon} />
-              <span>Saved locally</span>
-            </>
+              Saved locally
+            </span>
           )}
           {saveStatus === 'syncing' && <span>Syncing...</span>}
           {saveStatus === 'synced' && (
@@ -118,7 +133,13 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus })
         {isAuthenticated && (
           <button
             className={styles.shareButton}
-            onClick={() => setShowShareModal(true)}
+            onClick={() => {
+              if (isPro) {
+                setShowShareModal(true);
+              } else {
+                setShowUpgradeModal(true);
+              }
+            }}
             title="Share"
             aria-label="Share mind map"
           >
@@ -129,6 +150,14 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus })
 
       {showShareModal && (
         <ShareModal mapId={mapId} onClose={() => setShowShareModal(false)} />
+      )}
+
+      {showUpgradeModal && (
+        <UpgradeModal
+          title="Upgrade to Pro"
+          description="Sharing, premium exports, and unlimited cloud saves are available with a Pro subscription."
+          onClose={() => setShowUpgradeModal(false)}
+        />
       )}
     </>
   );
