@@ -20,15 +20,19 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({
   useEffect(() => {
     apiClient.getPlanStatus().then((status) => {
       setPriceIds({ monthlyPriceId: status.monthlyPriceId, annualPriceId: status.annualPriceId });
+      if (!status.annualPriceId) {
+        setSelectedPlan('monthly');
+      }
     }).catch(() => {});
   }, []);
 
+  const activePriceId = selectedPlan === 'annual' ? priceIds.annualPriceId : priceIds.monthlyPriceId;
+
   const handleUpgrade = async () => {
-    const priceId = selectedPlan === 'annual' ? priceIds.annualPriceId : priceIds.monthlyPriceId;
-    if (!priceId) return;
+    if (!activePriceId) return;
     setUpgrading(true);
     try {
-      const { url } = await apiClient.createCheckout(priceId);
+      const { url } = await apiClient.createCheckout(activePriceId!);
       window.location.href = url;
     } catch {
       setUpgrading(false);
@@ -65,7 +69,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({
         ) : null}
 
         <div className={styles.actions}>
-          <button className={styles.upgradeButton} onClick={handleUpgrade} disabled={upgrading}>
+          <button className={styles.upgradeButton} onClick={handleUpgrade} disabled={upgrading || !activePriceId}>
             {upgrading ? 'Redirecting...' : hasAnnual
               ? `Upgrade to Pro — ${selectedPlan === 'annual' ? '$24/yr' : '$3/mo'}`
               : 'Upgrade to Pro — $3/mo'}

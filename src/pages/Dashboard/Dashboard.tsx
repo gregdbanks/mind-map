@@ -200,7 +200,8 @@ export const Dashboard: React.FC = () => {
     if (checkoutSuccess) return 'Welcome to Pro! Unlimited cloud maps and sharing.';
     if (planInfo?.plan === 'pro') return 'Pro — Unlimited cloud maps and sharing';
     if (planInfo && planInfo.plan !== 'pro' && planInfo.mapCount > 0) {
-      return `${planInfo.mapCount} cloud map synced — Free plan includes 1 cloud save. Upgrade to Pro for unlimited.`;
+      const mapLabel = planInfo.mapCount === 1 ? 'cloud map' : 'cloud maps';
+      return `${planInfo.mapCount} ${mapLabel} synced — Free plan includes 1 cloud save. Upgrade to Pro for unlimited.`;
     }
     if (planInfo && planInfo.plan !== 'pro') {
       return 'Free plan — 1 cloud save included. Upgrade to Pro for unlimited.';

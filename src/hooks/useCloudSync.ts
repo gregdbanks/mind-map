@@ -7,7 +7,7 @@ import {
   deleteMapFromCloud,
 } from '../services/syncService';
 import { ApiError, apiClient } from '../services/apiClient';
-import type { CloudMapMeta, CloudMapListResponse, CloudSyncState } from '../types/sync';
+import type { CloudMapListResponse, CloudSyncState } from '../types/sync';
 
 const QUEUE_STORAGE_KEY = 'thoughtnet-sync-queue';
 
@@ -66,6 +66,14 @@ export function useCloudSync() {
   // Process the offline queue
   const processQueue = useCallback(async () => {
     if (processingRef.current || !isAuthenticated || !isOnline) return;
+
+    // Don't process queue for downgraded users
+    if (planRef.current !== 'pro') {
+      setQueue([]);
+      saveQueue([]);
+      return;
+    }
+
     processingRef.current = true;
 
     const currentQueue = loadQueue();

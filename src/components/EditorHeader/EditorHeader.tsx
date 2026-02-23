@@ -108,6 +108,16 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
                   setShowUpgradeModal(true);
                 }
               }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  if (!isAuthenticated) {
+                    navigate('/login');
+                  } else if (isAtCloudLimit && !isPro) {
+                    setShowUpgradeModal(true);
+                  }
+                }
+              }}
               role={!isAuthenticated || (isAtCloudLimit && !isPro) ? 'button' : undefined}
               tabIndex={!isAuthenticated || (isAtCloudLimit && !isPro) ? 0 : undefined}
             >

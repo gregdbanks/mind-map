@@ -20,7 +20,11 @@ const EditorContent: React.FC<{ mapId: string }> = ({ mapId }) => {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated) {
+      setIsPro(false);
+      setIsAtCloudLimit(false);
+      return;
+    }
     apiClient.getPlanStatus().then((status) => {
       setIsPro(status.plan === 'pro');
       setIsAtCloudLimit(status.plan !== 'pro' && status.mapLimit !== null && status.mapCount >= status.mapLimit);

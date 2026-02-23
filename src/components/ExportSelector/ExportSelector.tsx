@@ -94,7 +94,7 @@ export const ExportSelector: React.FC<ExportSelectorProps> = ({
     } else if (format === 'pdf') {
       await exportToPDF(svgEl, bbox, canvasBackground, onExportSuccess);
     }
-  }, [svgRef, getMainGroupBBox, canvasBackground, state, notes, onExportSuccess]);
+  }, [isPro, svgRef, getMainGroupBBox, canvasBackground, state, notes, onExportSuccess]);
 
   return (
     <div className={styles.exportSelector}>

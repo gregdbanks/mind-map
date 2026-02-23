@@ -4,7 +4,7 @@
 
 **Community-first, premium productivity.** Free users are contributors who build the public library. Pro users pay for power tools. Teams pay for real-time collaboration.
 
-| Feature | Free | Pro ($5/mo or $36/yr) | Teams (future) |
+| Feature | Free | Pro ($3/mo or $24/yr) | Teams (future) |
 |---------|------|----------------------|----------------|
 | Local maps | Unlimited | Unlimited | Unlimited |
 | Cloud saves | 1 | Unlimited | Unlimited |
@@ -57,10 +57,10 @@
 - Stripe Dashboard → Settings → Emails → Enable failed payment notifications
 - No code changes
 
-### 9.8 Add Annual Plan ($36/yr)
+### 9.8 Add Annual Plan ($24/yr)
 - Create price in Stripe Dashboard
 - Set `STRIPE_ANNUAL_PRICE_ID` env var in App Runner
-- Update upgrade modal: show monthly + annual options with "Save 40%" callout
+- Update upgrade modal: show monthly ($3/mo) + annual ($24/yr) options with "Save 33%" callout
 - **Files**: `src/pages/Dashboard/Dashboard.tsx`, App Runner env vars
 
 ### 9.9 Drop Free Cloud Limit to 1
