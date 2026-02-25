@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { apiClient } from '../../services/apiClient';
+import { pushMapToCloud } from '../../services/syncService';
 import { LIBRARY_CATEGORIES } from '../../types/library';
 import styles from './PublishModal.module.css';
 
@@ -46,6 +47,8 @@ export const PublishModal: React.FC<PublishModalProps> = ({ mapId, mapTitle, onC
     setPublishing(true);
     setError(null);
     try {
+      // Ensure the map exists in the cloud before publishing
+      await pushMapToCloud(mapId, true);
       await apiClient.publishMap({
         mapId,
         title: title.trim(),
