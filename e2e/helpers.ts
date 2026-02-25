@@ -5,7 +5,7 @@ import { Page } from '@playwright/test';
  * Returns once mind map nodes are visible.
  */
 export async function createMapAndNavigate(page: Page) {
-  await page.goto('http://localhost:3000');
+  await page.goto('http://localhost:3000/dashboard');
 
   // Wait for the dashboard to load
   await page.waitForSelector('button', { timeout: 10000 });
