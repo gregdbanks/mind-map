@@ -20,8 +20,8 @@ const MapCard: React.FC<{ map: LibraryMapSummary; onClick: () => void }> = ({ ma
       <span className={styles.author}>{map.author_name || 'Anonymous'}</span>
       <div className={styles.cardStats}>
         <span className={styles.stat}>
-          <Star size={13} fill={map.rating_avg > 0 ? '#f59e0b' : 'none'} stroke={map.rating_avg > 0 ? '#f59e0b' : '#64748b'} />
-          {map.rating_avg > 0 ? map.rating_avg.toFixed(1) : '\u2014'}
+          <Star size={13} fill={Number(map.rating_avg) > 0 ? '#f59e0b' : 'none'} stroke={Number(map.rating_avg) > 0 ? '#f59e0b' : '#64748b'} />
+          {Number(map.rating_avg) > 0 ? Number(map.rating_avg).toFixed(1) : '\u2014'}
         </span>
         <span className={styles.stat}>
           <GitFork size={13} />
