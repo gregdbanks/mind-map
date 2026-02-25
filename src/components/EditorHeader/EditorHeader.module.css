@@ -129,6 +129,7 @@
 }
 
 .shareButton {
+  position: relative;
   width: 32px;
   height: 32px;
   border: none;
@@ -148,4 +149,23 @@
 .shareButton:hover {
   background: rgba(0, 0, 0, 0.06);
   color: #6366f1;
+}
+
+.historyActive {
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+}
+
+.proBadge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 8px;
+  font-weight: 700;
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.12);
+  padding: 1px 3px;
+  border-radius: 3px;
+  line-height: 1;
+  pointer-events: none;
 }
