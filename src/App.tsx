@@ -1,3 +1,4 @@
+import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { useMigration } from './hooks/useMigration'
@@ -13,13 +14,15 @@ import { Library } from './pages/Library/Library'
 import { LibraryMapView } from './pages/Library/LibraryMapView'
 import './App.css'
 
+const loadingStyle: React.CSSProperties = { display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#1a1a2e', color: '#fff' };
+
 /** Show Dashboard for authenticated users, Landing page for visitors */
 function HomePage() {
   const { isAuthenticated, isLoading } = useAuth()
 
   if (isLoading) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#1a1a2e', color: '#fff' }}>
+      <div style={loadingStyle}>
         Loading...
       </div>
     )
@@ -33,7 +36,7 @@ function App() {
 
   if (migrating) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#1a1a2e', color: '#fff' }}>
+      <div style={loadingStyle}>
         Loading...
       </div>
     )

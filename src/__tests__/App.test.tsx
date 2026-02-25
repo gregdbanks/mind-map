@@ -80,6 +80,26 @@ describe('App', () => {
     });
   });
 
+  it('should render landing page at root when not authenticated', async () => {
+    // Override the AuthContext mock for this test
+    const authModule = jest.requireMock('../context/AuthContext') as { useAuth: () => { isAuthenticated: boolean; isLoading: boolean } };
+    const originalUseAuth = authModule.useAuth;
+    authModule.useAuth = () => ({ isAuthenticated: false, isLoading: false });
+
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId('landing')).toBeInTheDocument();
+    });
+
+    // Restore original mock
+    authModule.useAuth = originalUseAuth;
+  });
+
   it('should show loading while migration is in progress', () => {
     jest.resetModules();
     jest.doMock('../hooks/useMigration', () => ({

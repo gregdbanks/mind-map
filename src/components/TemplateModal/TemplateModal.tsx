@@ -42,9 +42,12 @@ export const TemplateModal: React.FC<TemplateModalProps> = ({ onSelect, onClose 
     a.href = url;
     a.download = `${template.id}.json`;
     document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    try {
+      a.click();
+    } finally {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   };
 
   const handleUseTemplate = () => {
@@ -104,6 +107,7 @@ export const TemplateModal: React.FC<TemplateModalProps> = ({ onSelect, onClose 
             className={styles.useButton}
             onClick={handleUseTemplate}
             disabled={!selectedId}
+            title={!selectedId ? 'Select a template first' : undefined}
           >
             Use Template
           </button>

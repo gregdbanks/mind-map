@@ -168,8 +168,12 @@ export const Dashboard: React.FC = () => {
 
   const handleTemplateSelect = async (template: MindMapTemplate) => {
     setShowTemplateModal(false);
-    const id = await importMap(template.name, template.nodes, template.links);
-    navigate(`/map/${id}`);
+    try {
+      const id = await importMap(template.name, template.nodes, template.links);
+      navigate(`/map/${id}`);
+    } catch (error) {
+      alert('Failed to create map from template. Please try again.');
+    }
   };
 
   const handleFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {

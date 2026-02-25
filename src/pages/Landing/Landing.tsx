@@ -51,6 +51,8 @@ const HeroIllustration: React.FC = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
+    role="presentation"
+    focusable="false"
   >
     {/* Connection lines */}
     <line x1="260" y1="130" x2="130" y2="60" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.35" />
@@ -90,7 +92,7 @@ export const Landing: React.FC = () => {
     <div className={styles.container}>
       {/* Header */}
       <header className={styles.header}>
-        <span className={styles.logo}>ThoughtNet</span>
+        <Link to="/" className={styles.logo}>ThoughtNet</Link>
         <nav className={styles.headerLinks}>
           <Link to="/library" className={styles.headerLink}>Library</Link>
           <Link to="/login" className={styles.headerLink}>Sign in</Link>

@@ -1659,7 +1659,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       // that the click target is NOT inside a .node group (i.e., it's on
       // empty space).
       const target = event.target as Element;
-      const clickedOnNode = target.closest('.node');
+      const clickedOnNode = target.closest('.node') || target.closest('[data-node-id]');
       if (!clickedOnNode) {
         selectNode(null);
         setLockedHighlightNodeId(null);

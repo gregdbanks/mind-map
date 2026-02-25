@@ -251,7 +251,7 @@
   }
 }
 
-/* ---- Responsive: very small screens (320px) ---- */
+/* ---- Responsive: very small screens (360px) ---- */
 @media (max-width: 360px) {
   .header {
     padding: 0 6px;

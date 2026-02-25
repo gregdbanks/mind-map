@@ -35,11 +35,12 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Extract a short snippet around the match position in note text
-  const getNoteSnippet = (text: string, matchIndex: number, snippetLength: number = 60): string => {
+  // Extract a short snippet around the match position in note text.
+  // Returns { snippet, matchOffset } so highlighting can use the exact offset.
+  const getNoteSnippet = (text: string, matchIndex: number, snippetLength: number = 60): { snippet: string; matchOffset: number } => {
     const halfSnippet = Math.floor(snippetLength / 2);
     let start = Math.max(0, matchIndex - halfSnippet);
-    let end = Math.min(text.length, matchIndex + halfSnippet);
+    const end = Math.min(text.length, matchIndex + halfSnippet);
 
     // Adjust start to not cut a word
     if (start > 0) {
@@ -50,9 +51,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     }
 
     let snippet = text.substring(start, end);
+    const prefixLen = start > 0 ? 3 : 0;
     if (start > 0) snippet = '...' + snippet;
     if (end < text.length) snippet = snippet + '...';
-    return snippet;
+    return { snippet, matchOffset: matchIndex - start + prefixLen };
   };
 
   // Get searchable text from a note (prefer plainText, fall back to stripping HTML)
@@ -100,10 +102,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         const noteMatchIndex = lowerNoteText.indexOf(lowerTerm);
 
         if (noteMatchIndex !== -1) {
-          const snippet = getNoteSnippet(noteText, noteMatchIndex);
-          // Compute the match index within the snippet for highlighting
-          const snippetLower = snippet.toLowerCase();
-          const snippetMatchIndex = snippetLower.indexOf(lowerTerm);
+          const { snippet, matchOffset } = getNoteSnippet(noteText, noteMatchIndex);
 
           results.push({
             node,
@@ -111,7 +110,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             matchLength: term.length,
             matchSource: 'note',
             noteSnippet: snippet,
-            noteMatchIndex: snippetMatchIndex
+            noteMatchIndex: matchOffset
           });
         }
       });
