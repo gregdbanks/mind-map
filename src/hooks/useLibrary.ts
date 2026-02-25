@@ -11,46 +11,55 @@ export function useLibrary() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-  const fetchingRef = useRef(false);
+  const abortRef = useRef<AbortController | null>(null);
+  const locationRef = useRef(location);
+  locationRef.current = location;
 
   // Derive stable values from location.search (a primitive string)
   const params = useMemo(() => new URLSearchParams(location.search), [location.search]);
-  const page = parseInt(params.get('page') || '1', 10);
+  const rawPage = params.get('page');
+  const parsedPage = rawPage !== null ? parseInt(rawPage, 10) : 1;
+  const page = Number.isNaN(parsedPage) || parsedPage < 1 ? 1 : parsedPage;
   const sort = (params.get('sort') || 'newest') as LibrarySortOption;
   const category = params.get('category') || '';
   const search = params.get('search') || '';
 
-  const fetchMaps = useCallback(async () => {
-    if (fetchingRef.current) return;
-    fetchingRef.current = true;
+  useEffect(() => {
+    // Cancel any in-flight request when params change
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
     setLoading(true);
     setError(null);
-    try {
-      const result = await apiClient.browseLibrary({
-        page,
-        sort,
-        category: category || undefined,
-        search: search || undefined,
-      });
+
+    apiClient.browseLibrary({
+      page,
+      sort,
+      category: category || undefined,
+      search: search || undefined,
+    }).then((result) => {
+      if (controller.signal.aborted) return;
       setMaps(result.maps);
       setPagination(result.pagination);
-    } catch {
+    }).catch(() => {
+      if (controller.signal.aborted) return;
       setError('Failed to load library. Please try again.');
-    } finally {
+    }).finally(() => {
+      if (controller.signal.aborted) return;
       setLoading(false);
-      fetchingRef.current = false;
-    }
+    });
+
+    return () => { controller.abort(); };
   }, [page, sort, category, search]);
 
-  useEffect(() => {
-    fetchMaps();
-  }, [fetchMaps]);
-
+  // Read latest location from ref so debounced callbacks never use stale search params
   const updateParams = useCallback((updater: (p: URLSearchParams) => void) => {
-    const next = new URLSearchParams(location.search);
+    const loc = locationRef.current;
+    const next = new URLSearchParams(loc.search);
     updater(next);
-    navigate(`${location.pathname}?${next.toString()}`, { replace: true });
-  }, [location.search, location.pathname, navigate]);
+    navigate(`${loc.pathname}?${next.toString()}`, { replace: true });
+  }, [navigate]);
 
   const setPage = useCallback((p: number) => {
     updateParams((params) => params.set('page', String(p)));
@@ -88,6 +97,12 @@ export function useLibrary() {
     }, 300);
   }, [updateParams]);
 
+  const refresh = useCallback(() => {
+    // Force re-fetch by navigating to same URL (triggers location.search change detection)
+    const loc = locationRef.current;
+    navigate(`${loc.pathname}${loc.search}`, { replace: true });
+  }, [navigate]);
+
   return {
     maps,
     pagination,
@@ -101,6 +116,6 @@ export function useLibrary() {
     setSort,
     setCategory,
     setSearch,
-    refresh: fetchMaps,
+    refresh,
   };
 }
