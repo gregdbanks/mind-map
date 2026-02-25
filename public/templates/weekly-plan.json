@@ -1,0 +1,37 @@
+{
+  "nodes": [
+    { "id": "wp-root", "text": "This Week", "collapsed": false, "parent": null, "color": "#6366f1", "textColor": "#ffffff" },
+    { "id": "wp-mon", "text": "Monday", "collapsed": false, "parent": "wp-root", "color": "#3b82f6", "textColor": "#ffffff" },
+    { "id": "wp-mon1", "text": "Task 1", "collapsed": false, "parent": "wp-mon" },
+    { "id": "wp-mon2", "text": "Task 2", "collapsed": false, "parent": "wp-mon" },
+    { "id": "wp-tue", "text": "Tuesday", "collapsed": false, "parent": "wp-root", "color": "#22c55e", "textColor": "#ffffff" },
+    { "id": "wp-tue1", "text": "Task 1", "collapsed": false, "parent": "wp-tue" },
+    { "id": "wp-tue2", "text": "Task 2", "collapsed": false, "parent": "wp-tue" },
+    { "id": "wp-wed", "text": "Wednesday", "collapsed": false, "parent": "wp-root", "color": "#f59e0b", "textColor": "#ffffff" },
+    { "id": "wp-wed1", "text": "Task 1", "collapsed": false, "parent": "wp-wed" },
+    { "id": "wp-wed2", "text": "Task 2", "collapsed": false, "parent": "wp-wed" },
+    { "id": "wp-thu", "text": "Thursday", "collapsed": false, "parent": "wp-root", "color": "#ec4899", "textColor": "#ffffff" },
+    { "id": "wp-thu1", "text": "Task 1", "collapsed": false, "parent": "wp-thu" },
+    { "id": "wp-thu2", "text": "Task 2", "collapsed": false, "parent": "wp-thu" },
+    { "id": "wp-fri", "text": "Friday", "collapsed": false, "parent": "wp-root", "color": "#8b5cf6", "textColor": "#ffffff" },
+    { "id": "wp-fri1", "text": "Task 1", "collapsed": false, "parent": "wp-fri" },
+    { "id": "wp-fri2", "text": "Task 2", "collapsed": false, "parent": "wp-fri" }
+  ],
+  "links": [
+    { "source": "wp-root", "target": "wp-mon" },
+    { "source": "wp-root", "target": "wp-tue" },
+    { "source": "wp-root", "target": "wp-wed" },
+    { "source": "wp-root", "target": "wp-thu" },
+    { "source": "wp-root", "target": "wp-fri" },
+    { "source": "wp-mon", "target": "wp-mon1" },
+    { "source": "wp-mon", "target": "wp-mon2" },
+    { "source": "wp-tue", "target": "wp-tue1" },
+    { "source": "wp-tue", "target": "wp-tue2" },
+    { "source": "wp-wed", "target": "wp-wed1" },
+    { "source": "wp-wed", "target": "wp-wed2" },
+    { "source": "wp-thu", "target": "wp-thu1" },
+    { "source": "wp-thu", "target": "wp-thu2" },
+    { "source": "wp-fri", "target": "wp-fri1" },
+    { "source": "wp-fri", "target": "wp-fri2" }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "nodes": [
+    { "id": "sn-root", "text": "Subject", "collapsed": false, "parent": null, "color": "#3b82f6", "textColor": "#ffffff" },
+    { "id": "sn-concepts", "text": "Key Concepts", "collapsed": false, "parent": "sn-root", "color": "#8b5cf6", "textColor": "#ffffff" },
+    { "id": "sn-c1", "text": "Concept 1", "collapsed": false, "parent": "sn-concepts" },
+    { "id": "sn-c2", "text": "Concept 2", "collapsed": false, "parent": "sn-concepts" },
+    { "id": "sn-c3", "text": "Concept 3", "collapsed": false, "parent": "sn-concepts" },
+    { "id": "sn-definitions", "text": "Definitions", "collapsed": false, "parent": "sn-root", "color": "#06b6d4", "textColor": "#ffffff" },
+    { "id": "sn-d1", "text": "Term 1", "collapsed": false, "parent": "sn-definitions" },
+    { "id": "sn-d2", "text": "Term 2", "collapsed": false, "parent": "sn-definitions" },
+    { "id": "sn-examples", "text": "Examples", "collapsed": false, "parent": "sn-root", "color": "#22c55e", "textColor": "#ffffff" },
+    { "id": "sn-e1", "text": "Example 1", "collapsed": false, "parent": "sn-examples" },
+    { "id": "sn-e2", "text": "Example 2", "collapsed": false, "parent": "sn-examples" },
+    { "id": "sn-questions", "text": "Questions", "collapsed": false, "parent": "sn-root", "color": "#f59e0b", "textColor": "#ffffff" },
+    { "id": "sn-q1", "text": "Question 1", "collapsed": false, "parent": "sn-questions" },
+    { "id": "sn-q2", "text": "Question 2", "collapsed": false, "parent": "sn-questions" },
+    { "id": "sn-summary", "text": "Summary", "collapsed": false, "parent": "sn-root", "color": "#ec4899", "textColor": "#ffffff" },
+    { "id": "sn-s1", "text": "Main Takeaway", "collapsed": false, "parent": "sn-summary" }
+  ],
+  "links": [
+    { "source": "sn-root", "target": "sn-concepts" },
+    { "source": "sn-root", "target": "sn-definitions" },
+    { "source": "sn-root", "target": "sn-examples" },
+    { "source": "sn-root", "target": "sn-questions" },
+    { "source": "sn-root", "target": "sn-summary" },
+    { "source": "sn-concepts", "target": "sn-c1" },
+    { "source": "sn-concepts", "target": "sn-c2" },
+    { "source": "sn-concepts", "target": "sn-c3" },
+    { "source": "sn-definitions", "target": "sn-d1" },
+    { "source": "sn-definitions", "target": "sn-d2" },
+    { "source": "sn-examples", "target": "sn-e1" },
+    { "source": "sn-examples", "target": "sn-e2" },
+    { "source": "sn-questions", "target": "sn-q1" },
+    { "source": "sn-questions", "target": "sn-q2" },
+    { "source": "sn-summary", "target": "sn-s1" }
+  ]
+}

@@ -1,13 +1,16 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
+import { Layers } from 'lucide-react';
 import { useMapMetadata } from '../../hooks/useMapMetadata';
 import { useAuth } from '../../context/AuthContext';
 import { useCloudSync } from '../../hooks/useCloudSync';
 import { importFromJSONText } from '../../utils/exportUtils';
 import { ProfileDropdown } from '../../components/ProfileDropdown';
 import { UpgradeModal } from '../../components/UpgradeModal';
+import { TemplateModal } from '../../components/TemplateModal';
 import { MapCard } from './MapCard';
 import { apiClient } from '../../services/apiClient';
+import type { MindMapTemplate } from '../../data/templates';
 import type { MapMetadata } from '../../types/mindMap';
 import type { CloudMapMeta } from '../../types/sync';
 import styles from './Dashboard.module.css';
@@ -76,6 +79,7 @@ export const Dashboard: React.FC = () => {
   const [planInfo, setPlanInfo] = useState<{ plan: string; mapCount: number; mapLimit: number | null; monthlyPriceId?: string } | null>(null);
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [showTemplateModal, setShowTemplateModal] = useState(false);
 
   // Handle checkout redirect
   const checkoutParam = searchParams.get('checkout');
@@ -162,6 +166,16 @@ export const Dashboard: React.FC = () => {
     fileInputRef.current?.click();
   };
 
+  const handleTemplateSelect = async (template: MindMapTemplate) => {
+    setShowTemplateModal(false);
+    try {
+      const id = await importMap(template.name, template.nodes, template.links);
+      navigate(`/map/${id}`);
+    } catch (error) {
+      alert('Failed to create map from template. Please try again.');
+    }
+  };
+
   const handleFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -216,6 +230,10 @@ export const Dashboard: React.FC = () => {
         <div className={styles.headerActions}>
           <button className={styles.importButton} onClick={handleImportClick}>
             Import JSON
+          </button>
+          <button className={styles.importButton} onClick={() => setShowTemplateModal(true)}>
+            <Layers size={14} style={{ marginRight: 6, verticalAlign: -2 }} />
+            Templates
           </button>
           <Link to="/library" className={styles.importButton}>Library</Link>
           <button className={styles.createButton} onClick={handleCreateMap}>
@@ -277,6 +295,13 @@ export const Dashboard: React.FC = () => {
 
       {showUpgradeModal && (
         <UpgradeModal onClose={() => setShowUpgradeModal(false)} />
+      )}
+
+      {showTemplateModal && (
+        <TemplateModal
+          onSelect={handleTemplateSelect}
+          onClose={() => setShowTemplateModal(false)}
+        />
       )}
     </div>
   );

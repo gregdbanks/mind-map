@@ -368,6 +368,40 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       );
   };
 
+  // Fit ALL nodes in viewport (deselects first so the view resets fully).
+  // Used by the toolbar Maximize button.
+  const fitAllToViewport = () => {
+    // Deselect so fitToViewport uses the full bounding box
+    selectNode(null);
+    setLockedHighlightNodeId(null);
+    setMultiSelectedNodeIds(new Set());
+    // fitToViewport reads state.selectedNodeId, which won't be null yet in
+    // this synchronous call. So compute the all-nodes path directly here.
+    if (!svgRef.current || !gRef.current || !zoomBehaviorRef.current || nodes.length === 0) return;
+
+    const bounds = gRef.current.node()?.getBBox();
+    if (!bounds || bounds.width === 0 || bounds.height === 0) return;
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const fullWidth = bounds.width + 100;
+    const fullHeight = bounds.height + 100;
+    const midX = bounds.x + bounds.width / 2;
+    const midY = bounds.y + bounds.height / 2;
+
+    const scale = Math.min(1, 0.9 / Math.max(fullWidth / width, fullHeight / height));
+    const translateX = width / 2 - scale * midX;
+    const translateY = height / 2 - scale * midY;
+
+    const svg = d3.select(svgRef.current);
+    svg.transition()
+      .duration(750)
+      .call(
+        zoomBehaviorRef.current.transform as any,
+        d3.zoomIdentity.translate(translateX, translateY).scale(scale)
+      );
+  };
+
   // Pan to specific node
   const panToNode = (nodeId: string) => {
     if (!svgRef.current || !gRef.current || !zoomBehaviorRef.current) return;
@@ -1618,7 +1652,15 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         marqueeRef.current.justFinished = false;
         return;
       }
-      if (event.target === svgRef.current) {
+      // Deselect when clicking empty canvas area. D3's zoom overlay and the
+      // main <g> group sit between the SVG element and nodes, so checking
+      // event.target === svgRef.current is too strict — clicks on the
+      // background often land on those intermediary elements. Instead, check
+      // that the click target is NOT inside a .node group (i.e., it's on
+      // empty space).
+      const target = event.target as Element;
+      const clickedOnNode = target.closest('.node') || target.closest('[data-node-id]');
+      if (!clickedOnNode) {
         selectNode(null);
         setLockedHighlightNodeId(null);
         setMultiSelectedNodeIds(new Set());
@@ -1949,7 +1991,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
 
         <button
           className={styles.iconButton}
-          onClick={fitToViewport}
+          onClick={fitAllToViewport}
           title="Fit all nodes in viewport"
         >
           <Maximize size={16} />
@@ -1988,6 +2030,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         nodes={nodes}
         onNodeSelect={panToNode}
         isVisible={!state.editingNodeId}
+        notes={notes}
       />
 
       <div className={styles.canvasContainer} style={getBackgroundStyle(canvasBackground)}>

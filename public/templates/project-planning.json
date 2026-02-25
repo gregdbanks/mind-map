@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    { "id": "pp-root", "text": "Project Name", "collapsed": false, "parent": null, "color": "#6366f1", "textColor": "#ffffff" },
+    { "id": "pp-goals", "text": "Goals", "collapsed": false, "parent": "pp-root", "color": "#22c55e", "textColor": "#ffffff" },
+    { "id": "pp-g1", "text": "Primary Goal", "collapsed": false, "parent": "pp-goals" },
+    { "id": "pp-g2", "text": "Secondary Goal", "collapsed": false, "parent": "pp-goals" },
+    { "id": "pp-timeline", "text": "Timeline", "collapsed": false, "parent": "pp-root", "color": "#f59e0b", "textColor": "#ffffff" },
+    { "id": "pp-t1", "text": "Phase 1", "collapsed": false, "parent": "pp-timeline" },
+    { "id": "pp-t2", "text": "Phase 2", "collapsed": false, "parent": "pp-timeline" },
+    { "id": "pp-t3", "text": "Phase 3", "collapsed": false, "parent": "pp-timeline" },
+    { "id": "pp-resources", "text": "Resources", "collapsed": false, "parent": "pp-root", "color": "#3b82f6", "textColor": "#ffffff" },
+    { "id": "pp-r1", "text": "Team Members", "collapsed": false, "parent": "pp-resources" },
+    { "id": "pp-r2", "text": "Budget", "collapsed": false, "parent": "pp-resources" },
+    { "id": "pp-r3", "text": "Tools", "collapsed": false, "parent": "pp-resources" },
+    { "id": "pp-risks", "text": "Risks", "collapsed": false, "parent": "pp-root", "color": "#ef4444", "textColor": "#ffffff" },
+    { "id": "pp-rk1", "text": "Risk 1", "collapsed": false, "parent": "pp-risks" },
+    { "id": "pp-rk2", "text": "Risk 2", "collapsed": false, "parent": "pp-risks" },
+    { "id": "pp-deliverables", "text": "Deliverables", "collapsed": false, "parent": "pp-root", "color": "#8b5cf6", "textColor": "#ffffff" },
+    { "id": "pp-d1", "text": "Deliverable 1", "collapsed": false, "parent": "pp-deliverables" },
+    { "id": "pp-d2", "text": "Deliverable 2", "collapsed": false, "parent": "pp-deliverables" }
+  ],
+  "links": [
+    { "source": "pp-root", "target": "pp-goals" },
+    { "source": "pp-root", "target": "pp-timeline" },
+    { "source": "pp-root", "target": "pp-resources" },
+    { "source": "pp-root", "target": "pp-risks" },
+    { "source": "pp-root", "target": "pp-deliverables" },
+    { "source": "pp-goals", "target": "pp-g1" },
+    { "source": "pp-goals", "target": "pp-g2" },
+    { "source": "pp-timeline", "target": "pp-t1" },
+    { "source": "pp-timeline", "target": "pp-t2" },
+    { "source": "pp-timeline", "target": "pp-t3" },
+    { "source": "pp-resources", "target": "pp-r1" },
+    { "source": "pp-resources", "target": "pp-r2" },
+    { "source": "pp-resources", "target": "pp-r3" },
+    { "source": "pp-risks", "target": "pp-rk1" },
+    { "source": "pp-risks", "target": "pp-rk2" },
+    { "source": "pp-deliverables", "target": "pp-d1" },
+    { "source": "pp-deliverables", "target": "pp-d2" }
+  ]
+}
