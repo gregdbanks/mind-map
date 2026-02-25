@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import * as d3 from 'd3';
 import { ArrowLeft, GitFork, BookOpen } from 'lucide-react';
 import { apiClient, ApiError } from '../../services/apiClient';
+import { pullMapFromCloud } from '../../services/syncService';
 import { useAuth } from '../../context/AuthContext';
 import { RatingWidget } from '../../components/RatingWidget';
 import {
@@ -247,6 +248,8 @@ export const LibraryMapView: React.FC = () => {
     setForking(true);
     try {
       const forkedMap = await apiClient.forkMap(id);
+      // Pull the new cloud map into IndexedDB so the editor can load it
+      await pullMapFromCloud(forkedMap.id);
       navigate(`/map/${forkedMap.id}`);
     } catch {
       alert('Failed to fork map. Please try again.');
