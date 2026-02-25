@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, BookOpen, GitFork, Star } from 'lucide-react';
 import { useLibrary } from '../../hooks/useLibrary';
 import { useAuth } from '../../context/AuthContext';
 import { ProfileDropdown } from '../../components/ProfileDropdown';
+import { HouseAdBanner } from '../../components/HouseAdBanner';
+import { apiClient } from '../../services/apiClient';
 import { LIBRARY_CATEGORIES, LIBRARY_SORT_OPTIONS } from '../../types/library';
 import type { LibraryMapSummary } from '../../types/library';
 import styles from './Library.module.css';
@@ -44,6 +46,14 @@ export const Library: React.FC = () => {
   const { maps, pagination, loading, error, sort, category, search, setPage, setSort, setCategory, setSearch } = useLibrary();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const [isPro, setIsPro] = useState(false);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    apiClient.getPlanStatus().then((status) => {
+      setIsPro(status.plan === 'pro');
+    }).catch(() => {});
+  }, [isAuthenticated]);
 
   return (
     <div className={styles.container}>
@@ -97,6 +107,10 @@ export const Library: React.FC = () => {
             ))}
           </select>
         </div>
+      </div>
+
+      <div style={{ padding: '0 48px' }}>
+        <HouseAdBanner placement="library" isPro={isPro} />
       </div>
 
       {loading ? (
