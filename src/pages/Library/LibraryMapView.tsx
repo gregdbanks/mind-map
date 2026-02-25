@@ -40,6 +40,8 @@ export const LibraryMapView: React.FC = () => {
       } catch (err) {
         if (err instanceof ApiError && err.status === 404) {
           setError('This mind map was not found in the library.');
+        } else if (err instanceof ApiError && err.status === 429) {
+          setError('Too many requests. Please wait a moment and refresh.');
         } else {
           setError('Failed to load mind map.');
         }
