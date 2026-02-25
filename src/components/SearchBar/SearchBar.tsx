@@ -1,24 +1,32 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, X } from 'lucide-react';
+import { Search, X, FileText } from 'lucide-react';
 import type { Node } from '../../types/mindMap';
+import type { NodeNote } from '../../types/notes';
 import styles from './SearchBar.module.css';
 
 interface SearchBarProps {
   nodes: Node[];
   onNodeSelect: (nodeId: string) => void;
   isVisible?: boolean;
+  notes?: Map<string, NodeNote>;
 }
+
+type MatchSource = 'title' | 'note';
 
 interface SearchResult {
   node: Node;
   matchIndex: number;
   matchLength: number;
+  matchSource: MatchSource;
+  noteSnippet?: string;
+  noteMatchIndex?: number;
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({
   nodes,
   onNodeSelect,
-  isVisible = true
+  isVisible = true,
+  notes
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
@@ -27,35 +35,105 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Fuzzy search logic
+  // Extract a short snippet around the match position in note text
+  const getNoteSnippet = (text: string, matchIndex: number, snippetLength: number = 60): string => {
+    const halfSnippet = Math.floor(snippetLength / 2);
+    let start = Math.max(0, matchIndex - halfSnippet);
+    let end = Math.min(text.length, matchIndex + halfSnippet);
+
+    // Adjust start to not cut a word
+    if (start > 0) {
+      const spaceIndex = text.indexOf(' ', start);
+      if (spaceIndex !== -1 && spaceIndex < matchIndex) {
+        start = spaceIndex + 1;
+      }
+    }
+
+    let snippet = text.substring(start, end);
+    if (start > 0) snippet = '...' + snippet;
+    if (end < text.length) snippet = snippet + '...';
+    return snippet;
+  };
+
+  // Get searchable text from a note (prefer plainText, fall back to stripping HTML)
+  const getNoteSearchText = (note: NodeNote): string => {
+    if (note.plainText) return note.plainText;
+    // Strip HTML tags as a fallback
+    return note.content.replace(/<[^>]*>/g, '');
+  };
+
+  // Search logic: matches node titles and note content
   const searchNodes = (term: string): SearchResult[] => {
     if (!term.trim()) return [];
 
     const results: SearchResult[] = [];
+    const matchedNodeIds = new Set<string>();
     const lowerTerm = term.toLowerCase();
 
+    // First pass: search node titles
     nodes.forEach(node => {
       const lowerText = node.text.toLowerCase();
       const matchIndex = lowerText.indexOf(lowerTerm);
-      
+
       if (matchIndex !== -1) {
         results.push({
           node,
           matchIndex,
-          matchLength: term.length
+          matchLength: term.length,
+          matchSource: 'title'
         });
+        matchedNodeIds.add(node.id);
       }
     });
 
-    // Sort by relevance: exact matches first, then by position
+    // Second pass: search note content
+    if (notes) {
+      nodes.forEach(node => {
+        // Skip nodes already matched by title
+        if (matchedNodeIds.has(node.id)) return;
+
+        const note = notes.get(node.id);
+        if (!note) return;
+
+        const noteText = getNoteSearchText(note);
+        const lowerNoteText = noteText.toLowerCase();
+        const noteMatchIndex = lowerNoteText.indexOf(lowerTerm);
+
+        if (noteMatchIndex !== -1) {
+          const snippet = getNoteSnippet(noteText, noteMatchIndex);
+          // Compute the match index within the snippet for highlighting
+          const snippetLower = snippet.toLowerCase();
+          const snippetMatchIndex = snippetLower.indexOf(lowerTerm);
+
+          results.push({
+            node,
+            matchIndex: -1, // No title match
+            matchLength: term.length,
+            matchSource: 'note',
+            noteSnippet: snippet,
+            noteMatchIndex: snippetMatchIndex
+          });
+        }
+      });
+    }
+
+    // Sort by relevance: title matches first, then by position
     return results.sort((a, b) => {
-      // Prioritize matches at the beginning
-      if (a.matchIndex !== b.matchIndex) {
-        return a.matchIndex - b.matchIndex;
+      // Title matches always come before note matches
+      if (a.matchSource !== b.matchSource) {
+        return a.matchSource === 'title' ? -1 : 1;
       }
-      // Then by node text length (shorter = more relevant)
-      return a.node.text.length - b.node.text.length;
-    }).slice(0, 8); // Limit to 8 results
+      // Within title matches, prioritize matches at the beginning
+      if (a.matchSource === 'title' && b.matchSource === 'title') {
+        if (a.matchIndex !== b.matchIndex) {
+          return a.matchIndex - b.matchIndex;
+        }
+        // Then by node text length (shorter = more relevant)
+        return a.node.text.length - b.node.text.length;
+      }
+      // Within note matches, sort alphabetically by node title
+      return a.node.text.localeCompare(b.node.text);
+    }).slice(0, 10); // Limit to 10 results (increased from 8 to accommodate note matches)
   };
 
   // Handle search input changes
@@ -166,7 +244,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         <input
           ref={searchInputRef}
           type="text"
-          placeholder="Search nodes... (Ctrl+F)"
+          placeholder="Search nodes & notes... (Ctrl+F)"
           value={searchTerm}
           onChange={(e) => handleSearchChange(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -197,7 +275,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         <div ref={dropdownRef} className={styles.dropdown}>
           {searchResults.map((result, index) => (
             <div
-              key={result.node.id}
+              key={`${result.node.id}-${result.matchSource}`}
               className={`${styles.dropdownItem} ${
                 index === selectedIndex ? styles.selected : ''
               }`}
@@ -205,12 +283,27 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               onMouseEnter={() => setSelectedIndex(index)}
             >
               <div className={styles.nodeText}>
-                {highlightMatch(
-                  result.node.text,
-                  result.matchIndex,
-                  result.matchLength
-                )}
+                {result.matchSource === 'title'
+                  ? highlightMatch(
+                      result.node.text,
+                      result.matchIndex,
+                      result.matchLength
+                    )
+                  : result.node.text
+                }
               </div>
+              {result.matchSource === 'note' && result.noteSnippet && (
+                <div className={styles.noteMatch}>
+                  <FileText size={12} className={styles.noteIcon} />
+                  <span className={styles.noteSnippet}>
+                    {highlightMatch(
+                      result.noteSnippet,
+                      result.noteMatchIndex ?? -1,
+                      result.matchLength
+                    )}
+                  </span>
+                </div>
+              )}
               {result.node.parent && (
                 <div className={styles.nodeContext}>
                   in {nodes.find(n => n.id === result.node.parent)?.text || 'Unknown'}

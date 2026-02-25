@@ -1,0 +1,39 @@
+{
+  "nodes": [
+    { "id": "sw-root", "text": "SWOT Analysis", "collapsed": false, "parent": null, "color": "#1e293b", "textColor": "#ffffff" },
+    { "id": "sw-strengths", "text": "Strengths", "collapsed": false, "parent": "sw-root", "color": "#22c55e", "textColor": "#ffffff" },
+    { "id": "sw-s1", "text": "Strength 1", "collapsed": false, "parent": "sw-strengths" },
+    { "id": "sw-s2", "text": "Strength 2", "collapsed": false, "parent": "sw-strengths" },
+    { "id": "sw-s3", "text": "Strength 3", "collapsed": false, "parent": "sw-strengths" },
+    { "id": "sw-weaknesses", "text": "Weaknesses", "collapsed": false, "parent": "sw-root", "color": "#ef4444", "textColor": "#ffffff" },
+    { "id": "sw-w1", "text": "Weakness 1", "collapsed": false, "parent": "sw-weaknesses" },
+    { "id": "sw-w2", "text": "Weakness 2", "collapsed": false, "parent": "sw-weaknesses" },
+    { "id": "sw-w3", "text": "Weakness 3", "collapsed": false, "parent": "sw-weaknesses" },
+    { "id": "sw-opportunities", "text": "Opportunities", "collapsed": false, "parent": "sw-root", "color": "#3b82f6", "textColor": "#ffffff" },
+    { "id": "sw-o1", "text": "Opportunity 1", "collapsed": false, "parent": "sw-opportunities" },
+    { "id": "sw-o2", "text": "Opportunity 2", "collapsed": false, "parent": "sw-opportunities" },
+    { "id": "sw-o3", "text": "Opportunity 3", "collapsed": false, "parent": "sw-opportunities" },
+    { "id": "sw-threats", "text": "Threats", "collapsed": false, "parent": "sw-root", "color": "#f59e0b", "textColor": "#ffffff" },
+    { "id": "sw-th1", "text": "Threat 1", "collapsed": false, "parent": "sw-threats" },
+    { "id": "sw-th2", "text": "Threat 2", "collapsed": false, "parent": "sw-threats" },
+    { "id": "sw-th3", "text": "Threat 3", "collapsed": false, "parent": "sw-threats" }
+  ],
+  "links": [
+    { "source": "sw-root", "target": "sw-strengths" },
+    { "source": "sw-root", "target": "sw-weaknesses" },
+    { "source": "sw-root", "target": "sw-opportunities" },
+    { "source": "sw-root", "target": "sw-threats" },
+    { "source": "sw-strengths", "target": "sw-s1" },
+    { "source": "sw-strengths", "target": "sw-s2" },
+    { "source": "sw-strengths", "target": "sw-s3" },
+    { "source": "sw-weaknesses", "target": "sw-w1" },
+    { "source": "sw-weaknesses", "target": "sw-w2" },
+    { "source": "sw-weaknesses", "target": "sw-w3" },
+    { "source": "sw-opportunities", "target": "sw-o1" },
+    { "source": "sw-opportunities", "target": "sw-o2" },
+    { "source": "sw-opportunities", "target": "sw-o3" },
+    { "source": "sw-threats", "target": "sw-th1" },
+    { "source": "sw-threats", "target": "sw-th2" },
+    { "source": "sw-threats", "target": "sw-th3" }
+  ]
+}

@@ -2,6 +2,12 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from '../App';
 
+// Mock auth context so HomePage can check isAuthenticated
+jest.mock('../context/AuthContext', () => ({
+  useAuth: () => ({ isAuthenticated: true, isLoading: false }),
+  AuthProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}));
+
 // Mock the migration hook
 jest.mock('../hooks/useMigration', () => ({
   useMigration: () => ({ migrating: false }),
@@ -29,6 +35,11 @@ jest.mock('../pages/Library/Library', () => ({
 
 jest.mock('../pages/Library/LibraryMapView', () => ({
   LibraryMapView: () => <div data-testid="library-map-view">LibraryMapView</div>,
+}));
+
+// Mock landing page
+jest.mock('../pages/Landing', () => ({
+  Landing: () => <div data-testid="landing">Landing</div>,
 }));
 
 // Mock auth pages

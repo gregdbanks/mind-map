@@ -101,7 +101,7 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
         <div
           className={`${styles.saveStatus} ${showStatus ? styles.saveStatusVisible : styles.saveStatusHidden}`}
         >
-          {saveStatus === 'saving' && <span>Saving...</span>}
+          {saveStatus === 'saving' && <span className={styles.statusText}>Saving...</span>}
           {saveStatus === 'saved' && (
             <span
               className={styles.clickableStatus}
@@ -126,68 +126,66 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
               tabIndex={!isAuthenticated || (isAtCloudLimit && !isPro) ? 0 : undefined}
             >
               <Check size={14} className={styles.checkIcon} />
-              Saved locally
+              <span className={styles.statusText}>Saved locally</span>
             </span>
           )}
-          {saveStatus === 'syncing' && <span>Syncing...</span>}
+          {saveStatus === 'syncing' && <span className={styles.statusText}>Syncing...</span>}
           {saveStatus === 'synced' && (
             <>
               <Check size={14} className={styles.cloudCheckIcon} />
-              <span>Synced</span>
+              <span className={styles.statusText}>Synced</span>
             </>
           )}
           {saveStatus === 'sync-error' && (
-            <span className={styles.syncError}>Cloud sync failed</span>
+            <span className={`${styles.syncError} ${styles.statusText}`}>Cloud sync failed</span>
           )}
           {saveStatus === 'offline' && (
-            <span className={styles.offlineStatus}>Offline — saved locally</span>
+            <span className={`${styles.offlineStatus} ${styles.statusText}`}>Offline — saved locally</span>
           )}
         </div>
 
         {isAuthenticated && (
-          <button
-            className={styles.shareButton}
-            onClick={() => {
-              if (isPro) {
-                setShowShareModal(true);
-              } else {
-                setShowUpgradeModal(true);
-              }
-            }}
-            title="Share"
-            aria-label="Share mind map"
-          >
-            <Share2 size={16} />
-          </button>
-        )}
+          <div className={styles.actionButtons}>
+            <button
+              className={styles.shareButton}
+              onClick={() => {
+                if (isPro) {
+                  setShowShareModal(true);
+                } else {
+                  setShowUpgradeModal(true);
+                }
+              }}
+              title="Share"
+              aria-label="Share mind map"
+            >
+              <Share2 size={16} />
+            </button>
 
-        {isAuthenticated && (
-          <button
-            className={styles.shareButton}
-            onClick={() => setShowPublishModal(true)}
-            title="Publish to Library"
-            aria-label="Publish to library"
-          >
-            <BookOpen size={16} />
-          </button>
-        )}
+            <button
+              className={styles.shareButton}
+              onClick={() => setShowPublishModal(true)}
+              title="Publish to Library"
+              aria-label="Publish to library"
+            >
+              <BookOpen size={16} />
+            </button>
 
-        {isAuthenticated && (
-          <button
-            className={`${styles.shareButton} ${showingHistory ? styles.historyActive : ''}`}
-            onClick={() => {
-              if (isPro) {
-                onToggleHistory?.();
-              } else {
-                setShowUpgradeModal(true);
-              }
-            }}
-            title={isPro ? 'Version History' : 'Version History (Pro)'}
-            aria-label="Version history"
-          >
-            <Clock size={16} />
-            {!isPro && <span className={styles.proBadge}>Pro</span>}
-          </button>
+            <button
+              className={`${styles.shareButton} ${showingHistory ? styles.historyActive : ''}`}
+              onClick={() => {
+                if (isPro) {
+                  onToggleHistory?.();
+                } else {
+                  setShowUpgradeModal(true);
+                }
+              }}
+              title={isPro ? 'Version History' : 'Version History (Pro)'}
+              aria-label="Version history"
+            >
+              <Clock size={16} />
+              {!isPro && <span className={styles.proBadge}>Pro</span>}
+            </button>
+          </div>
         )}
       </div>
 

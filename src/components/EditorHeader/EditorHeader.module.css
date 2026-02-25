@@ -43,6 +43,7 @@
 }
 
 .title {
+  display: block;
   font-size: 15px;
   font-weight: 600;
   color: #333;
@@ -168,4 +169,121 @@
   border-radius: 3px;
   line-height: 1;
   pointer-events: none;
+}
+
+.actionButtons {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.statusText {
+  white-space: nowrap;
+}
+
+/* ---- Responsive: tablets and small desktops ---- */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 10px;
+  }
+
+  .title {
+    max-width: 200px;
+    font-size: 14px;
+  }
+
+  .titleInput {
+    width: 180px;
+    max-width: 200px;
+    font-size: 14px;
+  }
+
+  .titleSection {
+    margin-left: 4px;
+  }
+
+  .shareButton {
+    width: 30px;
+    height: 30px;
+    margin-left: 4px;
+  }
+
+  .saveStatus {
+    font-size: 11px;
+  }
+}
+
+/* ---- Responsive: mobile phones ---- */
+@media (max-width: 480px) {
+  .header {
+    padding: 0 8px;
+  }
+
+  .title {
+    max-width: 120px;
+    font-size: 13px;
+    padding: 2px 4px;
+  }
+
+  .titleInput {
+    width: 120px;
+    max-width: 140px;
+    font-size: 13px;
+    padding: 2px 4px;
+  }
+
+  .titleSection {
+    margin-left: 2px;
+  }
+
+  .saveStatus {
+    margin-left: 8px;
+  }
+
+  .statusText {
+    display: none;
+  }
+
+  .shareButton {
+    width: 28px;
+    height: 28px;
+    margin-left: 2px;
+  }
+}
+
+/* ---- Responsive: very small screens (320px) ---- */
+@media (max-width: 360px) {
+  .header {
+    padding: 0 6px;
+  }
+
+  .title {
+    max-width: 80px;
+    font-size: 12px;
+  }
+
+  .titleInput {
+    width: 80px;
+    max-width: 100px;
+    font-size: 12px;
+  }
+
+  .backButton {
+    width: 28px;
+    height: 28px;
+  }
+
+  .saveStatus {
+    margin-left: 4px;
+  }
+
+  .shareButton {
+    width: 26px;
+    height: 26px;
+    margin-left: 1px;
+  }
+
+  .proBadge {
+    display: none;
+  }
 }

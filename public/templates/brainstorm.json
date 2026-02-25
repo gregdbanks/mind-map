@@ -1,0 +1,31 @@
+{
+  "nodes": [
+    { "id": "bs-root", "text": "Topic", "collapsed": false, "parent": null, "color": "#f59e0b", "textColor": "#ffffff" },
+    { "id": "bs-idea1", "text": "Idea 1", "collapsed": false, "parent": "bs-root", "color": "#ec4899", "textColor": "#ffffff" },
+    { "id": "bs-i1a", "text": "Sub-idea 1a", "collapsed": false, "parent": "bs-idea1" },
+    { "id": "bs-i1b", "text": "Sub-idea 1b", "collapsed": false, "parent": "bs-idea1" },
+    { "id": "bs-i1c", "text": "Sub-idea 1c", "collapsed": false, "parent": "bs-idea1" },
+    { "id": "bs-idea2", "text": "Idea 2", "collapsed": false, "parent": "bs-root", "color": "#8b5cf6", "textColor": "#ffffff" },
+    { "id": "bs-i2a", "text": "Sub-idea 2a", "collapsed": false, "parent": "bs-idea2" },
+    { "id": "bs-i2b", "text": "Sub-idea 2b", "collapsed": false, "parent": "bs-idea2" },
+    { "id": "bs-i2c", "text": "Sub-idea 2c", "collapsed": false, "parent": "bs-idea2" },
+    { "id": "bs-idea3", "text": "Idea 3", "collapsed": false, "parent": "bs-root", "color": "#06b6d4", "textColor": "#ffffff" },
+    { "id": "bs-i3a", "text": "Sub-idea 3a", "collapsed": false, "parent": "bs-idea3" },
+    { "id": "bs-i3b", "text": "Sub-idea 3b", "collapsed": false, "parent": "bs-idea3" },
+    { "id": "bs-i3c", "text": "Sub-idea 3c", "collapsed": false, "parent": "bs-idea3" }
+  ],
+  "links": [
+    { "source": "bs-root", "target": "bs-idea1" },
+    { "source": "bs-root", "target": "bs-idea2" },
+    { "source": "bs-root", "target": "bs-idea3" },
+    { "source": "bs-idea1", "target": "bs-i1a" },
+    { "source": "bs-idea1", "target": "bs-i1b" },
+    { "source": "bs-idea1", "target": "bs-i1c" },
+    { "source": "bs-idea2", "target": "bs-i2a" },
+    { "source": "bs-idea2", "target": "bs-i2b" },
+    { "source": "bs-idea2", "target": "bs-i2c" },
+    { "source": "bs-idea3", "target": "bs-i3a" },
+    { "source": "bs-idea3", "target": "bs-i3b" },
+    { "source": "bs-idea3", "target": "bs-i3c" }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    { "id": "mt-root", "text": "Meeting", "collapsed": false, "parent": null, "color": "#6366f1", "textColor": "#ffffff" },
+    { "id": "mt-agenda", "text": "Agenda", "collapsed": false, "parent": "mt-root", "color": "#3b82f6", "textColor": "#ffffff" },
+    { "id": "mt-a1", "text": "Topic 1", "collapsed": false, "parent": "mt-agenda" },
+    { "id": "mt-a2", "text": "Topic 2", "collapsed": false, "parent": "mt-agenda" },
+    { "id": "mt-a3", "text": "Topic 3", "collapsed": false, "parent": "mt-agenda" },
+    { "id": "mt-attendees", "text": "Attendees", "collapsed": false, "parent": "mt-root", "color": "#8b5cf6", "textColor": "#ffffff" },
+    { "id": "mt-at1", "text": "Person 1", "collapsed": false, "parent": "mt-attendees" },
+    { "id": "mt-at2", "text": "Person 2", "collapsed": false, "parent": "mt-attendees" },
+    { "id": "mt-discussion", "text": "Discussion", "collapsed": false, "parent": "mt-root", "color": "#06b6d4", "textColor": "#ffffff" },
+    { "id": "mt-ds1", "text": "Key Point 1", "collapsed": false, "parent": "mt-discussion" },
+    { "id": "mt-ds2", "text": "Key Point 2", "collapsed": false, "parent": "mt-discussion" },
+    { "id": "mt-actions", "text": "Action Items", "collapsed": false, "parent": "mt-root", "color": "#22c55e", "textColor": "#ffffff" },
+    { "id": "mt-ac1", "text": "Action 1", "collapsed": false, "parent": "mt-actions" },
+    { "id": "mt-ac2", "text": "Action 2", "collapsed": false, "parent": "mt-actions" },
+    { "id": "mt-ac3", "text": "Action 3", "collapsed": false, "parent": "mt-actions" },
+    { "id": "mt-followup", "text": "Follow-up", "collapsed": false, "parent": "mt-root", "color": "#f59e0b", "textColor": "#ffffff" },
+    { "id": "mt-f1", "text": "Next Meeting", "collapsed": false, "parent": "mt-followup" },
+    { "id": "mt-f2", "text": "Deadlines", "collapsed": false, "parent": "mt-followup" }
+  ],
+  "links": [
+    { "source": "mt-root", "target": "mt-agenda" },
+    { "source": "mt-root", "target": "mt-attendees" },
+    { "source": "mt-root", "target": "mt-discussion" },
+    { "source": "mt-root", "target": "mt-actions" },
+    { "source": "mt-root", "target": "mt-followup" },
+    { "source": "mt-agenda", "target": "mt-a1" },
+    { "source": "mt-agenda", "target": "mt-a2" },
+    { "source": "mt-agenda", "target": "mt-a3" },
+    { "source": "mt-attendees", "target": "mt-at1" },
+    { "source": "mt-attendees", "target": "mt-at2" },
+    { "source": "mt-discussion", "target": "mt-ds1" },
+    { "source": "mt-discussion", "target": "mt-ds2" },
+    { "source": "mt-actions", "target": "mt-ac1" },
+    { "source": "mt-actions", "target": "mt-ac2" },
+    { "source": "mt-actions", "target": "mt-ac3" },
+    { "source": "mt-followup", "target": "mt-f1" },
+    { "source": "mt-followup", "target": "mt-f2" }
+  ]
+}
