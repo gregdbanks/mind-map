@@ -8,6 +8,7 @@ import { importFromJSONText } from '../../utils/exportUtils';
 import { ProfileDropdown } from '../../components/ProfileDropdown';
 import { UpgradeModal } from '../../components/UpgradeModal';
 import { TemplateModal } from '../../components/TemplateModal';
+import { HouseAdBanner } from '../../components/HouseAdBanner';
 import { MapCard } from './MapCard';
 import { apiClient } from '../../services/apiClient';
 import type { MindMapTemplate } from '../../data/templates';
@@ -259,6 +260,12 @@ export const Dashboard: React.FC = () => {
           Upgrade successful! You now have unlimited cloud maps and sharing.
         </div>
       )}
+
+      <HouseAdBanner
+        placement="dashboard"
+        isPro={planInfo?.plan === 'pro'}
+        onUpgradeClick={() => setShowUpgradeModal(true)}
+      />
 
       {displayMaps.length === 0 && !cloudLoading ? (
         <div className={styles.emptyState}>
