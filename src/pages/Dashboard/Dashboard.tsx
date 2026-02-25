@@ -217,6 +217,7 @@ export const Dashboard: React.FC = () => {
           <button className={styles.importButton} onClick={handleImportClick}>
             Import JSON
           </button>
+          <Link to="/library" className={styles.importButton}>Library</Link>
           <button className={styles.createButton} onClick={handleCreateMap}>
             + New Map
           </button>

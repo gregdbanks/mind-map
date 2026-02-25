@@ -22,6 +22,15 @@ jest.mock('../pages/SharedMap/SharedMap', () => ({
   SharedMap: () => <div data-testid="shared-map">SharedMap</div>,
 }));
 
+// Mock library pages (uses apiClient which needs import.meta.env)
+jest.mock('../pages/Library/Library', () => ({
+  Library: () => <div data-testid="library">Library</div>,
+}));
+
+jest.mock('../pages/Library/LibraryMapView', () => ({
+  LibraryMapView: () => <div data-testid="library-map-view">LibraryMapView</div>,
+}));
+
 // Mock auth pages
 jest.mock('../pages/Login', () => ({
   Login: () => <div data-testid="login">Login</div>,

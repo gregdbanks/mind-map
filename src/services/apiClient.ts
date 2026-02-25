@@ -1,6 +1,8 @@
 import { cognitoService } from './cognitoService';
 import type { CloudMapMeta, CloudMapFull, CreateMapPayload, UpdateMapPayload, CloudMapListResponse } from '../types/sync';
 import type { ShareInfo, ShareStatus } from '../types/sharing';
+import type { BrowseLibraryResponse, LibraryMapFull, PublishMapPayload, RateMapResponse, CategoriesResponse } from '../types/library';
+import type { VersionListResponse, VersionFull } from '../types/versions';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
@@ -90,6 +92,16 @@ async function request<T>(options: RequestOptions): Promise<T> {
   throw lastError;
 }
 
+async function publicRequest<T>(path: string): Promise<T> {
+  const url = `${API_BASE_URL}${path}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    const data = await response.json().catch(() => null);
+    throw new ApiError(data?.error || `HTTP ${response.status}`, response.status, data);
+  }
+  return response.json();
+}
+
 export const apiClient = {
   getMaps: () =>
     request<CloudMapListResponse>({ method: 'GET', path: '/mindmaps' }),
@@ -139,4 +151,47 @@ export const apiClient = {
     }
     return response.json();
   },
+
+  // Library (public)
+  browseLibrary: (params: { page?: number; sort?: string; category?: string; search?: string } = {}) => {
+    const query = new URLSearchParams();
+    if (params.page) query.set('page', String(params.page));
+    if (params.sort) query.set('sort', params.sort);
+    if (params.category) query.set('category', params.category);
+    if (params.search) query.set('search', params.search);
+    const qs = query.toString();
+    return publicRequest<BrowseLibraryResponse>(`/library${qs ? `?${qs}` : ''}`);
+  },
+
+  getLibraryMap: (id: string) =>
+    publicRequest<LibraryMapFull>(`/library/${id}`),
+
+  getLibraryCategories: () =>
+    publicRequest<CategoriesResponse>('/library/categories'),
+
+  // Library (authenticated)
+  publishMap: (payload: PublishMapPayload) =>
+    request<LibraryMapFull>({ method: 'POST', path: '/library', body: payload }),
+
+  updatePublishedMap: (id: string, payload: Partial<PublishMapPayload>) =>
+    request<LibraryMapFull>({ method: 'PUT', path: `/library/${id}`, body: payload }),
+
+  unpublishMap: (id: string) =>
+    request<void>({ method: 'DELETE', path: `/library/${id}` }),
+
+  forkMap: (id: string) =>
+    request<CloudMapMeta>({ method: 'POST', path: `/library/${id}/fork` }),
+
+  rateMap: (id: string, rating: number) =>
+    request<RateMapResponse>({ method: 'POST', path: `/library/${id}/rate`, body: { rating } }),
+
+  // Version history (Pro)
+  getVersions: (mapId: string) =>
+    request<VersionListResponse>({ method: 'GET', path: `/mindmaps/${mapId}/versions` }),
+
+  getVersion: (mapId: string, versionId: string) =>
+    request<VersionFull>({ method: 'GET', path: `/mindmaps/${mapId}/versions/${versionId}` }),
+
+  restoreVersion: (mapId: string, versionId: string) =>
+    request<CloudMapFull>({ method: 'POST', path: `/mindmaps/${mapId}/versions/${versionId}/restore` }),
 };

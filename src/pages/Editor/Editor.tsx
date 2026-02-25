@@ -8,14 +8,17 @@ import type { SaveStatus } from '../../components/EditorHeader';
 import { useCloudSync } from '../../hooks/useCloudSync';
 import { useAuth } from '../../context/AuthContext';
 import { apiClient } from '../../services/apiClient';
+import { VersionHistoryPanel } from '../../components/VersionHistoryPanel';
 
 const EditorContent: React.FC<{ mapId: string }> = ({ mapId }) => {
-  const { state } = useMindMap();
+  const { state, dispatch } = useMindMap();
   const { syncStatus, canSync, isOnline } = useCloudSync();
   const { isAuthenticated } = useAuth();
   const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
   const [isPro, setIsPro] = useState(false);
   const [isAtCloudLimit, setIsAtCloudLimit] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
+  const [previewingVersionId, setPreviewingVersionId] = useState<string | null>(null);
   const prevDirtyRef = useRef(state.isDirty);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -78,10 +81,65 @@ const EditorContent: React.FC<{ mapId: string }> = ({ mapId }) => {
     };
   }, [syncStatus, canSync]);
 
+  const handlePreviewVersion = async (versionId: string) => {
+    if (!versionId) {
+      setPreviewingVersionId(null);
+      // Reload current map to exit preview
+      try {
+        const currentMap = await apiClient.getMap(mapId);
+        if (currentMap.data) {
+          dispatch({ type: 'LOAD_MINDMAP', payload: { nodes: currentMap.data.nodes, links: currentMap.data.links } });
+        }
+      } catch {
+        // fall through
+      }
+      return;
+    }
+    try {
+      const version = await apiClient.getVersion(mapId, versionId);
+      setPreviewingVersionId(versionId);
+      dispatch({ type: 'LOAD_MINDMAP', payload: { nodes: version.data.nodes, links: version.data.links } });
+    } catch {
+      alert('Failed to load version preview.');
+    }
+  };
+
+  const handleRestoreVersion = async (versionId: string) => {
+    try {
+      const restoredMap = await apiClient.restoreVersion(mapId, versionId);
+      setPreviewingVersionId(null);
+      if (restoredMap.data) {
+        dispatch({ type: 'LOAD_MINDMAP', payload: { nodes: restoredMap.data.nodes, links: restoredMap.data.links } });
+      }
+      setShowHistory(false);
+    } catch {
+      alert('Failed to restore version.');
+    }
+  };
+
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
-      <EditorHeader mapId={mapId} saveStatus={saveStatus} isPro={isPro} isAtCloudLimit={isAtCloudLimit} />
+      <EditorHeader
+        mapId={mapId}
+        saveStatus={saveStatus}
+        isPro={isPro}
+        isAtCloudLimit={isAtCloudLimit}
+        onToggleHistory={() => setShowHistory((prev) => !prev)}
+        showingHistory={showHistory}
+      />
       <MindMapCanvas mapId={mapId} />
+      {showHistory && (
+        <VersionHistoryPanel
+          mapId={mapId}
+          onClose={() => {
+            setShowHistory(false);
+            if (previewingVersionId) handlePreviewVersion('');
+          }}
+          onPreview={handlePreviewVersion}
+          onRestore={handleRestoreVersion}
+          previewingVersionId={previewingVersionId}
+        />
+      )}
     </div>
   );
 };

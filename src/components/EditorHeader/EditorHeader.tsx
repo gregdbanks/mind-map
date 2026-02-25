@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Check, Share2 } from 'lucide-react';
+import { ArrowLeft, Check, Share2, BookOpen, Clock } from 'lucide-react';
 import { useMapTitle } from '../../hooks/useMapTitle';
 import { useAuth } from '../../context/AuthContext';
 import { ShareModal } from '../ShareModal/ShareModal';
 import { UpgradeModal } from '../UpgradeModal';
+import { PublishModal } from '../PublishModal';
 import styles from './EditorHeader.module.css';
 
 export type SaveStatus = 'idle' | 'saving' | 'saved' | 'syncing' | 'synced' | 'sync-error' | 'offline';
@@ -14,9 +15,11 @@ interface EditorHeaderProps {
   saveStatus: SaveStatus;
   isPro?: boolean;
   isAtCloudLimit?: boolean;
+  onToggleHistory?: () => void;
+  showingHistory?: boolean;
 }
 
-export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, isPro = false, isAtCloudLimit = false }) => {
+export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, isPro = false, isAtCloudLimit = false, onToggleHistory, showingHistory = false }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const { title, loading: titleLoading, rename } = useMapTitle(mapId);
@@ -24,6 +27,7 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
   const [editValue, setEditValue] = useState('');
   const [showShareModal, setShowShareModal] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [showPublishModal, setShowPublishModal] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -156,6 +160,35 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
             <Share2 size={16} />
           </button>
         )}
+
+        {isAuthenticated && (
+          <button
+            className={styles.shareButton}
+            onClick={() => setShowPublishModal(true)}
+            title="Publish to Library"
+            aria-label="Publish to library"
+          >
+            <BookOpen size={16} />
+          </button>
+        )}
+
+        {isAuthenticated && (
+          <button
+            className={`${styles.shareButton} ${showingHistory ? styles.historyActive : ''}`}
+            onClick={() => {
+              if (isPro) {
+                onToggleHistory?.();
+              } else {
+                setShowUpgradeModal(true);
+              }
+            }}
+            title={isPro ? 'Version History' : 'Version History (Pro)'}
+            aria-label="Version history"
+          >
+            <Clock size={16} />
+            {!isPro && <span className={styles.proBadge}>Pro</span>}
+          </button>
+        )}
       </div>
 
       {showShareModal && (
@@ -167,6 +200,14 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
           title="Upgrade to Pro"
           description="Sharing, premium exports, and unlimited cloud saves are available with a Pro subscription."
           onClose={() => setShowUpgradeModal(false)}
+        />
+      )}
+
+      {showPublishModal && (
+        <PublishModal
+          mapId={mapId}
+          mapTitle={title}
+          onClose={() => setShowPublishModal(false)}
         />
       )}
     </>
