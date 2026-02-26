@@ -81,6 +81,7 @@ export const Dashboard: React.FC = () => {
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
+  const refreshDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Handle checkout redirect
   const checkoutParam = searchParams.get('checkout');
@@ -115,7 +116,13 @@ export const Dashboard: React.FC = () => {
   }, [localMaps, isAuthenticated, isOnline, fetchCloudMaps]);
 
   useEffect(() => {
-    refreshMergedMaps();
+    if (refreshDebounceRef.current) clearTimeout(refreshDebounceRef.current);
+    refreshDebounceRef.current = setTimeout(() => {
+      refreshMergedMaps();
+    }, 300);
+    return () => {
+      if (refreshDebounceRef.current) clearTimeout(refreshDebounceRef.current);
+    };
   }, [refreshMergedMaps]);
 
   // Re-fetch maps after checkout success (plan may have changed)

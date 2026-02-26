@@ -34,6 +34,9 @@ export function useCloudSync() {
   const processingRef = useRef(false);
   const planRef = useRef<string>('free');
 
+  const pushDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const CLOUD_PUSH_DELAY = 5000; // 5s debounce for cloud pushes (local IDB saves remain at 500ms)
+
   const canSync = isAuthenticated && isOnline;
 
   // Fetch plan status for sync gating
@@ -51,6 +54,13 @@ export function useCloudSync() {
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  // Cleanup debounce timer on unmount
+  useEffect(() => {
+    return () => {
+      if (pushDebounceRef.current) clearTimeout(pushDebounceRef.current);
     };
   }, []);
 
@@ -99,37 +109,52 @@ export function useCloudSync() {
     }
   }, [isOnline, isAuthenticated, queue.length, processQueue]);
 
-  /** Push map to cloud immediately, or enqueue if offline */
-  const pushMap = useCallback(async (mapId: string): Promise<boolean> => {
-    if (!isAuthenticated) return false;
+  /** Push map to cloud with debounce, or enqueue if offline */
+  const pushMap = useCallback((mapId: string): Promise<boolean> => {
+    if (!isAuthenticated) return Promise.resolve(false);
 
     // Downgraded users: edits save locally only
     if (planRef.current !== 'pro') {
       setSyncStatus('idle');
-      return false;
+      return Promise.resolve(false);
     }
 
     if (!isOnline) {
       enqueue(mapId);
       setSyncStatus('offline');
-      return false;
+      return Promise.resolve(false);
     }
 
-    try {
-      setSyncStatus('syncing');
-      await pushMapToCloud(mapId);
-      setSyncStatus('synced');
-      return true;
-    } catch (err) {
-      // Don't enqueue if it's a plan limit or map not in cloud yet
-      if (err instanceof ApiError && (err.status === 403 || err.status === 404)) {
-        setSyncStatus('idle');
-        return false;
-      }
-      setSyncStatus('error');
-      enqueue(mapId);
-      return false;
+    // Cancel any pending debounced push — only the latest edit matters
+    if (pushDebounceRef.current) {
+      clearTimeout(pushDebounceRef.current);
     }
+
+    return new Promise<boolean>((resolve) => {
+      pushDebounceRef.current = setTimeout(async () => {
+        try {
+          setSyncStatus('syncing');
+          await pushMapToCloud(mapId);
+          setSyncStatus('synced');
+          resolve(true);
+        } catch (err) {
+          // Don't enqueue if it's a plan limit or map not in cloud yet
+          if (err instanceof ApiError && (err.status === 403 || err.status === 404)) {
+            setSyncStatus('idle');
+            resolve(false);
+            return;
+          }
+          // Push already in-flight — skip silently, the current push has latest IDB data
+          if (err instanceof Error && err.message === 'Push already in progress') {
+            resolve(false);
+            return;
+          }
+          setSyncStatus('error');
+          enqueue(mapId);
+          resolve(false);
+        }
+      }, CLOUD_PUSH_DELAY);
+    });
   }, [isAuthenticated, isOnline, enqueue]);
 
   /** Explicit "Save to cloud" action for local-only maps */
