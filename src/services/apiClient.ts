@@ -102,6 +102,12 @@ async function publicRequest<T>(path: string): Promise<T> {
   return response.json();
 }
 
+// Plan status cache — deduplicates the 5+ independent getPlanStatus() calls per page load
+type PlanStatusResponse = { plan: string; mapCount: number; mapLimit: number | null; hasStripeCustomer: boolean; monthlyPriceId: string; annualPriceId: string };
+let planStatusCache: { data: PlanStatusResponse; timestamp: number } | null = null;
+let planStatusInflight: Promise<PlanStatusResponse> | null = null;
+const PLAN_STATUS_TTL = 60_000; // 60 seconds
+
 export const apiClient = {
   getMaps: () =>
     request<CloudMapListResponse>({ method: 'GET', path: '/mindmaps' }),
@@ -135,8 +141,25 @@ export const apiClient = {
   createPortal: () =>
     request<{ url: string }>({ method: 'POST', path: '/stripe/create-portal' }),
 
-  getPlanStatus: () =>
-    request<{ plan: string; mapCount: number; mapLimit: number | null; hasStripeCustomer: boolean; monthlyPriceId: string; annualPriceId: string }>({ method: 'GET', path: '/stripe/status' }),
+  getPlanStatus: async (): Promise<PlanStatusResponse> => {
+    if (planStatusCache && Date.now() - planStatusCache.timestamp < PLAN_STATUS_TTL) {
+      return planStatusCache.data;
+    }
+    if (planStatusInflight) {
+      return planStatusInflight;
+    }
+    planStatusInflight = request<PlanStatusResponse>({ method: 'GET', path: '/stripe/status' })
+      .then((data) => {
+        planStatusCache = { data, timestamp: Date.now() };
+        planStatusInflight = null;
+        return data;
+      })
+      .catch((err) => {
+        planStatusInflight = null;
+        throw err;
+      });
+    return planStatusInflight;
+  },
 
   // Public map (no auth required)
   getPublicMap: async (shareToken: string) => {
