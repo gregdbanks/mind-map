@@ -208,8 +208,6 @@ export const Dashboard: React.FC = () => {
     return <div className={styles.loading}>Loading maps...</div>;
   }
 
-  const isOverLimit = planInfo && planInfo.plan !== 'pro' && planInfo.mapLimit !== null && planInfo.mapCount > planInfo.mapLimit;
-
   const footerText = () => {
     if (!isAuthenticated) return 'Sign in to sync maps across devices';
     if (checkoutSuccess) return 'Welcome to Pro! Unlimited cloud maps and sharing.';

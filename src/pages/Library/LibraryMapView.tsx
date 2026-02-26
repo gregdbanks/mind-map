@@ -34,11 +34,13 @@ export const LibraryMapView: React.FC = () => {
 
   useEffect(() => {
     if (!id) return;
+    let cancelled = false;
     const fetchMap = async () => {
       try {
         const data = await apiClient.getLibraryMap(id);
-        setMapData(data);
+        if (!cancelled) setMapData(data);
       } catch (err) {
+        if (cancelled) return;
         if (err instanceof ApiError && err.status === 404) {
           setError('This mind map was not found in the library.');
         } else if (err instanceof ApiError && err.status === 429) {
@@ -47,10 +49,11 @@ export const LibraryMapView: React.FC = () => {
           setError('Failed to load mind map.');
         }
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
     fetchMap();
+    return () => { cancelled = true; };
   }, [id]);
 
   const canvasBackground: CanvasBackground = (mapData?.data?.canvasBackground as CanvasBackground) || 'white';
@@ -66,7 +69,8 @@ export const LibraryMapView: React.FC = () => {
   // D3 rendering
   useEffect(() => {
     if (!mapData || !svgRef.current) return;
-    const svg = d3.select(svgRef.current);
+    const svgEl = svgRef.current;
+    const svg = d3.select(svgEl);
     svg.selectAll('*').remove();
 
     const { nodes: rawNodes, links } = mapData.data;
@@ -76,7 +80,7 @@ export const LibraryMapView: React.FC = () => {
     rawNodes.forEach((n) => nodeMap.set(n.id, n));
     const depths = calculateNodeDepths(nodeMap);
 
-    const container = svgRef.current.parentElement!;
+    const container = svgEl.parentElement!;
     const width = container.clientWidth;
     const height = container.clientHeight;
 
@@ -184,6 +188,13 @@ export const LibraryMapView: React.FC = () => {
       const ty = height / 2 - ((minY + maxY) / 2) * scale;
       svg.call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
     }
+
+    // Cleanup: remove all D3 elements and detach zoom/event listeners
+    return () => {
+      svg.selectAll('*').remove();
+      svg.on('.zoom', null);
+      svg.on('click', null);
+    };
   }, [mapData, canvasBackground]);
 
   // Highlight effect
