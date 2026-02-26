@@ -118,4 +118,59 @@ describe('TemplateModal', () => {
 
     expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
+
+  it('renders a "Download JSON" button for every template card', () => {
+    renderModal();
+
+    const downloadButtons = screen.getAllByTitle('Download JSON');
+    expect(downloadButtons).toHaveLength(templates.length);
+  });
+
+  it('clicking a download button triggers a file download with correct Blob content', () => {
+    // Mock URL.createObjectURL / revokeObjectURL
+    const fakeUrl = 'blob:http://localhost/fake-uuid';
+    const createObjectURLSpy = jest.fn().mockReturnValue(fakeUrl);
+    const revokeObjectURLSpy = jest.fn();
+    window.URL.createObjectURL = createObjectURLSpy;
+    window.URL.revokeObjectURL = revokeObjectURLSpy;
+
+    // Track the anchor element created for the download
+    const clickSpy = jest.fn();
+    const originalCreateElement = document.createElement.bind(document);
+    let capturedAnchor: HTMLAnchorElement | null = null;
+    const createElementSpy = jest.spyOn(document, 'createElement').mockImplementation((tag: string, options?: ElementCreationOptions) => {
+      const el = originalCreateElement(tag, options);
+      if (tag === 'a') {
+        capturedAnchor = el as HTMLAnchorElement;
+        capturedAnchor.click = clickSpy;
+      }
+      return el;
+    });
+
+    renderModal();
+
+    const downloadButtons = screen.getAllByTitle('Download JSON');
+    // Click the first template's download button
+    fireEvent.click(downloadButtons[0]);
+
+    // Verify URL.createObjectURL was called with a Blob
+    expect(createObjectURLSpy).toHaveBeenCalledTimes(1);
+    const blobArg = createObjectURLSpy.mock.calls[0][0];
+    expect(blobArg).toBeInstanceOf(Blob);
+    expect(blobArg.type).toBe('application/json');
+
+    // Verify the anchor was configured correctly and clicked
+    expect(capturedAnchor).not.toBeNull();
+    expect(capturedAnchor!.href).toContain(fakeUrl);
+    expect(capturedAnchor!.download).toBe(`${templates[0].id}.json`);
+    expect(clickSpy).toHaveBeenCalledTimes(1);
+
+    // Verify cleanup: revokeObjectURL was called
+    expect(revokeObjectURLSpy).toHaveBeenCalledWith(fakeUrl);
+
+    // Verify onSelect was NOT called (download should not select/use the template)
+    expect(mockOnSelect).not.toHaveBeenCalled();
+
+    createElementSpy.mockRestore();
+  });
 });
