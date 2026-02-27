@@ -16,9 +16,11 @@
   border-radius: 8px;
   padding: 24px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  min-width: 400px;
+  min-width: 320px;
   max-width: 600px;
   width: 90vw;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
 }
 
 .modalTitle {

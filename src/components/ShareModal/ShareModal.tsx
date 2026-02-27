@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { apiClient } from '../../services/apiClient';
+import { apiClient, ApiError } from '../../services/apiClient';
+import { pushMapToCloud } from '../../services/syncService';
 import type { ShareStatus } from '../../types/sharing';
 import styles from './ShareModal.module.css';
 
@@ -22,8 +23,20 @@ export const ShareModal: React.FC<ShareModalProps> = ({ mapId, onClose }) => {
       const status = await apiClient.getShareStatus(mapId);
       setShareStatus(status);
       setError(null);
-    } catch {
-      setError('Failed to load share status');
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 404) {
+        // Map not saved to cloud yet — push it first, then retry
+        try {
+          await pushMapToCloud(mapId, true);
+          const status = await apiClient.getShareStatus(mapId);
+          setShareStatus(status);
+          setError(null);
+        } catch {
+          setError('This map needs to be saved to the cloud before sharing. Please save it first.');
+        }
+      } else {
+        setError('Failed to load share status');
+      }
     } finally {
       setLoading(false);
     }
