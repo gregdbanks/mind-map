@@ -854,24 +854,29 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         return getAutoTextColor(bgColor);
       })
       .each(function(d: any) {
-        // Truncate text that exceeds ~90% of rect width
+        // Truncate text that exceeds ~90% of rect width, add tooltip for full name
         const node = d as Node;
+        const textSel = d3.select(this);
+        const parentG = d3.select((this as SVGTextElement).parentNode as Element);
+        parentG.select('.node-tooltip').remove(); // Clear previous tooltip
         if (node.noteExpanded) {
-          d3.select(this).text(node.text);
+          textSel.text(node.text);
           return;
         }
         const depth = nodeDepths.get(node.id) || 0;
         const props = getNodeVisualProperties(depth, isDark);
         const maxWidth = props.width * 0.9;
         const textEl = this as SVGTextElement;
-        d3.select(this).text(node.text);
+        textSel.text(node.text);
         if (textEl.getComputedTextLength() > maxWidth) {
           let truncated = node.text;
           while (truncated.length > 1) {
             truncated = truncated.slice(0, -1);
-            d3.select(this).text(truncated + '\u2026');
+            textSel.text(truncated + '\u2026');
             if (textEl.getComputedTextLength() <= maxWidth) break;
           }
+          // Add tooltip to the parent group so hovering the node shows full text
+          parentG.insert('title', ':first-child').attr('class', 'node-tooltip').text(node.text);
         }
       });
 
