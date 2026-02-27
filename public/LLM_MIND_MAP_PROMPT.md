@@ -16,6 +16,7 @@ CRITICAL REQUIREMENTS:
 - Create DEEP, DETAILED hierarchy - as many levels as needed to fully represent the content
 - Keep node text CONCISE (2-5 words) - but create nodes for ALL concepts
 - Put extended explanations and details in notes, but don't skip creating nodes for concepts
+- ALWAYS assign a "size" to EVERY node to visually convey hierarchy and importance
 
 REQUIRED JSON STRUCTURE:
 {
@@ -59,13 +60,13 @@ STRUCTURE GUIDELINES:
    - Level 3+: 150-200px from parent
    - Continue spacing for ALL levels
    - Use radial layout and spread nodes to prevent overlap
-5. Node sizes (visual hierarchy):
-   - "xl": Root/central topic (1 per map)
-   - "lg": Primary branches
-   - "md": Sub-branches and standard topics
-   - "sm": Supporting details
-   - "xs": Minor notes and leaf details
-   - Omit the size field for automatic depth-based sizing
+5. Node sizes - REQUIRED on every node to convey visual hierarchy:
+   - "xl": Root/central topic (1 per map, the main subject)
+   - "lg": Primary branches (direct children of root)
+   - "md": Sub-branches and standard topics (depth 2-3)
+   - "sm": Supporting details and deeper subtopics (depth 4+)
+   - "xs": Minor leaf nodes and fine-grained details
+   - Every node MUST have a "size" field — use the mapping above based on depth
 
 CONTENT DISTRIBUTION:
 - NODES: EVERY concept, topic, subtopic, detail that represents a distinct idea
@@ -103,6 +104,7 @@ QUALITY CHECK:
 □ Does every node have comprehensive notes where applicable?
 □ Have I gone deep enough (10+ levels if needed)?
 □ Is NOTHING missing or consolidated?
+□ Does EVERY node have a "size" field matching its hierarchy level?
 
 Generate the complete JSON now with FULL comprehensive coverage - every concept gets a node.
 ```
