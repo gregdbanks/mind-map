@@ -102,8 +102,8 @@ jest.mock('../../../components/TemplateModal', () => ({
   ),
 }));
 
-jest.mock('../../../components/HouseAdBanner', () => ({
-  HouseAdBanner: () => null,
+jest.mock('../../../components/AdBanner', () => ({
+  AdBanner: () => null,
 }));
 
 jest.mock('../../../utils/exportUtils', () => ({

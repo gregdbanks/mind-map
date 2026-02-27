@@ -7,6 +7,7 @@ import { apiClient, ApiError } from '../../services/apiClient';
 import { pullMapFromCloud } from '../../services/syncService';
 import { useAuth } from '../../context/AuthContext';
 import { RatingWidget } from '../../components/RatingWidget';
+import { AdBanner } from '../../components/AdBanner';
 import RichTextEditor from '../../components/RichTextEditor/RichTextEditor';
 import {
   calculateNodeDepths,
@@ -35,7 +36,15 @@ export const LibraryMapView: React.FC = () => {
   const [userRating, setUserRating] = useState<number>(0);
   const [forking, setForking] = useState(false);
   const [noteModal, setNoteModal] = useState<{ nodeId: string; nodeText: string } | null>(null);
+  const [isPro, setIsPro] = useState(false);
   const notesMap = useRef<Map<string, SerializedNote>>(new Map());
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    apiClient.getPlanStatus().then((status) => {
+      setIsPro(status.plan === 'pro');
+    }).catch(() => {});
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (!id) return;
@@ -416,6 +425,8 @@ export const LibraryMapView: React.FC = () => {
         </>,
         document.body
       )}
+
+      <AdBanner isPro={isPro} />
 
       <footer className={styles.viewFooter}>
         <div className={styles.stats}>

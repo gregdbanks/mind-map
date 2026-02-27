@@ -13,6 +13,8 @@
   padding-bottom: 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .title {
@@ -50,6 +52,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .importButton {
@@ -251,4 +254,62 @@
 
 .modalCancelButton:hover {
   color: #94a3b8;
+}
+
+/* ---- Responsive breakpoints ---- */
+
+/* Tablet / narrow desktop */
+@media (max-width: 768px) {
+  .container {
+    padding: 24px 24px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .headerActions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .container {
+    padding: 16px 16px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .headerActions {
+    gap: 8px;
+  }
+
+  .importButton,
+  .createButton {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .emptyState {
+    padding: 48px 16px;
+  }
+
+  .emptyState h2 {
+    font-size: 20px;
+  }
+
+  .proBanner {
+    margin-top: 32px;
+    font-size: 12px;
+  }
 }

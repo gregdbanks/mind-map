@@ -34,6 +34,7 @@ jest.mock('../../../services/apiClient', () => ({
     getLibraryMap: (...args: unknown[]) => mockGetLibraryMap(...args),
     forkMap: (...args: unknown[]) => mockForkMap(...args),
     rateMap: (...args: unknown[]) => mockRateMap(...args),
+    getPlanStatus: jest.fn().mockResolvedValue({ plan: 'free', mapCount: 0, mapLimit: 1 }),
   },
   ApiError: class ApiError extends Error {
     status: number;
@@ -43,6 +44,10 @@ jest.mock('../../../services/apiClient', () => ({
       this.name = 'ApiError';
     }
   },
+}));
+
+jest.mock('../../../components/AdBanner', () => ({
+  AdBanner: () => null,
 }));
 
 jest.mock('../../../services/syncService', () => ({

@@ -4,7 +4,7 @@ import { Search, BookOpen, GitFork, Star } from 'lucide-react';
 import { useLibrary } from '../../hooks/useLibrary';
 import { useAuth } from '../../context/AuthContext';
 import { ProfileDropdown } from '../../components/ProfileDropdown';
-import { HouseAdBanner } from '../../components/HouseAdBanner';
+import { AdBanner } from '../../components/AdBanner';
 import { apiClient } from '../../services/apiClient';
 import { LIBRARY_CATEGORIES, LIBRARY_SORT_OPTIONS } from '../../types/library';
 import type { LibraryMapSummary } from '../../types/library';
@@ -109,10 +109,6 @@ export const Library: React.FC = () => {
         </div>
       </div>
 
-      <div style={{ padding: '0 48px' }}>
-        <HouseAdBanner placement="library" isPro={isPro} />
-      </div>
-
       {loading ? (
         <div className={styles.loading}>
           <div className={styles.spinner} />
@@ -161,6 +157,8 @@ export const Library: React.FC = () => {
           )}
         </>
       )}
+
+      <AdBanner isPro={isPro} />
 
       <footer className={styles.footer}>
         <span>Community mind map library</span>
