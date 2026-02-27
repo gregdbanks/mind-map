@@ -223,9 +223,41 @@
 
 ---
 
-## Phase 13 — Ad Integration
+## Phase 13 — Node Sizing Presets
 
-**Effort**: ~1 week | **Branch**: `feature/phase-13-ads`
+**Effort**: ~1 day | **Branch**: `feature/phase-13-node-sizing`
+
+### Overview
+Add 5 predetermined size presets (XS, S, M, L, XL) so users can control node visual hierarchy independent of tree depth. LLM-generated maps can also convey importance through sizing. No backend changes needed — the `size` field is stored in the existing JSONB blob.
+
+### Subtasks
+- 13.1 Add `NodeSize` type and `size?` field to `Node` interface
+- 13.2 Add `NODE_SIZE_PRESETS` to `nodeHierarchy.ts`, update `getNodeVisualProperties` and `getLinkEndpoint`
+- 13.3 Add size selector UI (Auto/XS/S/M/L/XL) to NodeEditModal
+- 13.4 Update MindMapCanvas to pass `node.size` to all visual property calls
+- 13.5 Update LibraryMapView and SharedMap to respect node sizes
+- 13.6 Add sizes to built-in templates (root=xl, branches=lg)
+- 13.7 Update LLM prompt template with size field and guidelines
+
+### Phase 13 — Validation Tests
+
+| # | Test | How to Verify | Pass Criteria |
+|---|------|---------------|---------------|
+| 13.1 | Size selector in edit modal | Double-click a node | Modal shows Auto/XS/S/M/L/XL pill buttons below text input. |
+| 13.2 | Size changes node dimensions | Set a node to XL, save | Node visibly larger than default. Action buttons reposition correctly. |
+| 13.3 | Auto size = depth-based | Set a node to Auto (default) | Node size matches hierarchy depth as before. |
+| 13.4 | Size persists | Set size, reload page | Node retains its size after save/reload. |
+| 13.5 | JSON import with size | Import JSON with `"size": "xl"` on a node | Node renders at XL dimensions. |
+| 13.6 | Templates use sizes | Load "Project Planning" template | Root node is XL, primary branches are LG. |
+| 13.7 | Links connect to sized nodes | Create nodes of different sizes, link them | Links connect cleanly to rect edges regardless of size. |
+| 13.8 | Library/Shared views | View a map with sized nodes in library or shared view | Sized nodes render correctly in read-only views. |
+| 13.9 | LLM prompt includes size | Open `/LLM_MIND_MAP_PROMPT.md` | JSON example shows `"size"` field. Guidelines explain size values. |
+
+---
+
+## Phase 14 — Ad Integration
+
+**Effort**: ~1 week | **Branch**: `feature/phase-14-ads`
 
 ### Placement
 - Dashboard: banner below map grid
@@ -234,24 +266,24 @@
 - Editor: NO ADS (sacred space)
 - Pro users: NO ADS (perk)
 
-### Phase 13 — Validation Tests
+### Phase 14 — Validation Tests
 
 | # | Test | How to Verify | Pass Criteria |
 |---|------|---------------|---------------|
-| 13.1 | Free user sees dashboard ad | Log in as free user, open dashboard | Ad banner visible below map grid. |
-| 13.2 | Pro user sees no ads | Log in as Pro, open dashboard | No ad banner anywhere. |
-| 13.3 | Library ad cards | Browse `/library` as free user | Ad card appears every 8th position in grid. |
-| 13.4 | Editor is ad-free | Open editor as free user | No ads anywhere in the editor. |
-| 13.5 | Anonymous user sees ads | Browse dashboard/library without login | Ads appear normally. |
-| 13.6 | Ad failure fallback | Block ad script in DevTools | Ad slot shows "Upgrade to Pro for ad-free experience" instead of blank space. |
-| 13.7 | No layout shift | Load dashboard, watch for CLS | Ad container has fixed dimensions. No content jump on ad load. |
-| 13.8 | Ads lazy-load | Check network tab on initial page load | Ad scripts load after primary content (not blocking). |
+| 14.1 | Free user sees dashboard ad | Log in as free user, open dashboard | Ad banner visible below map grid. |
+| 14.2 | Pro user sees no ads | Log in as Pro, open dashboard | No ad banner anywhere. |
+| 14.3 | Library ad cards | Browse `/library` as free user | Ad card appears every 8th position in grid. |
+| 14.4 | Editor is ad-free | Open editor as free user | No ads anywhere in the editor. |
+| 14.5 | Anonymous user sees ads | Browse dashboard/library without login | Ads appear normally. |
+| 14.6 | Ad failure fallback | Block ad script in DevTools | Ad slot shows "Upgrade to Pro for ad-free experience" instead of blank space. |
+| 14.7 | No layout shift | Load dashboard, watch for CLS | Ad container has fixed dimensions. No content jump on ad load. |
+| 14.8 | Ads lazy-load | Check network tab on initial page load | Ad scripts load after primary content (not blocking). |
 
 ---
 
-## Phase 14 — Real-Time Collaboration
+## Phase 15 — Real-Time Collaboration
 
-**Effort**: ~2-3 months | **Branch**: `feature/phase-14-realtime-collab`
+**Effort**: ~2-3 months | **Branch**: `feature/phase-15-realtime-collab`
 
 ### Architecture
 - WebSocket server (Socket.io)
@@ -259,22 +291,22 @@
 - Cursor presence
 - Teams billing tier ($15/user/month)
 
-### Phase 14 — Validation Tests
+### Phase 15 — Validation Tests
 
 | # | Test | How to Verify | Pass Criteria |
 |---|------|---------------|---------------|
-| 14.1 | WebSocket connects | Open map in two browsers as same team | Both clients connect to WS. Presence panel shows 2 users. |
-| 14.2 | Cursor presence | Move mouse in browser A | Browser B shows User A's cursor with name label, updated in real-time. |
-| 14.3 | Node add syncs | Add a node in browser A | Node appears in browser B within 500ms. |
-| 14.4 | Node edit syncs | Edit node text in browser A | Updated text appears in browser B within 500ms. |
-| 14.5 | Node move syncs | Drag node in browser A | Node moves in browser B in real-time. |
-| 14.6 | Node delete syncs | Delete node in browser A | Node disappears in browser B. |
-| 14.7 | Conflict resolution | Both users edit same node simultaneously | One edit wins cleanly. No data corruption. Both users see consistent state. |
-| 14.8 | Disconnect/reconnect | Kill network on browser A, restore after 10s | Browser A reconnects, syncs missed changes, no data loss. |
-| 14.9 | Invite collaborator | Map owner sends invite link/email | Invitee can open map and edit. |
-| 14.10 | Permission enforcement | Non-invited user tries to open collab map | Access denied. |
-| 14.11 | Teams billing | Subscribe to Teams tier | Per-seat billing works. Adding/removing seats updates Stripe subscription. |
-| 14.12 | Solo user can't collab | Pro (non-Teams) user tries to invite | Feature locked behind Teams tier. Upgrade prompt shown. |
+| 15.1 | WebSocket connects | Open map in two browsers as same team | Both clients connect to WS. Presence panel shows 2 users. |
+| 15.2 | Cursor presence | Move mouse in browser A | Browser B shows User A's cursor with name label, updated in real-time. |
+| 15.3 | Node add syncs | Add a node in browser A | Node appears in browser B within 500ms. |
+| 15.4 | Node edit syncs | Edit node text in browser A | Updated text appears in browser B within 500ms. |
+| 15.5 | Node move syncs | Drag node in browser A | Node moves in browser B in real-time. |
+| 15.6 | Node delete syncs | Delete node in browser A | Node disappears in browser B. |
+| 15.7 | Conflict resolution | Both users edit same node simultaneously | One edit wins cleanly. No data corruption. Both users see consistent state. |
+| 15.8 | Disconnect/reconnect | Kill network on browser A, restore after 10s | Browser A reconnects, syncs missed changes, no data loss. |
+| 15.9 | Invite collaborator | Map owner sends invite link/email | Invitee can open map and edit. |
+| 15.10 | Permission enforcement | Non-invited user tries to open collab map | Access denied. |
+| 15.11 | Teams billing | Subscribe to Teams tier | Per-seat billing works. Adding/removing seats updates Stripe subscription. |
+| 15.12 | Solo user can't collab | Pro (non-Teams) user tries to invite | Feature locked behind Teams tier. Upgrade prompt shown. |
 
 ---
 

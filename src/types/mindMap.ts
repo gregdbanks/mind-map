@@ -3,6 +3,8 @@ export interface Point {
   y: number;
 }
 
+export type NodeSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 export interface Node {
   id: string;
   text: string;
@@ -21,6 +23,7 @@ export interface Node {
   noteExpanded?: boolean; // Whether the note container is open (renders as rounded rect)
   noteWidth?: number; // Current width of expanded note container
   noteHeight?: number; // Current height of expanded note container
+  size?: NodeSize; // Optional size preset override (xs, sm, md, lg, xl)
 }
 
 export interface Link {

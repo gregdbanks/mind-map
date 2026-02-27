@@ -1,4 +1,4 @@
-import type { Node } from '../types/mindMap';
+import type { Node, NodeSize } from '../types/mindMap';
 
 export interface NodeWithDepth extends Node {
   depth: number;
@@ -32,28 +32,59 @@ export function calculateNodeDepths(nodes: Map<string, Node>): Map<string, numbe
   return depths;
 }
 
+// Predetermined size presets for user-controlled node sizing
+export const NODE_SIZE_PRESETS: Record<NonNullable<NodeSize>, {
+  width: number; height: number; borderRadius: number;
+  fontSize: number; fontWeight: string; strokeWidth: number;
+}> = {
+  xs: { width: 60,  height: 26, borderRadius: 6,  fontSize: 9,  fontWeight: '300', strokeWidth: 1.0 },
+  sm: { width: 80,  height: 34, borderRadius: 8,  fontSize: 10, fontWeight: '300', strokeWidth: 1.5 },
+  md: { width: 100, height: 42, borderRadius: 10, fontSize: 12, fontWeight: '400', strokeWidth: 2.0 },
+  lg: { width: 130, height: 52, borderRadius: 14, fontSize: 14, fontWeight: '600', strokeWidth: 3.0 },
+  xl: { width: 160, height: 62, borderRadius: 16, fontSize: 16, fontWeight: '600', strokeWidth: 3.5 },
+};
+
 /**
- * Get visual properties based on node depth and theme
+ * Get visual properties based on node depth, theme, and optional size override.
+ * When size is provided, dimensions come from the preset; colors still from depth.
  */
-export function getNodeVisualProperties(depth: number, isDark = false) {
+export function getNodeVisualProperties(depth: number, isDark = false, size?: NodeSize) {
   const maxDepth = 5;
   const clampedDepth = Math.min(depth, maxDepth);
 
-  // Rect dimensions decrease as we go deeper
-  const widths = [120, 110, 100, 90, 80, 72];
-  const heights = [52, 46, 42, 38, 34, 30];
-  const borderRadii = [14, 12, 10, 10, 8, 8];
-  const width = widths[clampedDepth];
-  const height = heights[clampedDepth];
-  const borderRadius = borderRadii[clampedDepth];
+  // Dimensions: use size preset if provided, otherwise depth-based
+  let width: number, height: number, borderRadius: number, strokeWidth: number, fontSize: number, fontWeight: string;
+
+  if (size && NODE_SIZE_PRESETS[size]) {
+    const preset = NODE_SIZE_PRESETS[size];
+    width = preset.width;
+    height = preset.height;
+    borderRadius = preset.borderRadius;
+    strokeWidth = preset.strokeWidth;
+    fontSize = preset.fontSize;
+    fontWeight = preset.fontWeight;
+  } else {
+    const widths = [120, 110, 100, 90, 80, 72];
+    const heights = [52, 46, 42, 38, 34, 30];
+    const borderRadii = [14, 12, 10, 10, 8, 8];
+    width = widths[clampedDepth];
+    height = heights[clampedDepth];
+    borderRadius = borderRadii[clampedDepth];
+
+    const strokeWidths = [3, 2.5, 2, 1.8, 1.5, 1.2];
+    strokeWidth = strokeWidths[clampedDepth];
+
+    const fontSizes = [14, 13, 12, 11, 10, 10];
+    fontSize = fontSizes[clampedDepth];
+
+    const fontWeights = ['600', '500', '400', '400', '300', '300'];
+    fontWeight = fontWeights[clampedDepth];
+  }
+
   // Keep radius for backward compat (used by some callers)
   const radius = Math.max(width, height) / 2;
 
-  // Border thickness decreases
-  const strokeWidths = [3, 2.5, 2, 1.8, 1.5, 1.2];
-  const strokeWidth = strokeWidths[clampedDepth];
-
-  // Theme-aware colors
+  // Theme-aware colors always come from depth (not size)
   const lightStrokeColors = [
     '#1a237e', '#283593', '#3949ab', '#5c6bc0', '#7986cb', '#9fa8da'
   ];
@@ -69,14 +100,6 @@ export function getNodeVisualProperties(depth: number, isDark = false) {
     '#1E3A5F', '#1A3350', '#162D45', '#13273D', '#102236', '#0D1D30'
   ];
   const fillColor = (isDark ? darkFillColors : lightFillColors)[clampedDepth];
-
-  // Font sizes
-  const fontSizes = [14, 13, 12, 11, 10, 10];
-  const fontSize = fontSizes[clampedDepth];
-
-  // Font weights
-  const fontWeights = ['600', '500', '400', '400', '300', '300'];
-  const fontWeight = fontWeights[clampedDepth];
 
   return {
     width,
@@ -114,7 +137,7 @@ export function getLinkEndpoint(
     halfW = node.noteWidth / 2;
     halfH = node.noteHeight / 2;
   } else {
-    const props = getNodeVisualProperties(depth);
+    const props = getNodeVisualProperties(depth, false, node.size);
     halfW = props.width / 2;
     halfH = props.height / 2;
   }
