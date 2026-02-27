@@ -52,7 +52,13 @@ test('check for runtime errors and performance', async ({ page }) => {
   });
 
   console.log('Performance:', performanceMetrics);
-  console.log('Total errors:', errors.length);
+  // Filter out expected ad-related errors (AdSense may fail in CI/test environments)
+  const relevantErrors = errors.filter(e => {
+    const text = typeof e === 'string' ? e : e.text || '';
+    return !text.includes('adsbygoogle') && !text.includes('pagead') && !text.includes('googlesyndication');
+  });
+
+  console.log('Total errors:', errors.length, '(relevant:', relevantErrors.length, ')');
   console.log('Total warnings:', warnings.length);
 
   // Take screenshot
@@ -71,5 +77,5 @@ test('check for runtime errors and performance', async ({ page }) => {
 
   console.log('Simulation status:', simulationStatus);
 
-  expect(errors.length).toBe(0);
+  expect(relevantErrors.length).toBe(0);
 });
