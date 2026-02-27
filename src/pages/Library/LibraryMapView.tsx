@@ -152,12 +152,20 @@ export const LibraryMapView: React.FC = () => {
         .style('cursor', 'pointer');
 
       const buffer = depth === 0 ? 6 : 4;
-      g.append('circle').attr('class', 'node-background')
-        .attr('r', visual.radius + buffer).attr('fill', bgColor)
-        .attr('stroke', bgColor).attr('stroke-width', 4).style('pointer-events', 'none');
+      const bgW = visual.width + buffer * 2;
+      const bgH = visual.height + buffer * 2;
+      g.append('rect').attr('class', 'node-background')
+        .attr('x', -bgW / 2).attr('y', -bgH / 2)
+        .attr('width', bgW).attr('height', bgH)
+        .attr('rx', visual.borderRadius + 2).attr('ry', visual.borderRadius + 2)
+        .attr('fill', bgColor).attr('stroke', bgColor)
+        .attr('stroke-width', 4).style('pointer-events', 'none');
 
-      g.append('circle').attr('class', 'node-main')
-        .attr('r', visual.radius).attr('fill', node.color || visual.fillColor)
+      g.append('rect').attr('class', 'node-main')
+        .attr('x', -visual.width / 2).attr('y', -visual.height / 2)
+        .attr('width', visual.width).attr('height', visual.height)
+        .attr('rx', visual.borderRadius).attr('ry', visual.borderRadius)
+        .attr('fill', node.color || visual.fillColor)
         .attr('stroke', visual.strokeColor).attr('stroke-width', visual.strokeWidth + 1)
         .style('filter', depth <= 1 ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' : 'none');
 
@@ -167,12 +175,11 @@ export const LibraryMapView: React.FC = () => {
         .attr('font-size', `${visual.fontSize}px`).attr('font-weight', visual.fontWeight)
         .attr('pointer-events', 'none').text(displayText);
 
-      // Note indicator (small purple dot)
+      // Note indicator (small purple dot at top-right corner)
       if (node.hasNote) {
-        const angle = -Math.PI / 4;
         g.append('circle').attr('class', 'note-indicator')
-          .attr('cx', visual.radius * Math.cos(angle))
-          .attr('cy', visual.radius * Math.sin(angle))
+          .attr('cx', visual.width / 2 - 4)
+          .attr('cy', -visual.height / 2 + 4)
           .attr('r', 5).attr('fill', '#9c27b0')
           .attr('stroke', '#fff').attr('stroke-width', 1.5)
           .style('cursor', 'pointer');
@@ -250,7 +257,7 @@ export const LibraryMapView: React.FC = () => {
         const el = d3.select(this);
         const nId = el.attr('data-node-id');
         const depth = depths.get(nId) ?? 0;
-        el.select('.node-main').attr('stroke', getNodeVisualProperties(depth).strokeColor);
+        el.select('.node-main').attr('stroke', getNodeVisualProperties(depth, false).strokeColor);
       });
       return;
     }
