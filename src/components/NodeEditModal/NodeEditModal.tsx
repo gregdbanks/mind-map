@@ -1,55 +1,57 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './NodeEditModal.module.css';
 
-// Each swatch has an explicit, pre-tested text color — no auto-calculation needed
+// Each swatch has an explicit, pre-tested text color — no auto-calculation needed.
+// Light palette: soft pastels so text is always dark (readable if it overflows onto light canvas).
+// Dark palette: saturated colors so text is always light (readable if it overflows onto dark canvas).
 const LIGHT_PALETTE = [
-  // Row 1: Blues & Purples — white text
-  { bg: '#4285F4', text: '#FFFFFF', label: 'Blue' },
-  { bg: '#1A73E8', text: '#FFFFFF', label: 'Dark Blue' },
-  { bg: '#7B1FA2', text: '#FFFFFF', label: 'Purple' },
-  { bg: '#9C27B0', text: '#FFFFFF', label: 'Light Purple' },
-  // Row 2: Greens & Teals — white text
-  { bg: '#0F9D58', text: '#FFFFFF', label: 'Green' },
-  { bg: '#00897B', text: '#FFFFFF', label: 'Teal' },
-  { bg: '#2E7D32', text: '#FFFFFF', label: 'Dark Green' },
-  { bg: '#43A047', text: '#FFFFFF', label: 'Light Green' },
-  // Row 3: Warm colors
-  { bg: '#F4B400', text: '#000000', label: 'Yellow' },
-  { bg: '#FB8C00', text: '#000000', label: 'Orange' },
-  { bg: '#DB4437', text: '#FFFFFF', label: 'Red' },
-  { bg: '#E91E63', text: '#FFFFFF', label: 'Pink' },
-  // Row 4: Neutrals & Dark — white text
-  { bg: '#455A64', text: '#FFFFFF', label: 'Blue Grey' },
-  { bg: '#616161', text: '#FFFFFF', label: 'Grey' },
-  { bg: '#263238', text: '#FFFFFF', label: 'Dark' },
-  { bg: '#37474F', text: '#FFFFFF', label: 'Charcoal' },
+  // Row 1: Blues & Purples — dark text on soft pastels
+  { bg: '#BBDEFB', text: '#333333', label: 'Blue' },
+  { bg: '#90CAF9', text: '#333333', label: 'Sky Blue' },
+  { bg: '#E1BEE7', text: '#333333', label: 'Lavender' },
+  { bg: '#CE93D8', text: '#333333', label: 'Purple' },
+  // Row 2: Greens & Teals — dark text
+  { bg: '#C8E6C9', text: '#333333', label: 'Green' },
+  { bg: '#80CBC4', text: '#333333', label: 'Teal' },
+  { bg: '#A5D6A7', text: '#333333', label: 'Mint' },
+  { bg: '#DCEDC8', text: '#333333', label: 'Lime' },
+  // Row 3: Warm colors — dark text
+  { bg: '#FFF9C4', text: '#333333', label: 'Yellow' },
+  { bg: '#FFE0B2', text: '#333333', label: 'Orange' },
+  { bg: '#FFCDD2', text: '#333333', label: 'Red' },
+  { bg: '#F8BBD0', text: '#333333', label: 'Pink' },
+  // Row 4: Neutrals — dark text
+  { bg: '#CFD8DC', text: '#333333', label: 'Blue Grey' },
+  { bg: '#B0BEC5', text: '#333333', label: 'Silver' },
+  { bg: '#D7CCC8', text: '#333333', label: 'Warm Grey' },
+  { bg: '#E0E0E0', text: '#333333', label: 'Grey' },
 ];
 
 const DARK_PALETTE = [
-  // Row 1: Brighter blues & purples for dark canvas — black text on light, white on deep
-  { bg: '#64B5F6', text: '#000000', label: 'Light Blue' },
-  { bg: '#42A5F5', text: '#000000', label: 'Blue' },
-  { bg: '#CE93D8', text: '#000000', label: 'Lavender' },
-  { bg: '#BA68C8', text: '#FFFFFF', label: 'Purple' },
-  // Row 2: Greens & Teals — lighter shades
-  { bg: '#81C784', text: '#000000', label: 'Light Green' },
-  { bg: '#4DB6AC', text: '#000000', label: 'Teal' },
-  { bg: '#66BB6A', text: '#000000', label: 'Green' },
-  { bg: '#AED581', text: '#000000', label: 'Lime' },
-  // Row 3: Warm colors — brighter
-  { bg: '#FFD54F', text: '#000000', label: 'Yellow' },
-  { bg: '#FFB74D', text: '#000000', label: 'Orange' },
-  { bg: '#EF5350', text: '#FFFFFF', label: 'Red' },
-  { bg: '#EC407A', text: '#FFFFFF', label: 'Pink' },
-  // Row 4: Light neutrals for contrast on dark canvas
-  { bg: '#ECEFF1', text: '#000000', label: 'White' },
-  { bg: '#B0BEC5', text: '#000000', label: 'Silver' },
-  { bg: '#90A4AE', text: '#000000', label: 'Light Grey' },
-  { bg: '#CFD8DC', text: '#000000', label: 'Pale Grey' },
+  // Row 1: Blues & Purples — white text on saturated colors
+  { bg: '#1E88E5', text: '#FFFFFF', label: 'Blue' },
+  { bg: '#1565C0', text: '#FFFFFF', label: 'Dark Blue' },
+  { bg: '#7B1FA2', text: '#FFFFFF', label: 'Purple' },
+  { bg: '#6A1B9A', text: '#FFFFFF', label: 'Deep Purple' },
+  // Row 2: Greens & Teals — white text
+  { bg: '#2E7D32', text: '#FFFFFF', label: 'Green' },
+  { bg: '#00897B', text: '#FFFFFF', label: 'Teal' },
+  { bg: '#388E3C', text: '#FFFFFF', label: 'Forest' },
+  { bg: '#558B2F', text: '#FFFFFF', label: 'Olive' },
+  // Row 3: Warm colors — white text
+  { bg: '#F9A825', text: '#FFFFFF', label: 'Yellow' },
+  { bg: '#EF6C00', text: '#FFFFFF', label: 'Orange' },
+  { bg: '#C62828', text: '#FFFFFF', label: 'Red' },
+  { bg: '#AD1457', text: '#FFFFFF', label: 'Pink' },
+  // Row 4: Neutrals — white text
+  { bg: '#37474F', text: '#FFFFFF', label: 'Blue Grey' },
+  { bg: '#455A64', text: '#FFFFFF', label: 'Slate' },
+  { bg: '#4E342E', text: '#FFFFFF', label: 'Brown' },
+  { bg: '#546E7A', text: '#FFFFFF', label: 'Steel' },
 ];
 
-const LIGHT_DEFAULT = '#4285F4';
-const DARK_DEFAULT = '#64B5F6';
+const LIGHT_DEFAULT = '#BBDEFB';
+const DARK_DEFAULT = '#1E88E5';
 
 interface NodeEditModalProps {
   nodeId: string;
@@ -93,7 +95,7 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
 
   const effectiveBgColor = color || defaultColor;
   const matchedSwatch = palette.find((s) => s.bg.toLowerCase() === effectiveBgColor.toLowerCase());
-  const textColor = matchedSwatch?.text || (isDarkCanvas ? '#000000' : '#FFFFFF');
+  const textColor = matchedSwatch?.text || (isDarkCanvas ? '#FFFFFF' : '#333333');
 
   const handleColorSelect = (newColor: string) => {
     setColor(newColor);

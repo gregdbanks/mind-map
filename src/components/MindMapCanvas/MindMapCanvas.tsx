@@ -772,9 +772,8 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         return 'none';
       });
 
-    // Apply visual hierarchy to text
+    // Apply visual hierarchy to text — positioned in upper portion of circle
     nodeUpdate.select('text')
-      .text((d: any) => (d as Node).text)
       .style('font-size', (d: any) => {
         const depth = nodeDepths.get((d as Node).id) || 0;
         return `${getNodeVisualProperties(depth).fontSize}px`;
@@ -783,6 +782,13 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         const node = d as Node;
         const depth = nodeDepths.get(node.id) || 0;
         return getNodeVisualProperties(depth).fontWeight;
+      })
+      .attr('y', (d: any) => {
+        const node = d as Node;
+        if (node.noteExpanded) return 0; // Center text when expanded as rect
+        const depth = nodeDepths.get(node.id) || 0;
+        const radius = getNodeVisualProperties(depth).radius;
+        return -(radius * 0.3); // Position title in upper third of circle
       })
       .attr('fill', (d: any) => {
         const node = d as Node;
@@ -806,6 +812,27 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
 
         // No explicit text color: auto-pick the best contrast color
         return getAutoTextColor(bgColor);
+      })
+      .each(function(d: any) {
+        // Truncate text that exceeds ~80% of circle diameter
+        const node = d as Node;
+        if (node.noteExpanded) {
+          d3.select(this).text(node.text);
+          return;
+        }
+        const depth = nodeDepths.get(node.id) || 0;
+        const radius = getNodeVisualProperties(depth).radius;
+        const maxWidth = radius * 1.6;
+        const textEl = this as SVGTextElement;
+        d3.select(this).text(node.text);
+        if (textEl.getComputedTextLength() > maxWidth) {
+          let truncated = node.text;
+          while (truncated.length > 1) {
+            truncated = truncated.slice(0, -1);
+            d3.select(this).text(truncated + '\u2026');
+            if (textEl.getComputedTextLength() <= maxWidth) break;
+          }
+        }
       });
 
     // Update note indicator — hide when node is expanded (rect is the indicator)
