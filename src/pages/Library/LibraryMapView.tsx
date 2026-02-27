@@ -143,7 +143,7 @@ export const LibraryMapView: React.FC = () => {
       const pos = positions.get(node.id);
       if (!pos) return;
       const depth = depths.get(node.id) ?? 0;
-      const visual = getNodeVisualProperties(depth);
+      const visual = getNodeVisualProperties(depth, false, node.size);
 
       const g = nodeGroup.append('g')
         .attr('class', 'node')

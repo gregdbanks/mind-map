@@ -175,7 +175,7 @@ export const SharedMap: React.FC = () => {
       if (!pos) return;
 
       const depth = depths.get(node.id) ?? 0;
-      const visual = getNodeVisualProperties(depth);
+      const visual = getNodeVisualProperties(depth, false, node.size);
 
       const g = nodeGroup
         .append('g')
@@ -321,7 +321,7 @@ export const SharedMap: React.FC = () => {
         const node = nodeMap.get(nodeId);
         if (!node) return;
         const depth = depths.get(nodeId) ?? 0;
-        const visual = getNodeVisualProperties(depth);
+        const visual = getNodeVisualProperties(depth, false, node.size);
         el.select('.node-main').attr('stroke', visual.strokeColor);
       });
       return;

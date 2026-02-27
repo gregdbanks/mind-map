@@ -701,36 +701,38 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         if (node.noteExpanded) return 0;
         const depth = nodeDepths.get(node.id) || 0;
         const buffer = depth === 0 ? 6 : 4;
-        return getNodeVisualProperties(depth, isDark).width + buffer * 2;
+        return getNodeVisualProperties(depth, isDark, node.size).width + buffer * 2;
       })
       .attr('height', (d: any) => {
         const node = d as Node;
         if (node.noteExpanded) return 0;
         const depth = nodeDepths.get(node.id) || 0;
         const buffer = depth === 0 ? 6 : 4;
-        return getNodeVisualProperties(depth, isDark).height + buffer * 2;
+        return getNodeVisualProperties(depth, isDark, node.size).height + buffer * 2;
       })
       .attr('x', (d: any) => {
         const node = d as Node;
         if (node.noteExpanded) return 0;
         const depth = nodeDepths.get(node.id) || 0;
         const buffer = depth === 0 ? 6 : 4;
-        return -(getNodeVisualProperties(depth, isDark).width + buffer * 2) / 2;
+        return -(getNodeVisualProperties(depth, isDark, node.size).width + buffer * 2) / 2;
       })
       .attr('y', (d: any) => {
         const node = d as Node;
         if (node.noteExpanded) return 0;
         const depth = nodeDepths.get(node.id) || 0;
         const buffer = depth === 0 ? 6 : 4;
-        return -(getNodeVisualProperties(depth, isDark).height + buffer * 2) / 2;
+        return -(getNodeVisualProperties(depth, isDark, node.size).height + buffer * 2) / 2;
       })
       .attr('rx', (d: any) => {
-        const depth = nodeDepths.get((d as Node).id) || 0;
-        return getNodeVisualProperties(depth, isDark).borderRadius + 2;
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
+        return getNodeVisualProperties(depth, isDark, node.size).borderRadius + 2;
       })
       .attr('ry', (d: any) => {
-        const depth = nodeDepths.get((d as Node).id) || 0;
-        return getNodeVisualProperties(depth, isDark).borderRadius + 2;
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
+        return getNodeVisualProperties(depth, isDark, node.size).borderRadius + 2;
       })
       .style('opacity', (d: any) => (d as Node).noteExpanded ? 0 : 1)
       .attr('fill', getBackgroundColor(canvasBackground))
@@ -745,33 +747,35 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         const node = d as Node;
         if (node.noteExpanded) return 0;
         const depth = nodeDepths.get(node.id) || 0;
-        return getNodeVisualProperties(depth, isDark).width;
+        return getNodeVisualProperties(depth, isDark, node.size).width;
       })
       .attr('height', (d: any) => {
         const node = d as Node;
         if (node.noteExpanded) return 0;
         const depth = nodeDepths.get(node.id) || 0;
-        return getNodeVisualProperties(depth, isDark).height;
+        return getNodeVisualProperties(depth, isDark, node.size).height;
       })
       .attr('x', (d: any) => {
         const node = d as Node;
         if (node.noteExpanded) return 0;
         const depth = nodeDepths.get(node.id) || 0;
-        return -getNodeVisualProperties(depth, isDark).width / 2;
+        return -getNodeVisualProperties(depth, isDark, node.size).width / 2;
       })
       .attr('y', (d: any) => {
         const node = d as Node;
         if (node.noteExpanded) return 0;
         const depth = nodeDepths.get(node.id) || 0;
-        return -getNodeVisualProperties(depth, isDark).height / 2;
+        return -getNodeVisualProperties(depth, isDark, node.size).height / 2;
       })
       .attr('rx', (d: any) => {
-        const depth = nodeDepths.get((d as Node).id) || 0;
-        return getNodeVisualProperties(depth, isDark).borderRadius;
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
+        return getNodeVisualProperties(depth, isDark, node.size).borderRadius;
       })
       .attr('ry', (d: any) => {
-        const depth = nodeDepths.get((d as Node).id) || 0;
-        return getNodeVisualProperties(depth, isDark).borderRadius;
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
+        return getNodeVisualProperties(depth, isDark, node.size).borderRadius;
       })
       .style('opacity', (d: any) => (d as Node).noteExpanded ? 0 : 1)
       .attr('fill', (d: any) => {
@@ -784,7 +788,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           return '#FF9900';
         }
         const depth = nodeDepths.get(node.id) || 0;
-        return getNodeVisualProperties(depth, isDark).fillColor;
+        return getNodeVisualProperties(depth, isDark, node.size).fillColor;
       })
       .attr('stroke', (d: any) => {
         const node = d as Node;
@@ -795,12 +799,12 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           return '#232F3E';
         }
         const depth = nodeDepths.get(node.id) || 0;
-        return getNodeVisualProperties(depth, isDark).strokeColor;
+        return getNodeVisualProperties(depth, isDark, node.size).strokeColor;
       })
       .attr('stroke-width', (d: any) => {
         const node = d as Node;
         const depth = nodeDepths.get(node.id) || 0;
-        const baseWidth = getNodeVisualProperties(depth, isDark).strokeWidth;
+        const baseWidth = getNodeVisualProperties(depth, isDark, node.size).strokeWidth;
 
         if (node.id === searchHighlightNodeId) {
           return baseWidth * 2.5;
@@ -825,13 +829,14 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     nodeUpdate.select('text')
       .text((d: any) => (d as Node).text)
       .style('font-size', (d: any) => {
-        const depth = nodeDepths.get((d as Node).id) || 0;
-        return `${getNodeVisualProperties(depth, isDark).fontSize}px`;
+        const node = d as Node;
+        const depth = nodeDepths.get(node.id) || 0;
+        return `${getNodeVisualProperties(depth, isDark, node.size).fontSize}px`;
       })
       .style('font-weight', (d: any) => {
         const node = d as Node;
         const depth = nodeDepths.get(node.id) || 0;
-        return getNodeVisualProperties(depth, isDark).fontWeight;
+        return getNodeVisualProperties(depth, isDark, node.size).fontWeight;
       })
       .attr('fill', (d: any) => {
         const node = d as Node;
@@ -845,7 +850,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         } else if (isAWSService(node.text)) {
           bgColor = '#FF9900';
         } else {
-          bgColor = getNodeVisualProperties(depth, isDark).fillColor;
+          bgColor = getNodeVisualProperties(depth, isDark, node.size).fillColor;
         }
 
         if (node.textColor) {
@@ -864,7 +869,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           return;
         }
         const depth = nodeDepths.get(node.id) || 0;
-        const props = getNodeVisualProperties(depth, isDark);
+        const props = getNodeVisualProperties(depth, isDark, node.size);
         const maxWidth = props.width * 0.9;
         const textEl = this as SVGTextElement;
         textSel.text(node.text);
@@ -890,7 +895,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       .attr('transform', (d: any) => {
         const node = d as Node;
         const depth = nodeDepths.get(node.id) || 0;
-        const props = getNodeVisualProperties(depth, isDark);
+        const props = getNodeVisualProperties(depth, isDark, node.size);
         // Position at top-right corner of rect
         const x = props.width / 2 - 4;
         const y = -props.height / 2 + 4;
@@ -902,7 +907,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       const node = d as Node;
       if (node.noteExpanded) return; // Expanded nodes handle their own button positions
       const depth = nodeDepths.get(node.id) || 0;
-      const nProps = getNodeVisualProperties(depth, isDark);
+      const nProps = getNodeVisualProperties(depth, isDark, node.size);
       const halfW = nProps.width / 2;
       const halfH = nProps.height / 2;
       d3.select(this).select('.node-actions').selectAll<SVGGElement, unknown>(':scope > g').each(function(_, i) {
@@ -921,7 +926,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       const node = d as Node;
       const sel = d3.select(this);
       const depth = nodeDepths.get(node.id) || 0;
-      const props = getNodeVisualProperties(depth, isDark);
+      const props = getNodeVisualProperties(depth, isDark, node.size);
 
       if (node.noteExpanded) {
         // Raise expanded nodes to top of SVG draw order so they render above other nodes
@@ -1581,7 +1586,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       if (!node || !node.noteExpanded) return;
 
       const depth = nodeDepths.get(nodeId) || 0;
-      const props = getNodeVisualProperties(depth, isDarkBackground(canvasBackground));
+      const props = getNodeVisualProperties(depth, isDarkBackground(canvasBackground), node.size);
       const noteData = getNote(nodeId);
 
       root.render(
@@ -1723,7 +1728,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
             const nodeEl = d3.select(this);
             nodeEl.select('.multi-select-indicator').remove(); // Safety cleanup
             const depth = nodeDepths.get(d.id) || 0;
-            const props = getNodeVisualProperties(depth, isDarkBackground(canvasBackground));
+            const props = getNodeVisualProperties(depth, isDarkBackground(canvasBackground), d.size);
             const pad = 8;
             nodeEl.insert('rect', '.node-background')
               .attr('class', 'multi-select-indicator')
@@ -2147,9 +2152,10 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
             initialText={editingNode.text}
             initialColor={editingNode.color}
             initialTextColor={editingNode.textColor}
+            initialSize={editingNode.size}
             isDarkCanvas={isDarkBackground(canvasBackground)}
             isOpen={!!state.editingNodeId}
-            onSave={(nodeId, text, color, textColor) => {
+            onSave={(nodeId, text, color, textColor, size) => {
               operations.updateNodeText(nodeId, text);
               if (color !== undefined) {
                 operations.updateNode(nodeId, { color });
@@ -2157,6 +2163,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
               if (textColor !== undefined) {
                 operations.updateNode(nodeId, { textColor });
               }
+              operations.updateNode(nodeId, { size });
               stopEditing();
             }}
             onCancel={stopEditing}

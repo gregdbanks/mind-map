@@ -27,7 +27,8 @@ REQUIRED JSON STRUCTURE:
       "y": 400,
       "parent": null,
       "collapsed": false,
-      "color": "#FF9500"
+      "color": "#FF9500",
+      "size": "xl"
     }
   ],
   "links": [
@@ -58,6 +59,13 @@ STRUCTURE GUIDELINES:
    - Level 3+: 150-200px from parent
    - Continue spacing for ALL levels
    - Use radial layout and spread nodes to prevent overlap
+5. Node sizes (visual hierarchy):
+   - "xl": Root/central topic (1 per map)
+   - "lg": Primary branches
+   - "md": Sub-branches and standard topics
+   - "sm": Supporting details
+   - "xs": Minor notes and leaf details
+   - Omit the size field for automatic depth-based sizing
 
 CONTENT DISTRIBUTION:
 - NODES: EVERY concept, topic, subtopic, detail that represents a distinct idea

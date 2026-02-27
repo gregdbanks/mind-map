@@ -1,15 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { LIGHT_PALETTE, DARK_PALETTE, LIGHT_DEFAULT, DARK_DEFAULT } from '../../utils/colorPalettes';
+import type { NodeSize } from '../../types/mindMap';
 import styles from './NodeEditModal.module.css';
+
+const SIZE_OPTIONS: { key: NodeSize | undefined; label: string }[] = [
+  { key: undefined, label: 'Auto' },
+  { key: 'xs', label: 'XS' },
+  { key: 'sm', label: 'S' },
+  { key: 'md', label: 'M' },
+  { key: 'lg', label: 'L' },
+  { key: 'xl', label: 'XL' },
+];
 
 interface NodeEditModalProps {
   nodeId: string;
   initialText: string;
   initialColor?: string;
   initialTextColor?: string;
+  initialSize?: NodeSize;
   isDarkCanvas?: boolean;
   isOpen: boolean;
-  onSave: (nodeId: string, text: string, color?: string, textColor?: string) => void;
+  onSave: (nodeId: string, text: string, color?: string, textColor?: string, size?: NodeSize) => void;
   onCancel: () => void;
 }
 
@@ -17,6 +28,7 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
   nodeId,
   initialText,
   initialColor,
+  initialSize,
   isDarkCanvas = false,
   isOpen,
   onSave,
@@ -24,6 +36,7 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
 }) => {
   const [text, setText] = useState(initialText);
   const [color, setColor] = useState(initialColor || '');
+  const [size, setSize] = useState<NodeSize | undefined>(initialSize);
   const [showPalette, setShowPalette] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -42,7 +55,8 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
   useEffect(() => {
     setText(initialText);
     setColor(initialColor || '');
-  }, [initialText, initialColor]);
+    setSize(initialSize);
+  }, [initialText, initialColor, initialSize]);
 
   const effectiveBgColor = color || defaultColor;
   const matchedSwatch = palette.find((s) => s.bg.toLowerCase() === effectiveBgColor.toLowerCase());
@@ -60,7 +74,7 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
       const saveBg = color || undefined;
       const swatch = palette.find((s) => s.bg.toLowerCase() === (color || defaultColor).toLowerCase());
       const finalTextColor = swatch?.text || textColor;
-      onSave(nodeId, trimmedText, saveBg, finalTextColor);
+      onSave(nodeId, trimmedText, saveBg, finalTextColor, size);
     } else {
       onCancel();
     }
@@ -145,6 +159,21 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
                 </div>
               )}
             </div>
+          </div>
+
+          <div className={styles.sizeRow}>
+            <span className={styles.sizeLabel}>Size</span>
+            {SIZE_OPTIONS.map((opt) => (
+              <button
+                key={opt.label}
+                type="button"
+                className={`${styles.sizeButton} ${size === opt.key ? styles.sizeButtonActive : ''}`}
+                onClick={() => setSize(opt.key)}
+                title={opt.key ? `${opt.key.toUpperCase()} size` : 'Automatic (depth-based)'}
+              >
+                {opt.label}
+              </button>
+            ))}
           </div>
 
           <div className={styles.buttonGroup}>
