@@ -88,8 +88,8 @@ jest.mock('../../../components/ProfileDropdown', () => ({
   ProfileDropdown: () => <div data-testid="profile-dropdown">Profile</div>,
 }));
 
-jest.mock('../../../components/HouseAdBanner', () => ({
-  HouseAdBanner: () => null,
+jest.mock('../../../components/AdBanner', () => ({
+  AdBanner: () => null,
 }));
 
 describe('Library', () => {

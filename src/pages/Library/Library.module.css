@@ -357,3 +357,84 @@
 .footerLink:hover {
   text-decoration: underline;
 }
+
+/* ---- Responsive breakpoints ---- */
+
+/* Tablet / narrow desktop */
+@media (max-width: 768px) {
+  .header {
+    padding: 16px 24px;
+  }
+
+  .toolbar {
+    padding: 16px 24px;
+  }
+
+  .searchBox {
+    min-width: 0;
+    max-width: none;
+    flex-basis: 100%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    padding: 0 24px 32px;
+  }
+
+  .pagination {
+    padding: 24px 24px;
+  }
+
+  .footer {
+    padding: 16px 24px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .headerLeft {
+    width: 100%;
+  }
+
+  .headerRight {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .toolbar {
+    padding: 12px 16px;
+    gap: 8px;
+  }
+
+  .filters {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .filterSelect {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .grid {
+    padding: 0 16px 24px;
+  }
+
+  .pagination {
+    padding: 16px 16px;
+    gap: 10px;
+  }
+
+  .footer {
+    padding: 12px 16px;
+    flex-direction: column;
+    gap: 8px;
+  }
+}

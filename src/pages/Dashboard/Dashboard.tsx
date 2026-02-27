@@ -8,7 +8,7 @@ import { importFromJSONText } from '../../utils/exportUtils';
 import { ProfileDropdown } from '../../components/ProfileDropdown';
 import { UpgradeModal } from '../../components/UpgradeModal';
 import { TemplateModal } from '../../components/TemplateModal';
-import { HouseAdBanner } from '../../components/HouseAdBanner';
+import { AdBanner } from '../../components/AdBanner';
 import { MapCard } from './MapCard';
 import { apiClient } from '../../services/apiClient';
 import type { MindMapTemplate } from '../../data/templates';
@@ -266,12 +266,6 @@ export const Dashboard: React.FC = () => {
         </div>
       )}
 
-      <HouseAdBanner
-        placement="dashboard"
-        isPro={planInfo?.plan === 'pro'}
-        onUpgradeClick={() => setShowUpgradeModal(true)}
-      />
-
       {displayMaps.length === 0 && !cloudLoading ? (
         <div className={styles.emptyState}>
           <h2>Welcome to ThoughtNet</h2>
@@ -295,6 +289,11 @@ export const Dashboard: React.FC = () => {
           ))}
         </div>
       )}
+
+      <AdBanner
+        isPro={planInfo?.plan === 'pro'}
+        onUpgradeClick={() => setShowUpgradeModal(true)}
+      />
 
       <footer className={styles.proBanner}>
         {footerText()}
