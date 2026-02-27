@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import ReactDOM from 'react-dom';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import * as d3 from 'd3';
 import { ArrowLeft, GitFork, BookOpen } from 'lucide-react';
@@ -6,6 +7,7 @@ import { apiClient, ApiError } from '../../services/apiClient';
 import { pullMapFromCloud } from '../../services/syncService';
 import { useAuth } from '../../context/AuthContext';
 import { RatingWidget } from '../../components/RatingWidget';
+import RichTextEditor from '../../components/RichTextEditor/RichTextEditor';
 import {
   calculateNodeDepths,
   getNodeVisualProperties,
@@ -17,6 +19,7 @@ import { getBackgroundStyle, getBackgroundColor } from '../../components/Backgro
 import type { CanvasBackground } from '../../components/BackgroundSelector';
 import type { LibraryMapFull } from '../../types/library';
 import type { Node } from '../../types/mindMap';
+import type { SerializedNote } from '../../types/sync';
 import styles from './LibraryMapView.module.css';
 
 export const LibraryMapView: React.FC = () => {
@@ -31,6 +34,8 @@ export const LibraryMapView: React.FC = () => {
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [userRating, setUserRating] = useState<number>(0);
   const [forking, setForking] = useState(false);
+  const [noteModal, setNoteModal] = useState<{ nodeId: string; nodeText: string } | null>(null);
+  const notesMap = useRef<Map<string, SerializedNote>>(new Map());
 
   useEffect(() => {
     if (!id) return;
@@ -38,7 +43,15 @@ export const LibraryMapView: React.FC = () => {
     const fetchMap = async () => {
       try {
         const data = await apiClient.getLibraryMap(id);
-        if (!cancelled) setMapData(data);
+        if (!cancelled) {
+          setMapData(data);
+          // Build notes lookup
+          if (data.data?.notes) {
+            const map = new Map<string, SerializedNote>();
+            data.data.notes.forEach((note: SerializedNote) => map.set(note.nodeId, note));
+            notesMap.current = map;
+          }
+        }
       } catch (err) {
         if (cancelled) return;
         if (err instanceof ApiError && err.status === 404) {
@@ -154,9 +167,28 @@ export const LibraryMapView: React.FC = () => {
         .attr('font-size', `${visual.fontSize}px`).attr('font-weight', visual.fontWeight)
         .attr('pointer-events', 'none').text(displayText);
 
+      // Note indicator (small purple dot)
+      if (node.hasNote) {
+        const angle = -Math.PI / 4;
+        g.append('circle').attr('class', 'note-indicator')
+          .attr('cx', visual.radius * Math.cos(angle))
+          .attr('cy', visual.radius * Math.sin(angle))
+          .attr('r', 5).attr('fill', '#9c27b0')
+          .attr('stroke', '#fff').attr('stroke-width', 1.5)
+          .style('cursor', 'pointer');
+      }
+
       g.on('click', (event: MouseEvent) => {
         event.stopPropagation();
         setSelectedNodeId((prev) => (prev === node.id ? null : node.id));
+      });
+
+      // Double-click to view note (read-only)
+      g.on('dblclick', (event: MouseEvent) => {
+        event.stopPropagation();
+        if (node.hasNote && notesMap.current.has(node.id)) {
+          setNoteModal({ nodeId: node.id, nodeText: node.text });
+        }
       });
 
       g.on('mouseover', () => {
@@ -344,13 +376,46 @@ export const LibraryMapView: React.FC = () => {
       <div className={styles.canvas} style={getBackgroundStyle(canvasBackground)}>
         <svg ref={svgRef} />
         <div className={styles.hint}>
-          <span>Scroll to zoom. Drag to pan. Click nodes to highlight.</span>
+          <span>Scroll to zoom. Drag to pan. Click nodes to highlight. Double-click to view notes.</span>
         </div>
       </div>
+
+      {/* Read-only note viewer modal */}
+      {noteModal && notesMap.current.has(noteModal.nodeId) && ReactDOM.createPortal(
+        <>
+          <div className={styles.noteOverlay} onClick={() => setNoteModal(null)} />
+          <div className={styles.noteModal}>
+            <div className={styles.noteHeader}>
+              <h3 className={styles.noteTitle}>Note: {noteModal.nodeText}</h3>
+              <button
+                className={styles.noteCloseButton}
+                onClick={() => setNoteModal(null)}
+                title="Close"
+                type="button"
+              >
+                &times;
+              </button>
+            </div>
+            <div className={styles.noteContent}>
+              <RichTextEditor
+                content={notesMap.current.get(noteModal.nodeId)!.contentJson || notesMap.current.get(noteModal.nodeId)!.content}
+                contentType={notesMap.current.get(noteModal.nodeId)!.contentJson ? 'tiptap' : 'html'}
+                onChange={() => {}}
+                readOnly={true}
+                className={styles.noteEditor}
+              />
+            </div>
+          </div>
+        </>,
+        document.body
+      )}
 
       <footer className={styles.viewFooter}>
         <div className={styles.stats}>
           <span>{mapData.node_count} nodes</span>
+          {(mapData.data.notes?.length ?? 0) > 0 && (
+            <span>{mapData.data.notes!.length} note{mapData.data.notes!.length !== 1 ? 's' : ''}</span>
+          )}
           <span>{mapData.fork_count} fork{mapData.fork_count !== 1 ? 's' : ''}</span>
         </div>
         <Link to="/library" className={styles.footerLink}>

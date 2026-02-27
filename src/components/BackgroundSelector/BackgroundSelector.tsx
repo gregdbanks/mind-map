@@ -104,6 +104,11 @@ export function getBackgroundColor(bg: CanvasBackground): string {
   }
 }
 
+/** Returns true if the canvas background is a dark theme. */
+export function isDarkBackground(bg: CanvasBackground): boolean {
+  return bg === 'dark' || bg === 'dot-grid-dark';
+}
+
 const STORAGE_KEY = 'mindmap-canvas-background';
 
 export function loadCanvasBackground(): CanvasBackground {
