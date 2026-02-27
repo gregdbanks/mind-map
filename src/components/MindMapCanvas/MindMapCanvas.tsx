@@ -8,6 +8,7 @@ import { useMindMapOperations } from '../../hooks/useMindMapOperations';
 import type { Node, Link } from '../../types';
 import { exportToJSON, importFromJSONText } from '../../utils/exportUtils';
 import { calculateNodeDepths, getNodeVisualProperties, getLinkVisualProperties } from '../../utils/nodeHierarchy';
+import { remapColorForTheme } from '../../utils/colorPalettes';
 import { isAWSService } from '../../utils/awsServices';
 import { getAutoTextColor, getContrastSafeTextColor } from '../../utils/colorContrast';
 import { NodeEditModal } from '../NodeEditModal';
@@ -513,6 +514,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
 
     // Calculate node depths for visual hierarchy
     const nodeDepths = calculateNodeDepths(state.nodes);
+    const isDark = isDarkBackground(canvasBackground);
 
     // Update links
     const link = g.selectAll<SVGLineElement, Link>('.link')
@@ -565,13 +567,13 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       .attr('cursor', 'pointer')
       .attr('data-testid', 'mind-map-node');
 
-    // Add background stroke for visual separation from lines
-    nodeEnter.append('circle')
+    // Add background rect for visual separation from lines
+    nodeEnter.append('rect')
       .attr('class', 'node-background')
       .style('cursor', 'pointer');
-    
-    // Add main node circle
-    nodeEnter.append('circle')
+
+    // Add main node rect
+    nodeEnter.append('rect')
       .attr('class', 'node-main')
       .style('cursor', 'pointer');
     
@@ -616,11 +618,11 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       .style('opacity', 0)
       .style('pointer-events', 'all');
 
-    // Add action button
+    // Add action button (default positions for root node, repositioned in update)
     const addButton = actionsGroup.append('g')
-      .attr('transform', 'translate(0, -35)')
+      .attr('transform', 'translate(0, -42)')
       .style('cursor', 'pointer')
-      .style('pointer-events', 'all'); // Ensure the group captures all events
+      .style('pointer-events', 'all');
     
     addButton.append('circle')
       .attr('r', 12)
@@ -636,9 +638,9 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
 
     // Edit action button
     const editButton = actionsGroup.append('g')
-      .attr('transform', 'translate(35, 0)')
+      .attr('transform', 'translate(76, 0)')
       .style('cursor', 'pointer')
-      .style('pointer-events', 'all'); // Ensure the group captures all events
+      .style('pointer-events', 'all');
     
     editButton.append('circle')
       .attr('r', 12)
@@ -654,9 +656,9 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
 
     // Delete action button
     const deleteButton = actionsGroup.append('g')
-      .attr('transform', 'translate(0, 35)')
+      .attr('transform', 'translate(0, 42)')
       .style('cursor', 'pointer')
-      .style('pointer-events', 'all'); // Ensure the group captures all events
+      .style('pointer-events', 'all');
     
     deleteButton.append('circle')
       .attr('r', 12)
@@ -672,9 +674,9 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
 
     // Notes action button
     const notesButton = actionsGroup.append('g')
-      .attr('transform', 'translate(-35, 0)')
+      .attr('transform', 'translate(-76, 0)')
       .style('cursor', 'pointer')
-      .style('pointer-events', 'all'); // Ensure the group captures all events
+      .style('pointer-events', 'all');
     
     notesButton.append('circle')
       .attr('r', 12)
@@ -691,17 +693,44 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     // Update all nodes
     const nodeUpdate = nodeEnter.merge(node);
 
-    // Apply background stroke for visual separation from lines
-    // Apply to both new and existing nodes to ensure consistency
-    // Skip expanded nodes — their circle is hidden, rect handles visuals
-    nodeUpdate.selectAll('.node-background')
-      .attr('r', (d: any) => {
+    // Apply background rect for visual separation from lines
+    // Skip expanded nodes — their rect is hidden, note-rect handles visuals
+    nodeUpdate.select('.node-background')
+      .attr('width', (d: any) => {
         const node = d as Node;
         if (node.noteExpanded) return 0;
         const depth = nodeDepths.get(node.id) || 0;
-        const radius = getNodeVisualProperties(depth).radius;
         const buffer = depth === 0 ? 6 : 4;
-        return radius + buffer;
+        return getNodeVisualProperties(depth, isDark).width + buffer * 2;
+      })
+      .attr('height', (d: any) => {
+        const node = d as Node;
+        if (node.noteExpanded) return 0;
+        const depth = nodeDepths.get(node.id) || 0;
+        const buffer = depth === 0 ? 6 : 4;
+        return getNodeVisualProperties(depth, isDark).height + buffer * 2;
+      })
+      .attr('x', (d: any) => {
+        const node = d as Node;
+        if (node.noteExpanded) return 0;
+        const depth = nodeDepths.get(node.id) || 0;
+        const buffer = depth === 0 ? 6 : 4;
+        return -(getNodeVisualProperties(depth, isDark).width + buffer * 2) / 2;
+      })
+      .attr('y', (d: any) => {
+        const node = d as Node;
+        if (node.noteExpanded) return 0;
+        const depth = nodeDepths.get(node.id) || 0;
+        const buffer = depth === 0 ? 6 : 4;
+        return -(getNodeVisualProperties(depth, isDark).height + buffer * 2) / 2;
+      })
+      .attr('rx', (d: any) => {
+        const depth = nodeDepths.get((d as Node).id) || 0;
+        return getNodeVisualProperties(depth, isDark).borderRadius + 2;
+      })
+      .attr('ry', (d: any) => {
+        const depth = nodeDepths.get((d as Node).id) || 0;
+        return getNodeVisualProperties(depth, isDark).borderRadius + 2;
       })
       .style('opacity', (d: any) => (d as Node).noteExpanded ? 0 : 1)
       .attr('fill', getBackgroundColor(canvasBackground))
@@ -709,86 +738,100 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       .attr('stroke-width', 4)
       .style('pointer-events', 'none');
 
-    // Apply visual hierarchy to main circles
-    // Skip expanded nodes to prevent flicker (transition handles circle→0)
+    // Apply visual hierarchy to main node rects
+    // Skip expanded nodes to prevent flicker (transition handles rect→0)
     nodeUpdate.select('.node-main')
-      .attr('r', (d: any) => {
+      .attr('width', (d: any) => {
         const node = d as Node;
         if (node.noteExpanded) return 0;
         const depth = nodeDepths.get(node.id) || 0;
-        return getNodeVisualProperties(depth).radius;
+        return getNodeVisualProperties(depth, isDark).width;
+      })
+      .attr('height', (d: any) => {
+        const node = d as Node;
+        if (node.noteExpanded) return 0;
+        const depth = nodeDepths.get(node.id) || 0;
+        return getNodeVisualProperties(depth, isDark).height;
+      })
+      .attr('x', (d: any) => {
+        const node = d as Node;
+        if (node.noteExpanded) return 0;
+        const depth = nodeDepths.get(node.id) || 0;
+        return -getNodeVisualProperties(depth, isDark).width / 2;
+      })
+      .attr('y', (d: any) => {
+        const node = d as Node;
+        if (node.noteExpanded) return 0;
+        const depth = nodeDepths.get(node.id) || 0;
+        return -getNodeVisualProperties(depth, isDark).height / 2;
+      })
+      .attr('rx', (d: any) => {
+        const depth = nodeDepths.get((d as Node).id) || 0;
+        return getNodeVisualProperties(depth, isDark).borderRadius;
+      })
+      .attr('ry', (d: any) => {
+        const depth = nodeDepths.get((d as Node).id) || 0;
+        return getNodeVisualProperties(depth, isDark).borderRadius;
       })
       .style('opacity', (d: any) => (d as Node).noteExpanded ? 0 : 1)
       .attr('fill', (d: any) => {
         const node = d as Node;
-        // Use custom color if specified
         if (node.color) {
-          return node.color;
+          const remapped = remapColorForTheme(node.color, isDark);
+          return remapped ? remapped.bg : node.color;
         }
-        
         if (isAWSService(node.text)) {
-          return '#FF9900'; // AWS orange for services
+          return '#FF9900';
         }
         const depth = nodeDepths.get(node.id) || 0;
-        return getNodeVisualProperties(depth).fillColor;
+        return getNodeVisualProperties(depth, isDark).fillColor;
       })
       .attr('stroke', (d: any) => {
         const node = d as Node;
         if (state.selectedNodeId === node.id) {
-          return '#0066cc'; // Selected color overrides hierarchy
+          return '#0066cc';
         }
         if (isAWSService(node.text)) {
-          return '#232F3E'; // AWS dark blue for service borders
+          return '#232F3E';
         }
         const depth = nodeDepths.get(node.id) || 0;
-        return getNodeVisualProperties(depth).strokeColor;
+        return getNodeVisualProperties(depth, isDark).strokeColor;
       })
       .attr('stroke-width', (d: any) => {
         const node = d as Node;
         const depth = nodeDepths.get(node.id) || 0;
-        const baseWidth = getNodeVisualProperties(depth).strokeWidth;
-        
-        // Thicker border for search highlight
+        const baseWidth = getNodeVisualProperties(depth, isDark).strokeWidth;
+
         if (node.id === searchHighlightNodeId) {
           return baseWidth * 2.5;
         }
-        
         if (isAWSService(node.text)) {
-          return baseWidth * 1.5; // Thicker borders for AWS services
+          return baseWidth * 1.5;
         }
-        
         if (state.selectedNodeId === node.id) {
-          return baseWidth + 2; // Even thicker when selected
+          return baseWidth + 2;
         }
-        
-        return baseWidth + 1; // Slightly thicker overall
+        return baseWidth + 1;
       })
       .style('filter', (d: any) => {
         const node = d as Node;
         const depth = nodeDepths.get(node.id) || 0;
-        // Add subtle shadow for higher level nodes
         if (depth === 0) return 'drop-shadow(0px 2px 4px rgba(0,0,0,0.2))';
         if (depth === 1) return 'drop-shadow(0px 1px 2px rgba(0,0,0,0.1))';
         return 'none';
       });
 
-    // Apply visual hierarchy to text — positioned in upper portion of circle
+    // Apply visual hierarchy to text — centered in rect
     nodeUpdate.select('text')
+      .text((d: any) => (d as Node).text)
       .style('font-size', (d: any) => {
         const depth = nodeDepths.get((d as Node).id) || 0;
-        return `${getNodeVisualProperties(depth).fontSize}px`;
+        return `${getNodeVisualProperties(depth, isDark).fontSize}px`;
       })
       .style('font-weight', (d: any) => {
         const node = d as Node;
         const depth = nodeDepths.get(node.id) || 0;
-        return getNodeVisualProperties(depth).fontWeight;
-      })
-      .attr('y', (d: any) => {
-        const node = d as Node;
-        if (node.noteExpanded) return 0; // Center text when expanded as rect
-        const depth = nodeDepths.get(node.id) || 0;
-        const radius = getNodeVisualProperties(depth).radius;
-        return -(radius * 0.3); // Position title in upper third of circle
+        return getNodeVisualProperties(depth, isDark).fontWeight;
       })
       .attr('fill', (d: any) => {
         const node = d as Node;
@@ -797,32 +840,29 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         // Determine the effective background color for this node
         let bgColor: string;
         if (node.color) {
-          bgColor = node.color;
+          const remapped = remapColorForTheme(node.color, isDark);
+          bgColor = remapped ? remapped.bg : node.color;
         } else if (isAWSService(node.text)) {
-          bgColor = '#FF9900'; // AWS orange
+          bgColor = '#FF9900';
         } else {
-          bgColor = getNodeVisualProperties(depth).fillColor;
+          bgColor = getNodeVisualProperties(depth, isDark).fillColor;
         }
 
-        // If the user explicitly set a text color, validate its contrast
-        // against the background and auto-correct if needed
         if (node.textColor) {
           return getContrastSafeTextColor(node.textColor, bgColor);
         }
-
-        // No explicit text color: auto-pick the best contrast color
         return getAutoTextColor(bgColor);
       })
       .each(function(d: any) {
-        // Truncate text that exceeds ~80% of circle diameter
+        // Truncate text that exceeds ~90% of rect width
         const node = d as Node;
         if (node.noteExpanded) {
           d3.select(this).text(node.text);
           return;
         }
         const depth = nodeDepths.get(node.id) || 0;
-        const radius = getNodeVisualProperties(depth).radius;
-        const maxWidth = radius * 1.6;
+        const props = getNodeVisualProperties(depth, isDark);
+        const maxWidth = props.width * 0.9;
         const textEl = this as SVGTextElement;
         d3.select(this).text(node.text);
         if (textEl.getComputedTextLength() > maxWidth) {
@@ -845,19 +885,38 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       .attr('transform', (d: any) => {
         const node = d as Node;
         const depth = nodeDepths.get(node.id) || 0;
-        const radius = getNodeVisualProperties(depth).radius;
-        const angle = -Math.PI / 4;
-        const x = radius * Math.cos(angle);
-        const y = radius * Math.sin(angle);
+        const props = getNodeVisualProperties(depth, isDark);
+        // Position at top-right corner of rect
+        const x = props.width / 2 - 4;
+        const y = -props.height / 2 + 4;
         return `translate(${x}, ${y})`;
       });
 
-    // Handle note expansion: circle ↔ rounded rect transition
+    // Position action buttons relative to node rect edges
+    nodeUpdate.each(function(d: any) {
+      const node = d as Node;
+      if (node.noteExpanded) return; // Expanded nodes handle their own button positions
+      const depth = nodeDepths.get(node.id) || 0;
+      const nProps = getNodeVisualProperties(depth, isDark);
+      const halfW = nProps.width / 2;
+      const halfH = nProps.height / 2;
+      d3.select(this).select('.node-actions').selectAll<SVGGElement, unknown>(':scope > g').each(function(_, i) {
+        const btn = d3.select(this);
+        switch (i) {
+          case 0: btn.attr('transform', `translate(0, ${-halfH - 16})`); break;
+          case 1: btn.attr('transform', `translate(${halfW + 16}, 0)`); break;
+          case 2: btn.attr('transform', `translate(0, ${halfH + 16})`); break;
+          case 3: btn.attr('transform', `translate(${-halfW - 16}, 0)`); break;
+        }
+      });
+    });
+
+    // Handle note expansion: small rect ↔ large rect transition
     nodeUpdate.each(function(d: any) {
       const node = d as Node;
       const sel = d3.select(this);
       const depth = nodeDepths.get(node.id) || 0;
-      const props = getNodeVisualProperties(depth);
+      const props = getNodeVisualProperties(depth, isDark);
 
       if (node.noteExpanded) {
         // Raise expanded nodes to top of SVG draw order so they render above other nodes
@@ -881,15 +940,17 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           // Lock this node — no D3 updates until animation completes
           expandAnimatingRef.current.add(node.id);
 
-          // Phase 1: Fade circle and title out (150ms)
+          // Phase 1: Fade node rect and title out (150ms)
           sel.select('.node-main')
             .transition().duration(150)
-            .attr('r', 0)
+            .attr('width', 0).attr('height', 0)
+            .attr('x', 0).attr('y', 0)
             .style('opacity', 0);
 
           sel.select('.node-background')
             .transition().duration(150)
-            .attr('r', 0)
+            .attr('width', 0).attr('height', 0)
+            .attr('x', 0).attr('y', 0)
             .style('opacity', 0);
 
           sel.select('text')
@@ -994,8 +1055,8 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
 
         } else {
           // Already expanded — no animation, just ensure correct state
-          sel.select('.node-main').attr('r', 0).style('opacity', 0);
-          sel.select('.node-background').attr('r', 0).style('opacity', 0);
+          sel.select('.node-main').attr('width', 0).attr('height', 0).style('opacity', 0);
+          sel.select('.node-background').attr('width', 0).attr('height', 0).style('opacity', 0);
 
           sel.select('text')
             .attr('dy', `${-h / 2 + 18}px`)
@@ -1066,7 +1127,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
         // Clear animation lock if collapsing during animation
         expandAnimatingRef.current.delete(node.id);
 
-        // Collapse: rect out, circle back in
+        // Collapse: note-rect out, node rects back in
         sel.select('.node-rect')
           .transition().duration(300)
           .attr('width', 0)
@@ -1075,14 +1136,19 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           .attr('y', 0)
           .style('opacity', 0);
 
+        const buffer = depth === 0 ? 6 : 4;
         sel.select('.node-main')
           .transition().duration(300)
-          .attr('r', props.radius)
+          .attr('x', -props.width / 2).attr('y', -props.height / 2)
+          .attr('width', props.width).attr('height', props.height)
+          .attr('rx', props.borderRadius).attr('ry', props.borderRadius)
           .style('opacity', 1);
 
         sel.select('.node-background')
           .transition().duration(300)
-          .attr('r', props.radius + (depth === 0 ? 6 : 4))
+          .attr('x', -(props.width + buffer * 2) / 2).attr('y', -(props.height + buffer * 2) / 2)
+          .attr('width', props.width + buffer * 2).attr('height', props.height + buffer * 2)
+          .attr('rx', props.borderRadius + 2).attr('ry', props.borderRadius + 2)
           .style('opacity', 1);
 
         // Restore title position
@@ -1103,15 +1169,17 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
           inlineNoteRootsRef.current.delete(node.id);
         }
 
-        // Restore action button interactivity and default positions
+        // Restore action button interactivity and positions for collapsed rect
         sel.select('.node-actions').style('pointer-events', 'all');
         sel.select('.node-actions').selectAll<SVGGElement, unknown>(':scope > g').each(function(_, i) {
+          const halfW = props.width / 2;
+          const halfH = props.height / 2;
           const btn = d3.select(this);
           switch (i) {
-            case 0: btn.attr('transform', 'translate(0, -35)'); break;
-            case 1: btn.attr('transform', 'translate(35, 0)'); break;
-            case 2: btn.attr('transform', 'translate(0, 35)'); break;
-            case 3: btn.attr('transform', 'translate(-35, 0)'); break;
+            case 0: btn.attr('transform', `translate(0, ${-halfH - 16})`); break;
+            case 1: btn.attr('transform', `translate(${halfW + 16}, 0)`); break;
+            case 2: btn.attr('transform', `translate(0, ${halfH + 16})`); break;
+            case 3: btn.attr('transform', `translate(${-halfW - 16}, 0)`); break;
           }
         });
       }
@@ -1508,7 +1576,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
       if (!node || !node.noteExpanded) return;
 
       const depth = nodeDepths.get(nodeId) || 0;
-      const props = getNodeVisualProperties(depth);
+      const props = getNodeVisualProperties(depth, isDarkBackground(canvasBackground));
       const noteData = getNote(nodeId);
 
       root.render(
@@ -1650,10 +1718,16 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
             const nodeEl = d3.select(this);
             nodeEl.select('.multi-select-indicator').remove(); // Safety cleanup
             const depth = nodeDepths.get(d.id) || 0;
-            const radius = getNodeVisualProperties(depth).radius;
-            nodeEl.insert('circle', '.node-background')
+            const props = getNodeVisualProperties(depth, isDarkBackground(canvasBackground));
+            const pad = 8;
+            nodeEl.insert('rect', '.node-background')
               .attr('class', 'multi-select-indicator')
-              .attr('r', radius + 8)
+              .attr('x', -(props.width / 2 + pad))
+              .attr('y', -(props.height / 2 + pad))
+              .attr('width', props.width + pad * 2)
+              .attr('height', props.height + pad * 2)
+              .attr('rx', props.borderRadius + 4)
+              .attr('ry', props.borderRadius + 4)
               .attr('fill', 'none')
               .attr('stroke', '#0066cc')
               .attr('stroke-width', 2)

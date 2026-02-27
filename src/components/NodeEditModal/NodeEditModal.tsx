@@ -1,57 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { LIGHT_PALETTE, DARK_PALETTE, LIGHT_DEFAULT, DARK_DEFAULT } from '../../utils/colorPalettes';
 import styles from './NodeEditModal.module.css';
-
-// Each swatch has an explicit, pre-tested text color — no auto-calculation needed.
-// Light palette: soft pastels so text is always dark (readable if it overflows onto light canvas).
-// Dark palette: saturated colors so text is always light (readable if it overflows onto dark canvas).
-const LIGHT_PALETTE = [
-  // Row 1: Blues & Purples — dark text on soft pastels
-  { bg: '#BBDEFB', text: '#333333', label: 'Blue' },
-  { bg: '#90CAF9', text: '#333333', label: 'Sky Blue' },
-  { bg: '#E1BEE7', text: '#333333', label: 'Lavender' },
-  { bg: '#CE93D8', text: '#333333', label: 'Purple' },
-  // Row 2: Greens & Teals — dark text
-  { bg: '#C8E6C9', text: '#333333', label: 'Green' },
-  { bg: '#80CBC4', text: '#333333', label: 'Teal' },
-  { bg: '#A5D6A7', text: '#333333', label: 'Mint' },
-  { bg: '#DCEDC8', text: '#333333', label: 'Lime' },
-  // Row 3: Warm colors — dark text
-  { bg: '#FFF9C4', text: '#333333', label: 'Yellow' },
-  { bg: '#FFE0B2', text: '#333333', label: 'Orange' },
-  { bg: '#FFCDD2', text: '#333333', label: 'Red' },
-  { bg: '#F8BBD0', text: '#333333', label: 'Pink' },
-  // Row 4: Neutrals — dark text
-  { bg: '#CFD8DC', text: '#333333', label: 'Blue Grey' },
-  { bg: '#B0BEC5', text: '#333333', label: 'Silver' },
-  { bg: '#D7CCC8', text: '#333333', label: 'Warm Grey' },
-  { bg: '#E0E0E0', text: '#333333', label: 'Grey' },
-];
-
-const DARK_PALETTE = [
-  // Row 1: Blues & Purples — white text on saturated colors
-  { bg: '#1E88E5', text: '#FFFFFF', label: 'Blue' },
-  { bg: '#1565C0', text: '#FFFFFF', label: 'Dark Blue' },
-  { bg: '#7B1FA2', text: '#FFFFFF', label: 'Purple' },
-  { bg: '#6A1B9A', text: '#FFFFFF', label: 'Deep Purple' },
-  // Row 2: Greens & Teals — white text
-  { bg: '#2E7D32', text: '#FFFFFF', label: 'Green' },
-  { bg: '#00897B', text: '#FFFFFF', label: 'Teal' },
-  { bg: '#388E3C', text: '#FFFFFF', label: 'Forest' },
-  { bg: '#558B2F', text: '#FFFFFF', label: 'Olive' },
-  // Row 3: Warm colors — white text
-  { bg: '#F9A825', text: '#FFFFFF', label: 'Yellow' },
-  { bg: '#EF6C00', text: '#FFFFFF', label: 'Orange' },
-  { bg: '#C62828', text: '#FFFFFF', label: 'Red' },
-  { bg: '#AD1457', text: '#FFFFFF', label: 'Pink' },
-  // Row 4: Neutrals — white text
-  { bg: '#37474F', text: '#FFFFFF', label: 'Blue Grey' },
-  { bg: '#455A64', text: '#FFFFFF', label: 'Slate' },
-  { bg: '#4E342E', text: '#FFFFFF', label: 'Brown' },
-  { bg: '#546E7A', text: '#FFFFFF', label: 'Steel' },
-];
-
-const LIGHT_DEFAULT = '#BBDEFB';
-const DARK_DEFAULT = '#1E88E5';
 
 interface NodeEditModalProps {
   nodeId: string;

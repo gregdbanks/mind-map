@@ -186,18 +186,22 @@ export const SharedMap: React.FC = () => {
 
       // Background halo for visual separation from lines
       const buffer = depth === 0 ? 6 : 4;
-      g.append('circle')
+      const bgW = visual.width + buffer * 2;
+      const bgH = visual.height + buffer * 2;
+      g.append('rect')
         .attr('class', 'node-background')
-        .attr('r', visual.radius + buffer)
-        .attr('fill', bgColor)
-        .attr('stroke', bgColor)
-        .attr('stroke-width', 4)
-        .style('pointer-events', 'none');
+        .attr('x', -bgW / 2).attr('y', -bgH / 2)
+        .attr('width', bgW).attr('height', bgH)
+        .attr('rx', visual.borderRadius + 2).attr('ry', visual.borderRadius + 2)
+        .attr('fill', bgColor).attr('stroke', bgColor)
+        .attr('stroke-width', 4).style('pointer-events', 'none');
 
-      // Node circle
-      g.append('circle')
+      // Node rect
+      g.append('rect')
         .attr('class', 'node-main')
-        .attr('r', visual.radius)
+        .attr('x', -visual.width / 2).attr('y', -visual.height / 2)
+        .attr('width', visual.width).attr('height', visual.height)
+        .attr('rx', visual.borderRadius).attr('ry', visual.borderRadius)
         .attr('fill', node.color || visual.fillColor)
         .attr('stroke', visual.strokeColor)
         .attr('stroke-width', visual.strokeWidth + 1)
@@ -215,16 +219,12 @@ export const SharedMap: React.FC = () => {
         .attr('pointer-events', 'none')
         .text(displayText);
 
-      // Note indicator (small purple dot)
+      // Note indicator (small purple dot at top-right corner)
       if (node.hasNote) {
-        const angle = -Math.PI / 4;
-        const indicatorX = visual.radius * Math.cos(angle);
-        const indicatorY = visual.radius * Math.sin(angle);
-
         g.append('circle')
           .attr('class', 'note-indicator')
-          .attr('cx', indicatorX)
-          .attr('cy', indicatorY)
+          .attr('cx', visual.width / 2 - 4)
+          .attr('cy', -visual.height / 2 + 4)
           .attr('r', 5)
           .attr('fill', '#9c27b0')
           .attr('stroke', '#fff')
