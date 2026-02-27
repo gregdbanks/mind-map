@@ -39,7 +39,6 @@ function loadAdSenseScript(clientId: string): Promise<void> {
 }
 
 export const AdBanner: React.FC<AdBannerProps> = ({ isPro, onUpgradeClick }) => {
-  const adRef = useRef<HTMLModElement>(null);
   const [failed, setFailed] = useState(false);
   const pushed = useRef(false);
 
@@ -47,6 +46,8 @@ export const AdBanner: React.FC<AdBannerProps> = ({ isPro, onUpgradeClick }) => 
     if (isPro || !ADSENSE_CLIENT || !ADSENSE_SLOT) return;
 
     let cancelled = false;
+    pushed.current = false;
+
     loadAdSenseScript(ADSENSE_CLIENT)
       .then(() => {
         if (cancelled || pushed.current) return;
@@ -61,7 +62,10 @@ export const AdBanner: React.FC<AdBannerProps> = ({ isPro, onUpgradeClick }) => 
         if (!cancelled) setFailed(true);
       });
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+      pushed.current = false;
+    };
   }, [isPro]);
 
   // Pro users see nothing
@@ -70,7 +74,7 @@ export const AdBanner: React.FC<AdBannerProps> = ({ isPro, onUpgradeClick }) => 
   // No credentials configured or script failed — show fallback
   if (!ADSENSE_CLIENT || !ADSENSE_SLOT || failed) {
     return (
-      <div className={styles.container}>
+      <aside className={styles.container} role="complementary" aria-label="Advertisement">
         <div className={styles.fallback}>
           <span className={styles.fallbackText}>
             Upgrade to Pro for an ad-free experience
@@ -81,14 +85,13 @@ export const AdBanner: React.FC<AdBannerProps> = ({ isPro, onUpgradeClick }) => 
             </button>
           )}
         </div>
-      </div>
+      </aside>
     );
   }
 
   return (
-    <div className={styles.container}>
+    <aside className={styles.container} role="complementary" aria-label="Advertisement">
       <ins
-        ref={adRef}
         className="adsbygoogle"
         style={{ display: 'block' }}
         data-ad-client={ADSENSE_CLIENT}
@@ -96,6 +99,6 @@ export const AdBanner: React.FC<AdBannerProps> = ({ isPro, onUpgradeClick }) => 
         data-ad-format="auto"
         data-full-width-responsive="true"
       />
-    </div>
+    </aside>
   );
 };
