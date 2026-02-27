@@ -14,7 +14,7 @@ import { NodeEditModal } from '../NodeEditModal';
 import { ImportModal } from '../ImportModal';
 import { SearchBar } from '../SearchBar';
 import { LayoutSelector, type LayoutType } from '../LayoutSelector';
-import { BackgroundSelector, getBackgroundStyle, getBackgroundColor, loadCanvasBackground, saveCanvasBackground } from '../BackgroundSelector';
+import { BackgroundSelector, getBackgroundStyle, getBackgroundColor, isDarkBackground, loadCanvasBackground, saveCanvasBackground } from '../BackgroundSelector';
 import type { CanvasBackground } from '../BackgroundSelector';
 import { layoutManager, savePreferredLayout, loadPreferredLayout } from '../../utils/layoutManager';
 import type { ForceNode, ForceLink } from '../../utils/forceDirectedLayout';
@@ -2041,6 +2041,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
             initialText={editingNode.text}
             initialColor={editingNode.color}
             initialTextColor={editingNode.textColor}
+            isDarkCanvas={isDarkBackground(canvasBackground)}
             isOpen={!!state.editingNodeId}
             onSave={(nodeId, text, color, textColor) => {
               operations.updateNodeText(nodeId, text);

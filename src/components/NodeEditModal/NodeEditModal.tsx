@@ -1,38 +1,62 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getAutoTextColor } from '../../utils/colorContrast';
 import styles from './NodeEditModal.module.css';
 
-// Curated palette — every color is pre-tested for good contrast with auto black/white text
-const COLOR_PALETTE = [
-  // Row 1: Blues & Purples
-  { bg: '#4285F4', label: 'Blue' },
-  { bg: '#1A73E8', label: 'Dark Blue' },
-  { bg: '#7B1FA2', label: 'Purple' },
-  { bg: '#9C27B0', label: 'Light Purple' },
-  // Row 2: Greens & Teals
-  { bg: '#0F9D58', label: 'Green' },
-  { bg: '#00897B', label: 'Teal' },
-  { bg: '#2E7D32', label: 'Dark Green' },
-  { bg: '#43A047', label: 'Light Green' },
+// Each swatch has an explicit, pre-tested text color — no auto-calculation needed
+const LIGHT_PALETTE = [
+  // Row 1: Blues & Purples — white text
+  { bg: '#4285F4', text: '#FFFFFF', label: 'Blue' },
+  { bg: '#1A73E8', text: '#FFFFFF', label: 'Dark Blue' },
+  { bg: '#7B1FA2', text: '#FFFFFF', label: 'Purple' },
+  { bg: '#9C27B0', text: '#FFFFFF', label: 'Light Purple' },
+  // Row 2: Greens & Teals — white text
+  { bg: '#0F9D58', text: '#FFFFFF', label: 'Green' },
+  { bg: '#00897B', text: '#FFFFFF', label: 'Teal' },
+  { bg: '#2E7D32', text: '#FFFFFF', label: 'Dark Green' },
+  { bg: '#43A047', text: '#FFFFFF', label: 'Light Green' },
   // Row 3: Warm colors
-  { bg: '#F4B400', label: 'Yellow' },
-  { bg: '#FB8C00', label: 'Orange' },
-  { bg: '#DB4437', label: 'Red' },
-  { bg: '#E91E63', label: 'Pink' },
-  // Row 4: Neutrals & Dark
-  { bg: '#455A64', label: 'Blue Grey' },
-  { bg: '#616161', label: 'Grey' },
-  { bg: '#263238', label: 'Dark' },
-  { bg: '#37474F', label: 'Charcoal' },
+  { bg: '#F4B400', text: '#000000', label: 'Yellow' },
+  { bg: '#FB8C00', text: '#000000', label: 'Orange' },
+  { bg: '#DB4437', text: '#FFFFFF', label: 'Red' },
+  { bg: '#E91E63', text: '#FFFFFF', label: 'Pink' },
+  // Row 4: Neutrals & Dark — white text
+  { bg: '#455A64', text: '#FFFFFF', label: 'Blue Grey' },
+  { bg: '#616161', text: '#FFFFFF', label: 'Grey' },
+  { bg: '#263238', text: '#FFFFFF', label: 'Dark' },
+  { bg: '#37474F', text: '#FFFFFF', label: 'Charcoal' },
 ];
 
-const DEFAULT_COLOR = '#4285F4';
+const DARK_PALETTE = [
+  // Row 1: Brighter blues & purples for dark canvas — black text on light, white on deep
+  { bg: '#64B5F6', text: '#000000', label: 'Light Blue' },
+  { bg: '#42A5F5', text: '#000000', label: 'Blue' },
+  { bg: '#CE93D8', text: '#000000', label: 'Lavender' },
+  { bg: '#BA68C8', text: '#FFFFFF', label: 'Purple' },
+  // Row 2: Greens & Teals — lighter shades
+  { bg: '#81C784', text: '#000000', label: 'Light Green' },
+  { bg: '#4DB6AC', text: '#000000', label: 'Teal' },
+  { bg: '#66BB6A', text: '#000000', label: 'Green' },
+  { bg: '#AED581', text: '#000000', label: 'Lime' },
+  // Row 3: Warm colors — brighter
+  { bg: '#FFD54F', text: '#000000', label: 'Yellow' },
+  { bg: '#FFB74D', text: '#000000', label: 'Orange' },
+  { bg: '#EF5350', text: '#FFFFFF', label: 'Red' },
+  { bg: '#EC407A', text: '#FFFFFF', label: 'Pink' },
+  // Row 4: Light neutrals for contrast on dark canvas
+  { bg: '#ECEFF1', text: '#000000', label: 'White' },
+  { bg: '#B0BEC5', text: '#000000', label: 'Silver' },
+  { bg: '#90A4AE', text: '#000000', label: 'Light Grey' },
+  { bg: '#CFD8DC', text: '#000000', label: 'Pale Grey' },
+];
+
+const LIGHT_DEFAULT = '#4285F4';
+const DARK_DEFAULT = '#64B5F6';
 
 interface NodeEditModalProps {
   nodeId: string;
   initialText: string;
   initialColor?: string;
   initialTextColor?: string;
+  isDarkCanvas?: boolean;
   isOpen: boolean;
   onSave: (nodeId: string, text: string, color?: string, textColor?: string) => void;
   onCancel: () => void;
@@ -42,6 +66,7 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
   nodeId,
   initialText,
   initialColor,
+  isDarkCanvas = false,
   isOpen,
   onSave,
   onCancel
@@ -50,6 +75,9 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
   const [color, setColor] = useState(initialColor || '');
   const inputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  const palette = isDarkCanvas ? DARK_PALETTE : LIGHT_PALETTE;
+  const defaultColor = isDarkCanvas ? DARK_DEFAULT : LIGHT_DEFAULT;
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -63,8 +91,9 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
     setColor(initialColor || '');
   }, [initialText, initialColor]);
 
-  const effectiveBgColor = color || DEFAULT_COLOR;
-  const textColor = getAutoTextColor(effectiveBgColor);
+  const effectiveBgColor = color || defaultColor;
+  const matchedSwatch = palette.find((s) => s.bg.toLowerCase() === effectiveBgColor.toLowerCase());
+  const textColor = matchedSwatch?.text || (isDarkCanvas ? '#000000' : '#FFFFFF');
 
   const handleColorSelect = (newColor: string) => {
     setColor(newColor);
@@ -74,8 +103,10 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
     e.preventDefault();
     const trimmedText = text.trim();
     if (trimmedText) {
-      const finalTextColor = getAutoTextColor(color || DEFAULT_COLOR);
-      onSave(nodeId, trimmedText, color || undefined, finalTextColor);
+      const saveBg = color || undefined;
+      const swatch = palette.find((s) => s.bg.toLowerCase() === (color || defaultColor).toLowerCase());
+      const finalTextColor = swatch?.text || textColor;
+      onSave(nodeId, trimmedText, saveBg, finalTextColor);
     } else {
       onCancel();
     }
@@ -121,7 +152,7 @@ export const NodeEditModal: React.FC<NodeEditModalProps> = ({
           <div className={styles.inputGroup}>
             <label className={styles.inputLabel}>Node Color</label>
             <div className={styles.swatchGrid}>
-              {COLOR_PALETTE.map((swatch) => (
+              {palette.map((swatch) => (
                 <button
                   key={swatch.bg}
                   type="button"
