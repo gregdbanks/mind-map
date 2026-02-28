@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, type Dispatch } from 'react';
+import { useState, useEffect, useRef, useCallback, type Dispatch } from 'react';
 import * as Y from 'yjs';
 import { SocketIOYjsProvider } from '../services/yjsProvider';
 import type { MindMapAction } from '../context/mindMapReducer';
@@ -12,6 +12,7 @@ interface UseCollaborationOptions {
 }
 
 export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCollaborationOptions) {
+  const [doc, setDoc] = useState<Y.Doc | null>(null);
   const docRef = useRef<Y.Doc | null>(null);
   const providerRef = useRef<SocketIOYjsProvider | null>(null);
   const isRemoteChangeRef = useRef(false);
@@ -22,6 +23,7 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
 
     const doc = new Y.Doc();
     docRef.current = doc;
+    setDoc(doc);
 
     const provider = new SocketIOYjsProvider(doc);
     providerRef.current = provider;
@@ -119,6 +121,7 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
       doc.destroy();
       docRef.current = null;
       providerRef.current = null;
+      setDoc(null);
     };
   }, [mapId, enabled, connected, dispatch]);
 
@@ -236,7 +239,7 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
 
   return {
     collabDispatch: enabled ? collabDispatch : dispatch,
-    doc: docRef.current,
+    doc,
   };
 }
 
