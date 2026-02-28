@@ -6,7 +6,7 @@ A product-level checklist for validating all user-facing features. Use this befo
 - `[AUTO]` — Covered by automated tests (unit or E2E). Verify these still pass with `npm run test:ci`.
 - `[MANUAL]` — Requires manual testing. No automated coverage exists.
 
-**Coverage:** 62 AUTO / 44 MANUAL (106 total test cases)
+**Coverage:** 63 AUTO / 48 MANUAL (111 total test cases)
 
 ---
 
@@ -69,6 +69,12 @@ Core features available to all signed-in users on the free plan.
 - [AUTO] Add notes to a node — notes modal opens, text saves
 - [AUTO] Change node color — color picker renders, contrast logic correct
 
+#### Node Sizing Presets
+- [MANUAL] Double-click a node to open edit modal — size preset selector shows (Auto, XS, S, M, L, XL)
+- [MANUAL] Select a size preset — node resizes correctly on save
+- [MANUAL] Node text reflows to fit the new size
+- [MANUAL] Size preset persists after page reload (IndexedDB persistence)
+
 ### Search
 - [AUTO] Open search (Ctrl/Cmd+F or search icon)
 - [AUTO] Type a node title — matching nodes appear in results
@@ -115,6 +121,9 @@ Features unlocked by the Pro subscription.
 - [MANUAL] Complete payment with test card — redirected back, plan shows as Pro
 - [AUTO] Pro badge appears in the editor header
 - [MANUAL] Cancel subscription — plan reverts to free at period end
+
+### Ads
+- [AUTO] Pro users do not see house ad banners on dashboard or library
 
 ### Cloud Sync (Unlimited)
 - [MANUAL] Cloud save limit removed (can save multiple maps)

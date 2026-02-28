@@ -1,5 +1,8 @@
 # Notes Feature Testing Strategy
 
+## Status
+This strategy was written during initial notes feature development. The notes feature is now fully shipped and tested. See `TESTING_REPORT_NOV_2024.md` for current test metrics (431 unit tests across 38 suites) and `FEATURE_TESTING_CHECKLIST.md` for the full product-level checklist covering all 15 phases.
+
 ## Overview
 This document outlines the comprehensive testing strategy for the mind map notes feature, ensuring reliability, performance, and user experience.
 
@@ -171,7 +174,13 @@ export const waitForIndexedDB = async () => {
 - Mobile browsers
 
 ## CI/CD Integration
-- Run unit tests on every commit
+- Run unit tests on every commit (431 tests, ~4s runtime)
 - Run integration tests on PR
 - Run E2E tests before deployment
-- Performance regression testing
+- Matrix testing on Node.js 18.x and 20.x
+- Performance regression testing (planned)
+
+## Current State (February 2026)
+- All notes-related unit tests passing (NotesModal: 15 tests, useIndexedDBNotes: 12 tests)
+- Export/import tests include notes data round-trip verification
+- Notes feature stable across 15 shipped phases with no regressions

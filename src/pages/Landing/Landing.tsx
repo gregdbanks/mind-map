@@ -8,6 +8,7 @@ import {
   Share2,
   LayoutTemplate,
 } from 'lucide-react';
+import { Logo } from '../../components/Logo/Logo';
 import styles from './Landing.module.css';
 
 const features = [
@@ -100,7 +101,7 @@ export const Landing: React.FC = () => {
     <div className={styles.container}>
       {/* Header */}
       <header className={styles.header}>
-        <Link to="/" className={styles.logo}>ThoughtNet</Link>
+        <Link to="/" className={styles.logo}><Logo size="md" /></Link>
         <nav className={styles.headerLinks}>
           <Link to="/library" className={styles.headerLink}>Library</Link>
           <Link to="/login" className={styles.headerLink}>Sign in</Link>
@@ -206,7 +207,7 @@ export const Landing: React.FC = () => {
 
       {/* Footer */}
       <footer className={styles.footer}>
-        <span className={styles.footerBrand}>ThoughtNet</span>
+        <span className={styles.footerBrand}><Logo size="sm" /></span>
         <nav className={styles.footerLinks}>
           <Link to="/library" className={styles.footerLink}>Library</Link>
           <Link to="/login" className={styles.footerLink}>Sign In</Link>

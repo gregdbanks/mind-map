@@ -1,22 +1,22 @@
-# ThoughtNet Testing Report - November 2024
+# ThoughtNet Testing Report - February 2026
 
 ## Executive Summary
 
-ThoughtNet maintains a **100% test pass rate** across all test suites with comprehensive coverage of features, user interactions, and edge cases. The testing infrastructure has been significantly enhanced to support new features while maintaining reliability.
+ThoughtNet maintains a **100% test pass rate** across all test suites with comprehensive coverage of features, user interactions, and edge cases. The testing infrastructure has grown substantially since the initial report, now covering 15 shipped phases including node sizing presets, ad integration, and real-time collaboration.
 
 ## Test Metrics
 
 ### Overall Statistics
-- **Total Tests**: 154 (145 unit + 9 E2E)
+- **Total Unit Tests**: 431
 - **Pass Rate**: 100%
-- **Test Suites**: 19 (16 unit + 3 E2E)
+- **Test Suites**: 38
 - **TypeScript Errors**: 0
 - **CI/CD Status**: All checks passing
 
 ### Performance Metrics
-- **Unit Test Runtime**: ~3 seconds
-- **E2E Test Runtime**: ~12 seconds  
-- **Total CI Runtime**: ~20 seconds
+- **Unit Test Runtime**: ~4 seconds
+- **E2E Test Runtime**: ~12 seconds
+- **Total CI Runtime**: ~25 seconds
 
 ## Recent Testing Improvements
 
@@ -95,9 +95,32 @@ ThoughtNet maintains a **100% test pass rate** across all test suites with compr
 - State management and reducers
 - User interactions (drag, click, keyboard)
 - Data persistence layer
-- Export/import functionality
+- Export/import functionality (JSON, PNG, SVG, PDF, Markdown)
 - Search and navigation
 - Rich text editing
+- Cloud sync and plan gating
+- Public library (browse, search, filter, rate, fork, publish)
+- Sharing and public links
+- Stripe payment flows and upgrade modals
+- House ad banners (dashboard and library placements)
+- Version history (Pro)
+- Editor header collaboration UI elements
+
+### Phase 13 — Node Sizing Presets
+- Node size type definitions (xs, sm, md, lg, xl) integrated into mind map types
+- Reducer and persistence handle size property on nodes
+- NodeEditModal includes size preset selector (manual testing for visual correctness)
+
+### Phase 14 — Ad Integration
+- `HouseAdBanner` component: 10 unit tests covering rendering, Pro gating, dismiss behavior, localStorage persistence, placement variants
+- `AdBanner` component: unit tests for free vs Pro rendering
+- Dashboard and library integration verified via component tests
+
+### Phase 15 — Real-Time Collaboration
+- Collaboration tests are **primarily manual** due to the multi-client, WebSocket-based nature of real-time sync
+- `useCollaboration` hook integration tested indirectly through MindMapCanvas tests
+- Editor header tests verify collaboration UI elements (invite button, presence indicators, Pro badge gating)
+- Manual test checklist covers: presence, cursor sharing, real-time node CRUD sync, conflict resolution (Yjs CRDT), invite flow, disconnect/reconnect
 
 ### Areas for Future Enhancement
 - Performance regression tests
@@ -105,6 +128,7 @@ ThoughtNet maintains a **100% test pass rate** across all test suites with compr
 - Accessibility automation
 - Cross-browser compatibility
 - Mobile gesture testing
+- Automated multi-client collaboration testing (e.g., Playwright multi-page scenarios)
 
 ## Test Stability Metrics
 
@@ -178,5 +202,5 @@ The testing strategy successfully balances comprehensive coverage with maintaina
 
 ---
 
-*Generated: November 2024*  
-*Test Framework Versions: Jest 29.7, Playwright 1.40, React Testing Library 14.2*
+*Updated: February 2026*
+*Test Framework Versions: Jest 29.7, Playwright 1.40+, React Testing Library 14.2*
