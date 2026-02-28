@@ -62,8 +62,8 @@ describe('UpgradeModal', () => {
     });
 
     expect(screen.getByText('Monthly')).toBeInTheDocument();
-    expect(screen.getByText('$24/yr')).toBeInTheDocument();
-    expect(screen.getByText('$3/mo')).toBeInTheDocument();
+    expect(screen.getByText('$40/yr')).toBeInTheDocument();
+    expect(screen.getByText('$5/mo')).toBeInTheDocument();
   });
 
   it('clicking upgrade calls apiClient.createCheckout with correct priceId', async () => {

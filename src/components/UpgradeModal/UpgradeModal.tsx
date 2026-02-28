@@ -54,7 +54,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({
               onClick={() => setSelectedPlan('annual')}
             >
               <span className={styles.planName}>Annual</span>
-              <span className={styles.planPrice}>$24/yr</span>
+              <span className={styles.planPrice}>$40/yr</span>
               <span className={styles.planSaving}>Save 33%</span>
               <span className={styles.recommended}>Recommended</span>
             </button>
@@ -63,7 +63,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({
               onClick={() => setSelectedPlan('monthly')}
             >
               <span className={styles.planName}>Monthly</span>
-              <span className={styles.planPrice}>$3/mo</span>
+              <span className={styles.planPrice}>$5/mo</span>
             </button>
           </div>
         ) : null}
@@ -71,8 +71,8 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({
         <div className={styles.actions}>
           <button className={styles.upgradeButton} onClick={handleUpgrade} disabled={upgrading || !activePriceId}>
             {upgrading ? 'Redirecting...' : hasAnnual
-              ? `Upgrade to Pro — ${selectedPlan === 'annual' ? '$24/yr' : '$3/mo'}`
-              : 'Upgrade to Pro — $3/mo'}
+              ? `Upgrade to Pro — ${selectedPlan === 'annual' ? '$40/yr' : '$5/mo'}`
+              : 'Upgrade to Pro — $5/mo'}
           </button>
           <button className={styles.cancelButton} onClick={onClose}>
             Not now
