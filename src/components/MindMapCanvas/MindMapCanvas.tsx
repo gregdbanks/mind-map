@@ -28,6 +28,7 @@ import { ICON_PLUS, ICON_PENCIL, ICON_X, ICON_FILE_TEXT, renderLucideIconD3 } fr
 import { ExportSelector } from '../ExportSelector';
 import type { NodeNote } from '../../types';
 import { useCollabNotes } from '../../hooks/useCollabNotes';
+import { useCollabDoc } from '../../context/CollabMindMapContext';
 import { useCloudSync } from '../../hooks/useCloudSync';
 import { useAuth } from '../../context/AuthContext';
 import { apiClient } from '../../services/apiClient';
@@ -64,6 +65,34 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
   const [notesModalNodeId, setNotesModalNodeId] = useState<string | null>(null);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [canvasBackground, setCanvasBackground] = useState<CanvasBackground>(() => loadCanvasBackground());
+
+  // Sync canvas background through Yjs so collab users see the same theme
+  const collabDoc = useCollabDoc();
+  useEffect(() => {
+    if (!collabDoc) return;
+
+    const yMeta = collabDoc.getMap('meta');
+
+    // Read background from Yjs on initial sync
+    const remoteBg = yMeta.get('canvasBackground') as CanvasBackground | undefined;
+    if (remoteBg) {
+      setCanvasBackground(remoteBg);
+      saveCanvasBackground(remoteBg);
+    }
+
+    // Observe remote background changes
+    const observer = () => {
+      const bg = yMeta.get('canvasBackground') as CanvasBackground | undefined;
+      if (bg && bg !== canvasBackground) {
+        setCanvasBackground(bg);
+        saveCanvasBackground(bg);
+      }
+    };
+    yMeta.observe(observer);
+
+    return () => { yMeta.unobserve(observer); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [collabDoc]);
 
   // Plan status for gating Pro features (exports)
   const { isAuthenticated } = useAuth();
@@ -254,10 +283,13 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
     }
   };
 
-  // Handle background changes
+  // Handle background changes — sync to Yjs for collab users
   const handleBackgroundChange = (bg: CanvasBackground) => {
     setCanvasBackground(bg);
     saveCanvasBackground(bg);
+    if (collabDoc) {
+      collabDoc.getMap('meta').set('canvasBackground', bg);
+    }
   };
 
   // Provide bounding box of the main group for export

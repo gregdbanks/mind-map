@@ -108,10 +108,20 @@ export function mindMapReducer(
       const { id, updates } = action.payload;
       const node = state.nodes.get(id);
       if (!node) return state;
-      
+
       const newNodes = new Map(state.nodes);
       newNodes.set(id, { ...node, ...updates });
-      
+
+      // Enforce accordion: only one note expanded at a time.
+      // This handles both local clicks and remote Yjs updates.
+      if (updates.noteExpanded === true) {
+        newNodes.forEach((n, nodeId) => {
+          if (nodeId !== id && n.noteExpanded) {
+            newNodes.set(nodeId, { ...n, noteExpanded: false });
+          }
+        });
+      }
+
       return {
         ...state,
         nodes: newNodes,
