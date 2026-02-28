@@ -219,11 +219,11 @@ export const apiClient = {
     request<CloudMapFull>({ method: 'POST', path: `/mindmaps/${mapId}/versions/${versionId}/restore` }),
 
   // Collaboration
-  createCollabInvite: (mapId: string, email?: string) =>
-    request<{ id: string; map_id: string; invite_token: string; invitee_email: string | null; role: string; status: string; created_at: string; expires_at: string }>({
+  createCollabInvite: (mapId: string) =>
+    request<{ id: string; map_id: string; invite_token: string; role: string; status: string; created_at: string; expires_at: string }>({
       method: 'POST',
       path: `/mindmaps/${mapId}/collab/invite`,
-      body: email ? { email } : {},
+      body: {},
     }),
 
   getCollabInvites: (mapId: string) =>
