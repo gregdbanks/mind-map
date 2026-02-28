@@ -59,26 +59,32 @@ let unicornScriptLoaded = false;
 
 const HeroBg: React.FC = () => {
   useEffect(() => {
+    let cancelled = false;
+
     const init = () => {
+      if (cancelled) return;
       window.UnicornStudio?.destroy();
       window.UnicornStudio?.init();
     };
 
     if (unicornScriptLoaded && window.UnicornStudio) {
       init();
-      return () => { window.UnicornStudio?.destroy(); };
+      return () => { cancelled = true; window.UnicornStudio?.destroy(); };
     }
 
     const script = document.createElement('script');
     script.src = UNICORN_SCRIPT;
     script.async = true;
+    script.integrity = 'sha384-1lLQq1gVm4jq4xkOwlLEylCkrhtY/15eum3dwQFjauuE6ZiI5/q/UH5yY2vS24dS';
+    script.crossOrigin = 'anonymous';
     script.onload = () => {
       unicornScriptLoaded = true;
       init();
     };
+    script.onerror = () => { unicornScriptLoaded = false; };
     document.head.appendChild(script);
 
-    return () => { window.UnicornStudio?.destroy(); };
+    return () => { cancelled = true; window.UnicornStudio?.destroy(); };
   }, []);
 
   return (

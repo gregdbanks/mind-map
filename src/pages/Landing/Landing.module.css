@@ -50,7 +50,7 @@
 }
 
 .headerLink:hover {
-  color: #ffffff;
+  color: var(--landing-text);
   background: rgba(30, 30, 60, 0.8);
 }
 
@@ -73,6 +73,7 @@
   width: 100vw;
   max-width: 100%;
   aspect-ratio: 1440 / 900;
+  position: relative;
   z-index: 0;
 }
 
@@ -182,7 +183,7 @@
 
 .ctaSecondary:hover {
   background: rgba(30, 30, 60, 0.8);
-  color: #ffffff;
+  color: var(--landing-text);
   border-color: rgba(255, 255, 255, 0.4);
   transform: translateY(-2px);
 }
@@ -446,7 +447,7 @@
   }
 }
 
-@media (max-width: 398px) {
+@media (max-width: 400px) {
   .heroContent {
     padding-top: 60px;
   }
