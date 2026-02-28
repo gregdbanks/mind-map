@@ -121,6 +121,8 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
   // React roots for inline note editors mounted into D3-created foreignObjects
   const inlineNoteRootsRef = useRef<Map<string, Root>>(new Map());
   const expandAnimatingRef = useRef<Set<string>>(new Set());
+  // Track last-rendered note content per nodeId to skip unnecessary re-renders
+  const lastRenderedNoteRef = useRef<Map<string, string>>(new Map());
   const hasAutoFitRef = useRef(false);
   // Track nodes that have been expanded at least once (for auto-fit on first expansion)
   const expandedOnceRef = useRef<Set<string>>(new Set());
@@ -266,8 +268,11 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
 
     try {
       await saveNote(note);
-      // Update the node to indicate it has a note
-      operations.updateNode(nodeId, { hasNote: true, noteId: note.id });
+      // Only update node metadata if it changed (avoid triggering D3 re-render on every keystroke)
+      const nodeData = state.nodes.get(nodeId);
+      if (!nodeData?.hasNote || nodeData.noteId !== note.id) {
+        operations.updateNode(nodeId, { hasNote: true, noteId: note.id });
+      }
     } catch (error) {
       console.error('Failed to save note:', error);
     }
@@ -617,6 +622,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
         if (root) {
           root.unmount();
           inlineNoteRootsRef.current.delete(nodeData.id);
+          lastRenderedNoteRef.current.delete(nodeData.id);
         }
       });
     }
@@ -1239,6 +1245,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
         if (existingRoot) {
           existingRoot.unmount();
           inlineNoteRootsRef.current.delete(node.id);
+          lastRenderedNoteRef.current.delete(node.id);
         }
 
         // Restore action button interactivity and positions for collapsed rect
@@ -1643,7 +1650,8 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pendingAutoFitNodeId]);
 
-  // Re-render inline note components when notes load/change (fixes race condition on refresh)
+  // Re-render inline note components when notes change from a remote source.
+  // Skip re-renders when note content hasn't actually changed (e.g., local keystroke saves).
   useEffect(() => {
     if (inlineNoteRootsRef.current.size === 0) return;
     const nodeDepths = calculateNodeDepths(state.nodes);
@@ -1652,9 +1660,17 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
       const node = state.nodes.get(nodeId);
       if (!node || !node.noteExpanded) return;
 
+      const noteData = getNote(nodeId);
+
+      // Skip re-render if note content hasn't changed
+      const noteKey = noteData
+        ? (noteData.contentJson ? JSON.stringify(noteData.contentJson) : '') + '|' + (noteData.content || '')
+        : '';
+      if (lastRenderedNoteRef.current.get(nodeId) === noteKey) return;
+      lastRenderedNoteRef.current.set(nodeId, noteKey);
+
       const depth = nodeDepths.get(nodeId) || 0;
       const props = getNodeVisualProperties(depth, isDarkBackground(canvasBackground), node.size);
-      const noteData = getNote(nodeId);
 
       root.render(
         <InlineNoteContent
@@ -2192,6 +2208,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
       // Unmount all inline note React roots
       inlineNoteRootsRef.current.forEach(root => root.unmount());
       inlineNoteRootsRef.current.clear();
+      lastRenderedNoteRef.current.clear();
     };
   }, []);
 
