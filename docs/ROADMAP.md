@@ -310,6 +310,142 @@ Add 5 predetermined size presets (XS, S, M, L, XL) so users can control node vis
 
 ---
 
+## Phase 16 — Full Feature Testing & Documentation
+
+**Effort**: ~1-2 days | **Branch**: `feature/phase-16-testing`
+
+### Goal
+Run every manual and automated test across the entire application. Update test documentation to reflect the current state: new features from Phases 13-15 (node sizing, ads, real-time collab), fix any broken tests, and produce a go/no-go report for launch readiness.
+
+### Subtasks
+
+#### 16.1 Update FEATURE_TESTING_CHECKLIST.md
+- Add Phase 13 items (node sizing presets)
+- Add Phase 14 items (ad integration)
+- Update Phase 15 collab section with note sync, expansion sync, canvas background sync
+- Update AUTO/MANUAL counts to reflect current state
+- Remove any test cases for features that changed or were cut
+
+#### 16.2 Update TESTING_REPORT
+- Update total test count (was 154, now 431+)
+- Update coverage areas and recent improvements
+- Document any known gaps or flaky tests
+
+#### 16.3 Run Full Automated Test Suite
+- `npm run test:ci` — all tests pass
+- `npm run build` — clean production build
+- `npm run typecheck` — no TypeScript errors
+- `npm run lint` — no lint errors
+- Document results
+
+#### 16.4 Execute ALL Manual Tests
+Run through every `[MANUAL]` test in the checklist. For each:
+- Record PASS/FAIL
+- Note any issues discovered
+- File bugs as needed
+
+**Manual Test Areas:**
+- Anonymous visitor flows (landing, library browsing, signup)
+- Free user flows (dashboard, editor, export, cloud sync, library contributing)
+- Pro user flows (payment, unlimited cloud, premium exports, sharing, version history)
+- Edge cases (responsive layout, offline, large maps, navigation)
+- Real-time collaboration (connection, presence, syncing, cursors, invites, notes)
+
+#### 16.5 Fix Discovered Issues
+- Create branches for any bugs found during testing
+- Prioritize: P0 (blocking) → P1 (degraded experience) → P2 (cosmetic)
+
+#### 16.6 Update NOTES_TESTING_STRATEGY.md
+- Reconcile with current test coverage
+- Update performance benchmarks if targets changed
+
+### Phase 16 — Validation Tests
+
+| # | Test | How to Verify | Pass Criteria |
+|---|------|---------------|---------------|
+| 16.1 | All automated tests pass | `npm run test:ci` | 431+ tests pass, 0 failures |
+| 16.2 | Build succeeds | `npm run build` | Clean build, no errors |
+| 16.3 | TypeScript clean | `npm run typecheck` | 0 errors |
+| 16.4 | Lint clean | `npm run lint` | 0 errors (warnings OK) |
+| 16.5 | All MANUAL tests executed | Run through checklist | Every [MANUAL] item has PASS/FAIL recorded |
+| 16.6 | Feature checklist updated | Review FEATURE_TESTING_CHECKLIST.md | Reflects all features through Phase 15, correct AUTO/MANUAL counts |
+| 16.7 | Testing report updated | Review TESTING_REPORT | Current test count, coverage areas, known issues documented |
+| 16.8 | No P0 bugs remain | Review bug list | All blocking issues fixed |
+
+---
+
+## Phase 17 — Marketing Strategy & Growth to First 20 Users
+
+**Effort**: ~1 week | **Branch**: `feature/phase-17-marketing`
+
+### Goal
+Evaluate the current monetization model, research the competitive landscape, and execute a concrete plan to acquire the first 20 active users. This is not about code — it's about positioning, distribution, and getting real humans to try the product.
+
+### Subtasks
+
+#### 17.1 Competitive Analysis
+- Map the mind mapping tool landscape: MindMeister, Miro, Coggle, Whimsical, XMind, Markmap
+- Identify ThoughtNet's differentiators (free public library, fork/rate ecosystem, in-browser with no install)
+- Document gaps vs competitors
+
+#### 17.2 Evaluate Current Monetization Model
+- **Google AdSense revenue analysis**: estimate RPM for productivity SaaS traffic, project revenue at 100/1K/10K MAU
+- **Subscription model health check**: is $3/mo competitive? Should Pro be cheaper or more valuable?
+- **Freemium balance**: is the free tier too generous or too restrictive?
+- **Recommendation**: ads-first, subscription-first, or hybrid? What mix maximizes revenue at small scale?
+
+#### 17.3 SEO & Content Strategy
+- Identify high-value keywords: "free mind map tool", "online mind mapping", "collaborative mind map"
+- Audit current landing page for SEO (meta tags, structured data, page speed)
+- Plan 5-10 blog posts or landing pages targeting long-tail keywords
+- Set up Google Search Console and submit sitemap
+
+#### 17.4 Launch Channels (Free)
+- **Product Hunt**: prepare launch assets (tagline, description, screenshots, maker story)
+- **Reddit**: identify relevant subreddits (r/productivity, r/GetStudying, r/webdev, r/SideProject)
+- **Hacker News**: craft Show HN post
+- **Twitter/X**: create product account, post launch thread
+- **Dev.to / Hashnode**: write "I built a collaborative mind mapping tool" post
+
+#### 17.5 Launch Channels (Paid — if budget allows)
+- Google Ads: estimate CPC for "mind map tool" keywords, project CAC vs LTV
+- Should we run ads at this stage? (usually no — organic first, paid at scale)
+
+#### 17.6 Community & Feedback Loop
+- Add feedback mechanism in-app (simple "Send Feedback" link → email or form)
+- Seed the public library with 10-20 high-quality template maps (study guides, project plans, brainstorm frameworks)
+- Engage first users personally — respond to every piece of feedback
+
+#### 17.7 Analytics & Measurement
+- Verify Google Analytics / Plausible is tracking key events:
+  - Signups, map creates, cloud saves, exports, library publishes, Pro conversions
+- Define success metrics for first 30 days post-launch:
+  - 20 signups
+  - 5 maps published to library
+  - 1 Pro conversion
+
+#### 17.8 Pricing & Positioning Recommendation
+- Write a 1-page recommendation:
+  - Keep/change Pro price?
+  - Add a Teams tier now or later?
+  - Ad revenue realistic or just supplemental?
+  - Best channel for first 20 users
+
+### Phase 17 — Validation Tests
+
+| # | Test | How to Verify | Pass Criteria |
+|---|------|---------------|---------------|
+| 17.1 | Competitive analysis documented | Review docs/COMPETITIVE_ANALYSIS.md | 5+ competitors mapped with feature comparison matrix |
+| 17.2 | Monetization recommendation | Review docs/MONETIZATION_STRATEGY.md | Clear recommendation with projected numbers at 100/1K/10K MAU |
+| 17.3 | SEO audit complete | Review landing page and Search Console | Meta tags present, sitemap submitted, page speed >90 on Lighthouse |
+| 17.4 | Launch assets ready | Review launch checklist | Product Hunt listing draft, Reddit post draft, screenshots, tagline |
+| 17.5 | Library seeded | Browse `/library` | 10+ high-quality template maps published |
+| 17.6 | Analytics tracking | Check analytics dashboard | Key events (signup, create, publish, convert) firing correctly |
+| 17.7 | Feedback mechanism | Click feedback link in-app | Opens email/form, works for all user types |
+| 17.8 | Strategy doc complete | Review docs/MARKETING_STRATEGY.md | Concrete 30-day launch plan with channel priorities and success metrics |
+
+---
+
 ## Execution Rules
 
 1. **One phase at a time.** Complete all subtasks and pass all validation tests before moving to next phase.
