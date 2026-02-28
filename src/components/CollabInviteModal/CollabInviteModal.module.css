@@ -54,36 +54,28 @@
   padding: 16px 20px;
 }
 
-.inputRow {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.emailInput {
-  flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
-  outline: none;
-}
-
-.emailInput:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+.description {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
 }
 
 .createButton {
-  padding: 8px 16px;
+  width: 100%;
+  padding: 10px 16px;
   background: #6366f1;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
 .createButton:hover {
@@ -93,6 +85,12 @@
 .createButton:disabled {
   opacity: 0.6;
   cursor: default;
+}
+
+.errorText {
+  font-size: 13px;
+  color: #dc2626;
+  margin: 0 0 12px 0;
 }
 
 .emptyText {
@@ -114,7 +112,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
+  padding: 10px 12px;
   background: #f8f9fa;
   border-radius: 8px;
 }
@@ -125,16 +123,12 @@
   gap: 8px;
 }
 
-.inviteEmail {
-  font-size: 13px;
-  color: #333;
-}
-
 .inviteStatus {
   font-size: 11px;
   padding: 2px 6px;
   border-radius: 4px;
   font-weight: 500;
+  text-transform: capitalize;
 }
 
 .pending {
@@ -147,9 +141,34 @@
   color: #166534;
 }
 
+.inviteExpiry {
+  font-size: 12px;
+  color: #888;
+}
+
 .inviteActions {
   display: flex;
+  align-items: center;
   gap: 4px;
+}
+
+.copyButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #333;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.copyButton:hover {
+  background: #f3f4f6;
+  border-color: #ccc;
 }
 
 .iconButton {
@@ -167,4 +186,5 @@
 
 .iconButton:hover {
   background: rgba(0, 0, 0, 0.08);
+  color: #dc2626;
 }
