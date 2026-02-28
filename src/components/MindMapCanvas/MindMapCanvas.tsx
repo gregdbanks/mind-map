@@ -27,7 +27,7 @@ import { Maximize, Upload, HelpCircle } from 'lucide-react';
 import { ICON_PLUS, ICON_PENCIL, ICON_X, ICON_FILE_TEXT, renderLucideIconD3 } from '../../utils/lucideIconPaths';
 import { ExportSelector } from '../ExportSelector';
 import type { NodeNote } from '../../types';
-import { useMapNotes } from '../../hooks/useMapNotes';
+import { useCollabNotes } from '../../hooks/useCollabNotes';
 import { useCloudSync } from '../../hooks/useCloudSync';
 import { useAuth } from '../../context/AuthContext';
 import { apiClient } from '../../services/apiClient';
@@ -127,7 +127,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
   const { pushMap, canSync } = useCloudSync();
 
   // Use IndexedDB for notes storage
-  const { notes, saveNote, deleteNote, getNote } = useMapNotes(mapId);
+  const { notes, saveNote, deleteNote, getNote } = useCollabNotes(mapId);
 
   // Stable ref for getNote so D3 rendering can access without causing re-renders
   const getNodeNoteRef = useRef(getNote);
