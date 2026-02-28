@@ -79,9 +79,12 @@ export function useCollabNotes(mapId: string): UseMapNotesReturn {
       localSaveRef.current(note).catch(() => {});
     });
 
-    // Observe ALL changes (local and remote) to keep collabNotes in sync
+    // Observe remote changes only — local saves already update collabNotes directly.
+    // Firing on local changes causes double-renders that disrupt the TipTap editor.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const observer = (events: Y.YEvent<any>[]) => {
+    const observer = (events: Y.YEvent<any>[], transaction: Y.Transaction) => {
+      if (transaction.local) return;
+
       // Re-read the full notes map to stay in sync with Y.Doc
       const updated = new Map<string, NodeNote>();
       yNotes.forEach((yNote, nodeId) => {
