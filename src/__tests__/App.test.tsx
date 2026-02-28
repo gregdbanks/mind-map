@@ -42,6 +42,15 @@ jest.mock('../pages/Landing', () => ({
   Landing: () => <div data-testid="landing">Landing</div>,
 }));
 
+// Mock collab/team pages (uses apiClient which needs import.meta.env)
+jest.mock('../pages/CollabJoin/CollabJoin', () => ({
+  CollabJoin: () => <div data-testid="collab-join">CollabJoin</div>,
+}));
+
+jest.mock('../pages/TeamSettings/TeamSettings', () => ({
+  TeamSettings: () => <div data-testid="team-settings">TeamSettings</div>,
+}));
+
 // Mock auth pages
 jest.mock('../pages/Login', () => ({
   Login: () => <div data-testid="login">Login</div>,

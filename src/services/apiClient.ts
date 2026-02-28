@@ -217,4 +217,57 @@ export const apiClient = {
 
   restoreVersion: (mapId: string, versionId: string) =>
     request<CloudMapFull>({ method: 'POST', path: `/mindmaps/${mapId}/versions/${versionId}/restore` }),
+
+  // Collaboration
+  createCollabInvite: (mapId: string, email?: string) =>
+    request<{ id: string; map_id: string; invite_token: string; invitee_email: string | null; role: string; status: string; created_at: string; expires_at: string }>({
+      method: 'POST',
+      path: `/mindmaps/${mapId}/collab/invite`,
+      body: email ? { email } : {},
+    }),
+
+  getCollabInvites: (mapId: string) =>
+    request<{ invites: Array<{ id: string; map_id: string; invite_token: string; invitee_email: string | null; invitee_id: string | null; role: string; status: string; created_at: string; expires_at: string }> }>({
+      method: 'GET',
+      path: `/mindmaps/${mapId}/collab/invites`,
+    }),
+
+  deleteCollabInvite: (mapId: string, inviteId: string) =>
+    request<void>({
+      method: 'DELETE',
+      path: `/mindmaps/${mapId}/collab/invite/${inviteId}`,
+    }),
+
+  acceptCollabInvite: (token: string) =>
+    request<{ invite: { id: string; map_id: string; role: string } }>({
+      method: 'POST',
+      path: `/mindmaps/collab/accept/${token}`,
+    }),
+
+  // Teams
+  createTeam: (name: string) =>
+    request<{ team: { id: string; name: string; owner_id: string; seat_count: number; created_at: string }; checkoutUrl?: string }>({
+      method: 'POST',
+      path: '/teams',
+      body: { name },
+    }),
+
+  getTeam: (teamId: string) =>
+    request<{ team: { id: string; name: string; owner_id: string; seat_count: number; created_at: string }; members: Array<{ id: string; username: string; email: string; team_role: string }> }>({
+      method: 'GET',
+      path: `/teams/${teamId}`,
+    }),
+
+  addTeamMember: (teamId: string, memberId: string) =>
+    request<{ message: string; seatCount: number }>({
+      method: 'POST',
+      path: `/teams/${teamId}/members`,
+      body: { memberId },
+    }),
+
+  removeTeamMember: (teamId: string, userId: string) =>
+    request<{ message: string; seatCount: number }>({
+      method: 'DELETE',
+      path: `/teams/${teamId}/members/${userId}`,
+    }),
 };

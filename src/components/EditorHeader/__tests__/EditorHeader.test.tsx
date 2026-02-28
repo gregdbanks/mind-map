@@ -51,6 +51,30 @@ jest.mock('../../PublishModal', () => ({
   ),
 }));
 
+jest.mock('../../CollabInviteModal', () => ({
+  CollabInviteModal: ({ onClose }: { onClose: () => void }) => (
+    <div data-testid="collab-invite-modal">
+      <button onClick={onClose}>Close Invite</button>
+    </div>
+  ),
+}));
+
+jest.mock('../../TeamsUpgradeModal', () => ({
+  TeamsUpgradeModal: ({ onClose }: { onClose: () => void }) => (
+    <div data-testid="teams-upgrade-modal">
+      <button onClick={onClose}>Close Teams Upgrade</button>
+    </div>
+  ),
+}));
+
+jest.mock('../../PresencePanel', () => ({
+  PresencePanel: () => <div data-testid="presence-panel" />,
+}));
+
+jest.mock('../../ConnectionIndicator', () => ({
+  ConnectionIndicator: () => <div data-testid="connection-indicator" />,
+}));
+
 // --- Helpers ---
 
 const renderHeader = (overrides = {}) =>

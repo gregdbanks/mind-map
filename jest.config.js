@@ -7,6 +7,8 @@ export default {
     '\\.svg$': '<rootDir>/src/__tests__/mocks/fileMock.js',
     '^/(.*)$': '<rootDir>/public/$1',
     '(.*)services/cognitoService': '<rootDir>/src/services/__mocks__/cognitoService.ts',
+    '(.*)services/collabSocket': '<rootDir>/src/services/__mocks__/collabSocket.ts',
+    '(.*)services/yjsProvider': '<rootDir>/src/services/__mocks__/yjsProvider.ts',
   },
   setupFiles: ['<rootDir>/src/__tests__/setupPolyfills.js'],
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],

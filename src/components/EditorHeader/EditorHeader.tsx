@@ -1,11 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Check, Share2, BookOpen, Clock } from 'lucide-react';
+import { ArrowLeft, Check, Share2, BookOpen, Clock, Users } from 'lucide-react';
 import { useMapTitle } from '../../hooks/useMapTitle';
 import { useAuth } from '../../context/AuthContext';
 import { ShareModal } from '../ShareModal/ShareModal';
 import { UpgradeModal } from '../UpgradeModal';
 import { PublishModal } from '../PublishModal';
+import { PresencePanel } from '../PresencePanel';
+import { ConnectionIndicator } from '../ConnectionIndicator';
+import { CollabInviteModal } from '../CollabInviteModal';
+import type { CollabUser } from '../../services/collabSocket';
 import styles from './EditorHeader.module.css';
 
 export type SaveStatus = 'idle' | 'saving' | 'saved' | 'syncing' | 'synced' | 'sync-error' | 'offline';
@@ -17,9 +21,12 @@ interface EditorHeaderProps {
   isAtCloudLimit?: boolean;
   onToggleHistory?: () => void;
   showingHistory?: boolean;
+  collabUsers?: CollabUser[];
+  collabConnected?: boolean;
+  collabConnecting?: boolean;
 }
 
-export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, isPro = false, isAtCloudLimit = false, onToggleHistory, showingHistory = false }) => {
+export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, isPro = false, isAtCloudLimit = false, onToggleHistory, showingHistory = false, collabUsers, collabConnected, collabConnecting }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const { title, loading: titleLoading, rename } = useMapTitle(mapId);
@@ -28,6 +35,7 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
   const [showShareModal, setShowShareModal] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [showPublishModal, setShowPublishModal] = useState(false);
+  const [showInviteModal, setShowInviteModal] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -144,8 +152,34 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
           )}
         </div>
 
+        <PresencePanel
+          users={collabUsers || []}
+          isConnected={collabConnected || false}
+          isConnecting={collabConnecting || false}
+        />
+
+        <ConnectionIndicator
+          isConnected={collabConnected || false}
+          isConnecting={collabConnecting || false}
+        />
+
         {isAuthenticated && (
           <div className={styles.actionButtons}>
+            <button
+              className={styles.shareButton}
+              onClick={() => {
+                if (isPro) {
+                  setShowInviteModal(true);
+                } else {
+                  setShowUpgradeModal(true);
+                }
+              }}
+              title="Invite Collaborators"
+              aria-label="Invite collaborators"
+            >
+              <Users size={16} />
+            </button>
+
             <button
               className={styles.shareButton}
               onClick={() => {
@@ -208,6 +242,11 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
           onClose={() => setShowPublishModal(false)}
         />
       )}
+
+      {showInviteModal && (
+        <CollabInviteModal mapId={mapId} onClose={() => setShowInviteModal(false)} />
+      )}
+
     </>
   );
 };

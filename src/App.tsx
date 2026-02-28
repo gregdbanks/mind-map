@@ -12,6 +12,8 @@ import { ForgotPassword } from './pages/ForgotPassword'
 import { SharedMap } from './pages/SharedMap/SharedMap'
 import { Library } from './pages/Library/Library'
 import { LibraryMapView } from './pages/Library/LibraryMapView'
+import { CollabJoin } from './pages/CollabJoin/CollabJoin'
+import { TeamSettings } from './pages/TeamSettings/TeamSettings'
 import './App.css'
 
 const loadingStyle: React.CSSProperties = { display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#1a1a2e', color: '#fff' };
@@ -54,6 +56,8 @@ function App() {
         <Route path="/shared/:shareToken" element={<SharedMap />} />
         <Route path="/library" element={<Library />} />
         <Route path="/library/:id" element={<LibraryMapView />} />
+        <Route path="/collab/join/:token" element={<CollabJoin />} />
+        <Route path="/team" element={<TeamSettings />} />
       </Routes>
     </ErrorBoundary>
   )

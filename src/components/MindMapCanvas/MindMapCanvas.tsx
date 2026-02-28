@@ -32,13 +32,18 @@ import { useCloudSync } from '../../hooks/useCloudSync';
 import { useAuth } from '../../context/AuthContext';
 import { apiClient } from '../../services/apiClient';
 import { v4 as uuidv4 } from 'uuid';
+import { useCollabCursors } from '../../hooks/useCollabCursors';
+import { useCollabDragSync } from '../../hooks/useCollabDragSync';
+import type { CollabUser } from '../../services/collabSocket';
 import styles from './MindMapCanvas.module.css';
 
 interface MindMapCanvasProps {
   mapId: string;
+  collabUsers?: CollabUser[];
+  collabConnected?: boolean;
 }
 
-export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
+export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers, collabConnected }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
   const zoomBehaviorRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
@@ -68,6 +73,10 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     apiClient.getPlanStatus().then((s) => setIsPro(s.plan === 'pro')).catch(() => {});
   }, [isAuthenticated]);
 
+  // Collaboration: cursor presence and drag sync
+  const { broadcastCursor } = useCollabCursors({ enabled: !!collabConnected, users: collabUsers || [] });
+  const { remoteDrags, broadcastDragPosition, broadcastDragEnd } = useCollabDragSync({ enabled: !!collabConnected });
+
   // Multi-select state
   const [multiSelectedNodeIds, setMultiSelectedNodeIds] = useState<Set<string>>(new Set());
   const multiSelectedNodeIdsRef = useRef<Set<string>>(new Set());
@@ -89,6 +98,11 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
   // Pending auto-fit: set to a node ID when first expansion triggers, cleared after fit
   const [pendingAutoFitNodeId, setPendingAutoFitNodeId] = useState<string | null>(null);
 
+  // Refs for collab broadcast functions (so D3 closures always see latest)
+  const broadcastCursorRef = useRef(broadcastCursor);
+  const broadcastDragPositionRef = useRef(broadcastDragPosition);
+  const broadcastDragEndRef = useRef(broadcastDragEnd);
+
   // Keep refs in sync with state so D3 event handler closures always see latest values
   useEffect(() => {
     multiSelectedNodeIdsRef.current = multiSelectedNodeIds;
@@ -99,6 +113,15 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
   useEffect(() => {
     currentLayoutRef.current = currentLayout;
   }, [currentLayout]);
+  useEffect(() => {
+    broadcastCursorRef.current = broadcastCursor;
+  }, [broadcastCursor]);
+  useEffect(() => {
+    broadcastDragPositionRef.current = broadcastDragPosition;
+  }, [broadcastDragPosition]);
+  useEffect(() => {
+    broadcastDragEndRef.current = broadcastDragEnd;
+  }, [broadcastDragEnd]);
 
   // Cloud sync
   const { pushMap, canSync } = useCloudSync();
@@ -472,6 +495,13 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
     // Always rebind the zoom behavior
     svg.call(zoomBehavior);
     zoomBehaviorRef.current = zoomBehavior;
+
+    // Collab: broadcast cursor position on mousemove
+    svg.on('mousemove.collab', (event: MouseEvent) => {
+      if (!gRef.current) return;
+      const [x, y] = d3.pointer(event, gRef.current.node());
+      broadcastCursorRef.current(x, y);
+    });
 
     // Prevent ALL browser-level zoom so only D3 controls zoom inside the canvas.
     // Ctrl+wheel (all browsers)
@@ -1338,10 +1368,14 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
                   linkSelection.attr('x2', targetStart.x + dx).attr('y2', targetStart.y + dy);
                 }
               });
+
+            // Broadcast drag position for the primary dragged node
+            broadcastDragPositionRef.current(d.id, event.x, event.y);
           } else {
             // Single node drag
             const tempX = event.x;
             const tempY = event.y;
+            broadcastDragPositionRef.current(d.id, tempX, tempY);
             g.selectAll<SVGGElement, Node>('.node')
               .filter((nodeData: Node) => nodeData.id === d.id)
               .attr('transform', `translate(${tempX},${tempY})`);
@@ -1410,6 +1444,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
             setCurrentLayout('custom');
           }
 
+          broadcastDragEndRef.current(d.id);
           dragStartPositionsRef.current = new Map();
           isDraggingRef.current = false;
           setIsDragging(false);
@@ -1749,6 +1784,32 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId }) => {
 
     prevMultiSelectedRef.current = new Set(current);
   }, [multiSelectedNodeIds, state.nodes]);
+
+  // Apply remote drag positions to nodes (real-time visual feedback)
+  useEffect(() => {
+    if (!gRef.current || remoteDrags.size === 0) return;
+    const g = gRef.current;
+
+    remoteDrags.forEach((drag) => {
+      g.selectAll<SVGGElement, Node>('.node')
+        .filter((nd: Node) => nd.id === drag.nodeId)
+        .attr('transform', `translate(${drag.x},${drag.y})`);
+
+      // Also update connected links
+      g.selectAll<SVGLineElement, any>('.link')
+        .each(function(link: any) {
+          const sourceId = typeof link.source === 'string' ? link.source : link.source.id;
+          const targetId = typeof link.target === 'string' ? link.target : link.target.id;
+          const linkSelection = d3.select(this);
+          if (sourceId === drag.nodeId) {
+            linkSelection.attr('x1', drag.x).attr('y1', drag.y);
+          }
+          if (targetId === drag.nodeId) {
+            linkSelection.attr('x2', drag.x).attr('y2', drag.y);
+          }
+        });
+    });
+  }, [remoteDrags]);
 
   // Handle canvas interactions + marquee selection
   useEffect(() => {
