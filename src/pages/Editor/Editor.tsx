@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { MindMapProvider } from '../../context/MindMapContext';
 import { useMindMap } from '../../context/MindMapContext';
+import { CollabMindMapProvider } from '../../context/CollabMindMapContext';
 import { MindMapCanvas } from '../../components/MindMapCanvas/MindMapCanvas';
 import { EditorHeader } from '../../components/EditorHeader';
 import type { SaveStatus } from '../../components/EditorHeader';
@@ -9,8 +9,18 @@ import { useCloudSync } from '../../hooks/useCloudSync';
 import { useAuth } from '../../context/AuthContext';
 import { apiClient } from '../../services/apiClient';
 import { VersionHistoryPanel } from '../../components/VersionHistoryPanel';
+import { usePresence } from '../../hooks/usePresence';
 
-const EditorContent: React.FC<{ mapId: string }> = ({ mapId }) => {
+import type { CollabUser } from '../../services/collabSocket';
+
+interface EditorContentProps {
+  mapId: string;
+  collabUsers: CollabUser[];
+  collabConnected: boolean;
+  collabConnecting: boolean;
+}
+
+const EditorContent: React.FC<EditorContentProps> = ({ mapId, collabUsers, collabConnected, collabConnecting }) => {
   const { state, dispatch } = useMindMap();
   const { syncStatus, canSync, isOnline } = useCloudSync();
   const { isAuthenticated } = useAuth();
@@ -126,8 +136,11 @@ const EditorContent: React.FC<{ mapId: string }> = ({ mapId }) => {
         isAtCloudLimit={isAtCloudLimit}
         onToggleHistory={() => setShowHistory((prev) => !prev)}
         showingHistory={showHistory}
+        collabUsers={collabUsers}
+        collabConnected={collabConnected}
+        collabConnecting={collabConnecting}
       />
-      <MindMapCanvas mapId={mapId} />
+      <MindMapCanvas mapId={mapId} collabUsers={collabUsers} collabConnected={collabConnected} />
       {showHistory && (
         <VersionHistoryPanel
           mapId={mapId}
@@ -147,6 +160,8 @@ const EditorContent: React.FC<{ mapId: string }> = ({ mapId }) => {
 export const Editor: React.FC = () => {
   const { mapId } = useParams<{ mapId: string }>();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const { users: collabUsers, isConnected: collabConnected, isConnecting: collabConnecting } = usePresence({ mapId: mapId || '', enabled: isAuthenticated });
 
   if (!mapId) {
     navigate('/', { replace: true });
@@ -154,8 +169,8 @@ export const Editor: React.FC = () => {
   }
 
   return (
-    <MindMapProvider>
-      <EditorContent mapId={mapId} />
-    </MindMapProvider>
+    <CollabMindMapProvider mapId={mapId} collabEnabled={isAuthenticated} collabConnected={collabConnected}>
+      <EditorContent mapId={mapId} collabUsers={collabUsers} collabConnected={collabConnected} collabConnecting={collabConnecting} />
+    </CollabMindMapProvider>
   );
 };

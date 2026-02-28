@@ -1,0 +1,1 @@
+export { TeamsUpgradeModal } from './TeamsUpgradeModal';
