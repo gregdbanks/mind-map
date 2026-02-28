@@ -48,6 +48,7 @@ export function useCollabNotes(mapId: string): UseMapNotesReturn {
   const isCollaborating = yDoc !== null;
   const localSaveRef = useRef(localNotes.saveNote);
   const localDeleteRef = useRef(localNotes.deleteNote);
+  const seededRef = useRef(false);
 
   // Keep refs in sync
   useEffect(() => { localSaveRef.current = localNotes.saveNote; }, [localNotes.saveNote]);
@@ -57,6 +58,7 @@ export function useCollabNotes(mapId: string): UseMapNotesReturn {
   useEffect(() => {
     if (!yDoc) {
       setInitialized(false);
+      seededRef.current = false;
       return;
     }
 
@@ -77,44 +79,33 @@ export function useCollabNotes(mapId: string): UseMapNotesReturn {
       localSaveRef.current(note).catch(() => {});
     });
 
-    // Observe remote changes
+    // Observe ALL changes (local and remote) to keep collabNotes in sync
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const observer = (events: Y.YEvent<any>[], transaction: Y.Transaction) => {
-      if (transaction.local) return;
-
-      setCollabNotes((prev) => {
-        const next = new Map(prev);
-
-        for (const event of events) {
-          if (event.target === yNotes && event instanceof Y.YMapEvent) {
-            // Top-level: note added or deleted
-            event.changes.keys.forEach((change, nodeId) => {
-              if (change.action === 'add' || change.action === 'update') {
-                const yNote = yNotes.get(nodeId);
-                if (yNote instanceof Y.Map) {
-                  const note = yMapToNote(yNote);
-                  next.set(nodeId, note);
-                  localSaveRef.current(note).catch(() => {});
-                }
-              } else if (change.action === 'delete') {
-                next.delete(nodeId);
-                localDeleteRef.current(nodeId).catch(() => {});
-              }
-            });
-          } else if (event.target instanceof Y.Map && event.target !== yNotes) {
-            // Nested: a field within a note changed
-            const yNote = event.target as Y.Map<unknown>;
-            const nodeId = yNote.get('nodeId') as string;
-            if (nodeId) {
-              const note = yMapToNote(yNote);
-              next.set(nodeId, note);
-              localSaveRef.current(note).catch(() => {});
-            }
-          }
+    const observer = (events: Y.YEvent<any>[]) => {
+      // Re-read the full notes map to stay in sync with Y.Doc
+      const updated = new Map<string, NodeNote>();
+      yNotes.forEach((yNote, nodeId) => {
+        if (yNote instanceof Y.Map) {
+          updated.set(nodeId, yMapToNote(yNote));
         }
-
-        return next;
       });
+      setCollabNotes(updated);
+
+      // Cache remote changes to IndexedDB
+      for (const event of events) {
+        if (event.target === yNotes && event instanceof Y.YMapEvent) {
+          event.changes.keys.forEach((change, nodeId) => {
+            if (change.action === 'add' || change.action === 'update') {
+              const yNote = yNotes.get(nodeId);
+              if (yNote instanceof Y.Map) {
+                localSaveRef.current(yMapToNote(yNote)).catch(() => {});
+              }
+            } else if (change.action === 'delete') {
+              localDeleteRef.current(nodeId).catch(() => {});
+            }
+          });
+        }
+      }
     };
 
     yNotes.observeDeep(observer);
@@ -123,6 +114,42 @@ export function useCollabNotes(mapId: string): UseMapNotesReturn {
       yNotes.unobserveDeep(observer);
     };
   }, [yDoc]);
+
+  // Seed local IndexedDB notes into Yjs doc when they finish loading.
+  // This ensures notes added after the last cloud save are broadcast to peers.
+  useEffect(() => {
+    if (!yDoc || localNotes.loading || seededRef.current) return;
+    seededRef.current = true;
+
+    const yNotes = yDoc.getMap('notes');
+    const localMap = localNotes.notes;
+    if (localMap.size === 0) return;
+
+    let hasNewNotes = false;
+    yDoc.transact(() => {
+      localMap.forEach((note, nodeId) => {
+        if (!yNotes.has(nodeId)) {
+          const yNote = new Y.Map();
+          writeNoteToYMap(yNote, note);
+          yNotes.set(nodeId, yNote);
+          hasNewNotes = true;
+        }
+      });
+    });
+
+    // If we seeded notes, update collabNotes to include them
+    if (hasNewNotes) {
+      setCollabNotes((prev) => {
+        const next = new Map(prev);
+        localMap.forEach((note, nodeId) => {
+          if (!next.has(nodeId)) {
+            next.set(nodeId, note);
+          }
+        });
+        return next;
+      });
+    }
+  }, [yDoc, localNotes.loading, localNotes.notes]);
 
   const saveNote = useCallback(
     async (note: NodeNote) => {
@@ -184,7 +211,8 @@ export function useCollabNotes(mapId: string): UseMapNotesReturn {
       if (!isCollaborating) {
         return localNotes.getNote(nodeId);
       }
-      return collabNotes.get(nodeId);
+      // Fall back to local notes while Yjs sync is in progress
+      return collabNotes.get(nodeId) || localNotes.getNote(nodeId);
     },
     [isCollaborating, localNotes, collabNotes]
   );
