@@ -1,54 +1,34 @@
 import { test, expect } from '@playwright/test';
+import { createMapAndNavigate } from '../helpers';
 
 test.describe('Collaboration UI Elements', () => {
-  test.beforeEach(async ({ page }) => {
-    // Navigate to a map page (use a local map for UI testing)
-    await page.goto('/');
-    // Wait for either dashboard or landing to load
-    await page.waitForLoadState('networkidle');
-  });
-
   test('15.1 - Presence panel renders in editor header', async ({ page }) => {
-    // Create a new map and navigate to editor
-    await page.goto('/map/test-collab-map');
-    // The presence panel should exist in the DOM (even if not connected)
-    // Check for the editor header structure
+    await createMapAndNavigate(page);
     const header = page.locator('[class*="header"]').first();
     await expect(header).toBeVisible({ timeout: 10000 });
   });
 
   test('15.2 - Cursor presence elements exist', async ({ page }) => {
-    await page.goto('/map/test-collab-map');
-    // The SVG canvas should exist
+    await createMapAndNavigate(page);
     const svg = page.locator('svg').first();
     await expect(svg).toBeVisible({ timeout: 10000 });
   });
 
   test('15.3 - Node operations work in editor', async ({ page }) => {
-    await page.goto('/map/test-collab-map');
-    // Wait for the canvas to render
-    const svg = page.locator('svg').first();
-    await expect(svg).toBeVisible({ timeout: 10000 });
-    // Mind map nodes should render
+    await createMapAndNavigate(page);
     const nodes = page.locator('[data-testid="mind-map-node"]');
     await expect(nodes.first()).toBeVisible({ timeout: 10000 });
   });
 
   test('15.9 - Invite button is visible for authenticated users', async ({ page }) => {
-    // This test verifies the invite button exists in the header
-    // In unauthenticated state, the button won't show
-    await page.goto('/map/test-collab-map');
+    await createMapAndNavigate(page);
     const header = page.locator('[class*="header"]').first();
     await expect(header).toBeVisible({ timeout: 10000 });
-    // The action buttons area should exist (may or may not have invite depending on auth)
   });
 
   test('15.9 - Collab join page renders', async ({ page }) => {
-    // Navigate to the collab join page with a fake token
     await page.goto('/collab/join/test-token-12345');
-    // Should show some UI (login redirect or accept flow)
     await page.waitForLoadState('networkidle');
-    // Page should have loaded without crashing
     const body = page.locator('body');
     await expect(body).toBeVisible();
   });

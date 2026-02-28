@@ -6,7 +6,7 @@ A product-level checklist for validating all user-facing features. Use this befo
 - `[AUTO]` — Covered by automated tests (unit or E2E). Verify these still pass with `npm run test:ci`.
 - `[MANUAL]` — Requires manual testing. No automated coverage exists.
 
-**Coverage:** 60 AUTO / 24 MANUAL (84 total test cases)
+**Coverage:** 62 AUTO / 37 MANUAL (99 total test cases)
 
 ---
 
@@ -151,3 +151,39 @@ Cross-cutting concerns that apply regardless of user type.
 
 ### Navigation
 - [MANUAL] Browser back/forward buttons — navigate correctly between dashboard and editor
+
+---
+
+## 5. Real-Time Collaboration (Pro Plan)
+
+Features for simultaneous multi-user editing on the same mind map.
+
+### Connection & Presence
+- [MANUAL] Open a map as a Pro user — connection indicator (green dot) appears in header
+- [MANUAL] Open same map in a second browser/tab — presence panel shows both users with colored dots
+- [MANUAL] Close one tab — remaining tab's presence panel updates to show 1 user
+
+### Real-Time Syncing
+- [MANUAL] Add a node in Tab A — node appears in Tab B within 500ms
+- [MANUAL] Edit a node's text in Tab A — updated text appears in Tab B
+- [MANUAL] Delete a node in Tab A — node disappears from Tab B
+- [MANUAL] Drag a node in Tab A — node moves in real-time in Tab B (during drag, not just on drop)
+
+### Cursor Presence
+- [MANUAL] Move mouse in Tab A — colored cursor with username label appears in Tab B
+
+### Conflict Resolution
+- [MANUAL] Both users edit different properties of the same node simultaneously — both changes merge cleanly (Yjs CRDT)
+
+### Collaboration Invites
+- [MANUAL] Click "Invite" button as map owner — invite modal opens
+- [MANUAL] Generate an invite link — link copies to clipboard
+- [MANUAL] Open invite link in another browser session — invite accepted, map opens in editor
+- [MANUAL] Non-invited user cannot join the collaboration room — access denied
+
+### Disconnect & Reconnect
+- [MANUAL] Disconnect network, make edits offline, reconnect — changes merge with remote edits
+
+### Plan Gating
+- [AUTO] Non-Pro user clicks "Invite" — upgrade modal shown
+- [AUTO] Version History button shows "Pro" badge for free users
