@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Network,
@@ -43,49 +43,51 @@ const features = [
   },
 ];
 
-/** Decorative SVG showing connected mind-map nodes */
-const HeroIllustration: React.FC = () => (
-  <svg
-    className={styles.heroVisual}
-    viewBox="0 0 520 260"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-    role="presentation"
-    focusable="false"
-  >
-    {/* Connection lines */}
-    <line x1="260" y1="130" x2="130" y2="60" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.35" />
-    <line x1="260" y1="130" x2="390" y2="60" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.35" />
-    <line x1="260" y1="130" x2="160" y2="210" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.35" />
-    <line x1="260" y1="130" x2="360" y2="210" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.35" />
-    <line x1="130" y1="60" x2="50" y2="40" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.2" />
-    <line x1="130" y1="60" x2="80" y2="120" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.2" />
-    <line x1="390" y1="60" x2="470" y2="40" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.2" />
-    <line x1="390" y1="60" x2="440" y2="120" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.2" />
-    <line x1="160" y1="210" x2="100" y2="240" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.2" />
-    <line x1="360" y1="210" x2="420" y2="240" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.2" />
+declare global {
+  interface Window {
+    UnicornStudio?: {
+      init: () => void;
+      destroy: () => void;
+    };
+  }
+}
 
-    {/* Outer leaf nodes */}
-    <circle cx="50" cy="40" r="10" fill="#6366f1" fillOpacity="0.15" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.3" />
-    <circle cx="80" cy="120" r="10" fill="#6366f1" fillOpacity="0.15" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.3" />
-    <circle cx="470" cy="40" r="10" fill="#6366f1" fillOpacity="0.15" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.3" />
-    <circle cx="440" cy="120" r="10" fill="#6366f1" fillOpacity="0.15" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.3" />
-    <circle cx="100" cy="240" r="10" fill="#6366f1" fillOpacity="0.15" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.3" />
-    <circle cx="420" cy="240" r="10" fill="#6366f1" fillOpacity="0.15" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.3" />
+const UNICORN_SCRIPT =
+  'https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js';
 
-    {/* Second-level nodes */}
-    <circle cx="130" cy="60" r="18" fill="#6366f1" fillOpacity="0.2" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.5" />
-    <circle cx="390" cy="60" r="18" fill="#6366f1" fillOpacity="0.2" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.5" />
-    <circle cx="160" cy="210" r="18" fill="#6366f1" fillOpacity="0.2" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.5" />
-    <circle cx="360" cy="210" r="18" fill="#6366f1" fillOpacity="0.2" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.5" />
+let unicornScriptLoaded = false;
 
-    {/* Central node with glow */}
-    <circle cx="260" cy="130" r="32" fill="#6366f1" fillOpacity="0.1" />
-    <circle cx="260" cy="130" r="28" fill="#6366f1" fillOpacity="0.25" stroke="#6366f1" strokeWidth="2.5" strokeOpacity="0.7" />
-    <circle cx="260" cy="130" r="8" fill="#6366f1" fillOpacity="0.8" />
-  </svg>
-);
+const HeroBg: React.FC = () => {
+  useEffect(() => {
+    const init = () => {
+      window.UnicornStudio?.destroy();
+      window.UnicornStudio?.init();
+    };
+
+    if (unicornScriptLoaded && window.UnicornStudio) {
+      init();
+      return () => { window.UnicornStudio?.destroy(); };
+    }
+
+    const script = document.createElement('script');
+    script.src = UNICORN_SCRIPT;
+    script.async = true;
+    script.onload = () => {
+      unicornScriptLoaded = true;
+      init();
+    };
+    document.head.appendChild(script);
+
+    return () => { window.UnicornStudio?.destroy(); };
+  }, []);
+
+  return (
+    <div
+      data-us-project="MMKZr2HlfNvoIXWacoiZ"
+      className={styles.heroBg}
+    />
+  );
+};
 
 export const Landing: React.FC = () => {
   return (
@@ -102,19 +104,21 @@ export const Landing: React.FC = () => {
 
       {/* Hero */}
       <section className={styles.hero}>
-        <h1 className={styles.heroHeadline}>
-          Map Your Mind,{' '}
-          <span className={styles.heroHeadlineAccent}>Master Your Knowledge</span>
-        </h1>
-        <p className={styles.heroSub}>
-          ThoughtNet helps you organize ideas visually with interactive mind maps.
-          Free to use, powerful to master.
-        </p>
-        <div className={styles.heroCtas}>
-          <Link to="/signup" className={styles.ctaPrimary}>Get Started Free</Link>
-          <Link to="/library" className={styles.ctaSecondary}>Browse Library</Link>
+        <HeroBg />
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroHeadline}>
+            Map Your Mind,{' '}
+            <span className={styles.heroHeadlineAccent}>Master Your Knowledge</span>
+          </h1>
+          <p className={styles.heroSub}>
+            ThoughtNet helps you organize ideas visually with interactive mind maps.
+            Free to use, powerful to master.
+          </p>
+          <div className={styles.heroCtas}>
+            <Link to="/signup" className={styles.ctaPrimary}>Get Started Free</Link>
+            <Link to="/library" className={styles.ctaSecondary}>Browse Library</Link>
+          </div>
         </div>
-        <HeroIllustration />
       </section>
 
       {/* Stats Bar */}
@@ -154,11 +158,44 @@ export const Landing: React.FC = () => {
 
       {/* Bottom CTA */}
       <section className={styles.bottomCta}>
-        <h2 className={styles.bottomCtaTitle}>Ready to start mapping?</h2>
-        <p className={styles.bottomCtaSub}>
-          Join the community and bring your ideas to life — completely free.
-        </p>
-        <Link to="/signup" className={styles.ctaPrimary}>Sign Up Free</Link>
+        <svg
+          className={styles.bottomCtaBg}
+          viewBox="0 0 520 260"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <line x1="260" y1="130" x2="130" y2="60" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.35" />
+          <line x1="260" y1="130" x2="390" y2="60" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.35" />
+          <line x1="260" y1="130" x2="160" y2="210" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.35" />
+          <line x1="260" y1="130" x2="360" y2="210" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.35" />
+          <line x1="130" y1="60" x2="50" y2="40" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.2" />
+          <line x1="130" y1="60" x2="80" y2="120" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.2" />
+          <line x1="390" y1="60" x2="470" y2="40" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.2" />
+          <line x1="390" y1="60" x2="440" y2="120" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.2" />
+          <line x1="160" y1="210" x2="100" y2="240" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.2" />
+          <line x1="360" y1="210" x2="420" y2="240" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.2" />
+          <circle cx="50" cy="40" r="10" fill="#6366f1" fillOpacity="0.15" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.3" />
+          <circle cx="80" cy="120" r="10" fill="#6366f1" fillOpacity="0.15" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.3" />
+          <circle cx="470" cy="40" r="10" fill="#6366f1" fillOpacity="0.15" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.3" />
+          <circle cx="440" cy="120" r="10" fill="#6366f1" fillOpacity="0.15" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.3" />
+          <circle cx="100" cy="240" r="10" fill="#6366f1" fillOpacity="0.15" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.3" />
+          <circle cx="420" cy="240" r="10" fill="#6366f1" fillOpacity="0.15" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.3" />
+          <circle cx="130" cy="60" r="18" fill="#6366f1" fillOpacity="0.2" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.5" />
+          <circle cx="390" cy="60" r="18" fill="#6366f1" fillOpacity="0.2" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.5" />
+          <circle cx="160" cy="210" r="18" fill="#6366f1" fillOpacity="0.2" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.5" />
+          <circle cx="360" cy="210" r="18" fill="#6366f1" fillOpacity="0.2" stroke="#6366f1" strokeWidth="2" strokeOpacity="0.5" />
+          <circle cx="260" cy="130" r="32" fill="#6366f1" fillOpacity="0.1" />
+          <circle cx="260" cy="130" r="28" fill="#6366f1" fillOpacity="0.25" stroke="#6366f1" strokeWidth="2.5" strokeOpacity="0.7" />
+          <circle cx="260" cy="130" r="8" fill="#6366f1" fillOpacity="0.8" />
+        </svg>
+        <div className={styles.bottomCtaContent}>
+          <h2 className={styles.bottomCtaTitle}>Ready to start mapping?</h2>
+          <p className={styles.bottomCtaSub}>
+            Join the community and bring your ideas to life — completely free.
+          </p>
+          <Link to="/signup" className={styles.ctaPrimary}>Sign Up Free</Link>
+        </div>
       </section>
 
       {/* Footer */}
