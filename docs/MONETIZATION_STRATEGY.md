@@ -26,7 +26,7 @@
 | Tier | Price | Features |
 |------|-------|----------|
 | **Free** | $0 | Unlimited local maps, 1 cloud save, JSON export, public library (browse/fork/rate/publish), house ads |
-| **Pro** | $3/mo or $24/yr | Unlimited cloud saves, premium exports (PNG/SVG/PDF/Markdown), private sharing, version history, real-time collaboration, no ads |
+| **Pro** | $5/mo or $40/yr | Unlimited cloud saves, premium exports (PNG/SVG/PDF/Markdown), private sharing, version history, real-time collaboration, no ads |
 
 Revenue streams: Google AdSense (free users) + Pro subscriptions.
 
@@ -96,25 +96,25 @@ For ThoughtNet projections, we use three scenarios:
 - **Base case:** 4% (decent onboarding, clear value differentiation)
 - **Optimistic:** 7% (strong word-of-mouth, community-driven growth)
 
-### Monthly Subscription Revenue at $3/mo
+### Monthly Subscription Revenue at $5/mo
 
 | MAU | Conv. Rate | Paying Users | Monthly Revenue | Annual Revenue |
 |-----|-----------|-------------|-----------------|----------------|
-| 100 | 2% | 2 | **$6** | **$72** |
-| 100 | 4% | 4 | **$12** | **$144** |
-| 100 | 7% | 7 | **$21** | **$252** |
-| 1,000 | 2% | 20 | **$60** | **$720** |
-| 1,000 | 4% | 40 | **$120** | **$1,440** |
-| 1,000 | 7% | 70 | **$210** | **$2,520** |
-| 10,000 | 2% | 200 | **$600** | **$7,200** |
-| 10,000 | 4% | 400 | **$1,200** | **$14,400** |
-| 10,000 | 7% | 700 | **$2,100** | **$25,200** |
+| 100 | 2% | 2 | **$10** | **$120** |
+| 100 | 4% | 4 | **$20** | **$240** |
+| 100 | 7% | 7 | **$35** | **$420** |
+| 1,000 | 2% | 20 | **$100** | **$1,200** |
+| 1,000 | 4% | 40 | **$200** | **$2,400** |
+| 1,000 | 7% | 70 | **$350** | **$4,200** |
+| 10,000 | 2% | 200 | **$1,000** | **$12,000** |
+| 10,000 | 4% | 400 | **$2,000** | **$24,000** |
+| 10,000 | 7% | 700 | **$3,500** | **$42,000** |
 
 ### Impact of Annual Plan Uptake
 
-Assuming 30% of subscribers choose annual ($24/yr = $2/mo effective), blended ARPU drops slightly:
+Assuming 30% of subscribers choose annual ($40/yr = $3.33/mo effective), blended ARPU drops slightly:
 
-- **Blended ARPU:** (0.70 x $3) + (0.30 x $2) = **$2.70/mo**
+- **Blended ARPU:** (0.70 x $5) + (0.30 x $3.33) = **$4.50/mo**
 
 This reduces monthly revenue by ~10% but improves retention and cash-flow predictability. Annual subscribers churn at roughly half the rate of monthly subscribers.
 
@@ -122,21 +122,21 @@ This reduces monthly revenue by ~10% but improves retention and cash-flow predic
 
 ## Combined Revenue Projections
 
-### Base Case (4% conversion, $7 RPM, $3/mo pricing)
+### Base Case (4% conversion, $7 RPM, $5/mo pricing)
 
 | MAU | Ad Revenue/mo | Sub Revenue/mo | **Total/mo** | **Total/yr** |
 |-----|--------------|---------------|-------------|-------------|
-| 100 | $7 | $12 | **$19** | **$228** |
-| 1,000 | $71 | $120 | **$191** | **$2,292** |
-| 10,000 | $714 | $1,200 | **$1,914** | **$22,968** |
+| 100 | $7 | $20 | **$27** | **$324** |
+| 1,000 | $71 | $200 | **$271** | **$3,252** |
+| 10,000 | $714 | $2,000 | **$2,714** | **$32,568** |
 
-### Optimistic Case (7% conversion, $10 RPM, $3/mo pricing)
+### Optimistic Case (7% conversion, $10 RPM, $5/mo pricing)
 
 | MAU | Ad Revenue/mo | Sub Revenue/mo | **Total/mo** | **Total/yr** |
 |-----|--------------|---------------|-------------|-------------|
-| 100 | $10 | $21 | **$31** | **$372** |
-| 1,000 | $102 | $210 | **$312** | **$3,744** |
-| 10,000 | $1,020 | $2,100 | **$3,120** | **$37,440** |
+| 100 | $10 | $35 | **$45** | **$540** |
+| 1,000 | $102 | $350 | **$452** | **$5,424** |
+| 10,000 | $1,020 | $3,500 | **$4,520** | **$54,240** |
 
 ### Revenue Mix at Scale
 
@@ -154,7 +154,7 @@ Subscriptions dominate at every scale. Ads become a meaningful supplement only a
 
 | Tool | Free Tier | Paid Entry Price | Mid-Tier | Premium/Business |
 |------|-----------|-----------------|----------|-----------------|
-| **ThoughtNet** | Unlimited local, 1 cloud, JSON export | **$3/mo** ($24/yr) | - | - |
+| **ThoughtNet** | Unlimited local, 1 cloud, JSON export | **$5/mo** ($40/yr) | - | - |
 | **MindMeister** | 3 maps total | **$7.50/mo** (Personal) | $12.50/mo (Pro) | $19/mo (Business) |
 | **Coggle** | 3 private diagrams | **$5/mo** (Awesome) | $8/mo (Org) | - |
 | **Whimsical** | 3 private diagrams | **$5/mo** (Awesome) | $10/mo (Org) | Custom |
@@ -163,22 +163,22 @@ Subscriptions dominate at every scale. Ads become a meaningful supplement only a
 
 ### Key Observations
 
-1. **ThoughtNet at $3/mo is the cheapest paid mind mapping tool on the market** -- by a significant margin. The next cheapest is Coggle/Whimsical at $5/mo, and the industry average entry point is $5-$8/mo.
+1. **ThoughtNet at $5/mo matches the lowest-priced paid mind mapping tools on the market** (Coggle/Whimsical at $5/mo), while offering a significantly more feature-rich Pro tier. The industry average entry point is $5-$8/mo.
 
 2. **ThoughtNet's free tier is the most generous.** Competitors limit free users to 3 maps total. ThoughtNet offers unlimited local maps, which is far more generous. The 1 cloud save limit is the primary gate.
 
-3. **Price anchoring concern:** Being the cheapest can signal lower quality or less capability. Users comparing tools may perceive $3/mo as "too cheap to be serious."
+3. **Price anchoring is now appropriate.** $5/mo is a widely understood price point (a coffee, a basic subscription) that signals a serious product without feeling expensive.
 
 4. **ThoughtNet's Pro feature set competes with mid-tier plans** at competitors. Real-time collaboration, version history, and premium exports are features MindMeister charges $12.50/mo for.
 
-### Is $3/mo Too Cheap?
+### Is $5/mo the Right Price?
 
 **Yes.** Based on the competitive landscape:
 
-- ThoughtNet is underpriced by 40-60% relative to comparable offerings
+- ThoughtNet is competitively priced and still undercuts most comparable offerings
 - The feature set (real-time collaboration, version history, premium exports) is competitive with $8-$12/mo plans elsewhere
-- At $3/mo, ThoughtNet would need 2.5x more subscribers than a $7.50/mo product to match revenue
-- Low price does not meaningfully improve conversion rates in this market; users decide based on features and fit, not saving $2-4/mo
+- At $5/mo, ThoughtNet offers strong value relative to competitors while generating sustainable revenue
+- The $5/mo price point is well-understood by consumers and signals a professional tool
 
 ---
 
@@ -239,7 +239,7 @@ Subscriptions dominate at every scale. Ads become a meaningful supplement only a
 
 **Phase 100-1,000 MAU (Month 3-9):**
 - Analyze ad revenue vs. user satisfaction data. If ad RPM is below $5, consider removing ads entirely for cleaner UX.
-- A/B test pricing ($3 vs $5 vs $5 with annual discount).
+- A/B test pricing ($5 vs $7 vs $5 with annual discount).
 - Introduce annual plan more prominently if monthly churn is high.
 
 **Phase 1,000-10,000 MAU (Month 9-18):**
@@ -251,17 +251,17 @@ Subscriptions dominate at every scale. Ads become a meaningful supplement only a
 
 ## Pricing Recommendation
 
-### Raise to $5/mo ($40/yr)
+### $5/mo ($40/yr) -- Implemented
 
-**The case for $5/mo:**
+**Why $5/mo is the right price:**
 
-1. **Still the cheapest** in the market. Coggle and Whimsical charge $5/mo with fewer features. MindMeister charges $7.50/mo. ThoughtNet at $5/mo is competitive and undercuts the market while being taken seriously.
+1. **Competitively priced** in the market. Coggle and Whimsical charge $5/mo with fewer features. MindMeister charges $7.50/mo. ThoughtNet at $5/mo is competitive and undercuts the market while being taken seriously.
 
-2. **67% revenue increase** per subscriber over $3/mo, with negligible impact on conversion rates. Research consistently shows that in the $3-$10/mo range for productivity tools, price is not the primary conversion driver -- feature-market fit is.
+2. **67% revenue increase** per subscriber over the previous $3/mo price, with negligible impact on conversion rates. Research consistently shows that in the $3-$10/mo range for productivity tools, price is not the primary conversion driver -- feature-market fit is.
 
-3. **Better price anchoring.** $5/mo is a widely understood price point (a coffee, a basic subscription). $3/mo can read as "hobby project" rather than "professional tool."
+3. **Strong price anchoring.** $5/mo is a widely understood price point (a coffee, a basic subscription) that signals "professional tool" rather than "hobby project."
 
-4. **Annual plan becomes more compelling.** $40/yr ($3.33/mo effective) vs $60/yr ($5/mo) gives a 33% discount -- a strong incentive to commit annually. At $24/yr the annual discount from $3/mo was only 33% as well, but the absolute dollar savings ($12) felt insignificant.
+4. **Annual plan is compelling.** $40/yr ($3.33/mo effective) vs $60/yr ($5/mo) gives a 33% discount -- a strong incentive to commit annually. The absolute dollar savings ($20) feel meaningful to users.
 
 ### Revised Revenue Projections at $5/mo
 
@@ -318,7 +318,7 @@ Offer a limited lifetime deal during the first 3 months post-launch to bootstrap
 ## Executive Summary: One-Page Recommendation
 
 ### Pricing
-- **Raise Pro to $5/mo ($40/yr).** Still cheapest in market, 67% more revenue per subscriber, better perceived value.
+- **Pro is $5/mo ($40/yr).** Competitively priced in market, 67% more revenue per subscriber than previous $3/mo, strong perceived value.
 - **Offer a capped lifetime deal at $49** for the first 100 users during launch. Frame as "Founding Member" pricing.
 
 ### Free Tier

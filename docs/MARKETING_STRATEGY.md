@@ -36,7 +36,7 @@
 
 | Feature | ThoughtNet | Most Competitors |
 |---------|------------|-----------------|
-| Price | $3/mo or $24/yr | $5-8/mo average |
+| Price | $5/mo or $40/yr | $5-8/mo average |
 | Free maps | Unlimited local | 3 maps typical |
 | Community library | Yes (core feature) | No |
 | Fork/remix maps | Yes | No |
@@ -45,7 +45,7 @@
 
 **Core differentiator**: The public library. No competitor has a GitHub-style community where users browse, fork, rate, and publish mind maps. This is ThoughtNet's moat.
 
-**Pricing advantage**: At $3/mo, ThoughtNet undercuts MindMeister ($7.50/mo) by 60% and Xmind ($6/mo) by 50%.
+**Pricing advantage**: At $5/mo, ThoughtNet undercuts MindMeister ($7.50/mo) by 33% and matches Coggle/Whimsical while offering more features.
 
 ---
 
@@ -150,7 +150,7 @@ Write these as content pages on a `/blog` subdirectory or on a separate blog pla
 
 ```html
 <title>ThoughtNet - Free Mind Mapping Tool with Community Library | mind.study.coffee</title>
-<meta name="description" content="Create, share, and fork mind maps for free. ThoughtNet is the community-driven mind mapping tool with real-time collaboration, public library, and Pro plans starting at $3/mo." />
+<meta name="description" content="Create, share, and fork mind maps for free. ThoughtNet is the community-driven mind mapping tool with real-time collaboration, public library, and Pro plans starting at $5/mo." />
 <meta name="keywords" content="mind map, mind mapping tool, free mind map, collaborative mind map, mind map maker, online mind map, mind map library" />
 <link rel="canonical" href="https://mind.study.coffee" />
 ```
@@ -173,7 +173,7 @@ Write these as content pages on a `/blog` subdirectory or on a separate blog pla
 ```html
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="ThoughtNet - Free Mind Mapping with Community Library" />
-<meta name="twitter:description" content="Create unlimited mind maps for free. Browse and fork maps from the community. Pro starts at $3/mo." />
+<meta name="twitter:description" content="Create unlimited mind maps for free. Browse and fork maps from the community. Pro starts at $5/mo." />
 <meta name="twitter:image" content="https://mind.study.coffee/og-image.png" />
 ```
 
@@ -196,7 +196,7 @@ Write these as content pages on a `/blog` subdirectory or on a separate blog pla
     },
     {
       "@type": "Offer",
-      "price": "3.00",
+      "price": "5.00",
       "priceCurrency": "USD",
       "billingIncrement": "P1M",
       "description": "Pro plan - Unlimited cloud, premium exports, real-time collaboration"
@@ -210,7 +210,7 @@ Write these as content pages on a `/blog` subdirectory or on a separate blog pla
     "Version history",
     "Cloud sync"
   ],
-  "description": "Community-driven mind mapping tool. Create, share, and fork mind maps. Free with Pro plans starting at $3/month."
+  "description": "Community-driven mind mapping tool. Create, share, and fork mind maps. Free with Pro plans starting at $5/month."
 }
 ```
 
@@ -254,7 +254,7 @@ This is the long-term SEO engine: every published map is an indexable page that 
 > The GitHub for mind maps - create, share, fork, collaborate
 
 **Short Description** (260 chars max):
-> ThoughtNet is a free, community-driven mind mapping tool. Create unlimited maps locally, browse and fork maps from a public library, and collaborate in real-time. Like GitHub, but for visual thinking. Pro starts at $3/mo.
+> ThoughtNet is a free, community-driven mind mapping tool. Create unlimited maps locally, browse and fork maps from a public library, and collaborate in real-time. Like GitHub, but for visual thinking. Pro starts at $5/mo.
 
 **Topics**: Productivity, Design Tools, Education, Open Source
 
@@ -278,7 +278,7 @@ This is the long-term SEO engine: every published map is an indexable page that 
 > - Rate and discover trending maps
 > - Export to JSON
 >
-> Pro ($3/mo or $24/yr) adds:
+> Pro ($5/mo or $40/yr) adds:
 > - Unlimited cloud saves
 > - Real-time collaboration with cursor presence
 > - Export to PNG, SVG, PDF, Markdown
@@ -308,7 +308,7 @@ This is the long-term SEO engine: every published map is an indexable page that 
 > - You can create unlimited mind maps for free (stored locally in your browser)
 > - There's a **public library** where people publish their maps and others can browse, fork, and rate them
 > - You can fork any public map and customize it for your own use
-> - The Pro plan is $3/mo if you want cloud sync, collaboration, and premium exports
+> - The Pro plan is $5/mo if you want cloud sync, collaboration, and premium exports
 >
 > The library is the part I'm most excited about. Imagine finding a well-structured "Project Planning" or "Study Guide for Biology 101" template that someone already made, forking it, and adapting it to your needs.
 >
@@ -361,7 +361,7 @@ This is the long-term SEO engine: every published map is an indexable page that 
 > - Backend: Express.js on AWS App Runner
 > - Database: Postgres on RDS
 > - Auth: AWS Cognito
-> - Payments: Stripe ($3/mo Pro plan)
+> - Payments: Stripe ($5/mo Pro plan)
 > - Hosting: AWS Amplify (frontend), ECR + App Runner (backend)
 > - Real-time: WebSocket-based collaboration with cursor presence
 >
@@ -398,7 +398,7 @@ This is the long-term SEO engine: every published map is an indexable page that 
 > - Community library access (browse, fork, rate, publish)
 > - JSON export
 >
-> **What's Pro ($3/mo):**
+> **What's Pro ($5/mo):**
 > - Unlimited cloud saves
 > - Real-time collaboration
 > - Premium exports (PNG, SVG, PDF, Markdown)
@@ -408,7 +408,7 @@ This is the long-term SEO engine: every published map is an indexable page that 
 > **Lessons learned:**
 > - The hardest part was scoping. I originally planned too many features and had to ruthlessly prioritize.
 > - Building the community library was the most rewarding feature to implement - it turns users from consumers into contributors.
-> - Pricing at $3/mo was deliberate. Most competitors charge $6-8/mo. I want the Pro plan to be an impulse purchase, not a budget decision.
+> - Pricing at $5/mo was deliberate. Most competitors charge $6-8/mo. I want the Pro plan to be an impulse purchase, not a budget decision.
 >
 > Would love feedback, especially on the library concept. Is a "GitHub for mind maps" something you'd actually use?
 >
@@ -427,7 +427,7 @@ This is the long-term SEO engine: every published map is an indexable page that 
 
 > ThoughtNet (https://mind.study.coffee) is a web-based mind mapping tool built around a community library where users can publish, browse, fork, and rate mind maps.
 >
-> The free tier gives you unlimited local maps, library access, and JSON export. Pro ($3/mo) adds cloud sync, real-time collaboration, premium exports, and version history.
+> The free tier gives you unlimited local maps, library access, and JSON export. Pro ($5/mo) adds cloud sync, real-time collaboration, premium exports, and version history.
 >
 > Built with React, D3.js (SVG rendering), Express.js, Postgres, and AWS. The "fork" concept works like a git fork - you get a full copy of someone's published map that you can customize and optionally republish.
 >
@@ -485,9 +485,9 @@ This is the long-term SEO engine: every published map is an indexable page that 
 > [Screenshot of library browse page]
 
 **Tweet 5 (Pro plan):**
-> Pro is $3/month (or $24/year).
+> Pro is $5/month (or $40/year).
 >
-> That's 60% cheaper than MindMeister.
+> That's 33% cheaper than MindMeister.
 >
 > What you get:
 > - Unlimited cloud saves
@@ -550,7 +550,7 @@ This is the long-term SEO engine: every published map is an indexable page that 
 
 5. Challenges and Lessons
    - D3.js performance at scale (60fps with 100+ nodes)
-   - Pricing strategy ($3/mo in a $6-8/mo market)
+   - Pricing strategy ($5/mo in a $6-8/mo market)
    - Building a community library from zero
    - Solo developer scope management
 
@@ -610,11 +610,11 @@ Average CPC for mind mapping keywords: **~$2.00-3.00**
 - Sign-up to free active user: 40-60%
 - Free to Pro conversion: 2-5%
 
-| Scenario | CPC | Click-to-Signup | Signup-to-Pro | CAC (Pro) | LTV ($3/mo, 8mo avg) | LTV:CAC |
+| Scenario | CPC | Click-to-Signup | Signup-to-Pro | CAC (Pro) | LTV ($5/mo, 8mo avg) | LTV:CAC |
 |----------|-----|----------------|---------------|-----------|----------------------|---------|
-| Pessimistic | $3.00 | 5% | 2% | $3,000 | $24 | 0.008:1 |
-| Realistic | $2.50 | 8% | 3% | $1,042 | $24 | 0.023:1 |
-| Optimistic | $1.50 | 10% | 5% | $300 | $24 | 0.08:1 |
+| Pessimistic | $3.00 | 5% | 2% | $3,000 | $40 | 0.013:1 |
+| Realistic | $2.50 | 8% | 3% | $1,042 | $40 | 0.038:1 |
+| Optimistic | $1.50 | 10% | 5% | $300 | $40 | 0.13:1 |
 
 **Even the optimistic scenario shows an LTV:CAC ratio far below the 3:1 target.**
 
@@ -622,7 +622,7 @@ Average CPC for mind mapping keywords: **~$2.00-3.00**
 
 **Reasons:**
 
-1. **Unit economics are terrible at this stage.** At $3/mo with a freemium model, the conversion funnel is too deep for paid search to be viable. You need hundreds of clicks to produce one paying customer.
+1. **Unit economics are challenging at this stage.** At $5/mo with a freemium model, the conversion funnel is too deep for paid search to be viable. You need hundreds of clicks to produce one paying customer.
 
 2. **No brand recognition.** Cold traffic converts poorly for unknown SaaS products. Paid ads work best when amplifying existing demand, not creating it from scratch.
 
@@ -858,7 +858,7 @@ Revisit paid advertising when:
 - Cumulative: 3,000-8,000 unique visitors
 - Cumulative: 300-800 sign-ups
 - Cumulative: 80-200 maps in library
-- Cumulative: 10-30 Pro subscriptions ($30-90 MRR)
+- Cumulative: 10-30 Pro subscriptions ($50-150 MRR)
 - 2+ blog posts published and indexed
 
 ---
@@ -873,7 +873,7 @@ Revisit paid advertising when:
 | Maps published to library | DB | 80-200 |
 | Library forks | DB | 50-150 |
 | Pro conversions | Stripe | 10-30 |
-| MRR | Stripe | $30-90 |
+| MRR | Stripe | $50-150 |
 | Bounce rate (landing page) | GA4 | < 60% |
 | Avg. session duration | GA4 | > 3 min |
 | Product Hunt upvotes | PH | 100+ |
@@ -899,7 +899,7 @@ In all marketing copy, consistently highlight these differentiators:
 
 1. **Community library** (no competitor has this) -- "GitHub for mind maps"
 2. **Unlimited free maps** (competitors cap at 3)
-3. **$3/mo pricing** (60% cheaper than MindMeister)
+3. **$5/mo pricing** (33% cheaper than MindMeister)
 4. **Fork and remix** (unique mechanic)
 5. **No account required** to start (lower friction than all competitors)
 
