@@ -162,10 +162,10 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         if (currentText !== content) {
           editor.commands.setContent(content);
         }
-      } else if (!content) {
-        // Clear the editor if no content
-        editor.commands.clearContent();
       }
+      // Note: do not clear editor when content becomes falsy — the editor
+      // may have local content that should be preserved during re-renders.
+      // Explicit clearing happens via component unmount (e.g., note deletion).
     }
   }, [content, contentType, editor]);
 
