@@ -74,7 +74,7 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
   }, [isAuthenticated]);
 
   // Collaboration: cursor presence and drag sync
-  const { broadcastCursor } = useCollabCursors({ enabled: !!collabConnected, users: collabUsers || [] });
+  const { remoteCursors, broadcastCursor } = useCollabCursors({ enabled: !!collabConnected, users: collabUsers || [] });
   const { remoteDrags, broadcastDragPosition, broadcastDragEnd } = useCollabDragSync({ enabled: !!collabConnected });
 
   // Multi-select state
@@ -1810,6 +1810,43 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
         });
     });
   }, [remoteDrags]);
+
+  // Render remote cursors as SVG elements
+  useEffect(() => {
+    if (!gRef.current) return;
+    const g = gRef.current;
+
+    // Remove stale cursor elements
+    g.selectAll('.collab-cursor').remove();
+
+    if (!remoteCursors || remoteCursors.size === 0) return;
+
+    remoteCursors.forEach((cursor) => {
+      const cursorG = g.append('g')
+        .attr('class', 'collab-cursor')
+        .attr('transform', `translate(${cursor.x},${cursor.y})`)
+        .style('pointer-events', 'none')
+        .style('transition', 'transform 0.1s ease-out');
+
+      // Arrow cursor
+      cursorG.append('path')
+        .attr('d', 'M0,0 L0,14 L4,11 L7,17 L9,16 L6,10 L11,10 Z')
+        .attr('fill', cursor.color)
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 0.5);
+
+      // Username label
+      cursorG.append('text')
+        .attr('x', 14)
+        .attr('y', 12)
+        .attr('font-size', '11px')
+        .attr('fill', cursor.color)
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 2)
+        .attr('paint-order', 'stroke')
+        .text(cursor.username);
+    });
+  }, [remoteCursors]);
 
   // Handle canvas interactions + marquee selection
   useEffect(() => {

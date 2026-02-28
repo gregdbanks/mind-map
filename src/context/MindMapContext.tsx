@@ -19,7 +19,7 @@ interface MindMapContextType {
   markDirty: () => void;
 }
 
-const MindMapContext = createContext<MindMapContextType | undefined>(undefined);
+export const MindMapContext = createContext<MindMapContextType | undefined>(undefined);
 
 interface MindMapProviderProps {
   children: ReactNode;

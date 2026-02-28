@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { X, Copy, Check, Trash2 } from 'lucide-react';
 import { apiClient } from '../../services/apiClient';
 import styles from './CollabInviteModal.module.css';
@@ -26,7 +26,7 @@ export const CollabInviteModal: React.FC<CollabInviteModalProps> = ({ mapId, onC
   const [creating, setCreating] = useState(false);
   const [copiedToken, setCopiedToken] = useState<string | null>(null);
 
-  const loadInvites = async () => {
+  const loadInvites = useCallback(async () => {
     try {
       const result = await apiClient.getCollabInvites(mapId);
       setInvites(result.invites);
@@ -35,11 +35,11 @@ export const CollabInviteModal: React.FC<CollabInviteModalProps> = ({ mapId, onC
     } finally {
       setLoading(false);
     }
-  };
+  }, [mapId]);
 
   useEffect(() => {
     loadInvites();
-  }, [mapId]);
+  }, [loadInvites]);
 
   const handleCreateInvite = async () => {
     setCreating(true);

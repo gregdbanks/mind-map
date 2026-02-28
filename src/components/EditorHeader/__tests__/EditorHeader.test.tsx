@@ -59,13 +59,7 @@ jest.mock('../../CollabInviteModal', () => ({
   ),
 }));
 
-jest.mock('../../TeamsUpgradeModal', () => ({
-  TeamsUpgradeModal: ({ onClose }: { onClose: () => void }) => (
-    <div data-testid="teams-upgrade-modal">
-      <button onClick={onClose}>Close Teams Upgrade</button>
-    </div>
-  ),
-}));
+
 
 jest.mock('../../PresencePanel', () => ({
   PresencePanel: () => <div data-testid="presence-panel" />,

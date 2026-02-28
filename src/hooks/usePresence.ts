@@ -36,24 +36,24 @@ export function usePresence({ mapId, enabled = true }: UsePresenceOptions): UseP
 
       if (!mountedRef.current) return;
 
-      socket.on('presence-update', (updatedUsers: CollabUser[]) => {
-        if (mountedRef.current) {
-          setUsers(updatedUsers);
-        }
-      });
+      const handlePresence = (updatedUsers: CollabUser[]) => {
+        if (mountedRef.current) setUsers(updatedUsers);
+      };
 
-      socket.on('disconnect', () => {
-        if (mountedRef.current) {
-          setIsConnected(false);
-        }
-      });
+      const handleDisconnect = () => {
+        if (mountedRef.current) setIsConnected(false);
+      };
 
-      socket.on('reconnect', () => {
+      const handleReconnect = () => {
         if (mountedRef.current) {
           setIsConnected(true);
           collabSocket.joinRoom(mapId);
         }
-      });
+      };
+
+      socket.on('presence-update', handlePresence);
+      socket.on('disconnect', handleDisconnect);
+      socket.on('reconnect', handleReconnect);
 
       setIsConnected(true);
       collabSocket.joinRoom(mapId);
@@ -86,7 +86,7 @@ export function usePresence({ mapId, enabled = true }: UsePresenceOptions): UseP
       mountedRef.current = false;
       collabSocket.leaveRoom();
     };
-  }, [mapId, enabled, isAuthenticated]);
+  }, [mapId, enabled, isAuthenticated, connect]);
 
   return { users, isConnected, isConnecting, error, connect, disconnect };
 }

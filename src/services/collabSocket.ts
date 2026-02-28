@@ -1,4 +1,5 @@
-import { io, Socket } from 'socket.io-client';
+import { io } from 'socket.io-client';
+import type { Socket } from 'socket.io-client';
 import { cognitoService } from './cognitoService';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';

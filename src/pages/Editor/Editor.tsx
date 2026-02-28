@@ -11,7 +11,16 @@ import { apiClient } from '../../services/apiClient';
 import { VersionHistoryPanel } from '../../components/VersionHistoryPanel';
 import { usePresence } from '../../hooks/usePresence';
 
-const EditorContent: React.FC<{ mapId: string }> = ({ mapId }) => {
+import type { CollabUser } from '../../services/collabSocket';
+
+interface EditorContentProps {
+  mapId: string;
+  collabUsers: CollabUser[];
+  collabConnected: boolean;
+  collabConnecting: boolean;
+}
+
+const EditorContent: React.FC<EditorContentProps> = ({ mapId, collabUsers, collabConnected, collabConnecting }) => {
   const { state, dispatch } = useMindMap();
   const { syncStatus, canSync, isOnline } = useCloudSync();
   const { isAuthenticated } = useAuth();
@@ -20,7 +29,6 @@ const EditorContent: React.FC<{ mapId: string }> = ({ mapId }) => {
   const [isAtCloudLimit, setIsAtCloudLimit] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [previewingVersionId, setPreviewingVersionId] = useState<string | null>(null);
-  const { users: collabUsers, isConnected: collabConnected, isConnecting: collabConnecting } = usePresence({ mapId, enabled: isAuthenticated });
   const prevDirtyRef = useRef(state.isDirty);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -153,6 +161,7 @@ export const Editor: React.FC = () => {
   const { mapId } = useParams<{ mapId: string }>();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const { users: collabUsers, isConnected: collabConnected, isConnecting: collabConnecting } = usePresence({ mapId: mapId || '', enabled: isAuthenticated });
 
   if (!mapId) {
     navigate('/', { replace: true });
@@ -160,8 +169,8 @@ export const Editor: React.FC = () => {
   }
 
   return (
-    <CollabMindMapProvider mapId={mapId} collabEnabled={isAuthenticated}>
-      <EditorContent mapId={mapId} />
+    <CollabMindMapProvider mapId={mapId} collabEnabled={isAuthenticated} collabConnected={collabConnected}>
+      <EditorContent mapId={mapId} collabUsers={collabUsers} collabConnected={collabConnected} collabConnecting={collabConnecting} />
     </CollabMindMapProvider>
   );
 };

@@ -1,6 +1,6 @@
 export class SocketIOYjsProvider {
   doc: any;
-  constructor(doc: any, _roomId: string) {
+  constructor(doc: any) {
     this.doc = doc;
   }
   connect() {}

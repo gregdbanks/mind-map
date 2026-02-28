@@ -5,48 +5,57 @@ import type { Socket } from 'socket.io-client';
 export class SocketIOYjsProvider {
   doc: Y.Doc;
   private socket: Socket | null = null;
-  private roomId: string;
   private _synced = false;
   private _destroyed = false;
 
-  constructor(doc: Y.Doc, roomId: string) {
+  // Named handler refs for targeted removal in destroy()
+  private _handleSyncStep1: ((data: ArrayBuffer) => void) | null = null;
+  private _handleSyncStep2: ((data: ArrayBuffer) => void) | null = null;
+  private _handleYjsUpdate: ((data: ArrayBuffer) => void) | null = null;
+
+  constructor(doc: Y.Doc) {
     this.doc = doc;
-    this.roomId = roomId;
   }
 
   connect() {
     this.socket = collabSocket.getSocket();
     if (!this.socket) return;
 
-    // Listen for sync step 1 from server (server sends its state vector)
-    this.socket.on('yjs-sync-step1', (data: ArrayBuffer) => {
+    // Handler: server sends its state vector (sync step 1)
+    // Respond with our diff as sync step 2
+    this._handleSyncStep1 = (data: ArrayBuffer) => {
       if (this._destroyed) return;
-      // Server sent sync step 1 — respond with sync step 2 (our state as update)
-      const update = Y.encodeStateAsUpdate(this.doc);
+      const serverStateVector = new Uint8Array(data);
+      // Compute diff: only changes server doesn't have
+      const update = Y.encodeStateAsUpdate(this.doc, serverStateVector);
       this.socket?.emit('yjs-sync-step2', update);
+    };
 
-      // Also send our sync step 1 to get server's state
-      const stateVector = Y.encodeStateVector(this.doc);
-      this.socket?.emit('yjs-sync-step1', stateVector);
-    });
-
-    // Listen for sync step 2 from server (server sends us its diff)
-    this.socket.on('yjs-sync-step2', (data: ArrayBuffer) => {
-      if (this._destroyed) return;
-      const update = new Uint8Array(data);
-      Y.applyUpdate(this.doc, update);
-      this._synced = true;
-    });
-
-    // Listen for incremental updates from other clients (relayed by server)
-    this.socket.on('yjs-update', (data: ArrayBuffer) => {
+    // Handler: server sends its diff (sync step 2)
+    this._handleSyncStep2 = (data: ArrayBuffer) => {
       if (this._destroyed) return;
       const update = new Uint8Array(data);
       Y.applyUpdate(this.doc, update, 'remote');
-    });
+      this._synced = true;
+    };
+
+    // Handler: incremental updates from other clients (relayed by server)
+    this._handleYjsUpdate = (data: ArrayBuffer) => {
+      if (this._destroyed) return;
+      const update = new Uint8Array(data);
+      Y.applyUpdate(this.doc, update, 'remote');
+    };
+
+    this.socket.on('yjs-sync-step1', this._handleSyncStep1);
+    this.socket.on('yjs-sync-step2', this._handleSyncStep2);
+    this.socket.on('yjs-update', this._handleYjsUpdate);
 
     // Send local changes to server
     this.doc.on('update', this._onDocUpdate);
+
+    // Initiate sync: send our state vector as sync step 1
+    const stateVector = Y.encodeStateVector(this.doc);
+    this.socket.emit('yjs-sync-step1', stateVector);
   }
 
   private _onDocUpdate = (update: Uint8Array, origin: unknown) => {
@@ -65,9 +74,13 @@ export class SocketIOYjsProvider {
     this._destroyed = true;
     this.doc.off('update', this._onDocUpdate);
     if (this.socket) {
-      this.socket.off('yjs-sync-step1');
-      this.socket.off('yjs-sync-step2');
-      this.socket.off('yjs-update');
+      // Remove only our specific handlers, not all listeners
+      if (this._handleSyncStep1) this.socket.off('yjs-sync-step1', this._handleSyncStep1);
+      if (this._handleSyncStep2) this.socket.off('yjs-sync-step2', this._handleSyncStep2);
+      if (this._handleYjsUpdate) this.socket.off('yjs-update', this._handleYjsUpdate);
     }
+    this._handleSyncStep1 = null;
+    this._handleSyncStep2 = null;
+    this._handleYjsUpdate = null;
   }
 }

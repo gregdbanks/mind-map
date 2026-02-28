@@ -1,29 +1,29 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, type Dispatch } from 'react';
 import * as Y from 'yjs';
 import { SocketIOYjsProvider } from '../services/yjsProvider';
-import { collabSocket } from '../services/collabSocket';
 import type { MindMapAction } from '../context/mindMapReducer';
 import type { Node, Link, Point } from '../types/mindMap';
 
 interface UseCollaborationOptions {
   mapId: string;
-  dispatch: React.Dispatch<MindMapAction>;
+  dispatch: Dispatch<MindMapAction>;
   enabled: boolean;
+  connected: boolean;
 }
 
-export function useCollaboration({ mapId, dispatch, enabled }: UseCollaborationOptions) {
+export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCollaborationOptions) {
   const docRef = useRef<Y.Doc | null>(null);
   const providerRef = useRef<SocketIOYjsProvider | null>(null);
   const isRemoteChangeRef = useRef(false);
 
-  // Initialize Yjs doc and provider
+  // Initialize Yjs doc and provider when socket is connected
   useEffect(() => {
-    if (!enabled || !collabSocket.isConnected()) return;
+    if (!enabled || !connected) return;
 
     const doc = new Y.Doc();
     docRef.current = doc;
 
-    const provider = new SocketIOYjsProvider(doc, mapId);
+    const provider = new SocketIOYjsProvider(doc);
     providerRef.current = provider;
 
     const yNodes = doc.getMap('nodes');
@@ -120,7 +120,7 @@ export function useCollaboration({ mapId, dispatch, enabled }: UseCollaborationO
       docRef.current = null;
       providerRef.current = null;
     };
-  }, [mapId, enabled, dispatch]);
+  }, [mapId, enabled, connected, dispatch]);
 
   // Wrap dispatch to apply changes to Yjs doc
   const collabDispatch = useCallback(

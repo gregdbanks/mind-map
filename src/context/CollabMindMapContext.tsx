@@ -1,37 +1,57 @@
-import React, { createContext, useContext } from 'react';
-import { MindMapProvider, useMindMap } from './MindMapContext';
+import React, { useMemo } from 'react';
+import { MindMapProvider, useMindMap, MindMapContext } from './MindMapContext';
 import { useCollaboration } from '../hooks/useCollaboration';
-import type { MindMapAction } from './mindMapReducer';
-
-interface CollabContextType {
-  collabDispatch: React.Dispatch<MindMapAction>;
-  isCollabActive: boolean;
-}
-
-const CollabContext = createContext<CollabContextType | null>(null);
+import type { Node, Point } from '../types/mindMap';
 
 interface CollabMindMapProviderProps {
   children: React.ReactNode;
   mapId: string;
   collabEnabled: boolean;
+  collabConnected: boolean;
 }
 
-const CollabBridge: React.FC<{ mapId: string; collabEnabled: boolean; children: React.ReactNode }> = ({
+const CollabBridge: React.FC<{ mapId: string; collabEnabled: boolean; collabConnected: boolean; children: React.ReactNode }> = ({
   mapId,
   collabEnabled,
+  collabConnected,
   children,
 }) => {
-  const { dispatch } = useMindMap();
+  const ctx = useMindMap();
   const { collabDispatch } = useCollaboration({
     mapId,
-    dispatch,
+    dispatch: ctx.dispatch,
     enabled: collabEnabled,
+    connected: collabConnected,
   });
 
+  // Re-provide MindMapContext with collabDispatch replacing dispatch.
+  // All consumers of useMindMap() will automatically route through Yjs.
+  const overridden = useMemo(() => {
+    const d = collabEnabled ? collabDispatch : ctx.dispatch;
+    return {
+      state: ctx.state,
+      dispatch: d,
+      addNode: (parentId: string | null, position: Point, text?: string) => {
+        d({ type: 'ADD_NODE', payload: { parentId, position, text } });
+      },
+      updateNode: (id: string, updates: Partial<Node>) => {
+        d({ type: 'UPDATE_NODE', payload: { id, updates } });
+      },
+      deleteNode: (id: string) => {
+        d({ type: 'DELETE_NODE', payload: { id } });
+      },
+      selectNode: ctx.selectNode,
+      startEditing: ctx.startEditing,
+      stopEditing: ctx.stopEditing,
+      markClean: ctx.markClean,
+      markDirty: ctx.markDirty,
+    };
+  }, [ctx, collabDispatch, collabEnabled]);
+
   return (
-    <CollabContext.Provider value={{ collabDispatch, isCollabActive: collabEnabled }}>
+    <MindMapContext.Provider value={overridden}>
       {children}
-    </CollabContext.Provider>
+    </MindMapContext.Provider>
   );
 };
 
@@ -39,27 +59,13 @@ export const CollabMindMapProvider: React.FC<CollabMindMapProviderProps> = ({
   children,
   mapId,
   collabEnabled,
+  collabConnected,
 }) => {
   return (
     <MindMapProvider>
-      <CollabBridge mapId={mapId} collabEnabled={collabEnabled}>
+      <CollabBridge mapId={mapId} collabEnabled={collabEnabled} collabConnected={collabConnected}>
         {children}
       </CollabBridge>
     </MindMapProvider>
   );
 };
-
-export function useCollabDispatch(): React.Dispatch<MindMapAction> {
-  const context = useContext(CollabContext);
-  if (context) {
-    return context.collabDispatch;
-  }
-  // Fallback: not in collab context, return standard dispatch
-  const { dispatch } = useMindMap();
-  return dispatch;
-}
-
-export function useIsCollabActive(): boolean {
-  const context = useContext(CollabContext);
-  return context?.isCollabActive ?? false;
-}

@@ -9,8 +9,8 @@ interface ConnectionIndicatorProps {
 export const ConnectionIndicator: React.FC<ConnectionIndicatorProps> = ({ isConnected, isConnecting }) => {
   if (!isConnected && !isConnecting) return null;
 
-  const status = isConnecting ? 'connecting' : isConnected ? 'connected' : 'disconnected';
-  const title = isConnecting ? 'Connecting...' : isConnected ? 'Connected' : 'Disconnected';
+  const status = isConnecting ? 'connecting' : 'connected';
+  const title = isConnecting ? 'Connecting...' : 'Connected';
 
   return (
     <div className={styles.indicator} title={title}>
