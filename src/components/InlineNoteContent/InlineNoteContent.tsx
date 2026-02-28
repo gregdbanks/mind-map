@@ -57,9 +57,23 @@ export const InlineNoteContent: React.FC<InlineNoteContentProps> = ({
     };
   }, [onResize, minWidth, minHeight, maxHeight]);
 
+  // Debounce saves to avoid writing to Yjs/IndexedDB/Socket.IO on every keystroke
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const onSaveRef = useRef(onSave);
+  onSaveRef.current = onSave;
+
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, []);
+
   const handleEditorChange = useCallback((contentJson: any, html: string, plainText?: string) => {
-    onSave(html, contentJson, plainText);
-  }, [onSave]);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      onSaveRef.current(html, contentJson, plainText);
+    }, 300);
+  }, []);
 
   // Stop most events from propagating to D3/canvas
   const stopPropagation = (e: React.SyntheticEvent) => {
