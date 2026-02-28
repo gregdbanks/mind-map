@@ -6,7 +6,7 @@ A product-level checklist for validating all user-facing features. Use this befo
 - `[AUTO]` — Covered by automated tests (unit or E2E). Verify these still pass with `npm run test:ci`.
 - `[MANUAL]` — Requires manual testing. No automated coverage exists.
 
-**Coverage:** 62 AUTO / 37 MANUAL (99 total test cases)
+**Coverage:** 62 AUTO / 44 MANUAL (106 total test cases)
 
 ---
 
@@ -168,6 +168,17 @@ Features for simultaneous multi-user editing on the same mind map.
 - [MANUAL] Edit a node's text in Tab A — updated text appears in Tab B
 - [MANUAL] Delete a node in Tab A — node disappears from Tab B
 - [MANUAL] Drag a node in Tab A — node moves in real-time in Tab B (during drag, not just on drop)
+
+### Note Syncing
+- [MANUAL] User A expands a note — User B sees the note expand (accordion: only one at a time)
+- [MANUAL] User A types in a note — content appears for User B after ~300ms (debounced)
+- [MANUAL] User A deletes a note — note disappears for User B
+- [MANUAL] Typing in a note does NOT clear content or lose focus
+- [MANUAL] Existing notes load correctly when joining a collab session (from Yjs initial sync)
+
+### Canvas Background Sync
+- [MANUAL] User A changes canvas background (light/dark) — User B's background updates
+- [MANUAL] Node colors adjust correctly to the synced background theme
 
 ### Cursor Presence
 - [MANUAL] Move mouse in Tab A — colored cursor with username label appears in Tab B
