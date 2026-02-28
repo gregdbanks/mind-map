@@ -267,6 +267,11 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
     };
 
     try {
+      // Pre-populate lastRenderedNoteRef so the [notes] effect skips re-rendering
+      // this note when our own save echoes back through setCollabNotes
+      const noteKey = (contentJson ? JSON.stringify(contentJson) : '') + '|' + (content || '');
+      lastRenderedNoteRef.current.set(nodeId, noteKey);
+
       await saveNote(note);
       // Only update node metadata if it changed (avoid triggering D3 re-render on every keystroke)
       const nodeData = state.nodes.get(nodeId);
