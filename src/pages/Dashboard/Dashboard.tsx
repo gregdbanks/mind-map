@@ -14,6 +14,7 @@ import { apiClient } from '../../services/apiClient';
 import type { MindMapTemplate } from '../../data/templates';
 import type { MapMetadata } from '../../types/mindMap';
 import type { CloudMapMeta } from '../../types/sync';
+import { Logo } from '../../components/Logo/Logo';
 import styles from './Dashboard.module.css';
 
 /** Merge local IDB maps with cloud API maps by UUID */
@@ -232,7 +233,7 @@ export const Dashboard: React.FC = () => {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1 className={styles.title}>ThoughtNet</h1>
+        <h1 className={styles.title}><Logo size="lg" /></h1>
         <div className={styles.headerActions}>
           <button className={styles.importButton} onClick={handleImportClick}>
             Import JSON
