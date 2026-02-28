@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
+import * as Y from 'yjs';
 import { MindMapProvider, useMindMap, MindMapContext } from './MindMapContext';
 import { useCollaboration } from '../hooks/useCollaboration';
 import type { Node, Point } from '../types/mindMap';
@@ -10,6 +11,9 @@ interface CollabMindMapProviderProps {
   collabConnected: boolean;
 }
 
+const CollabDocContext = createContext<Y.Doc | null>(null);
+export const useCollabDoc = () => useContext(CollabDocContext);
+
 const CollabBridge: React.FC<{ mapId: string; collabEnabled: boolean; collabConnected: boolean; children: React.ReactNode }> = ({
   mapId,
   collabEnabled,
@@ -17,7 +21,7 @@ const CollabBridge: React.FC<{ mapId: string; collabEnabled: boolean; collabConn
   children,
 }) => {
   const ctx = useMindMap();
-  const { collabDispatch } = useCollaboration({
+  const { collabDispatch, doc } = useCollaboration({
     mapId,
     dispatch: ctx.dispatch,
     enabled: collabEnabled,
@@ -49,9 +53,11 @@ const CollabBridge: React.FC<{ mapId: string; collabEnabled: boolean; collabConn
   }, [ctx, collabDispatch, collabEnabled]);
 
   return (
-    <MindMapContext.Provider value={overridden}>
-      {children}
-    </MindMapContext.Provider>
+    <CollabDocContext.Provider value={collabEnabled ? doc : null}>
+      <MindMapContext.Provider value={overridden}>
+        {children}
+      </MindMapContext.Provider>
+    </CollabDocContext.Provider>
   );
 };
 

@@ -4,12 +4,12 @@ import { MindMapCanvas } from '../MindMapCanvas';
 import { MindMapProvider } from '../../../context/MindMapContext';
 import { useForceSimulation } from '../../../hooks/useForceSimulation';
 import { useMapPersistence } from '../../../hooks/useMapPersistence';
-import { useMapNotes } from '../../../hooks/useMapNotes';
+import { useCollabNotes } from '../../../hooks/useCollabNotes';
 
 // Mock the hooks
 jest.mock('../../../hooks/useForceSimulation');
 jest.mock('../../../hooks/useMapPersistence');
-jest.mock('../../../hooks/useMapNotes');
+jest.mock('../../../hooks/useCollabNotes');
 jest.mock('../../../hooks/useCloudSync', () => ({
   useCloudSync: () => ({
     canSync: false,
@@ -102,7 +102,7 @@ jest.mock('d3', () => {
 
 const mockUseForceSimulation = useForceSimulation as jest.MockedFunction<typeof useForceSimulation>;
 const mockUseMapPersistence = useMapPersistence as jest.MockedFunction<typeof useMapPersistence>;
-const mockUseMapNotes = useMapNotes as jest.MockedFunction<typeof useMapNotes>;
+const mockUseCollabNotes = useCollabNotes as jest.MockedFunction<typeof useCollabNotes>;
 
 const TEST_MAP_ID = 'test-map-123';
 
@@ -137,7 +137,7 @@ describe('MindMapCanvas', () => {
     mockUseForceSimulation.mockClear();
     mockUseForceSimulation.mockReturnValue(mockForceSimulation);
     mockUseMapPersistence.mockReturnValue(mockPersistence);
-    mockUseMapNotes.mockReturnValue(mockNotes);
+    mockUseCollabNotes.mockReturnValue(mockNotes);
 
     // Mock getBoundingClientRect for SVG elements
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
@@ -249,6 +249,6 @@ describe('MindMapCanvas', () => {
     renderWithProvider(<MindMapCanvas mapId={TEST_MAP_ID} />);
 
     expect(mockUseMapPersistence).toHaveBeenCalledWith(TEST_MAP_ID, expect.any(Object));
-    expect(mockUseMapNotes).toHaveBeenCalledWith(TEST_MAP_ID);
+    expect(mockUseCollabNotes).toHaveBeenCalledWith(TEST_MAP_ID);
   });
 });
