@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Landing } from '../Landing';
 
@@ -67,5 +67,103 @@ describe('Landing', () => {
 
     const browseLink = screen.getByRole('link', { name: 'Browse Library' });
     expect(browseLink).toHaveAttribute('href', '/library');
+  });
+});
+
+describe('HeroBg', () => {
+  let appendChildSpy: jest.SpyInstance;
+  let mockDestroy: jest.Mock;
+  let mockInit: jest.Mock;
+
+  beforeEach(() => {
+    appendChildSpy = jest.spyOn(document.head, 'appendChild');
+    mockDestroy = jest.fn();
+    mockInit = jest.fn();
+    delete window.UnicornStudio;
+  });
+
+  afterEach(() => {
+    appendChildSpy.mockRestore();
+    delete window.UnicornStudio;
+    cleanup();
+    // Remove any script elements appended during tests
+    document.head.querySelectorAll('script[src*="unicornStudio"]').forEach(el => el.remove());
+  });
+
+  const findUnicornScripts = (spy: jest.SpyInstance): HTMLScriptElement[] =>
+    spy.mock.calls
+      .map(call => call[0])
+      .filter(
+        (el: Element) =>
+          el.tagName === 'SCRIPT' &&
+          (el as HTMLScriptElement).src.includes('unicornStudio')
+      );
+
+  it('injects the Unicorn Studio script into the DOM', () => {
+    render(
+      <MemoryRouter>
+        <Landing />
+      </MemoryRouter>
+    );
+
+    const scripts = findUnicornScripts(appendChildSpy);
+    expect(scripts).toHaveLength(1);
+
+    const script = scripts[0];
+    expect(script.src).toContain(
+      'cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js'
+    );
+    expect(script.async).toBe(true);
+  });
+
+  it('does not inject the script twice on re-render', () => {
+    // First render — script is appended
+    const { unmount } = render(
+      <MemoryRouter>
+        <Landing />
+      </MemoryRouter>
+    );
+
+    // Simulate script onload to set the module-level unicornScriptLoaded = true
+    const firstScript = findUnicornScripts(appendChildSpy)[0];
+    window.UnicornStudio = { init: mockInit, destroy: mockDestroy };
+    firstScript.onload!(new Event('load'));
+
+    // Unmount and re-render (same module, so unicornScriptLoaded stays true)
+    unmount();
+    appendChildSpy.mockClear();
+
+    render(
+      <MemoryRouter>
+        <Landing />
+      </MemoryRouter>
+    );
+
+    const secondRenderScripts = findUnicornScripts(appendChildSpy);
+    expect(secondRenderScripts).toHaveLength(0);
+  });
+
+  it('calls destroy on unmount for cleanup', () => {
+    // UnicornStudio is available and unicornScriptLoaded is true from prior test,
+    // so the effect takes the early-return path and registers destroy as cleanup.
+    window.UnicornStudio = { init: mockInit, destroy: mockDestroy };
+
+    const { unmount } = render(
+      <MemoryRouter>
+        <Landing />
+      </MemoryRouter>
+    );
+
+    // If a script was still injected (unicornScriptLoaded was false), trigger onload
+    // so the cleanup return is registered.
+    const scripts = findUnicornScripts(appendChildSpy);
+    if (scripts.length > 0 && scripts[0].onload) {
+      scripts[0].onload(new Event('load'));
+    }
+
+    mockDestroy.mockClear();
+    unmount();
+
+    expect(mockDestroy).toHaveBeenCalled();
   });
 });
