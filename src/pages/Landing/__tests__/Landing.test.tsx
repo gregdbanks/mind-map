@@ -28,9 +28,8 @@ describe('Landing', () => {
   it('ThoughtNet logo link has href="/"', () => {
     renderLanding();
 
-    // The logo is in the header — it is a Link with text "ThoughtNet"
-    // There are multiple "ThoughtNet" elements (header logo + footer brand), so target the header link
-    const logoLink = screen.getByRole('link', { name: 'ThoughtNet' });
+    // The logo is in the header — Logo component renders "Thought" + "Net" as separate spans
+    const logoLink = screen.getByRole('link', { name: /Thought\s*Net/ });
     expect(logoLink).toHaveAttribute('href', '/');
   });
 

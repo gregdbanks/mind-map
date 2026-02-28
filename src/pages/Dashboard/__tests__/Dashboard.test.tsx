@@ -141,7 +141,8 @@ describe('Dashboard', () => {
   it('renders "ThoughtNet" heading', () => {
     renderDashboard();
 
-    expect(screen.getByText('ThoughtNet')).toBeInTheDocument();
+    expect(screen.getByText('Thought')).toBeInTheDocument();
+    expect(screen.getByText('Net')).toBeInTheDocument();
   });
 
   it('"New Map" button is present and calls createMap on click', async () => {
