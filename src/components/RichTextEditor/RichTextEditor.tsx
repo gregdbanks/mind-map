@@ -324,22 +324,29 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 <MenuButton
                   onClick={() => {
                     // Get current code block content
-                    const { selection } = editor.state;
-                    const node = selection.$from.parent;
+                    const { selection, doc } = editor.state;
+                    const pos = selection.$from;
+                    const node = pos.parent;
                     if (node.type.name === 'codeBlock') {
                       const currentCode = node.textContent;
                       const language = editor.getAttributes('codeBlock').language || null;
-                      
+
                       // Auto-detect language if not set
                       const detectedLang = language || detectCodeLanguage(currentCode);
                       const formattedCode = formatCode(currentCode, detectedLang);
-                      
-                      // Replace the code block with formatted version
+
+                      // Find the start and end of the code block content
+                      const startOfBlock = pos.before() + 1;
+                      const endOfBlock = startOfBlock + node.content.size;
+
+                      // Select all content in the code block and replace it
                       editor.chain()
                         .focus()
-                        .clearNodes()
+                        .command(({ tr }) => {
+                          tr.replaceWith(startOfBlock, endOfBlock, editor.state.schema.text(formattedCode));
+                          return true;
+                        })
                         .setCodeBlock({ language: detectedLang })
-                        .insertContent(formattedCode)
                         .run();
                     }
                   }}
