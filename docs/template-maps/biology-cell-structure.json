@@ -1,0 +1,253 @@
+{
+  "title": "Cell Structure",
+  "canvasBackground": "#1a1a2e",
+  "nodes": [
+    {
+      "id": "root",
+      "text": "Cell Structure",
+      "x": 600,
+      "y": 400,
+      "parent": null,
+      "collapsed": false,
+      "color": "#16a085",
+      "textColor": "#ffffff",
+      "size": "xl"
+    },
+    {
+      "id": "nucleus",
+      "text": "Nucleus",
+      "x": 600,
+      "y": 150,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8b5cf6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "nucleus-dna",
+      "text": "DNA (genetic blueprint)",
+      "x": 450,
+      "y": 60,
+      "parent": "nucleus",
+      "collapsed": false
+    },
+    {
+      "id": "nucleus-envelope",
+      "text": "Nuclear envelope (double membrane)",
+      "x": 600,
+      "y": 60,
+      "parent": "nucleus",
+      "collapsed": false
+    },
+    {
+      "id": "nucleus-nucleolus",
+      "text": "Nucleolus (ribosome assembly)",
+      "x": 750,
+      "y": 60,
+      "parent": "nucleus",
+      "collapsed": false
+    },
+    {
+      "id": "mito",
+      "text": "Mitochondria",
+      "x": 250,
+      "y": 200,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ef4444",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "mito-atp",
+      "text": "ATP production (cellular energy)",
+      "x": 50,
+      "y": 150,
+      "parent": "mito",
+      "collapsed": false
+    },
+    {
+      "id": "mito-matrix",
+      "text": "Matrix & cristae structure",
+      "x": 50,
+      "y": 200,
+      "parent": "mito",
+      "collapsed": false
+    },
+    {
+      "id": "mito-dna",
+      "text": "Own circular DNA (maternal inheritance)",
+      "x": 50,
+      "y": 250,
+      "parent": "mito",
+      "collapsed": false
+    },
+    {
+      "id": "er",
+      "text": "Endoplasmic Reticulum",
+      "x": 950,
+      "y": 200,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3b82f6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "er-rough",
+      "text": "Rough ER (ribosomes, protein synthesis)",
+      "x": 1150,
+      "y": 160,
+      "parent": "er",
+      "collapsed": false
+    },
+    {
+      "id": "er-smooth",
+      "text": "Smooth ER (lipid synthesis, detox)",
+      "x": 1150,
+      "y": 210,
+      "parent": "er",
+      "collapsed": false
+    },
+    {
+      "id": "golgi",
+      "text": "Golgi Apparatus",
+      "x": 950,
+      "y": 400,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#f59e0b",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "golgi-modify",
+      "text": "Modifies & packages proteins",
+      "x": 1150,
+      "y": 360,
+      "parent": "golgi",
+      "collapsed": false
+    },
+    {
+      "id": "golgi-sort",
+      "text": "Sorts cargo for transport",
+      "x": 1150,
+      "y": 410,
+      "parent": "golgi",
+      "collapsed": false
+    },
+    {
+      "id": "golgi-vesicles",
+      "text": "Forms secretory vesicles",
+      "x": 1150,
+      "y": 460,
+      "parent": "golgi",
+      "collapsed": false
+    },
+    {
+      "id": "membrane",
+      "text": "Cell Membrane",
+      "x": 250,
+      "y": 450,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#22c55e",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "membrane-bilayer",
+      "text": "Phospholipid bilayer",
+      "x": 50,
+      "y": 400,
+      "parent": "membrane",
+      "collapsed": false
+    },
+    {
+      "id": "membrane-transport",
+      "text": "Selective permeability & transport",
+      "x": 50,
+      "y": 450,
+      "parent": "membrane",
+      "collapsed": false
+    },
+    {
+      "id": "membrane-receptors",
+      "text": "Receptor proteins (signal transduction)",
+      "x": 50,
+      "y": 500,
+      "parent": "membrane",
+      "collapsed": false
+    },
+    {
+      "id": "other",
+      "text": "Other Organelles",
+      "x": 600,
+      "y": 650,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ec4899",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "other-lysosome",
+      "text": "Lysosomes (digestion & waste)",
+      "x": 400,
+      "y": 730,
+      "parent": "other",
+      "collapsed": false
+    },
+    {
+      "id": "other-ribosome",
+      "text": "Ribosomes (protein translation)",
+      "x": 550,
+      "y": 730,
+      "parent": "other",
+      "collapsed": false
+    },
+    {
+      "id": "other-cytoskeleton",
+      "text": "Cytoskeleton (structural support)",
+      "x": 700,
+      "y": 730,
+      "parent": "other",
+      "collapsed": false
+    },
+    {
+      "id": "other-vacuole",
+      "text": "Vacuoles (storage, large in plants)",
+      "x": 850,
+      "y": 730,
+      "parent": "other",
+      "collapsed": false
+    }
+  ],
+  "links": [
+    { "source": "root", "target": "nucleus" },
+    { "source": "root", "target": "mito" },
+    { "source": "root", "target": "er" },
+    { "source": "root", "target": "golgi" },
+    { "source": "root", "target": "membrane" },
+    { "source": "root", "target": "other" },
+    { "source": "nucleus", "target": "nucleus-dna" },
+    { "source": "nucleus", "target": "nucleus-envelope" },
+    { "source": "nucleus", "target": "nucleus-nucleolus" },
+    { "source": "mito", "target": "mito-atp" },
+    { "source": "mito", "target": "mito-matrix" },
+    { "source": "mito", "target": "mito-dna" },
+    { "source": "er", "target": "er-rough" },
+    { "source": "er", "target": "er-smooth" },
+    { "source": "golgi", "target": "golgi-modify" },
+    { "source": "golgi", "target": "golgi-sort" },
+    { "source": "golgi", "target": "golgi-vesicles" },
+    { "source": "membrane", "target": "membrane-bilayer" },
+    { "source": "membrane", "target": "membrane-transport" },
+    { "source": "membrane", "target": "membrane-receptors" },
+    { "source": "other", "target": "other-lysosome" },
+    { "source": "other", "target": "other-ribosome" },
+    { "source": "other", "target": "other-cytoskeleton" },
+    { "source": "other", "target": "other-vacuole" }
+  ]
+}

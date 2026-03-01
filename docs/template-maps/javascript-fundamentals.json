@@ -1,0 +1,262 @@
+{
+  "title": "JavaScript Fundamentals",
+  "canvasBackground": "#1a1a2e",
+  "nodes": [
+    {
+      "id": "root",
+      "text": "JavaScript Fundamentals",
+      "x": 600,
+      "y": 400,
+      "parent": null,
+      "collapsed": false,
+      "color": "#f59e0b",
+      "textColor": "#000000",
+      "size": "xl"
+    },
+    {
+      "id": "types",
+      "text": "Data Types",
+      "x": 250,
+      "y": 150,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3b82f6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "types-primitives",
+      "text": "Primitives: string, number, boolean, null, undefined, symbol, bigint",
+      "x": 30,
+      "y": 90,
+      "parent": "types",
+      "collapsed": false
+    },
+    {
+      "id": "types-objects",
+      "text": "Objects: {}, [], Map, Set, Date",
+      "x": 30,
+      "y": 140,
+      "parent": "types",
+      "collapsed": false
+    },
+    {
+      "id": "types-coercion",
+      "text": "Type coercion (== vs ===)",
+      "x": 30,
+      "y": 190,
+      "parent": "types",
+      "collapsed": false
+    },
+    {
+      "id": "functions",
+      "text": "Functions",
+      "x": 600,
+      "y": 120,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#22c55e",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "functions-declaration",
+      "text": "Declaration vs Expression vs Arrow",
+      "x": 450,
+      "y": 30,
+      "parent": "functions",
+      "collapsed": false
+    },
+    {
+      "id": "functions-hof",
+      "text": "Higher-order: map, filter, reduce",
+      "x": 600,
+      "y": 30,
+      "parent": "functions",
+      "collapsed": false
+    },
+    {
+      "id": "functions-params",
+      "text": "Default params, rest/spread (...)",
+      "x": 750,
+      "y": 30,
+      "parent": "functions",
+      "collapsed": false
+    },
+    {
+      "id": "closures",
+      "text": "Closures & Scope",
+      "x": 950,
+      "y": 150,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8b5cf6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "closures-lexical",
+      "text": "Lexical scoping (var, let, const)",
+      "x": 1170,
+      "y": 90,
+      "parent": "closures",
+      "collapsed": false
+    },
+    {
+      "id": "closures-closure",
+      "text": "Closure: function retains outer scope",
+      "x": 1170,
+      "y": 140,
+      "parent": "closures",
+      "collapsed": false
+    },
+    {
+      "id": "closures-iife",
+      "text": "IIFE pattern for encapsulation",
+      "x": 1170,
+      "y": 190,
+      "parent": "closures",
+      "collapsed": false
+    },
+    {
+      "id": "async",
+      "text": "Async JavaScript",
+      "x": 950,
+      "y": 450,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ef4444",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "async-callbacks",
+      "text": "Callbacks (callback hell problem)",
+      "x": 1170,
+      "y": 380,
+      "parent": "async",
+      "collapsed": false
+    },
+    {
+      "id": "async-promises",
+      "text": "Promises (.then/.catch/.finally)",
+      "x": 1170,
+      "y": 430,
+      "parent": "async",
+      "collapsed": false
+    },
+    {
+      "id": "async-await",
+      "text": "async/await (syntactic sugar)",
+      "x": 1170,
+      "y": 480,
+      "parent": "async",
+      "collapsed": false
+    },
+    {
+      "id": "async-eventloop",
+      "text": "Event loop & microtask queue",
+      "x": 1170,
+      "y": 530,
+      "parent": "async",
+      "collapsed": false
+    },
+    {
+      "id": "dom",
+      "text": "DOM Manipulation",
+      "x": 250,
+      "y": 550,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ec4899",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "dom-selectors",
+      "text": "querySelector / getElementById",
+      "x": 30,
+      "y": 490,
+      "parent": "dom",
+      "collapsed": false
+    },
+    {
+      "id": "dom-modify",
+      "text": "createElement, appendChild, innerHTML",
+      "x": 30,
+      "y": 540,
+      "parent": "dom",
+      "collapsed": false
+    },
+    {
+      "id": "dom-styles",
+      "text": "classList, style, dataset attributes",
+      "x": 30,
+      "y": 590,
+      "parent": "dom",
+      "collapsed": false
+    },
+    {
+      "id": "events",
+      "text": "Events",
+      "x": 600,
+      "y": 680,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#06b6d4",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "events-listeners",
+      "text": "addEventListener / removeEventListener",
+      "x": 400,
+      "y": 760,
+      "parent": "events",
+      "collapsed": false
+    },
+    {
+      "id": "events-bubbling",
+      "text": "Bubbling & Capturing phases",
+      "x": 600,
+      "y": 760,
+      "parent": "events",
+      "collapsed": false
+    },
+    {
+      "id": "events-delegation",
+      "text": "Event delegation pattern",
+      "x": 800,
+      "y": 760,
+      "parent": "events",
+      "collapsed": false
+    }
+  ],
+  "links": [
+    { "source": "root", "target": "types" },
+    { "source": "root", "target": "functions" },
+    { "source": "root", "target": "closures" },
+    { "source": "root", "target": "async" },
+    { "source": "root", "target": "dom" },
+    { "source": "root", "target": "events" },
+    { "source": "types", "target": "types-primitives" },
+    { "source": "types", "target": "types-objects" },
+    { "source": "types", "target": "types-coercion" },
+    { "source": "functions", "target": "functions-declaration" },
+    { "source": "functions", "target": "functions-hof" },
+    { "source": "functions", "target": "functions-params" },
+    { "source": "closures", "target": "closures-lexical" },
+    { "source": "closures", "target": "closures-closure" },
+    { "source": "closures", "target": "closures-iife" },
+    { "source": "async", "target": "async-callbacks" },
+    { "source": "async", "target": "async-promises" },
+    { "source": "async", "target": "async-await" },
+    { "source": "async", "target": "async-eventloop" },
+    { "source": "dom", "target": "dom-selectors" },
+    { "source": "dom", "target": "dom-modify" },
+    { "source": "dom", "target": "dom-styles" },
+    { "source": "events", "target": "events-listeners" },
+    { "source": "events", "target": "events-bubbling" },
+    { "source": "events", "target": "events-delegation" }
+  ]
+}

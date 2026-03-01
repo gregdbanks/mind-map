@@ -1,0 +1,271 @@
+{
+  "title": "Book Notes Template",
+  "canvasBackground": "#1a1a2e",
+  "nodes": [
+    {
+      "id": "root",
+      "text": "Book Notes Template",
+      "x": 600,
+      "y": 400,
+      "parent": null,
+      "collapsed": false,
+      "color": "#92400e",
+      "textColor": "#ffffff",
+      "size": "xl"
+    },
+    {
+      "id": "overview",
+      "text": "Book Overview",
+      "x": 600,
+      "y": 150,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#f59e0b",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "overview-author",
+      "text": "Author & publication year",
+      "x": 420,
+      "y": 70,
+      "parent": "overview",
+      "collapsed": false
+    },
+    {
+      "id": "overview-genre",
+      "text": "Genre / category",
+      "x": 600,
+      "y": 70,
+      "parent": "overview",
+      "collapsed": false
+    },
+    {
+      "id": "overview-premise",
+      "text": "One-sentence premise",
+      "x": 780,
+      "y": 70,
+      "parent": "overview",
+      "collapsed": false
+    },
+    {
+      "id": "key-ideas",
+      "text": "Key Ideas",
+      "x": 250,
+      "y": 250,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3b82f6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "idea-1",
+      "text": "Idea 1: The central argument or framework",
+      "x": 30,
+      "y": 190,
+      "parent": "key-ideas",
+      "collapsed": false
+    },
+    {
+      "id": "idea-2",
+      "text": "Idea 2: Supporting concept that reinforces thesis",
+      "x": 30,
+      "y": 240,
+      "parent": "key-ideas",
+      "collapsed": false
+    },
+    {
+      "id": "idea-3",
+      "text": "Idea 3: Counterintuitive insight or surprise",
+      "x": 30,
+      "y": 290,
+      "parent": "key-ideas",
+      "collapsed": false
+    },
+    {
+      "id": "idea-4",
+      "text": "Idea 4: Practical model or mental framework",
+      "x": 30,
+      "y": 340,
+      "parent": "key-ideas",
+      "collapsed": false
+    },
+    {
+      "id": "quotes",
+      "text": "Memorable Quotes",
+      "x": 950,
+      "y": 250,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8b5cf6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "quote-1",
+      "text": "\"Quote that captures the core message\" (p. __)",
+      "x": 1170,
+      "y": 190,
+      "parent": "quotes",
+      "collapsed": false
+    },
+    {
+      "id": "quote-2",
+      "text": "\"A passage that challenged my thinking\" (p. __)",
+      "x": 1170,
+      "y": 240,
+      "parent": "quotes",
+      "collapsed": false
+    },
+    {
+      "id": "quote-3",
+      "text": "\"Beautifully written line worth remembering\" (p. __)",
+      "x": 1170,
+      "y": 290,
+      "parent": "quotes",
+      "collapsed": false
+    },
+    {
+      "id": "actions",
+      "text": "Action Items",
+      "x": 250,
+      "y": 550,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#22c55e",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "action-1",
+      "text": "Habit or behavior to start this week",
+      "x": 30,
+      "y": 490,
+      "parent": "actions",
+      "collapsed": false
+    },
+    {
+      "id": "action-2",
+      "text": "Concept to apply at work",
+      "x": 30,
+      "y": 540,
+      "parent": "actions",
+      "collapsed": false
+    },
+    {
+      "id": "action-3",
+      "text": "Topic to research further",
+      "x": 30,
+      "y": 590,
+      "parent": "actions",
+      "collapsed": false
+    },
+    {
+      "id": "action-4",
+      "text": "Person to share this idea with",
+      "x": 30,
+      "y": 640,
+      "parent": "actions",
+      "collapsed": false
+    },
+    {
+      "id": "related",
+      "text": "Related Books",
+      "x": 950,
+      "y": 550,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ec4899",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "related-1",
+      "text": "Book that covers same topic from different angle",
+      "x": 1170,
+      "y": 490,
+      "parent": "related",
+      "collapsed": false
+    },
+    {
+      "id": "related-2",
+      "text": "Book the author references or recommends",
+      "x": 1170,
+      "y": 540,
+      "parent": "related",
+      "collapsed": false
+    },
+    {
+      "id": "related-3",
+      "text": "Opposing viewpoint to read next",
+      "x": 1170,
+      "y": 590,
+      "parent": "related",
+      "collapsed": false
+    },
+    {
+      "id": "rating",
+      "text": "Personal Rating & Review",
+      "x": 600,
+      "y": 700,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ef4444",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "rating-score",
+      "text": "Rating: __/10",
+      "x": 420,
+      "y": 770,
+      "parent": "rating",
+      "collapsed": false
+    },
+    {
+      "id": "rating-who",
+      "text": "Who should read this?",
+      "x": 600,
+      "y": 770,
+      "parent": "rating",
+      "collapsed": false
+    },
+    {
+      "id": "rating-reread",
+      "text": "Would I re-read? Why?",
+      "x": 780,
+      "y": 770,
+      "parent": "rating",
+      "collapsed": false
+    }
+  ],
+  "links": [
+    { "source": "root", "target": "overview" },
+    { "source": "root", "target": "key-ideas" },
+    { "source": "root", "target": "quotes" },
+    { "source": "root", "target": "actions" },
+    { "source": "root", "target": "related" },
+    { "source": "root", "target": "rating" },
+    { "source": "overview", "target": "overview-author" },
+    { "source": "overview", "target": "overview-genre" },
+    { "source": "overview", "target": "overview-premise" },
+    { "source": "key-ideas", "target": "idea-1" },
+    { "source": "key-ideas", "target": "idea-2" },
+    { "source": "key-ideas", "target": "idea-3" },
+    { "source": "key-ideas", "target": "idea-4" },
+    { "source": "quotes", "target": "quote-1" },
+    { "source": "quotes", "target": "quote-2" },
+    { "source": "quotes", "target": "quote-3" },
+    { "source": "actions", "target": "action-1" },
+    { "source": "actions", "target": "action-2" },
+    { "source": "actions", "target": "action-3" },
+    { "source": "actions", "target": "action-4" },
+    { "source": "related", "target": "related-1" },
+    { "source": "related", "target": "related-2" },
+    { "source": "related", "target": "related-3" },
+    { "source": "rating", "target": "rating-score" },
+    { "source": "rating", "target": "rating-who" },
+    { "source": "rating", "target": "rating-reread" }
+  ]
+}

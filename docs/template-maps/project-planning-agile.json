@@ -1,0 +1,268 @@
+{
+  "title": "Agile Sprint Planning",
+  "canvasBackground": "#1a1a2e",
+  "nodes": [
+    {
+      "id": "root",
+      "text": "Agile Sprint Planning",
+      "x": 600,
+      "y": 400,
+      "parent": null,
+      "collapsed": false,
+      "color": "#6366f1",
+      "textColor": "#ffffff",
+      "size": "xl"
+    },
+    {
+      "id": "backlog",
+      "text": "Product Backlog",
+      "x": 250,
+      "y": 150,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3b82f6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "backlog-user-stories",
+      "text": "User Stories",
+      "x": 50,
+      "y": 80,
+      "parent": "backlog",
+      "collapsed": false
+    },
+    {
+      "id": "backlog-estimation",
+      "text": "Story Point Estimation",
+      "x": 50,
+      "y": 130,
+      "parent": "backlog",
+      "collapsed": false
+    },
+    {
+      "id": "backlog-priority",
+      "text": "MoSCoW Prioritization",
+      "x": 50,
+      "y": 180,
+      "parent": "backlog",
+      "collapsed": false
+    },
+    {
+      "id": "backlog-refinement",
+      "text": "Backlog Refinement Sessions",
+      "x": 50,
+      "y": 230,
+      "parent": "backlog",
+      "collapsed": false
+    },
+    {
+      "id": "ceremonies",
+      "text": "Scrum Ceremonies",
+      "x": 600,
+      "y": 100,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#22c55e",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "ceremonies-standup",
+      "text": "Daily Standup (15 min)",
+      "x": 450,
+      "y": 20,
+      "parent": "ceremonies",
+      "collapsed": false
+    },
+    {
+      "id": "ceremonies-planning",
+      "text": "Sprint Planning (2-4 hrs)",
+      "x": 600,
+      "y": 20,
+      "parent": "ceremonies",
+      "collapsed": false
+    },
+    {
+      "id": "ceremonies-review",
+      "text": "Sprint Review (1-2 hrs)",
+      "x": 750,
+      "y": 20,
+      "parent": "ceremonies",
+      "collapsed": false
+    },
+    {
+      "id": "ceremonies-retro",
+      "text": "Retrospective (1 hr)",
+      "x": 600,
+      "y": -30,
+      "parent": "ceremonies",
+      "collapsed": false
+    },
+    {
+      "id": "roles",
+      "text": "Scrum Roles",
+      "x": 950,
+      "y": 150,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#f59e0b",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "roles-po",
+      "text": "Product Owner",
+      "x": 1150,
+      "y": 80,
+      "parent": "roles",
+      "collapsed": false
+    },
+    {
+      "id": "roles-sm",
+      "text": "Scrum Master",
+      "x": 1150,
+      "y": 130,
+      "parent": "roles",
+      "collapsed": false
+    },
+    {
+      "id": "roles-dev",
+      "text": "Development Team (5-9)",
+      "x": 1150,
+      "y": 180,
+      "parent": "roles",
+      "collapsed": false
+    },
+    {
+      "id": "roles-stakeholders",
+      "text": "Stakeholders",
+      "x": 1150,
+      "y": 230,
+      "parent": "roles",
+      "collapsed": false
+    },
+    {
+      "id": "artifacts",
+      "text": "Artifacts",
+      "x": 950,
+      "y": 600,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ec4899",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "artifacts-board",
+      "text": "Sprint Board (To Do / In Progress / Done)",
+      "x": 1150,
+      "y": 530,
+      "parent": "artifacts",
+      "collapsed": false
+    },
+    {
+      "id": "artifacts-burndown",
+      "text": "Burndown Chart",
+      "x": 1150,
+      "y": 580,
+      "parent": "artifacts",
+      "collapsed": false
+    },
+    {
+      "id": "artifacts-increment",
+      "text": "Product Increment",
+      "x": 1150,
+      "y": 630,
+      "parent": "artifacts",
+      "collapsed": false
+    },
+    {
+      "id": "artifacts-dod",
+      "text": "Definition of Done",
+      "x": 1150,
+      "y": 680,
+      "parent": "artifacts",
+      "collapsed": false
+    },
+    {
+      "id": "phases",
+      "text": "Sprint Phases",
+      "x": 250,
+      "y": 600,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8b5cf6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "phases-sprint-goal",
+      "text": "Define Sprint Goal",
+      "x": 50,
+      "y": 520,
+      "parent": "phases",
+      "collapsed": false
+    },
+    {
+      "id": "phases-capacity",
+      "text": "Assess Team Capacity",
+      "x": 50,
+      "y": 570,
+      "parent": "phases",
+      "collapsed": false
+    },
+    {
+      "id": "phases-commit",
+      "text": "Select & Commit to Stories",
+      "x": 50,
+      "y": 620,
+      "parent": "phases",
+      "collapsed": false
+    },
+    {
+      "id": "phases-execute",
+      "text": "Execute Sprint (2 weeks)",
+      "x": 50,
+      "y": 670,
+      "parent": "phases",
+      "collapsed": false
+    },
+    {
+      "id": "phases-deliver",
+      "text": "Deliver Shippable Increment",
+      "x": 50,
+      "y": 720,
+      "parent": "phases",
+      "collapsed": false
+    }
+  ],
+  "links": [
+    { "source": "root", "target": "backlog" },
+    { "source": "root", "target": "ceremonies" },
+    { "source": "root", "target": "roles" },
+    { "source": "root", "target": "artifacts" },
+    { "source": "root", "target": "phases" },
+    { "source": "backlog", "target": "backlog-user-stories" },
+    { "source": "backlog", "target": "backlog-estimation" },
+    { "source": "backlog", "target": "backlog-priority" },
+    { "source": "backlog", "target": "backlog-refinement" },
+    { "source": "ceremonies", "target": "ceremonies-standup" },
+    { "source": "ceremonies", "target": "ceremonies-planning" },
+    { "source": "ceremonies", "target": "ceremonies-review" },
+    { "source": "ceremonies", "target": "ceremonies-retro" },
+    { "source": "roles", "target": "roles-po" },
+    { "source": "roles", "target": "roles-sm" },
+    { "source": "roles", "target": "roles-dev" },
+    { "source": "roles", "target": "roles-stakeholders" },
+    { "source": "artifacts", "target": "artifacts-board" },
+    { "source": "artifacts", "target": "artifacts-burndown" },
+    { "source": "artifacts", "target": "artifacts-increment" },
+    { "source": "artifacts", "target": "artifacts-dod" },
+    { "source": "phases", "target": "phases-sprint-goal" },
+    { "source": "phases", "target": "phases-capacity" },
+    { "source": "phases", "target": "phases-commit" },
+    { "source": "phases", "target": "phases-execute" },
+    { "source": "phases", "target": "phases-deliver" }
+  ]
+}

@@ -1,0 +1,250 @@
+{
+  "title": "Startup Launch Checklist",
+  "canvasBackground": "#1a1a2e",
+  "nodes": [
+    {
+      "id": "root",
+      "text": "Startup Launch Checklist",
+      "x": 600,
+      "y": 400,
+      "parent": null,
+      "collapsed": false,
+      "color": "#ef4444",
+      "textColor": "#ffffff",
+      "size": "xl"
+    },
+    {
+      "id": "mvp",
+      "text": "MVP Development",
+      "x": 250,
+      "y": 150,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3b82f6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "mvp-problem",
+      "text": "Define core problem to solve",
+      "x": 30,
+      "y": 70,
+      "parent": "mvp",
+      "collapsed": false
+    },
+    {
+      "id": "mvp-features",
+      "text": "Identify must-have vs nice-to-have features",
+      "x": 30,
+      "y": 120,
+      "parent": "mvp",
+      "collapsed": false
+    },
+    {
+      "id": "mvp-prototype",
+      "text": "Build clickable prototype first",
+      "x": 30,
+      "y": 170,
+      "parent": "mvp",
+      "collapsed": false
+    },
+    {
+      "id": "mvp-feedback",
+      "text": "User testing with 10-20 early adopters",
+      "x": 30,
+      "y": 220,
+      "parent": "mvp",
+      "collapsed": false
+    },
+    {
+      "id": "marketing",
+      "text": "Marketing & Growth",
+      "x": 950,
+      "y": 150,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#22c55e",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "mkt-landing",
+      "text": "Landing page with email capture",
+      "x": 1170,
+      "y": 70,
+      "parent": "marketing",
+      "collapsed": false
+    },
+    {
+      "id": "mkt-social",
+      "text": "Social media presence (X, LinkedIn)",
+      "x": 1170,
+      "y": 120,
+      "parent": "marketing",
+      "collapsed": false
+    },
+    {
+      "id": "mkt-content",
+      "text": "Content marketing & SEO strategy",
+      "x": 1170,
+      "y": 170,
+      "parent": "marketing",
+      "collapsed": false
+    },
+    {
+      "id": "mkt-ph",
+      "text": "Product Hunt / Hacker News launch plan",
+      "x": 1170,
+      "y": 220,
+      "parent": "marketing",
+      "collapsed": false
+    },
+    {
+      "id": "legal",
+      "text": "Legal & Compliance",
+      "x": 250,
+      "y": 550,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8b5cf6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "legal-entity",
+      "text": "Business entity (LLC / C-Corp / S-Corp)",
+      "x": 30,
+      "y": 480,
+      "parent": "legal",
+      "collapsed": false
+    },
+    {
+      "id": "legal-tos",
+      "text": "Terms of Service & Privacy Policy",
+      "x": 30,
+      "y": 530,
+      "parent": "legal",
+      "collapsed": false
+    },
+    {
+      "id": "legal-ip",
+      "text": "Trademark & IP protection",
+      "x": 30,
+      "y": 580,
+      "parent": "legal",
+      "collapsed": false
+    },
+    {
+      "id": "legal-tax",
+      "text": "Tax registration & EIN",
+      "x": 30,
+      "y": 630,
+      "parent": "legal",
+      "collapsed": false
+    },
+    {
+      "id": "funding",
+      "text": "Funding",
+      "x": 950,
+      "y": 550,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#f59e0b",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "fund-bootstrap",
+      "text": "Bootstrapping (revenue-funded)",
+      "x": 1170,
+      "y": 480,
+      "parent": "funding",
+      "collapsed": false
+    },
+    {
+      "id": "fund-angel",
+      "text": "Angel investors (pre-seed $50K-$500K)",
+      "x": 1170,
+      "y": 530,
+      "parent": "funding",
+      "collapsed": false
+    },
+    {
+      "id": "fund-vc",
+      "text": "VC seed round ($1M-$5M)",
+      "x": 1170,
+      "y": 580,
+      "parent": "funding",
+      "collapsed": false
+    },
+    {
+      "id": "fund-pitch",
+      "text": "Pitch deck (10-15 slides)",
+      "x": 1170,
+      "y": 630,
+      "parent": "funding",
+      "collapsed": false
+    },
+    {
+      "id": "hiring",
+      "text": "Team & Hiring",
+      "x": 600,
+      "y": 700,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ec4899",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "hire-cofounder",
+      "text": "Find co-founder (complementary skills)",
+      "x": 380,
+      "y": 780,
+      "parent": "hiring",
+      "collapsed": false
+    },
+    {
+      "id": "hire-first",
+      "text": "First 3 hires: engineer, designer, marketer",
+      "x": 600,
+      "y": 780,
+      "parent": "hiring",
+      "collapsed": false
+    },
+    {
+      "id": "hire-equity",
+      "text": "Equity split & vesting schedule (4yr cliff)",
+      "x": 820,
+      "y": 780,
+      "parent": "hiring",
+      "collapsed": false
+    }
+  ],
+  "links": [
+    { "source": "root", "target": "mvp" },
+    { "source": "root", "target": "marketing" },
+    { "source": "root", "target": "legal" },
+    { "source": "root", "target": "funding" },
+    { "source": "root", "target": "hiring" },
+    { "source": "mvp", "target": "mvp-problem" },
+    { "source": "mvp", "target": "mvp-features" },
+    { "source": "mvp", "target": "mvp-prototype" },
+    { "source": "mvp", "target": "mvp-feedback" },
+    { "source": "marketing", "target": "mkt-landing" },
+    { "source": "marketing", "target": "mkt-social" },
+    { "source": "marketing", "target": "mkt-content" },
+    { "source": "marketing", "target": "mkt-ph" },
+    { "source": "legal", "target": "legal-entity" },
+    { "source": "legal", "target": "legal-tos" },
+    { "source": "legal", "target": "legal-ip" },
+    { "source": "legal", "target": "legal-tax" },
+    { "source": "funding", "target": "fund-bootstrap" },
+    { "source": "funding", "target": "fund-angel" },
+    { "source": "funding", "target": "fund-vc" },
+    { "source": "funding", "target": "fund-pitch" },
+    { "source": "hiring", "target": "hire-cofounder" },
+    { "source": "hiring", "target": "hire-first" },
+    { "source": "hiring", "target": "hire-equity" }
+  ]
+}
