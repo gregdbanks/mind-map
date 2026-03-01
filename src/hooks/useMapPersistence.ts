@@ -17,6 +17,13 @@ export function useMapPersistence(mapId: string, options?: MapPersistenceOptions
   const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hasLoadedRef = useRef(false);
 
+  // Reset load flag when switching maps (React Router reuses the component)
+  const prevMapIdRef = useRef<string | null>(null);
+  if (prevMapIdRef.current !== null && prevMapIdRef.current !== mapId) {
+    hasLoadedRef.current = false;
+  }
+  prevMapIdRef.current = mapId;
+
   // Load data on mount
   useEffect(() => {
     if (hasLoadedRef.current) return;

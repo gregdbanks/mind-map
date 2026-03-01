@@ -80,11 +80,10 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
       }
     });
 
-    // Observe link changes
+    // Observe link changes — only update links, not the entire node map
     yLinks.observe(() => {
       if (!isRemoteChangeRef.current) return;
 
-      // On any link change, rebuild the full links array from Y.Array
       const links: Link[] = [];
       for (let i = 0; i < yLinks.length; i++) {
         const link = yLinks.get(i) as Record<string, unknown>;
@@ -92,14 +91,7 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
           links.push({ source: link.source as string, target: link.target as string });
         }
       }
-      // Load the full state to sync links properly
-      const nodes: Node[] = [];
-      yNodes.forEach((yNode) => {
-        if (yNode instanceof Y.Map) {
-          nodes.push(yMapToNode(yNode));
-        }
-      });
-      dispatch({ type: 'LOAD_MINDMAP', payload: { nodes, links } });
+      dispatch({ type: 'SET_LINKS', payload: { links } });
     });
 
     // Set the remote change flag for incoming updates

@@ -10,6 +10,7 @@ export type MindMapAction =
   | { type: 'STOP_EDITING' }
   | { type: 'LOAD_MINDMAP'; payload: { nodes: Node[]; links: Link[] } }
   | { type: 'UPDATE_LAST_MODIFIED' }
+  | { type: 'SET_LINKS'; payload: { links: Link[] } }
   | { type: 'MARK_CLEAN' } // Mark state as clean (saved)
   | { type: 'MARK_DIRTY' }; // Mark state as dirty (unsaved changes)
 
@@ -199,6 +200,15 @@ export function mindMapReducer(
       };
     }
     
+    case 'SET_LINKS': {
+      return {
+        ...state,
+        links: action.payload.links,
+        lastModified: new Date(),
+        isDirty: true,
+      };
+    }
+
     case 'UPDATE_LAST_MODIFIED': {
       return {
         ...state,
