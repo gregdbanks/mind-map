@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Signup } from '../Signup';
+import { apiClient } from '../../../services/apiClient';
 
 // Mock useAuth from AuthContext
 const mockSignUp = jest.fn();
@@ -20,6 +21,12 @@ jest.mock('../../../context/AuthContext', () => ({
     forgotPassword: jest.fn(),
     confirmPassword: jest.fn(),
   }),
+}));
+
+jest.mock('../../../services/apiClient', () => ({
+  apiClient: {
+    checkEmailExists: jest.fn().mockResolvedValue(false),
+  },
 }));
 
 jest.mock('react-router-dom', () => ({
@@ -221,6 +228,25 @@ describe('Signup', () => {
     const signInLink = screen.getByText('Sign in');
     expect(signInLink).toBeInTheDocument();
     expect(signInLink.closest('a')).toHaveAttribute('href', '/login');
+  });
+
+  it('shows error when email already exists', async () => {
+    (apiClient.checkEmailExists as jest.Mock).mockResolvedValueOnce(true);
+
+    renderSignup();
+
+    fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'newuser' } });
+    fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'taken@example.com' } });
+    fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'StrongPass1!' } });
+    fireEvent.change(screen.getByLabelText('Confirm password'), { target: { value: 'StrongPass1!' } });
+
+    fireEvent.click(screen.getByText('Create account'));
+
+    await waitFor(() => {
+      expect(screen.getByText('An account with this email already exists.')).toBeInTheDocument();
+    });
+
+    expect(mockSignUp).not.toHaveBeenCalled();
   });
 
   it('error display on failure (UsernameExistsException)', async () => {

@@ -252,6 +252,19 @@ export const apiClient = {
       path: `/mindmaps/collab/accept/${token}`,
     }),
 
+  // Auth (public — no authentication required)
+  checkEmailExists: async (email: string): Promise<boolean> => {
+    const url = `${API_BASE_URL}/auth/check-email`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    if (!response.ok) return false; // fail open — let Cognito handle it
+    const data = await response.json();
+    return data.exists === true;
+  },
+
   // Teams
   createTeam: (name: string) =>
     request<{ team: { id: string; name: string; owner_id: string; seat_count: number; created_at: string }; checkoutUrl?: string }>({
