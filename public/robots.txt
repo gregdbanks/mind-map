@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /library
+Allow: /signup
+Allow: /login
+Disallow: /app/
+
+Sitemap: https://mind.study.coffee/sitemap.xml
