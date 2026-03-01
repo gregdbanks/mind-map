@@ -13,6 +13,11 @@ export class SocketIOYjsProvider {
   private _handleSyncStep2: ((data: ArrayBuffer) => void) | null = null;
   private _handleYjsUpdate: ((data: ArrayBuffer) => void) | null = null;
 
+  // Update batching — coalesce rapid-fire local updates into a single emit
+  private _pendingUpdates: Uint8Array[] = [];
+  private _batchTimer: ReturnType<typeof setTimeout> | null = null;
+  private static BATCH_DELAY = 50; // ms
+
   constructor(doc: Y.Doc) {
     this.doc = doc;
   }
@@ -62,16 +67,36 @@ export class SocketIOYjsProvider {
     if (this._destroyed) return;
     // Only send updates that originated locally (not from remote)
     if (origin !== 'remote') {
-      this.socket?.emit('yjs-update', update);
+      this._pendingUpdates.push(update);
+      if (!this._batchTimer) {
+        this._batchTimer = setTimeout(() => this._flushUpdates(), SocketIOYjsProvider.BATCH_DELAY);
+      }
     }
   };
+
+  private _flushUpdates() {
+    this._batchTimer = null;
+    if (this._pendingUpdates.length === 0 || this._destroyed) return;
+
+    const merged = this._pendingUpdates.length === 1
+      ? this._pendingUpdates[0]
+      : Y.mergeUpdates(this._pendingUpdates);
+    this._pendingUpdates = [];
+    this.socket?.emit('yjs-update', merged);
+  }
 
   get synced() {
     return this._synced;
   }
 
   destroy() {
+    this._destroyed = false; // temporarily allow flush
+    this._flushUpdates(); // send any pending updates before disconnecting
     this._destroyed = true;
+    if (this._batchTimer) {
+      clearTimeout(this._batchTimer);
+      this._batchTimer = null;
+    }
     this.doc.off('update', this._onDocUpdate);
     if (this.socket) {
       // Remove only our specific handlers, not all listeners

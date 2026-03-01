@@ -75,7 +75,7 @@ export const InlineNoteContent: React.FC<InlineNoteContentProps> = ({
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
       onSaveRef.current(html, contentJson, plainText);
-    }, 300);
+    }, 600);
   }, []);
 
   // Stop most events from propagating to D3/canvas
