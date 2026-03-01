@@ -24,6 +24,8 @@ export const InlineNoteContent: React.FC<InlineNoteContentProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const lastReportedHeight = useRef<number>(0);
+  const onResizeRef = useRef(onResize);
+  onResizeRef.current = onResize;
 
   // Container grows with content up to maxHeight, then scrolls.
   // The foreignObject height is (noteHeight - 28 header - 8 padding).
@@ -44,7 +46,7 @@ export const InlineNoteContent: React.FC<InlineNoteContentProps> = ({
       );
       if (Math.abs(totalNeeded - lastReportedHeight.current) > 2) {
         lastReportedHeight.current = totalNeeded;
-        onResize(minWidth, totalNeeded);
+        onResizeRef.current(minWidth, totalNeeded);
       }
     };
 
@@ -55,7 +57,8 @@ export const InlineNoteContent: React.FC<InlineNoteContentProps> = ({
       observer.disconnect();
       clearTimeout(timer);
     };
-  }, [onResize, minWidth, minHeight, maxHeight]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [minWidth, minHeight, maxHeight]);
 
   // Debounce saves to avoid writing to Yjs/IndexedDB/Socket.IO on every keystroke
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);

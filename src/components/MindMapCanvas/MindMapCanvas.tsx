@@ -1166,29 +1166,29 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
             .style('opacity', 1)
             .style('pointer-events', 'all');
 
-          // Mount/update editor
+          // Mount editor only if not already mounted (avoid re-render cascade)
           const foNode = fo.node() as Element | null;
           if (foNode) {
             let root = inlineNoteRootsRef.current.get(node.id);
             if (!root) {
               root = createRoot(foNode);
               inlineNoteRootsRef.current.set(node.id, root);
+              const noteData = getNodeNoteRef.current(node.id);
+              root.render(
+                <InlineNoteContent
+                  nodeId={node.id}
+                  note={noteData || null}
+                  onSave={handleNoteSave(node.id)}
+                  onResize={(newW, newH) => {
+                    operations.updateNode(node.id, { noteWidth: newW, noteHeight: newH });
+                  }}
+                  minWidth={props.minNoteWidth}
+                  minHeight={props.minNoteHeight}
+                  maxWidth={props.maxNoteWidth}
+                  maxHeight={props.maxNoteHeight}
+                />
+              );
             }
-            const noteData = getNodeNoteRef.current(node.id);
-            root.render(
-              <InlineNoteContent
-                nodeId={node.id}
-                note={noteData || null}
-                onSave={handleNoteSave(node.id)}
-                onResize={(newW, newH) => {
-                  operations.updateNode(node.id, { noteWidth: newW, noteHeight: newH });
-                }}
-                minWidth={props.minNoteWidth}
-                minHeight={props.minNoteHeight}
-                maxWidth={props.maxNoteWidth}
-                maxHeight={props.maxNoteHeight}
-              />
-            );
           }
 
           // Action buttons visible and positioned for expanded state
@@ -1926,6 +1926,12 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
         selectNode(null);
         setLockedHighlightNodeId(null);
         setMultiSelectedNodeIds(new Set());
+        // Collapse any expanded note
+        nodes.forEach(n => {
+          if (n.noteExpanded) {
+            operations.updateNode(n.id, { noteExpanded: false });
+          }
+        });
       }
     };
 
