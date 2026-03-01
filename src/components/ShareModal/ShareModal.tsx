@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { apiClient, ApiError } from '../../services/apiClient';
 import { pushMapToCloud } from '../../services/syncService';
 import type { ShareStatus } from '../../types/sharing';
+import { analytics } from '../../services/analytics';
 import styles from './ShareModal.module.css';
 
 interface ShareModalProps {
@@ -54,9 +55,11 @@ export const ShareModal: React.FC<ShareModalProps> = ({ mapId, onClose }) => {
     try {
       if (shareStatus.is_public) {
         await apiClient.unshareMap(mapId);
+        analytics.shareDisable(mapId);
         setShareStatus({ ...shareStatus, is_public: false });
       } else {
         const result = await apiClient.shareMap(mapId);
+        analytics.shareEnable(mapId);
         setShareStatus({
           is_public: true,
           share_token: result.share_token,

@@ -6,6 +6,7 @@ import { exportToSVG, exportToPNG, exportToPDF } from '../../utils/exportUtils';
 import { exportToMarkdown } from '../../utils/markdownExportUtils';
 import type { CanvasBackground } from '../BackgroundSelector';
 import { UpgradeModal } from '../UpgradeModal';
+import { analytics } from '../../services/analytics';
 import styles from './ExportSelector.module.css';
 
 type ExportFormat = 'json' | 'svg' | 'png' | 'pdf' | 'markdown';
@@ -64,11 +65,13 @@ export const ExportSelector: React.FC<ExportSelectorProps> = ({
 
   const handleExport = useCallback(async (format: ExportFormat) => {
     if (!isPro && PRO_FORMATS.includes(format)) {
+      analytics.exportBlocked(format);
       setIsOpen(false);
       setShowUpgradeModal(true);
       return;
     }
 
+    analytics.exportMap(format);
     setIsOpen(false);
 
     if (format === 'json') {

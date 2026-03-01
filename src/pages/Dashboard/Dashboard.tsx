@@ -15,6 +15,7 @@ import type { MindMapTemplate } from '../../data/templates';
 import type { MapMetadata } from '../../types/mindMap';
 import type { CloudMapMeta } from '../../types/sync';
 import { Logo } from '../../components/Logo/Logo';
+import { analytics } from '../../services/analytics';
 import styles from './Dashboard.module.css';
 
 /** Merge local IDB maps with cloud API maps by UUID */
@@ -88,6 +89,7 @@ export const Dashboard: React.FC = () => {
   const checkoutParam = searchParams.get('checkout');
   useEffect(() => {
     if (checkoutParam === 'success') {
+      analytics.checkoutSuccess();
       setCheckoutSuccess(true);
       setSearchParams({}, { replace: true });
       setTimeout(() => setCheckoutSuccess(false), 5000);
@@ -140,7 +142,10 @@ export const Dashboard: React.FC = () => {
 
   const handleCreateMap = async () => {
     const id = await createMap('Untitled Map');
-    if (id) navigate(`/map/${id}`);
+    if (id) {
+      analytics.createMap();
+      navigate(`/map/${id}`);
+    }
   };
 
   const handleOpenMap = async (id: string) => {
@@ -167,6 +172,7 @@ export const Dashboard: React.FC = () => {
     }
     const success = await saveToCloud(id);
     if (success) {
+      analytics.cloudSave(id);
       await refreshMergedMaps();
     }
   };
@@ -179,6 +185,7 @@ export const Dashboard: React.FC = () => {
     setShowTemplateModal(false);
     try {
       const id = await importMap(template.name, template.nodes, template.links);
+      analytics.useTemplate(template.name);
       navigate(`/map/${id}`);
     } catch (error) {
       alert('Failed to create map from template. Please try again.');
@@ -201,6 +208,7 @@ export const Dashboard: React.FC = () => {
       const title = file.name.replace(/\.json$/i, '').replace(/^mindmap-\d+$/, 'Imported Map');
 
       const id = await importMap(title, nodes, result.state.links, result.notes);
+      analytics.importMap('json');
       navigate(`/map/${id}`);
     } catch {
       alert('Failed to import file. Please check the file format.');

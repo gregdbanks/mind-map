@@ -21,6 +21,7 @@ import type { CanvasBackground } from '../../components/BackgroundSelector';
 import type { LibraryMapFull } from '../../types/library';
 import type { Node } from '../../types/mindMap';
 import type { SerializedNote } from '../../types/sync';
+import { analytics } from '../../services/analytics';
 import styles from './LibraryMapView.module.css';
 
 export const LibraryMapView: React.FC = () => {
@@ -307,6 +308,7 @@ export const LibraryMapView: React.FC = () => {
     setForking(true);
     try {
       const forkedMap = await apiClient.forkMap(id);
+      analytics.forkMap(id);
       // Pull the new cloud map into IndexedDB so the editor can load it
       await pullMapFromCloud(forkedMap.id);
       navigate(`/map/${forkedMap.id}`);
@@ -324,6 +326,7 @@ export const LibraryMapView: React.FC = () => {
     }
     try {
       const result = await apiClient.rateMap(id, rating);
+      analytics.rateMap(rating);
       setUserRating(rating);
       setMapData((prev) => prev ? { ...prev, rating_avg: result.rating_avg, rating_count: result.rating_count } : prev);
     } catch {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { apiClient } from '../../services/apiClient';
+import { analytics } from '../../services/analytics';
 import styles from './UpgradeModal.module.css';
 
 interface UpgradeModalProps {
@@ -31,6 +32,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({
   const handleUpgrade = async () => {
     if (!activePriceId) return;
     setUpgrading(true);
+    analytics.checkoutStart(selectedPlan || 'monthly');
     try {
       const { url } = await apiClient.createCheckout(activePriceId!);
       window.location.href = url;
