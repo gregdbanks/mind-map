@@ -169,7 +169,7 @@ export const Editor: React.FC = () => {
   }
 
   return (
-    <CollabMindMapProvider mapId={mapId} collabEnabled={isAuthenticated} collabConnected={collabConnected}>
+    <CollabMindMapProvider key={mapId} mapId={mapId} collabEnabled={isAuthenticated} collabConnected={collabConnected}>
       <EditorContent mapId={mapId} collabUsers={collabUsers} collabConnected={collabConnected} collabConnecting={collabConnecting} />
     </CollabMindMapProvider>
   );
