@@ -309,8 +309,14 @@ export const LibraryMapView: React.FC = () => {
     try {
       const forkedMap = await apiClient.forkMap(id);
       analytics.forkMap(id);
-      // Pull the new cloud map into IndexedDB so the editor can load it
-      await pullMapFromCloud(forkedMap.id);
+      // Pull the new cloud map into IndexedDB so the editor can load it.
+      // If the IDB write fails (e.g., service worker conflict), still navigate —
+      // useMapPersistence will retry the cloud pull on the editor page.
+      try {
+        await pullMapFromCloud(forkedMap.id);
+      } catch {
+        // Non-fatal: editor will pull from cloud if IDB is empty
+      }
       navigate(`/map/${forkedMap.id}`);
     } catch {
       alert('Failed to fork map. Please try again.');

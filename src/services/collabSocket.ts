@@ -38,7 +38,7 @@ export const collabSocket = {
 
     socket = io(API_BASE_URL, {
       path: '/collab',
-      transports: ['websocket', 'polling'],
+      transports: ['polling', 'websocket'],
       auth: {
         token,
         username,
