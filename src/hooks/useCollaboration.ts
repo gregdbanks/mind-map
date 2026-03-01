@@ -16,10 +16,13 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
   const docRef = useRef<Y.Doc | null>(null);
   const providerRef = useRef<SocketIOYjsProvider | null>(null);
   const isRemoteChangeRef = useRef(false);
+  const initialSyncDoneRef = useRef(false);
 
   // Initialize Yjs doc and provider when socket is connected
   useEffect(() => {
     if (!enabled || !connected) return;
+
+    initialSyncDoneRef.current = false;
 
     const doc = new Y.Doc();
     docRef.current = doc;
@@ -35,6 +38,27 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
     yNodes.observeDeep((events) => {
       // Skip if this change originated from our local dispatch
       if (!isRemoteChangeRef.current) return;
+
+      // On initial sync, replace the entire state (clears the default root-node).
+      // After that, apply incremental ADD/DELETE/UPDATE for live edits.
+      if (!initialSyncDoneRef.current) {
+        initialSyncDoneRef.current = true;
+        const nodes: Node[] = [];
+        yNodes.forEach((val) => {
+          if (val instanceof Y.Map) {
+            nodes.push(yMapToNode(val));
+          }
+        });
+        const links: Link[] = [];
+        for (let i = 0; i < yLinks.length; i++) {
+          const link = yLinks.get(i) as Record<string, unknown>;
+          if (link && typeof link === 'object' && 'source' in link && 'target' in link) {
+            links.push({ source: link.source as string, target: link.target as string });
+          }
+        }
+        dispatch({ type: 'LOAD_MINDMAP', payload: { nodes, links } });
+        return;
+      }
 
       for (const event of events) {
         if (event.target === yNodes && event instanceof Y.YMapEvent) {
