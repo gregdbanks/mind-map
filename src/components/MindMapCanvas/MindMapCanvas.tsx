@@ -47,6 +47,8 @@ interface MindMapCanvasProps {
 export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers, collabConnected }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
+  const linksGroupRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
+  const nodesGroupRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
   const zoomBehaviorRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
   const simulationRef = useRef<d3.Simulation<ForceNode, ForceLink> | null>(null);
   const customPositionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
@@ -507,6 +509,10 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
       const g = svg.append('g').attr('class', 'main-group');
       gRef.current = g;
 
+      // Separate sub-groups ensure links always render behind nodes in SVG
+      linksGroupRef.current = g.append('g').attr('class', 'links-group');
+      nodesGroupRef.current = g.append('g').attr('class', 'nodes-group');
+
       // Create marquee selection group (screen-space, not transformed by zoom)
       const marqueeGroup = svg.append('g').attr('class', 'marquee-group');
       marqueeGroupRef.current = marqueeGroup;
@@ -588,8 +594,9 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
     const nodeDepths = calculateNodeDepths(state.nodes);
     const isDark = isDarkBackground(canvasBackground);
 
-    // Update links
-    const link = g.selectAll<SVGLineElement, Link>('.link')
+    // Update links — append into dedicated links group so they always render behind nodes
+    const linksGroup = linksGroupRef.current || g;
+    const link = linksGroup.selectAll<SVGLineElement, Link>('.link')
       .data(links, (d: Link) => `${d.source}-${d.target}`);
 
     link.exit().remove();
@@ -614,8 +621,9 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
         return getLinkVisualProperties(sourceDepth, targetDepth).opacity;
       });
 
-    // Update nodes  
-    const node = g.selectAll<SVGGElement, Node>('.node')
+    // Update nodes — append into dedicated nodes group so they always render on top of links
+    const nodesGroup = nodesGroupRef.current || g;
+    const node = nodesGroup.selectAll<SVGGElement, Node>('.node')
       .data(nodes, (d: Node) => d.id);
 
     // Remove old nodes — clean up inline note React roots before removing DOM
