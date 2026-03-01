@@ -24,6 +24,7 @@ const CollabBridge: React.FC<{ mapId: string; collabEnabled: boolean; collabConn
   const { collabDispatch, doc } = useCollaboration({
     mapId,
     dispatch: ctx.dispatch,
+    state: ctx.state,
     enabled: collabEnabled,
     connected: collabConnected,
   });

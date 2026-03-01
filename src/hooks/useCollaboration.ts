@@ -2,21 +2,26 @@ import { useState, useEffect, useRef, useCallback, type Dispatch } from 'react';
 import * as Y from 'yjs';
 import { SocketIOYjsProvider } from '../services/yjsProvider';
 import type { MindMapAction } from '../context/mindMapReducer';
-import type { Node, Link, Point } from '../types/mindMap';
+import type { Node, Link, Point, MindMapState } from '../types/mindMap';
 
 interface UseCollaborationOptions {
   mapId: string;
   dispatch: Dispatch<MindMapAction>;
+  state: MindMapState;
   enabled: boolean;
   connected: boolean;
 }
 
-export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCollaborationOptions) {
+export function useCollaboration({ mapId, dispatch, state, enabled, connected }: UseCollaborationOptions) {
   const [doc, setDoc] = useState<Y.Doc | null>(null);
   const docRef = useRef<Y.Doc | null>(null);
   const providerRef = useRef<SocketIOYjsProvider | null>(null);
   const isRemoteChangeRef = useRef(false);
   const initialSyncDoneRef = useRef(false);
+
+  // Keep a ref to current state so the initial sync observer can read it
+  const stateRef = useRef<MindMapState>(state);
+  stateRef.current = state;
 
   // Initialize Yjs doc and provider when socket is connected
   useEffect(() => {
@@ -39,26 +44,101 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
       // Skip if this change originated from our local dispatch
       if (!isRemoteChangeRef.current) return;
 
-      // On initial sync, replace state with remote data (for collab maps).
-      // Skip if remote doc is empty — preserves locally-loaded data for new/local maps.
+      // On initial sync, merge IDB-loaded state with Yjs remote data.
+      // - If Yjs is empty: keep local state and seed it into Yjs
+      // - If Yjs has data: union both node sets (Yjs wins on conflicts),
+      //   preserve IDB-only nodes, and seed missing nodes back into Yjs
       // After initial sync, apply incremental ADD/DELETE/UPDATE for live edits.
       if (!initialSyncDoneRef.current) {
         initialSyncDoneRef.current = true;
-        if (yNodes.size === 0) return; // empty doc, nothing to sync
-        const nodes: Node[] = [];
-        yNodes.forEach((val) => {
+
+        const localState = stateRef.current;
+        const localNodes = localState.nodes; // Map<string, Node>
+        const localLinks = localState.links;
+
+        // Collect remote nodes from Yjs
+        const remoteNodes = new Map<string, Node>();
+        yNodes.forEach((val, key) => {
           if (val instanceof Y.Map) {
-            nodes.push(yMapToNode(val));
+            remoteNodes.set(key, yMapToNode(val));
           }
         });
-        const links: Link[] = [];
+
+        // Collect remote links from Yjs
+        const remoteLinks: Link[] = [];
         for (let i = 0; i < yLinks.length; i++) {
           const link = yLinks.get(i) as Record<string, unknown>;
           if (link && typeof link === 'object' && 'source' in link && 'target' in link) {
-            links.push({ source: link.source as string, target: link.target as string });
+            remoteLinks.push({ source: link.source as string, target: link.target as string });
           }
         }
-        dispatch({ type: 'LOAD_MINDMAP', payload: { nodes, links } });
+
+        if (remoteNodes.size === 0 && localNodes.size === 0) {
+          return; // both empty, nothing to do
+        }
+
+        // If Yjs is empty, keep local state and seed it into Yjs
+        if (remoteNodes.size === 0) {
+          queueMicrotask(() => {
+            doc.transact(() => {
+              localNodes.forEach((node) => {
+                const yNode = new Y.Map();
+                for (const [key, value] of Object.entries(node)) {
+                  if (value !== undefined) yNode.set(key, value);
+                }
+                yNodes.set(node.id, yNode);
+              });
+              localLinks.forEach((link) => {
+                yLinks.push([{ source: link.source, target: link.target }]);
+              });
+            });
+          });
+          return; // local state already in reducer, no dispatch needed
+        }
+
+        // Merge: start with all remote nodes, add any local-only nodes
+        const mergedNodes: Node[] = [...remoteNodes.values()];
+        const missingFromYjs: Node[] = [];
+        localNodes.forEach((localNode) => {
+          if (!remoteNodes.has(localNode.id)) {
+            mergedNodes.push(localNode);
+            missingFromYjs.push(localNode);
+          }
+        });
+
+        // Merge links: union of remote + local, deduplicated
+        const linkSet = new Set<string>();
+        const mergedLinks: Link[] = [];
+        for (const link of [...remoteLinks, ...localLinks]) {
+          const key = `${link.source}->${link.target}`;
+          if (!linkSet.has(key)) {
+            linkSet.add(key);
+            mergedLinks.push(link);
+          }
+        }
+
+        dispatch({ type: 'LOAD_MINDMAP', payload: { nodes: mergedNodes, links: mergedLinks } });
+
+        // Seed missing nodes and links back into Yjs so other clients see them
+        if (missingFromYjs.length > 0) {
+          const missingLinks = mergedLinks.filter(
+            (link) => !remoteLinks.some((rl) => rl.source === link.source && rl.target === link.target)
+          );
+          queueMicrotask(() => {
+            doc.transact(() => {
+              for (const node of missingFromYjs) {
+                const yNode = new Y.Map();
+                for (const [key, value] of Object.entries(node)) {
+                  if (value !== undefined) yNode.set(key, value);
+                }
+                yNodes.set(node.id, yNode);
+              }
+              for (const link of missingLinks) {
+                yLinks.push([{ source: link.source, target: link.target }]);
+              }
+            });
+          });
+        }
         return;
       }
 
