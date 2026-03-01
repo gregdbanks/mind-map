@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { getDatabase } from '../services/database';
 import { useMindMap } from '../context/MindMapContext';
+import { pullMapFromCloud } from '../services/syncService';
 import type { MindMap, Node, StoredMindMap } from '../types/mindMap';
 
 const AUTOSAVE_DELAY = 500;
@@ -39,18 +40,48 @@ export function useMapPersistence(mapId: string, options?: MapPersistenceOptions
             const store = transaction.objectStore('mindmaps');
             const request = store.get(key);
 
-            request.onsuccess = () => {
+            request.onsuccess = async () => {
               const data: StoredMindMap | undefined = request.result;
               if (data && data.nodes && data.nodes.length > 0) {
                 dispatch({
                   type: 'LOAD_MINDMAP',
                   payload: { nodes: data.nodes, links: data.links },
                 });
+                setLoading(false);
+                resolve();
               } else {
-                setMapNotFound(true);
+                // Not in IDB — try pulling from cloud (handles collab invites,
+                // shared maps, or maps not yet synced to this device)
+                try {
+                  await pullMapFromCloud(mapId);
+                  // Re-read from IDB after cloud pull
+                  const tx2 = db.transaction(['mindmaps'], 'readonly');
+                  const req2 = tx2.objectStore('mindmaps').get(key);
+                  req2.onsuccess = () => {
+                    const cloudData: StoredMindMap | undefined = req2.result;
+                    if (cloudData && cloudData.nodes && cloudData.nodes.length > 0) {
+                      dispatch({
+                        type: 'LOAD_MINDMAP',
+                        payload: { nodes: cloudData.nodes, links: cloudData.links },
+                      });
+                    } else {
+                      setMapNotFound(true);
+                    }
+                    setLoading(false);
+                    resolve();
+                  };
+                  req2.onerror = () => {
+                    setMapNotFound(true);
+                    setLoading(false);
+                    resolve();
+                  };
+                } catch {
+                  // Cloud pull failed — map truly doesn't exist or user has no access
+                  setMapNotFound(true);
+                  setLoading(false);
+                  resolve();
+                }
               }
-              setLoading(false);
-              resolve();
             };
 
             request.onerror = () => {
