@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { apiClient } from '../../services/apiClient';
 import { analytics } from '../../services/analytics';
 import styles from './Signup.module.css';
 
@@ -53,6 +54,12 @@ export const Signup: React.FC = () => {
 
     setIsLoading(true);
     try {
+      const emailExists = await apiClient.checkEmailExists(email);
+      if (emailExists) {
+        setIsLoading(false);
+        setError('An account with this email already exists.');
+        return;
+      }
       await signUp(username, email, password);
       analytics.signUp();
       setIsLoading(false);
