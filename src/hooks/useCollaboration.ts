@@ -39,10 +39,12 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
       // Skip if this change originated from our local dispatch
       if (!isRemoteChangeRef.current) return;
 
-      // On initial sync, replace the entire state (clears the default root-node).
-      // After that, apply incremental ADD/DELETE/UPDATE for live edits.
+      // On initial sync, replace state with remote data (for collab maps).
+      // Skip if remote doc is empty — preserves locally-loaded data for new/local maps.
+      // After initial sync, apply incremental ADD/DELETE/UPDATE for live edits.
       if (!initialSyncDoneRef.current) {
         initialSyncDoneRef.current = true;
+        if (yNodes.size === 0) return; // empty doc, nothing to sync
         const nodes: Node[] = [];
         yNodes.forEach((val) => {
           if (val instanceof Y.Map) {
@@ -112,9 +114,17 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
       }
     });
 
-    // Observe link changes — only update links, not the entire node map
+    // Observe link changes — only update links, not the entire node map.
+    // Skip during initial sync: the yNodes observer already dispatches
+    // LOAD_MINDMAP with both nodes and links. Without this guard, SET_LINKS
+    // fires for the same sync event and overwrites links with stale server data.
+    let linkObserverReady = false;
     yLinks.observe(() => {
       if (!isRemoteChangeRef.current) return;
+      if (!linkObserverReady) {
+        linkObserverReady = true;
+        return;
+      }
 
       const links: Link[] = [];
       for (let i = 0; i < yLinks.length; i++) {
