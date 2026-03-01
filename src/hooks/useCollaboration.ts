@@ -39,10 +39,12 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
       // Skip if this change originated from our local dispatch
       if (!isRemoteChangeRef.current) return;
 
-      // On initial sync, replace the entire state (clears the default root-node).
+      // On initial sync, replace the entire state with remote data.
       // After that, apply incremental ADD/DELETE/UPDATE for live edits.
+      // Skip if remote doc is empty — preserves locally-loaded root node for new maps.
       if (!initialSyncDoneRef.current) {
         initialSyncDoneRef.current = true;
+        if (yNodes.size === 0) return; // empty doc, nothing to sync
         const nodes: Node[] = [];
         yNodes.forEach((val) => {
           if (val instanceof Y.Map) {
