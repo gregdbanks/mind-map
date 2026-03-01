@@ -1567,7 +1567,8 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
         if (!isDraggingRef.current) {
           setHoveredNodeId(null);
           // Keep action buttons visible for expanded notes (mouseout fires when entering foreignObject)
-          if (d.noteExpanded) return;
+          const hoverNode = state.nodes.get(d.id);
+          if (hoverNode?.noteExpanded) return;
           // Hide action buttons on mouse out
           d3.select(this).select('.node-actions')
             .transition()
@@ -1601,7 +1602,8 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
             button.on('click', function(event: MouseEvent) {
               event.stopPropagation();
               // Collapse expanded note so edit modal isn't blocked
-              if (d.noteExpanded) {
+              const editNode = state.nodes.get(d.id);
+              if (editNode?.noteExpanded) {
                 operations.updateNode(d.id, { noteExpanded: false });
               }
               startEditing(d.id);
@@ -1618,8 +1620,10 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
               event.stopPropagation();
               // Always select the node when clicking the note tab
               selectNode(d.id);
-              // Toggle inline expansion — accordion: only one note open at a time
-              const newExpanded = !d.noteExpanded;
+              // Read current expanded state from React state (not D3 datum which can be stale)
+              const currentNode = state.nodes.get(d.id);
+              const isCurrentlyExpanded = currentNode?.noteExpanded ?? false;
+              const newExpanded = !isCurrentlyExpanded;
               const isFirstExpansion = newExpanded && !expandedOnceRef.current.has(d.id);
               if (newExpanded) {
                 expandedOnceRef.current.add(d.id);
