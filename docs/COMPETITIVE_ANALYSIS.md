@@ -141,8 +141,8 @@
 |---------|-----------|-------------|------|--------|-----------|-------|---------|
 | **Free maps** | Unlimited local | 3 | 3 boards | Unlimited (public) | Unlimited private | Unlimited | Unlimited |
 | **Free cloud saves** | 1 | 3 (all cloud) | 3 boards | Unlimited (public) | Unlimited | 0 (cache only) | N/A |
-| **Paid plan starts at** | $3/mo | $7.50/mo | $8/mo | $5/mo | $10/mo | $5.99/mo | Free |
-| **Annual discount** | $24/yr ($2/mo) | -- | Yes | -- | $10/mo | $59.99/yr ($5/mo) | Free |
+| **Paid plan starts at** | $5/mo | $7.50/mo | $8/mo | $5/mo | $10/mo | $5.99/mo | Free |
+| **Annual discount** | $40/yr ($3.33/mo) | -- | Yes | -- | $10/mo | $59.99/yr ($5/mo) | Free |
 | **Real-time collab** | Pro | All paid | All plans | Free tier | All plans | Premium only | None |
 | **Export: PNG** | Pro | Paid | Paid | All plans | Limited free | Paid | Plugin |
 | **Export: SVG** | Pro | No | Paid | No | Experimental | Paid | Yes |
@@ -166,7 +166,7 @@
 
 | Tool | Free | Entry Paid | Mid Tier | Top Tier |
 |------|------|-----------|----------|----------|
-| **ThoughtNet** | $0 (unlimited local, 1 cloud) | $3/mo Pro | -- | $24/yr annual |
+| **ThoughtNet** | $0 (unlimited local, 1 cloud) | $5/mo Pro | -- | $40/yr annual |
 | **MindMeister** | $0 (3 maps) | $7.50/mo Personal | $12.50/mo Pro | $19/mo Business |
 | **Miro** | $0 (3 boards) | $8/mo Starter | $20/mo Business | Custom Enterprise |
 | **Coggle** | $0 (public only) | $5/mo Awesome | $8/user/mo Org | -- |
@@ -176,7 +176,7 @@
 | **Mural** | $0 (5 boards) | $9.99/mo Team+ | $17.99/mo Business | Custom Enterprise |
 | **Lucidspark** | $0 (3 boards) | $7.95/mo Individual | $9/mo Team | Custom Enterprise |
 
-**ThoughtNet's $3/mo Pro plan is the lowest-priced paid tier among all competitors with collaboration features.** The closest competitor on price is Coggle at $5/month, but Coggle lacks SVG export, Markdown export, version history, and a community library.
+**ThoughtNet's $5/mo Pro plan matches the lowest-priced paid tier among competitors with collaboration features (Coggle at $5/mo).** However, Coggle lacks SVG export, Markdown export, version history, and a community library, making ThoughtNet the best value at this price point.
 
 ---
 
@@ -186,7 +186,7 @@
 No competitor offers a crowdsourced public library where users can browse, fork, rate, and publish mind maps. This is ThoughtNet's strongest and most unique differentiator. MindMeister and Miro have template galleries, but these are curated by the company, not community-driven. The fork/remix model creates a network effect that competitors cannot easily replicate.
 
 ### 4.2 Most Aggressive Pricing
-At $3/month (or $2/month annual), ThoughtNet Pro is 40--75% cheaper than comparable paid tiers from competitors. This positions ThoughtNet as the clear value leader, especially for individual users and students who need collaboration and premium exports.
+At $5/month (or $3.33/month annual), ThoughtNet Pro is competitively priced and 33--50% cheaper than comparable paid tiers from most competitors. This positions ThoughtNet as the clear value leader, especially for individual users and students who need collaboration and premium exports.
 
 ### 4.3 Generous Free Tier with Unlimited Local Maps
 ThoughtNet offers unlimited local mind maps for free -- matching XMind's generosity and far exceeding MindMeister (3 maps), Miro (3 boards), and Lucidspark (3 boards). The free JSON export ensures users are never locked in.
@@ -198,7 +198,7 @@ ThoughtNet is one of only two tools in this analysis that supports Markdown expo
 Unlike XMind (desktop-first) and Markmap (CLI/editor plugins), ThoughtNet runs entirely in the browser with no installation. Combined with offline-capable local storage, this offers the best of both worlds.
 
 ### 4.6 Version History at Entry Price
-Version history is typically a premium/enterprise feature (MindMeister, Miro). ThoughtNet includes it in the $3/month Pro plan, making it accessible to individual users.
+Version history is typically a premium/enterprise feature (MindMeister, Miro). ThoughtNet includes it in the $5/month Pro plan, making it accessible to individual users.
 
 ---
 
@@ -251,9 +251,9 @@ ThoughtNet should lean heavily into its unique community library as the core bra
 
 | Segment | Primary Competitor | ThoughtNet's Angle |
 |---------|-------------------|-------------------|
-| **Students** | MindMeister Edu ($1.75/mo) | Unlimited free local maps + community library. Pro at $2/mo (annual) undercuts MindMeister Edu |
+| **Students** | MindMeister Edu ($1.75/mo) | Unlimited free local maps + community library. Pro at $3.33/mo (annual) is competitive with MindMeister Edu |
 | **Indie creators / writers** | XMind Free | Markdown export + public library for building audience. Web-native vs XMind's desktop focus |
-| **Small teams (2--10)** | Coggle ($5/mo) | Real-time collab + version history at $3/mo. Community library for shared templates |
+| **Small teams (2--10)** | Coggle ($5/mo) | Real-time collab + version history at $5/mo. Community library for shared templates |
 | **Developers** | Markmap (free OSS) | Visual editor (no Markdown required) + collaboration + cloud sync. Markmap users are potential converts |
 | **Enterprise** | Miro ($20+/mo) | Not recommended to compete here yet. Focus on bottoms-up adoption by individual users within enterprises |
 
@@ -262,7 +262,7 @@ ThoughtNet should lean heavily into its unique community library as the core bra
 **Primary message:** "The most affordable collaborative mind mapping tool with a community library you can learn from, fork, and contribute to."
 
 **Supporting messages:**
-1. **Price leadership:** "Full collaboration and premium exports for $3/month -- less than half the price of MindMeister or Whimsical."
+1. **Price leadership:** "Full collaboration and premium exports for $5/month -- significantly less than MindMeister or Whimsical."
 2. **Community:** "Browse thousands of community mind maps. Fork any map to make it your own. Publish yours to help others."
 3. **No lock-in:** "Unlimited free local maps. Export to JSON, PNG, SVG, PDF, or Markdown anytime."
 4. **Works everywhere:** "No install needed. Open your browser and start mapping."
@@ -280,7 +280,7 @@ ThoughtNet should lean heavily into its unique community library as the core bra
 ## 7. SWOT Summary
 
 ### Strengths
-- Lowest price point with collaboration ($3/mo)
+- Competitive price point with collaboration ($5/mo)
 - Unique community library with fork/rate/publish
 - Unlimited free local maps with offline support
 - Comprehensive export formats including Markdown
