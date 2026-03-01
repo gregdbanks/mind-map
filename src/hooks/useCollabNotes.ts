@@ -82,46 +82,62 @@ export function useCollabNotes(mapId: string): UseMapNotesReturn {
     // Observe remote changes only — local saves already update collabNotes directly.
     // Firing on local changes causes double-renders that disrupt the TipTap editor.
     // Uses targeted updates instead of full-map rebuild for better performance.
+    //
+    // IMPORTANT: Extract all data from event.changes synchronously in this callback.
+    // Yjs invalidates event.changes after the handler returns, so accessing them
+    // inside React's deferred setState updater throws:
+    // "You must not compute changes after the event-handler fired."
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const observer = (events: Y.YEvent<any>[], transaction: Y.Transaction) => {
       if (transaction.local) return;
 
-      setCollabNotes((prev) => {
-        const next = new Map(prev);
-        let changed = false;
+      // Extract change data synchronously before any deferred callbacks
+      const additions: Array<{ nodeId: string; note: NodeNote }> = [];
+      const deletions: string[] = [];
 
-        for (const event of events) {
-          if (event.target === yNotes && event instanceof Y.YMapEvent) {
-            // Top-level: notes added/removed from the map
-            event.changes.keys.forEach((change, nodeId) => {
-              if (change.action === 'add' || change.action === 'update') {
-                const yNote = yNotes.get(nodeId);
-                if (yNote instanceof Y.Map) {
-                  const note = yMapToNote(yNote);
-                  next.set(nodeId, note);
-                  changed = true;
-                  localSaveRef.current(note).catch(() => {});
-                }
-              } else if (change.action === 'delete') {
-                next.delete(nodeId);
-                changed = true;
-                localDeleteRef.current(nodeId).catch(() => {});
+      for (const event of events) {
+        if (event.target === yNotes && event instanceof Y.YMapEvent) {
+          // Top-level: notes added/removed from the map
+          event.changes.keys.forEach((change, nodeId) => {
+            if (change.action === 'add' || change.action === 'update') {
+              const yNote = yNotes.get(nodeId);
+              if (yNote instanceof Y.Map) {
+                additions.push({ nodeId, note: yMapToNote(yNote) });
               }
-            });
-          } else if (event.target instanceof Y.Map && event.target !== yNotes) {
-            // Nested: property changed within an individual note's Y.Map
-            const yNote = event.target as Y.Map<unknown>;
-            const nodeId = yNote.get('nodeId') as string;
-            if (nodeId) {
-              const note = yMapToNote(yNote);
-              next.set(nodeId, note);
-              changed = true;
-              localSaveRef.current(note).catch(() => {});
+            } else if (change.action === 'delete') {
+              deletions.push(nodeId);
             }
+          });
+        } else if (event.target instanceof Y.Map && event.target !== yNotes) {
+          // Nested: property changed within an individual note's Y.Map
+          const yNote = event.target as Y.Map<unknown>;
+          const nodeId = yNote.get('nodeId') as string;
+          if (nodeId) {
+            additions.push({ nodeId, note: yMapToNote(yNote) });
           }
         }
+      }
 
-        return changed ? next : prev;
+      if (additions.length === 0 && deletions.length === 0) return;
+
+      // Cache to IndexedDB (fire-and-forget)
+      for (const { note } of additions) {
+        localSaveRef.current(note).catch(() => {});
+      }
+      for (const nodeId of deletions) {
+        localDeleteRef.current(nodeId).catch(() => {});
+      }
+
+      // Update React state with extracted plain data (safe to defer)
+      setCollabNotes((prev) => {
+        const next = new Map(prev);
+        for (const { nodeId, note } of additions) {
+          next.set(nodeId, note);
+        }
+        for (const nodeId of deletions) {
+          next.delete(nodeId);
+        }
+        return next;
       });
     };
 
