@@ -1,0 +1,286 @@
+{
+  "title": "Machine Learning Overview",
+  "canvasBackground": "#1a1a2e",
+  "nodes": [
+    {
+      "id": "root",
+      "text": "Machine Learning Overview",
+      "x": 600,
+      "y": 400,
+      "parent": null,
+      "collapsed": false,
+      "color": "#6366f1",
+      "textColor": "#ffffff",
+      "size": "xl"
+    },
+    {
+      "id": "supervised",
+      "text": "Supervised Learning",
+      "x": 250,
+      "y": 180,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#22c55e",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "sup-regression",
+      "text": "Regression (predict continuous values)",
+      "x": 50,
+      "y": 80,
+      "parent": "supervised",
+      "collapsed": false
+    },
+    {
+      "id": "sup-linear",
+      "text": "Linear Regression",
+      "x": -150,
+      "y": 50,
+      "parent": "sup-regression",
+      "collapsed": false
+    },
+    {
+      "id": "sup-polynomial",
+      "text": "Polynomial Regression",
+      "x": -150,
+      "y": 100,
+      "parent": "sup-regression",
+      "collapsed": false
+    },
+    {
+      "id": "sup-classification",
+      "text": "Classification (predict categories)",
+      "x": 50,
+      "y": 200,
+      "parent": "supervised",
+      "collapsed": false
+    },
+    {
+      "id": "sup-logistic",
+      "text": "Logistic Regression",
+      "x": -150,
+      "y": 170,
+      "parent": "sup-classification",
+      "collapsed": false
+    },
+    {
+      "id": "sup-svm",
+      "text": "Support Vector Machines (SVM)",
+      "x": -150,
+      "y": 220,
+      "parent": "sup-classification",
+      "collapsed": false
+    },
+    {
+      "id": "sup-rf",
+      "text": "Random Forest",
+      "x": -150,
+      "y": 270,
+      "parent": "sup-classification",
+      "collapsed": false
+    },
+    {
+      "id": "unsupervised",
+      "text": "Unsupervised Learning",
+      "x": 950,
+      "y": 180,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3b82f6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "unsup-clustering",
+      "text": "Clustering (group similar data)",
+      "x": 1170,
+      "y": 100,
+      "parent": "unsupervised",
+      "collapsed": false
+    },
+    {
+      "id": "unsup-kmeans",
+      "text": "K-Means Clustering",
+      "x": 1370,
+      "y": 70,
+      "parent": "unsup-clustering",
+      "collapsed": false
+    },
+    {
+      "id": "unsup-dbscan",
+      "text": "DBSCAN (density-based)",
+      "x": 1370,
+      "y": 120,
+      "parent": "unsup-clustering",
+      "collapsed": false
+    },
+    {
+      "id": "unsup-dim",
+      "text": "Dimensionality Reduction",
+      "x": 1170,
+      "y": 220,
+      "parent": "unsupervised",
+      "collapsed": false
+    },
+    {
+      "id": "unsup-pca",
+      "text": "PCA (Principal Component Analysis)",
+      "x": 1370,
+      "y": 190,
+      "parent": "unsup-dim",
+      "collapsed": false
+    },
+    {
+      "id": "unsup-tsne",
+      "text": "t-SNE (visualization)",
+      "x": 1370,
+      "y": 240,
+      "parent": "unsup-dim",
+      "collapsed": false
+    },
+    {
+      "id": "reinforcement",
+      "text": "Reinforcement Learning",
+      "x": 250,
+      "y": 600,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#f59e0b",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "rl-qlearning",
+      "text": "Q-Learning (value-based)",
+      "x": 50,
+      "y": 540,
+      "parent": "reinforcement",
+      "collapsed": false
+    },
+    {
+      "id": "rl-policy",
+      "text": "Policy Gradient methods",
+      "x": 50,
+      "y": 590,
+      "parent": "reinforcement",
+      "collapsed": false
+    },
+    {
+      "id": "rl-reward",
+      "text": "Agent, Environment, Reward loop",
+      "x": 50,
+      "y": 640,
+      "parent": "reinforcement",
+      "collapsed": false
+    },
+    {
+      "id": "deeplearning",
+      "text": "Deep Learning",
+      "x": 950,
+      "y": 600,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ec4899",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "dl-cnn",
+      "text": "CNN (image recognition)",
+      "x": 1170,
+      "y": 540,
+      "parent": "deeplearning",
+      "collapsed": false
+    },
+    {
+      "id": "dl-rnn",
+      "text": "RNN/LSTM (sequence data)",
+      "x": 1170,
+      "y": 590,
+      "parent": "deeplearning",
+      "collapsed": false
+    },
+    {
+      "id": "dl-transformer",
+      "text": "Transformers (attention mechanism)",
+      "x": 1170,
+      "y": 640,
+      "parent": "deeplearning",
+      "collapsed": false
+    },
+    {
+      "id": "dl-gan",
+      "text": "GANs (generative models)",
+      "x": 1170,
+      "y": 690,
+      "parent": "deeplearning",
+      "collapsed": false
+    },
+    {
+      "id": "evaluation",
+      "text": "Model Evaluation",
+      "x": 600,
+      "y": 700,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8b5cf6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "eval-accuracy",
+      "text": "Accuracy, Precision, Recall, F1",
+      "x": 420,
+      "y": 780,
+      "parent": "evaluation",
+      "collapsed": false
+    },
+    {
+      "id": "eval-overfit",
+      "text": "Overfitting vs Underfitting",
+      "x": 600,
+      "y": 780,
+      "parent": "evaluation",
+      "collapsed": false
+    },
+    {
+      "id": "eval-crossval",
+      "text": "Cross-validation (k-fold)",
+      "x": 780,
+      "y": 780,
+      "parent": "evaluation",
+      "collapsed": false
+    }
+  ],
+  "links": [
+    { "source": "root", "target": "supervised" },
+    { "source": "root", "target": "unsupervised" },
+    { "source": "root", "target": "reinforcement" },
+    { "source": "root", "target": "deeplearning" },
+    { "source": "root", "target": "evaluation" },
+    { "source": "supervised", "target": "sup-regression" },
+    { "source": "supervised", "target": "sup-classification" },
+    { "source": "sup-regression", "target": "sup-linear" },
+    { "source": "sup-regression", "target": "sup-polynomial" },
+    { "source": "sup-classification", "target": "sup-logistic" },
+    { "source": "sup-classification", "target": "sup-svm" },
+    { "source": "sup-classification", "target": "sup-rf" },
+    { "source": "unsupervised", "target": "unsup-clustering" },
+    { "source": "unsupervised", "target": "unsup-dim" },
+    { "source": "unsup-clustering", "target": "unsup-kmeans" },
+    { "source": "unsup-clustering", "target": "unsup-dbscan" },
+    { "source": "unsup-dim", "target": "unsup-pca" },
+    { "source": "unsup-dim", "target": "unsup-tsne" },
+    { "source": "reinforcement", "target": "rl-qlearning" },
+    { "source": "reinforcement", "target": "rl-policy" },
+    { "source": "reinforcement", "target": "rl-reward" },
+    { "source": "deeplearning", "target": "dl-cnn" },
+    { "source": "deeplearning", "target": "dl-rnn" },
+    { "source": "deeplearning", "target": "dl-transformer" },
+    { "source": "deeplearning", "target": "dl-gan" },
+    { "source": "evaluation", "target": "eval-accuracy" },
+    { "source": "evaluation", "target": "eval-overfit" },
+    { "source": "evaluation", "target": "eval-crossval" }
+  ]
+}

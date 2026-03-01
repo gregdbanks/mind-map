@@ -1,0 +1,280 @@
+{
+  "title": "System Design - Microservices",
+  "canvasBackground": "#1a1a2e",
+  "nodes": [
+    {
+      "id": "root",
+      "text": "System Design - Microservices",
+      "x": 600,
+      "y": 400,
+      "parent": null,
+      "collapsed": false,
+      "color": "#1e293b",
+      "textColor": "#ffffff",
+      "size": "xl"
+    },
+    {
+      "id": "gateway",
+      "text": "API Gateway",
+      "x": 600,
+      "y": 150,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#6366f1",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "gateway-routing",
+      "text": "Request routing & load balancing",
+      "x": 420,
+      "y": 60,
+      "parent": "gateway",
+      "collapsed": false
+    },
+    {
+      "id": "gateway-auth",
+      "text": "Authentication & rate limiting",
+      "x": 600,
+      "y": 60,
+      "parent": "gateway",
+      "collapsed": false
+    },
+    {
+      "id": "gateway-transform",
+      "text": "Request/response transformation",
+      "x": 780,
+      "y": 60,
+      "parent": "gateway",
+      "collapsed": false
+    },
+    {
+      "id": "services",
+      "text": "Core Services",
+      "x": 250,
+      "y": 250,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#22c55e",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "svc-user",
+      "text": "User Service (auth, profiles)",
+      "x": 30,
+      "y": 180,
+      "parent": "services",
+      "collapsed": false
+    },
+    {
+      "id": "svc-order",
+      "text": "Order Service (CRUD, state machine)",
+      "x": 30,
+      "y": 230,
+      "parent": "services",
+      "collapsed": false
+    },
+    {
+      "id": "svc-payment",
+      "text": "Payment Service (Stripe, invoicing)",
+      "x": 30,
+      "y": 280,
+      "parent": "services",
+      "collapsed": false
+    },
+    {
+      "id": "svc-notification",
+      "text": "Notification Service (email, push, SMS)",
+      "x": 30,
+      "y": 330,
+      "parent": "services",
+      "collapsed": false
+    },
+    {
+      "id": "databases",
+      "text": "Data Stores",
+      "x": 950,
+      "y": 250,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3b82f6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "db-postgres",
+      "text": "PostgreSQL (relational, ACID)",
+      "x": 1170,
+      "y": 180,
+      "parent": "databases",
+      "collapsed": false
+    },
+    {
+      "id": "db-mongo",
+      "text": "MongoDB (documents, flexible schema)",
+      "x": 1170,
+      "y": 230,
+      "parent": "databases",
+      "collapsed": false
+    },
+    {
+      "id": "db-s3",
+      "text": "S3/Blob Storage (files, images)",
+      "x": 1170,
+      "y": 280,
+      "parent": "databases",
+      "collapsed": false
+    },
+    {
+      "id": "db-elastic",
+      "text": "Elasticsearch (full-text search)",
+      "x": 1170,
+      "y": 330,
+      "parent": "databases",
+      "collapsed": false
+    },
+    {
+      "id": "caching",
+      "text": "Caching Layer",
+      "x": 250,
+      "y": 500,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ef4444",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "cache-redis",
+      "text": "Redis (session store, leaderboards)",
+      "x": 30,
+      "y": 450,
+      "parent": "caching",
+      "collapsed": false
+    },
+    {
+      "id": "cache-cdn",
+      "text": "CDN (static assets, edge caching)",
+      "x": 30,
+      "y": 500,
+      "parent": "caching",
+      "collapsed": false
+    },
+    {
+      "id": "cache-invalidation",
+      "text": "Cache invalidation strategies (TTL, write-through)",
+      "x": 30,
+      "y": 550,
+      "parent": "caching",
+      "collapsed": false
+    },
+    {
+      "id": "messaging",
+      "text": "Message Queue / Events",
+      "x": 950,
+      "y": 500,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#f59e0b",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "msg-kafka",
+      "text": "Kafka (event streaming, high throughput)",
+      "x": 1170,
+      "y": 450,
+      "parent": "messaging",
+      "collapsed": false
+    },
+    {
+      "id": "msg-rabbitmq",
+      "text": "RabbitMQ (task queues, pub/sub)",
+      "x": 1170,
+      "y": 500,
+      "parent": "messaging",
+      "collapsed": false
+    },
+    {
+      "id": "msg-patterns",
+      "text": "Saga pattern for distributed transactions",
+      "x": 1170,
+      "y": 550,
+      "parent": "messaging",
+      "collapsed": false
+    },
+    {
+      "id": "monitoring",
+      "text": "Observability",
+      "x": 600,
+      "y": 700,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8b5cf6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "mon-logs",
+      "text": "Centralized logging (ELK stack)",
+      "x": 380,
+      "y": 770,
+      "parent": "monitoring",
+      "collapsed": false
+    },
+    {
+      "id": "mon-metrics",
+      "text": "Metrics & dashboards (Grafana, Prometheus)",
+      "x": 600,
+      "y": 770,
+      "parent": "monitoring",
+      "collapsed": false
+    },
+    {
+      "id": "mon-tracing",
+      "text": "Distributed tracing (Jaeger, OpenTelemetry)",
+      "x": 820,
+      "y": 770,
+      "parent": "monitoring",
+      "collapsed": false
+    },
+    {
+      "id": "mon-alerts",
+      "text": "Alerting & on-call (PagerDuty, SLOs)",
+      "x": 600,
+      "y": 830,
+      "parent": "monitoring",
+      "collapsed": false
+    }
+  ],
+  "links": [
+    { "source": "root", "target": "gateway" },
+    { "source": "root", "target": "services" },
+    { "source": "root", "target": "databases" },
+    { "source": "root", "target": "caching" },
+    { "source": "root", "target": "messaging" },
+    { "source": "root", "target": "monitoring" },
+    { "source": "gateway", "target": "gateway-routing" },
+    { "source": "gateway", "target": "gateway-auth" },
+    { "source": "gateway", "target": "gateway-transform" },
+    { "source": "services", "target": "svc-user" },
+    { "source": "services", "target": "svc-order" },
+    { "source": "services", "target": "svc-payment" },
+    { "source": "services", "target": "svc-notification" },
+    { "source": "databases", "target": "db-postgres" },
+    { "source": "databases", "target": "db-mongo" },
+    { "source": "databases", "target": "db-s3" },
+    { "source": "databases", "target": "db-elastic" },
+    { "source": "caching", "target": "cache-redis" },
+    { "source": "caching", "target": "cache-cdn" },
+    { "source": "caching", "target": "cache-invalidation" },
+    { "source": "messaging", "target": "msg-kafka" },
+    { "source": "messaging", "target": "msg-rabbitmq" },
+    { "source": "messaging", "target": "msg-patterns" },
+    { "source": "monitoring", "target": "mon-logs" },
+    { "source": "monitoring", "target": "mon-metrics" },
+    { "source": "monitoring", "target": "mon-tracing" },
+    { "source": "monitoring", "target": "mon-alerts" }
+  ]
+}

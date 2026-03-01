@@ -1,0 +1,250 @@
+{
+  "title": "SWOT Analysis",
+  "canvasBackground": "#1a1a2e",
+  "nodes": [
+    {
+      "id": "root",
+      "text": "SWOT Analysis",
+      "x": 600,
+      "y": 400,
+      "parent": null,
+      "collapsed": false,
+      "color": "#1e293b",
+      "textColor": "#ffffff",
+      "size": "xl"
+    },
+    {
+      "id": "strengths",
+      "text": "Strengths",
+      "x": 300,
+      "y": 180,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#22c55e",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "s1",
+      "text": "Strong brand recognition & customer loyalty",
+      "x": 80,
+      "y": 80,
+      "parent": "strengths",
+      "collapsed": false
+    },
+    {
+      "id": "s2",
+      "text": "Experienced leadership team",
+      "x": 80,
+      "y": 130,
+      "parent": "strengths",
+      "collapsed": false
+    },
+    {
+      "id": "s3",
+      "text": "Proprietary technology or IP",
+      "x": 80,
+      "y": 180,
+      "parent": "strengths",
+      "collapsed": false
+    },
+    {
+      "id": "s4",
+      "text": "Efficient supply chain & operations",
+      "x": 80,
+      "y": 230,
+      "parent": "strengths",
+      "collapsed": false
+    },
+    {
+      "id": "weaknesses",
+      "text": "Weaknesses",
+      "x": 900,
+      "y": 180,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ef4444",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "w1",
+      "text": "Limited marketing budget",
+      "x": 1120,
+      "y": 80,
+      "parent": "weaknesses",
+      "collapsed": false
+    },
+    {
+      "id": "w2",
+      "text": "High employee turnover rate",
+      "x": 1120,
+      "y": 130,
+      "parent": "weaknesses",
+      "collapsed": false
+    },
+    {
+      "id": "w3",
+      "text": "Outdated internal processes",
+      "x": 1120,
+      "y": 180,
+      "parent": "weaknesses",
+      "collapsed": false
+    },
+    {
+      "id": "w4",
+      "text": "Narrow product line",
+      "x": 1120,
+      "y": 230,
+      "parent": "weaknesses",
+      "collapsed": false
+    },
+    {
+      "id": "opportunities",
+      "text": "Opportunities",
+      "x": 300,
+      "y": 620,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3b82f6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "o1",
+      "text": "Expanding into new geographic markets",
+      "x": 80,
+      "y": 520,
+      "parent": "opportunities",
+      "collapsed": false
+    },
+    {
+      "id": "o2",
+      "text": "Growing demand for sustainable products",
+      "x": 80,
+      "y": 570,
+      "parent": "opportunities",
+      "collapsed": false
+    },
+    {
+      "id": "o3",
+      "text": "Strategic partnership opportunities",
+      "x": 80,
+      "y": 620,
+      "parent": "opportunities",
+      "collapsed": false
+    },
+    {
+      "id": "o4",
+      "text": "Emerging technology adoption (AI/ML)",
+      "x": 80,
+      "y": 670,
+      "parent": "opportunities",
+      "collapsed": false
+    },
+    {
+      "id": "threats",
+      "text": "Threats",
+      "x": 900,
+      "y": 620,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#f59e0b",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "t1",
+      "text": "Increasing competition from new entrants",
+      "x": 1120,
+      "y": 520,
+      "parent": "threats",
+      "collapsed": false
+    },
+    {
+      "id": "t2",
+      "text": "Regulatory changes & compliance costs",
+      "x": 1120,
+      "y": 570,
+      "parent": "threats",
+      "collapsed": false
+    },
+    {
+      "id": "t3",
+      "text": "Economic downturn risk",
+      "x": 1120,
+      "y": 620,
+      "parent": "threats",
+      "collapsed": false
+    },
+    {
+      "id": "t4",
+      "text": "Supply chain disruption vulnerability",
+      "x": 1120,
+      "y": 670,
+      "parent": "threats",
+      "collapsed": false
+    },
+    {
+      "id": "actions",
+      "text": "Action Plan",
+      "x": 600,
+      "y": 750,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8b5cf6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "actions-leverage",
+      "text": "Leverage strengths to capture opportunities",
+      "x": 400,
+      "y": 820,
+      "parent": "actions",
+      "collapsed": false
+    },
+    {
+      "id": "actions-mitigate",
+      "text": "Use strengths to mitigate threats",
+      "x": 600,
+      "y": 820,
+      "parent": "actions",
+      "collapsed": false
+    },
+    {
+      "id": "actions-improve",
+      "text": "Address weaknesses to unlock opportunities",
+      "x": 800,
+      "y": 820,
+      "parent": "actions",
+      "collapsed": false
+    }
+  ],
+  "links": [
+    { "source": "root", "target": "strengths" },
+    { "source": "root", "target": "weaknesses" },
+    { "source": "root", "target": "opportunities" },
+    { "source": "root", "target": "threats" },
+    { "source": "root", "target": "actions" },
+    { "source": "strengths", "target": "s1" },
+    { "source": "strengths", "target": "s2" },
+    { "source": "strengths", "target": "s3" },
+    { "source": "strengths", "target": "s4" },
+    { "source": "weaknesses", "target": "w1" },
+    { "source": "weaknesses", "target": "w2" },
+    { "source": "weaknesses", "target": "w3" },
+    { "source": "weaknesses", "target": "w4" },
+    { "source": "opportunities", "target": "o1" },
+    { "source": "opportunities", "target": "o2" },
+    { "source": "opportunities", "target": "o3" },
+    { "source": "opportunities", "target": "o4" },
+    { "source": "threats", "target": "t1" },
+    { "source": "threats", "target": "t2" },
+    { "source": "threats", "target": "t3" },
+    { "source": "threats", "target": "t4" },
+    { "source": "actions", "target": "actions-leverage" },
+    { "source": "actions", "target": "actions-mitigate" },
+    { "source": "actions", "target": "actions-improve" }
+  ]
+}

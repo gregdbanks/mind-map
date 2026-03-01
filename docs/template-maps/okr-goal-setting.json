@@ -1,0 +1,253 @@
+{
+  "title": "OKR Goal Setting",
+  "canvasBackground": "#1a1a2e",
+  "nodes": [
+    {
+      "id": "root",
+      "text": "OKR Goal Setting",
+      "x": 600,
+      "y": 400,
+      "parent": null,
+      "collapsed": false,
+      "color": "#6366f1",
+      "textColor": "#ffffff",
+      "size": "xl"
+    },
+    {
+      "id": "vision",
+      "text": "Vision & Mission",
+      "x": 600,
+      "y": 130,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ef4444",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "vision-purpose",
+      "text": "Why does this org/team exist?",
+      "x": 420,
+      "y": 50,
+      "parent": "vision",
+      "collapsed": false
+    },
+    {
+      "id": "vision-north-star",
+      "text": "North star metric (one number that matters)",
+      "x": 600,
+      "y": 50,
+      "parent": "vision",
+      "collapsed": false
+    },
+    {
+      "id": "vision-timeframe",
+      "text": "3-5 year aspirational outcome",
+      "x": 780,
+      "y": 50,
+      "parent": "vision",
+      "collapsed": false
+    },
+    {
+      "id": "obj1",
+      "text": "Objective 1: Grow Revenue",
+      "x": 250,
+      "y": 300,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#22c55e",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "obj1-kr1",
+      "text": "KR: Increase MRR from $50K to $100K",
+      "x": 30,
+      "y": 240,
+      "parent": "obj1",
+      "collapsed": false
+    },
+    {
+      "id": "obj1-kr2",
+      "text": "KR: Reduce churn from 8% to 4%",
+      "x": 30,
+      "y": 290,
+      "parent": "obj1",
+      "collapsed": false
+    },
+    {
+      "id": "obj1-kr3",
+      "text": "KR: Launch 2 new pricing tiers",
+      "x": 30,
+      "y": 340,
+      "parent": "obj1",
+      "collapsed": false
+    },
+    {
+      "id": "obj2",
+      "text": "Objective 2: Improve Product Quality",
+      "x": 950,
+      "y": 300,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3b82f6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "obj2-kr1",
+      "text": "KR: Achieve NPS score of 50+",
+      "x": 1170,
+      "y": 240,
+      "parent": "obj2",
+      "collapsed": false
+    },
+    {
+      "id": "obj2-kr2",
+      "text": "KR: Reduce P1 bugs to under 5 per quarter",
+      "x": 1170,
+      "y": 290,
+      "parent": "obj2",
+      "collapsed": false
+    },
+    {
+      "id": "obj2-kr3",
+      "text": "KR: Ship 3 most-requested features",
+      "x": 1170,
+      "y": 340,
+      "parent": "obj2",
+      "collapsed": false
+    },
+    {
+      "id": "obj3",
+      "text": "Objective 3: Build World-Class Team",
+      "x": 250,
+      "y": 550,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#f59e0b",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "obj3-kr1",
+      "text": "KR: Hire 5 senior engineers by Q3",
+      "x": 30,
+      "y": 490,
+      "parent": "obj3",
+      "collapsed": false
+    },
+    {
+      "id": "obj3-kr2",
+      "text": "KR: Employee satisfaction > 85%",
+      "x": 30,
+      "y": 540,
+      "parent": "obj3",
+      "collapsed": false
+    },
+    {
+      "id": "obj3-kr3",
+      "text": "KR: 100% of team has growth plan",
+      "x": 30,
+      "y": 590,
+      "parent": "obj3",
+      "collapsed": false
+    },
+    {
+      "id": "habits",
+      "text": "Supporting Habits",
+      "x": 950,
+      "y": 550,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8b5cf6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "habits-weekly",
+      "text": "Weekly OKR check-in (15 min)",
+      "x": 1170,
+      "y": 490,
+      "parent": "habits",
+      "collapsed": false
+    },
+    {
+      "id": "habits-scoring",
+      "text": "Score KRs 0.0 to 1.0 each week",
+      "x": 1170,
+      "y": 540,
+      "parent": "habits",
+      "collapsed": false
+    },
+    {
+      "id": "habits-blockers",
+      "text": "Surface blockers early, escalate fast",
+      "x": 1170,
+      "y": 590,
+      "parent": "habits",
+      "collapsed": false
+    },
+    {
+      "id": "review",
+      "text": "Quarterly Review",
+      "x": 600,
+      "y": 700,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ec4899",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "review-score",
+      "text": "Final score: 0.7+ = success, <0.4 = re-evaluate",
+      "x": 380,
+      "y": 780,
+      "parent": "review",
+      "collapsed": false
+    },
+    {
+      "id": "review-learnings",
+      "text": "Document learnings & adjust strategy",
+      "x": 600,
+      "y": 780,
+      "parent": "review",
+      "collapsed": false
+    },
+    {
+      "id": "review-next",
+      "text": "Draft next quarter OKRs",
+      "x": 820,
+      "y": 780,
+      "parent": "review",
+      "collapsed": false
+    }
+  ],
+  "links": [
+    { "source": "root", "target": "vision" },
+    { "source": "root", "target": "obj1" },
+    { "source": "root", "target": "obj2" },
+    { "source": "root", "target": "obj3" },
+    { "source": "root", "target": "habits" },
+    { "source": "root", "target": "review" },
+    { "source": "vision", "target": "vision-purpose" },
+    { "source": "vision", "target": "vision-north-star" },
+    { "source": "vision", "target": "vision-timeframe" },
+    { "source": "obj1", "target": "obj1-kr1" },
+    { "source": "obj1", "target": "obj1-kr2" },
+    { "source": "obj1", "target": "obj1-kr3" },
+    { "source": "obj2", "target": "obj2-kr1" },
+    { "source": "obj2", "target": "obj2-kr2" },
+    { "source": "obj2", "target": "obj2-kr3" },
+    { "source": "obj3", "target": "obj3-kr1" },
+    { "source": "obj3", "target": "obj3-kr2" },
+    { "source": "obj3", "target": "obj3-kr3" },
+    { "source": "habits", "target": "habits-weekly" },
+    { "source": "habits", "target": "habits-scoring" },
+    { "source": "habits", "target": "habits-blockers" },
+    { "source": "review", "target": "review-score" },
+    { "source": "review", "target": "review-learnings" },
+    { "source": "review", "target": "review-next" }
+  ]
+}

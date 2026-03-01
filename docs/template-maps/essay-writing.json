@@ -1,0 +1,262 @@
+{
+  "title": "Essay Writing Structure",
+  "canvasBackground": "#1a1a2e",
+  "nodes": [
+    {
+      "id": "root",
+      "text": "Essay Writing Structure",
+      "x": 600,
+      "y": 400,
+      "parent": null,
+      "collapsed": false,
+      "color": "#6366f1",
+      "textColor": "#ffffff",
+      "size": "xl"
+    },
+    {
+      "id": "thesis",
+      "text": "Thesis Statement",
+      "x": 600,
+      "y": 150,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ef4444",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "thesis-claim",
+      "text": "Clear, arguable central claim",
+      "x": 420,
+      "y": 70,
+      "parent": "thesis",
+      "collapsed": false
+    },
+    {
+      "id": "thesis-scope",
+      "text": "Narrow scope (not too broad)",
+      "x": 600,
+      "y": 70,
+      "parent": "thesis",
+      "collapsed": false
+    },
+    {
+      "id": "thesis-roadmap",
+      "text": "Previews main supporting points",
+      "x": 780,
+      "y": 70,
+      "parent": "thesis",
+      "collapsed": false
+    },
+    {
+      "id": "intro",
+      "text": "Introduction",
+      "x": 250,
+      "y": 250,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#f59e0b",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "intro-hook",
+      "text": "Hook (anecdote, question, or statistic)",
+      "x": 30,
+      "y": 200,
+      "parent": "intro",
+      "collapsed": false
+    },
+    {
+      "id": "intro-context",
+      "text": "Background context & definitions",
+      "x": 30,
+      "y": 250,
+      "parent": "intro",
+      "collapsed": false
+    },
+    {
+      "id": "intro-transition",
+      "text": "Transition to thesis statement",
+      "x": 30,
+      "y": 300,
+      "parent": "intro",
+      "collapsed": false
+    },
+    {
+      "id": "body",
+      "text": "Body Paragraphs",
+      "x": 600,
+      "y": 500,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#22c55e",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "body-topic",
+      "text": "Topic sentence (one main idea per paragraph)",
+      "x": 380,
+      "y": 560,
+      "parent": "body",
+      "collapsed": false
+    },
+    {
+      "id": "body-analysis",
+      "text": "Analysis (explain how evidence supports claim)",
+      "x": 600,
+      "y": 560,
+      "parent": "body",
+      "collapsed": false
+    },
+    {
+      "id": "body-transition",
+      "text": "Transition sentences between paragraphs",
+      "x": 820,
+      "y": 560,
+      "parent": "body",
+      "collapsed": false
+    },
+    {
+      "id": "evidence",
+      "text": "Evidence Types",
+      "x": 950,
+      "y": 300,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#3b82f6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "evidence-stats",
+      "text": "Statistics & data from research",
+      "x": 1170,
+      "y": 220,
+      "parent": "evidence",
+      "collapsed": false
+    },
+    {
+      "id": "evidence-quotes",
+      "text": "Direct quotations with citations",
+      "x": 1170,
+      "y": 270,
+      "parent": "evidence",
+      "collapsed": false
+    },
+    {
+      "id": "evidence-examples",
+      "text": "Real-world examples & case studies",
+      "x": 1170,
+      "y": 320,
+      "parent": "evidence",
+      "collapsed": false
+    },
+    {
+      "id": "evidence-expert",
+      "text": "Expert opinions & scholarly sources",
+      "x": 1170,
+      "y": 370,
+      "parent": "evidence",
+      "collapsed": false
+    },
+    {
+      "id": "conclusion",
+      "text": "Conclusion",
+      "x": 250,
+      "y": 600,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#8b5cf6",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "conclusion-restate",
+      "text": "Restate thesis in new words",
+      "x": 30,
+      "y": 550,
+      "parent": "conclusion",
+      "collapsed": false
+    },
+    {
+      "id": "conclusion-summarize",
+      "text": "Summarize key arguments",
+      "x": 30,
+      "y": 600,
+      "parent": "conclusion",
+      "collapsed": false
+    },
+    {
+      "id": "conclusion-broader",
+      "text": "Broader implications or call to action",
+      "x": 30,
+      "y": 650,
+      "parent": "conclusion",
+      "collapsed": false
+    },
+    {
+      "id": "revision",
+      "text": "Revision Checklist",
+      "x": 950,
+      "y": 600,
+      "parent": "root",
+      "collapsed": false,
+      "color": "#ec4899",
+      "textColor": "#ffffff",
+      "size": "lg"
+    },
+    {
+      "id": "revision-clarity",
+      "text": "Check for clarity & conciseness",
+      "x": 1170,
+      "y": 550,
+      "parent": "revision",
+      "collapsed": false
+    },
+    {
+      "id": "revision-grammar",
+      "text": "Proofread grammar & spelling",
+      "x": 1170,
+      "y": 600,
+      "parent": "revision",
+      "collapsed": false
+    },
+    {
+      "id": "revision-citations",
+      "text": "Verify all citations (APA/MLA/Chicago)",
+      "x": 1170,
+      "y": 650,
+      "parent": "revision",
+      "collapsed": false
+    }
+  ],
+  "links": [
+    { "source": "root", "target": "thesis" },
+    { "source": "root", "target": "intro" },
+    { "source": "root", "target": "body" },
+    { "source": "root", "target": "evidence" },
+    { "source": "root", "target": "conclusion" },
+    { "source": "root", "target": "revision" },
+    { "source": "thesis", "target": "thesis-claim" },
+    { "source": "thesis", "target": "thesis-scope" },
+    { "source": "thesis", "target": "thesis-roadmap" },
+    { "source": "intro", "target": "intro-hook" },
+    { "source": "intro", "target": "intro-context" },
+    { "source": "intro", "target": "intro-transition" },
+    { "source": "body", "target": "body-topic" },
+    { "source": "body", "target": "body-analysis" },
+    { "source": "body", "target": "body-transition" },
+    { "source": "evidence", "target": "evidence-stats" },
+    { "source": "evidence", "target": "evidence-quotes" },
+    { "source": "evidence", "target": "evidence-examples" },
+    { "source": "evidence", "target": "evidence-expert" },
+    { "source": "conclusion", "target": "conclusion-restate" },
+    { "source": "conclusion", "target": "conclusion-summarize" },
+    { "source": "conclusion", "target": "conclusion-broader" },
+    { "source": "revision", "target": "revision-clarity" },
+    { "source": "revision", "target": "revision-grammar" },
+    { "source": "revision", "target": "revision-citations" }
+  ]
+}
