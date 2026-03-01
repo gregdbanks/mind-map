@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { analytics } from '../../services/analytics';
 import styles from './Signup.module.css';
 
 interface CognitoError {
@@ -53,6 +54,7 @@ export const Signup: React.FC = () => {
     setIsLoading(true);
     try {
       await signUp(username, email, password);
+      analytics.signUp();
       setIsLoading(false);
       setStep('verify');
     } catch (err: unknown) {

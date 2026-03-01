@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { apiClient } from '../../services/apiClient';
+import { analytics } from '../../services/analytics';
 
 export const CollabJoin: React.FC = () => {
   const { token } = useParams<{ token: string }>();
@@ -28,6 +29,7 @@ export const CollabJoin: React.FC = () => {
     const acceptInvite = async () => {
       try {
         const result = await apiClient.acceptCollabInvite(token);
+        analytics.collabJoin();
         setStatus('success');
         // Redirect to the map
         setTimeout(() => {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { analytics } from '../../services/analytics';
 import styles from './Login.module.css';
 
 interface CognitoError {
@@ -31,6 +32,7 @@ export const Login: React.FC = () => {
 
     try {
       await signIn(username, password);
+      analytics.login();
       navigate('/');
     } catch (err: unknown) {
       setIsLoading(false);

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { apiClient } from '../../services/apiClient';
 import { pushMapToCloud } from '../../services/syncService';
 import { LIBRARY_CATEGORIES } from '../../types/library';
+import { analytics } from '../../services/analytics';
 import styles from './PublishModal.module.css';
 
 interface PublishModalProps {
@@ -56,6 +57,7 @@ export const PublishModal: React.FC<PublishModalProps> = ({ mapId, mapTitle, onC
         category,
         tags,
       });
+      analytics.publishToLibrary(category);
       onPublished?.();
       onClose();
     } catch (err: unknown) {

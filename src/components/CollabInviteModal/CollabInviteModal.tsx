@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { X, Copy, Check, Trash2, Link } from 'lucide-react';
 import { apiClient } from '../../services/apiClient';
+import { analytics } from '../../services/analytics';
 import styles from './CollabInviteModal.module.css';
 
 interface Invite {
@@ -48,6 +49,7 @@ export const CollabInviteModal: React.FC<CollabInviteModalProps> = ({ mapId, onC
     setError(null);
     try {
       const result = await apiClient.createCollabInvite(mapId);
+      analytics.collabInviteCreate();
       await loadInvites();
       // Auto-copy the new link
       const link = `${window.location.origin}/collab/join/${result.invite_token}`;
