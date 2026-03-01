@@ -1592,6 +1592,10 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
           } else if (i === 1) { // Edit button
             button.on('click', function(event: MouseEvent) {
               event.stopPropagation();
+              // Collapse expanded note so edit modal isn't blocked
+              if (d.noteExpanded) {
+                operations.updateNode(d.id, { noteExpanded: false });
+              }
               startEditing(d.id);
             });
           } else if (i === 2) { // Delete button
@@ -1659,6 +1663,16 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
   // Skip re-renders when note content hasn't actually changed (e.g., local keystroke saves).
   useEffect(() => {
     if (inlineNoteRootsRef.current.size === 0) return;
+
+    // Don't re-render while user is actively typing inside a note editor —
+    // root.render() would remount the TipTap editor and steal focus/cursor.
+    const activeEl = document.activeElement;
+    if (activeEl) {
+      const inNoteEditor = Array.from(document.querySelectorAll('foreignObject.note-content-fo'))
+        .some(fo => fo.contains(activeEl));
+      if (inNoteEditor) return;
+    }
+
     const nodeDepths = calculateNodeDepths(state.nodes);
 
     inlineNoteRootsRef.current.forEach((root, nodeId) => {
@@ -1926,13 +1940,15 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
         selectNode(null);
         setLockedHighlightNodeId(null);
         setMultiSelectedNodeIds(new Set());
-        // Collapse any expanded note
-        nodes.forEach(n => {
-          if (n.noteExpanded) {
-            operations.updateNode(n.id, { noteExpanded: false });
-          }
-        });
       }
+      // Collapse any expanded note when clicking anywhere outside note content.
+      // Clicks inside the note editor and on action buttons never reach here
+      // (they call stopPropagation), so this safely covers canvas AND node rect clicks.
+      nodes.forEach(n => {
+        if (n.noteExpanded) {
+          operations.updateNode(n.id, { noteExpanded: false });
+        }
+      });
     };
 
     const handleMouseDown = function(event: MouseEvent) {
