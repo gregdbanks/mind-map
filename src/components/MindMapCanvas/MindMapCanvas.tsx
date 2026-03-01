@@ -38,6 +38,23 @@ import { useCollabDragSync } from '../../hooks/useCollabDragSync';
 import type { CollabUser } from '../../services/collabSocket';
 import styles from './MindMapCanvas.module.css';
 
+/** Clip a line endpoint to the edge of a rectangle centered at (cx, cy). */
+function clipToRectEdge(
+  cx: number, cy: number, halfW: number, halfH: number,
+  otherX: number, otherY: number,
+): { x: number; y: number } {
+  const dx = cx - otherX;
+  const dy = cy - otherY;
+  if (dx === 0 && dy === 0) return { x: cx, y: cy };
+
+  // Scale factor to move from center to rect edge along the line direction
+  const scaleX = halfW / Math.abs(dx);
+  const scaleY = halfH / Math.abs(dy);
+  const scale = Math.min(scaleX, scaleY);
+
+  return { x: cx - dx * scale, y: cy - dy * scale };
+}
+
 interface MindMapCanvasProps {
   mapId: string;
   collabUsers?: CollabUser[];
@@ -1332,24 +1349,31 @@ export const MindMapCanvas: React.FC<MindMapCanvasProps> = ({ mapId, collabUsers
         return `translate(${node.x || 0},${node.y || 0})`;
       });
 
-    // Update link positions
-    linkUpdate
-        .attr('x1', (d: any) => {
-          const source = nodes.find(n => n.id === (typeof d.source === 'string' ? d.source : d.source.id));
-          return source?.x || 0;
-        })
-        .attr('y1', (d: any) => {
-          const source = nodes.find(n => n.id === (typeof d.source === 'string' ? d.source : d.source.id));
-          return source?.y || 0;
-        })
-        .attr('x2', (d: any) => {
-          const target = nodes.find(n => n.id === (typeof d.target === 'string' ? d.target : d.target.id));
-          return target?.x || 0;
-        })
-        .attr('y2', (d: any) => {
-          const target = nodes.find(n => n.id === (typeof d.target === 'string' ? d.target : d.target.id));
-          return target?.y || 0;
-        });
+    // Update link positions — clip lines at node rect edges so they don't pass through nodes
+    // Build a lookup map for O(1) node access instead of O(n) find per link
+    const nodeById = new Map(nodes.map(n => [n.id, n]));
+    linkUpdate.each(function(d: any) {
+        const sourceId = typeof d.source === 'string' ? d.source : d.source.id;
+        const targetId = typeof d.target === 'string' ? d.target : d.target.id;
+        const source = nodeById.get(sourceId);
+        const target = nodeById.get(targetId);
+        const sx = source?.x || 0, sy = source?.y || 0;
+        const tx = target?.x || 0, ty = target?.y || 0;
+
+        // Get half-dimensions for each node's rect
+        const sDepth = nodeDepths.get(sourceId) || 0;
+        const tDepth = nodeDepths.get(targetId) || 0;
+        const sProps = getNodeVisualProperties(sDepth, isDark, source?.size);
+        const tProps = getNodeVisualProperties(tDepth, isDark, target?.size);
+
+        // Clip endpoints to rect edges
+        const p1 = clipToRectEdge(sx, sy, sProps.width / 2, sProps.height / 2, tx, ty);
+        const p2 = clipToRectEdge(tx, ty, tProps.width / 2, tProps.height / 2, sx, sy);
+
+        d3.select(this)
+          .attr('x1', p1.x).attr('y1', p1.y)
+          .attr('x2', p2.x).attr('y2', p2.y);
+      });
 
     // Setup drag behavior (supports single and group drag)
     // Uses refs for all mutable state to survive useEffect re-runs and avoid stale closures.
