@@ -211,60 +211,61 @@
 }
 
 /* Syntax highlighting - VS Code Dark+ Theme */
-.hljs {
+/* These must be :global because highlight.js/lowlight applies unscoped class names */
+:global(.hljs) {
   color: #d4d4d4;
   background: #1e1e1e;
 }
 
-.hljs-comment,
-.hljs-quote {
+:global(.hljs-comment),
+:global(.hljs-quote) {
   color: #6a9955;
   font-style: italic;
 }
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-subst {
+:global(.hljs-keyword),
+:global(.hljs-selector-tag),
+:global(.hljs-subst) {
   color: #569cd6;
 }
 
-.hljs-number,
-.hljs-literal {
+:global(.hljs-number),
+:global(.hljs-literal) {
   color: #b5cea8;
 }
 
-.hljs-string,
-.hljs-doctag {
+:global(.hljs-string),
+:global(.hljs-doctag) {
   color: #ce9178;
 }
 
-.hljs-title,
-.hljs-section,
-.hljs-selector-id {
+:global(.hljs-title),
+:global(.hljs-section),
+:global(.hljs-selector-id) {
   color: #dcdcaa;
 }
 
-.hljs-type,
-.hljs-class .hljs-title {
+:global(.hljs-type),
+:global(.hljs-class) :global(.hljs-title) {
   color: #4ec9b0;
 }
 
-.hljs-function .hljs-title {
+:global(.hljs-function) :global(.hljs-title) {
   color: #dcdcaa;
 }
 
-.hljs-tag,
-.hljs-name,
-.hljs-attribute {
+:global(.hljs-tag),
+:global(.hljs-name),
+:global(.hljs-attribute) {
   color: #569cd6;
 }
 
 /* Code block with language label */
-pre[data-language] {
+:global(pre[data-language]) {
   position: relative;
 }
 
-pre[data-language]::before {
+:global(pre[data-language])::before {
   content: attr(data-language);
   position: absolute;
   top: 8px;
