@@ -324,7 +324,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 <MenuButton
                   onClick={() => {
                     // Get current code block content
-                    const { selection, doc } = editor.state;
+                    const { selection } = editor.state;
                     const pos = selection.$from;
                     const node = pos.parent;
                     if (node.type.name === 'codeBlock') {
