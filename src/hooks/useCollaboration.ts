@@ -2,21 +2,24 @@ import { useState, useEffect, useRef, useCallback, type Dispatch } from 'react';
 import * as Y from 'yjs';
 import { SocketIOYjsProvider } from '../services/yjsProvider';
 import type { MindMapAction } from '../context/mindMapReducer';
-import type { Node, Link, Point } from '../types/mindMap';
+import type { MindMapState, Node, Link, Point } from '../types/mindMap';
 
 interface UseCollaborationOptions {
   mapId: string;
   dispatch: Dispatch<MindMapAction>;
+  state: MindMapState;
   enabled: boolean;
   connected: boolean;
 }
 
-export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCollaborationOptions) {
+export function useCollaboration({ mapId, dispatch, state, enabled, connected }: UseCollaborationOptions) {
   const [doc, setDoc] = useState<Y.Doc | null>(null);
   const docRef = useRef<Y.Doc | null>(null);
   const providerRef = useRef<SocketIOYjsProvider | null>(null);
   const isRemoteChangeRef = useRef(false);
   const initialSyncDoneRef = useRef(false);
+  const stateRef = useRef(state);
+  stateRef.current = state;
 
   // Initialize Yjs doc and provider when socket is connected
   useEffect(() => {
@@ -39,24 +42,94 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
       // Skip if this change originated from our local dispatch
       if (!isRemoteChangeRef.current) return;
 
-      // On initial sync, replace the entire state (clears the default root-node).
-      // After that, apply incremental ADD/DELETE/UPDATE for live edits.
+      // On initial sync, merge remote Yjs data with locally-loaded IDB data.
+      // Yjs may be missing nodes that were loaded from IDB (e.g. root node),
+      // so we union both sets rather than replacing local state.
       if (!initialSyncDoneRef.current) {
         initialSyncDoneRef.current = true;
-        const nodes: Node[] = [];
+        const currentState = stateRef.current;
+
+        // If Yjs is empty, keep local state and seed it into Yjs
+        if (yNodes.size === 0) {
+          if (currentState.nodes.size > 0) {
+            queueMicrotask(() => {
+              doc.transact(() => {
+                currentState.nodes.forEach((node) => {
+                  const yNode = new Y.Map();
+                  for (const [key, value] of Object.entries(node)) {
+                    if (value !== undefined && value !== null) yNode.set(key, value);
+                  }
+                  yNodes.set(node.id, yNode);
+                });
+                for (const link of currentState.links) {
+                  yLinks.push([{ source: link.source, target: link.target }]);
+                }
+              });
+            });
+          }
+          return;
+        }
+
+        // Yjs has data — merge with local nodes
+        const nodeMap = new Map<string, Node>();
         yNodes.forEach((val) => {
           if (val instanceof Y.Map) {
-            nodes.push(yMapToNode(val));
+            const node = yMapToNode(val);
+            nodeMap.set(node.id, node);
           }
         });
+
+        // Add local nodes missing from Yjs (e.g. root node loaded from IDB)
+        const missingNodes: Node[] = [];
+        currentState.nodes.forEach((node, id) => {
+          if (!nodeMap.has(id)) {
+            nodeMap.set(id, node);
+            missingNodes.push(node);
+          }
+        });
+
+        // Merge links with dedup
+        const linkSet = new Set<string>();
         const links: Link[] = [];
         for (let i = 0; i < yLinks.length; i++) {
           const link = yLinks.get(i) as Record<string, unknown>;
           if (link && typeof link === 'object' && 'source' in link && 'target' in link) {
-            links.push({ source: link.source as string, target: link.target as string });
+            const key = `${link.source}:${link.target}`;
+            if (!linkSet.has(key)) {
+              linkSet.add(key);
+              links.push({ source: link.source as string, target: link.target as string });
+            }
           }
         }
-        dispatch({ type: 'LOAD_MINDMAP', payload: { nodes, links } });
+        const missingLinks: Link[] = [];
+        for (const link of currentState.links) {
+          const key = `${link.source}:${link.target}`;
+          if (!linkSet.has(key)) {
+            linkSet.add(key);
+            links.push(link);
+            missingLinks.push(link);
+          }
+        }
+
+        // Seed missing data into Yjs (deferred to avoid observer re-entry)
+        if (missingNodes.length > 0 || missingLinks.length > 0) {
+          queueMicrotask(() => {
+            doc.transact(() => {
+              for (const node of missingNodes) {
+                const yNode = new Y.Map();
+                for (const [key, value] of Object.entries(node)) {
+                  if (value !== undefined && value !== null) yNode.set(key, value);
+                }
+                yNodes.set(node.id, yNode);
+              }
+              for (const link of missingLinks) {
+                yLinks.push([{ source: link.source, target: link.target }]);
+              }
+            });
+          });
+        }
+
+        dispatch({ type: 'LOAD_MINDMAP', payload: { nodes: Array.from(nodeMap.values()), links } });
         return;
       }
 
@@ -112,9 +185,17 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
       }
     });
 
-    // Observe link changes — only update links, not the entire node map
+    // Observe link changes — only update links, not the entire node map.
+    // Skip during initial sync: the yNodes observer already dispatches
+    // LOAD_MINDMAP with both nodes and links. Without this guard, SET_LINKS
+    // fires for the same sync event and overwrites links with stale server data.
+    let linkObserverReady = false;
     yLinks.observe(() => {
       if (!isRemoteChangeRef.current) return;
+      if (!linkObserverReady) {
+        linkObserverReady = true;
+        return;
+      }
 
       const links: Link[] = [];
       for (let i = 0; i < yLinks.length; i++) {
