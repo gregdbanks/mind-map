@@ -44,6 +44,7 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
               const yNode = yNodes.get(key);
               if (yNode instanceof Y.Map) {
                 const node = yMapToNode(yNode);
+                // ADD_NODE creates the node structure and parent link
                 dispatch({
                   type: 'ADD_NODE',
                   payload: {
@@ -52,6 +53,13 @@ export function useCollaboration({ mapId, dispatch, enabled, connected }: UseCol
                     position: { x: node.x || 0, y: node.y || 0 },
                     text: node.text,
                   },
+                });
+                // UPDATE_NODE applies all Yjs properties that ADD_NODE doesn't
+                // carry (color, textColor, size, hasNote, noteExpanded, etc.).
+                // Without this, initial sync strips node styling and notes.
+                dispatch({
+                  type: 'UPDATE_NODE',
+                  payload: { id: node.id, updates: node },
                 });
               }
             } else if (change.action === 'delete') {

@@ -94,7 +94,15 @@ async function request<T>(options: RequestOptions): Promise<T> {
 
 async function publicRequest<T>(path: string): Promise<T> {
   const url = `${API_BASE_URL}${path}`;
-  const response = await fetch(url);
+  // Include auth token if available so authenticated users bypass rate limits
+  const headers: Record<string, string> = {};
+  try {
+    const token = await getAccessToken();
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+  } catch {
+    // Not authenticated — fine, proceed without token
+  }
+  const response = await fetch(url, Object.keys(headers).length > 0 ? { headers } : undefined);
   if (!response.ok) {
     const data = await response.json().catch(() => null);
     throw new ApiError(data?.error || `HTTP ${response.status}`, response.status, data);
