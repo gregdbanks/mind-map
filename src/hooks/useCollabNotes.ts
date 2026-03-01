@@ -81,34 +81,48 @@ export function useCollabNotes(mapId: string): UseMapNotesReturn {
 
     // Observe remote changes only — local saves already update collabNotes directly.
     // Firing on local changes causes double-renders that disrupt the TipTap editor.
+    // Uses targeted updates instead of full-map rebuild for better performance.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const observer = (events: Y.YEvent<any>[], transaction: Y.Transaction) => {
       if (transaction.local) return;
 
-      // Re-read the full notes map to stay in sync with Y.Doc
-      const updated = new Map<string, NodeNote>();
-      yNotes.forEach((yNote, nodeId) => {
-        if (yNote instanceof Y.Map) {
-          updated.set(nodeId, yMapToNote(yNote));
-        }
-      });
-      setCollabNotes(updated);
+      setCollabNotes((prev) => {
+        const next = new Map(prev);
+        let changed = false;
 
-      // Cache remote changes to IndexedDB
-      for (const event of events) {
-        if (event.target === yNotes && event instanceof Y.YMapEvent) {
-          event.changes.keys.forEach((change, nodeId) => {
-            if (change.action === 'add' || change.action === 'update') {
-              const yNote = yNotes.get(nodeId);
-              if (yNote instanceof Y.Map) {
-                localSaveRef.current(yMapToNote(yNote)).catch(() => {});
+        for (const event of events) {
+          if (event.target === yNotes && event instanceof Y.YMapEvent) {
+            // Top-level: notes added/removed from the map
+            event.changes.keys.forEach((change, nodeId) => {
+              if (change.action === 'add' || change.action === 'update') {
+                const yNote = yNotes.get(nodeId);
+                if (yNote instanceof Y.Map) {
+                  const note = yMapToNote(yNote);
+                  next.set(nodeId, note);
+                  changed = true;
+                  localSaveRef.current(note).catch(() => {});
+                }
+              } else if (change.action === 'delete') {
+                next.delete(nodeId);
+                changed = true;
+                localDeleteRef.current(nodeId).catch(() => {});
               }
-            } else if (change.action === 'delete') {
-              localDeleteRef.current(nodeId).catch(() => {});
+            });
+          } else if (event.target instanceof Y.Map && event.target !== yNotes) {
+            // Nested: property changed within an individual note's Y.Map
+            const yNote = event.target as Y.Map<unknown>;
+            const nodeId = yNote.get('nodeId') as string;
+            if (nodeId) {
+              const note = yMapToNote(yNote);
+              next.set(nodeId, note);
+              changed = true;
+              localSaveRef.current(note).catch(() => {});
             }
-          });
+          }
         }
-      }
+
+        return changed ? next : prev;
+      });
     };
 
     yNotes.observeDeep(observer);
