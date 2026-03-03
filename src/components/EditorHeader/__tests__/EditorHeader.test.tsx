@@ -59,6 +59,13 @@ jest.mock('../../CollabInviteModal', () => ({
   ),
 }));
 
+const mockGetPublishStatus = jest.fn().mockResolvedValue({ published: false });
+jest.mock('../../../services/apiClient', () => ({
+  apiClient: {
+    getPublishStatus: (...args: unknown[]) => mockGetPublishStatus(...args),
+  },
+}));
+
 
 
 jest.mock('../../PresencePanel', () => ({
@@ -326,20 +333,37 @@ describe('EditorHeader', () => {
   // ============================
 
   describe('Publish button', () => {
-    it('opens PublishModal when clicked', () => {
+    it('checks publish status and opens PublishModal when clicked', async () => {
+      mockGetPublishStatus.mockResolvedValue({ published: false });
       renderHeader();
       fireEvent.click(screen.getByLabelText('Publish to library'));
 
-      expect(screen.getByTestId('publish-modal')).toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getByTestId('publish-modal')).toBeInTheDocument();
+      });
+      expect(mockGetPublishStatus).toHaveBeenCalledWith('test-map-1');
     });
 
-    it('closes PublishModal via its close button', () => {
+    it('closes PublishModal via its close button', async () => {
+      mockGetPublishStatus.mockResolvedValue({ published: false });
       renderHeader();
       fireEvent.click(screen.getByLabelText('Publish to library'));
 
-      expect(screen.getByTestId('publish-modal')).toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getByTestId('publish-modal')).toBeInTheDocument();
+      });
       fireEvent.click(screen.getByText('Close Publish'));
       expect(screen.queryByTestId('publish-modal')).not.toBeInTheDocument();
+    });
+
+    it('opens PublishModal even if publish status check fails', async () => {
+      mockGetPublishStatus.mockRejectedValue(new Error('Network error'));
+      renderHeader();
+      fireEvent.click(screen.getByLabelText('Publish to library'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('publish-modal')).toBeInTheDocument();
+      });
     });
   });
 

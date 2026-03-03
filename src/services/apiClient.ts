@@ -210,6 +210,9 @@ export const apiClient = {
   unpublishMap: (id: string) =>
     request<void>({ method: 'DELETE', path: `/library/${id}` }),
 
+  getPublishStatus: (mapId: string) =>
+    request<{ published: boolean; publishedMapId?: string }>({ method: 'GET', path: `/library/status/${mapId}` }),
+
   forkMap: (id: string) =>
     request<CloudMapMeta>({ method: 'POST', path: `/library/${id}/fork` }),
 

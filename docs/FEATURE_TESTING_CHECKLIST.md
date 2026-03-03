@@ -204,6 +204,14 @@ EditorHeader.test.tsx (25 tests) covers title editing, save status indicators, a
 | 11.2 | Submit publish — map appears in library browse | MANUAL | | |
 | 11.3 | Published map shows author name and dates | MANUAL | | |
 | 11.4 | Map must be cloud-saved before publishing (prompt if not) | MANUAL | | |
+| 11.5 | Publish button in editor checks status — shows "Already Published" if published | MANUAL | | |
+| 11.6 | "Already Published" modal shows Unpublish button and explanation | MANUAL | | |
+| 11.7 | Click Unpublish in modal — map removed from library, modal closes | MANUAL | | |
+| 11.8 | After unpublishing, clicking Publish again shows the publish form (not "Already Published") | MANUAL | | |
+| 11.9 | Library map view — author sees Unpublish button, non-author does not | MANUAL | | |
+| 11.10 | Click Unpublish on library map view — confirmation, map removed, redirected to /library | MANUAL | | |
+| 11.11 | Unpublished map's existing forks remain accessible to forking users | MANUAL | | |
+| 11.12 | Publish status check — API error gracefully handled (modal still opens) | AUTO | | |
 
 ---
 

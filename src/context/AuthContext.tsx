@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import { cognitoService } from '../services/cognitoService';
 
 export interface AuthUser {
+  sub: string;
   username: string;
   email: string;
 }
@@ -32,6 +33,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (session && session.isValid()) {
           const idToken = session.getIdToken().decodePayload();
           setUser({
+            sub: idToken['sub'] || '',
             username: idToken['cognito:username'] || idToken['sub'],
             email: idToken['email'] || '',
           });

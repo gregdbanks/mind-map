@@ -10,15 +10,17 @@ interface PublishModalProps {
   mapTitle: string;
   onClose: () => void;
   onPublished?: () => void;
+  publishedMapId?: string;
 }
 
-export const PublishModal: React.FC<PublishModalProps> = ({ mapId, mapTitle, onClose, onPublished }) => {
+export const PublishModal: React.FC<PublishModalProps> = ({ mapId, mapTitle, onClose, onPublished, publishedMapId }) => {
   const [title, setTitle] = useState(mapTitle);
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('other');
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [publishing, setPublishing] = useState(false);
+  const [unpublishing, setUnpublishing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleAddTag = () => {
@@ -68,9 +70,52 @@ export const PublishModal: React.FC<PublishModalProps> = ({ mapId, mapTitle, onC
     }
   };
 
+  const handleUnpublish = async () => {
+    if (!publishedMapId) return;
+    setUnpublishing(true);
+    setError(null);
+    try {
+      await apiClient.unpublishMap(publishedMapId);
+      onClose();
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to unpublish';
+      setError(message);
+    } finally {
+      setUnpublishing(false);
+    }
+  };
+
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) onClose();
   };
+
+  if (publishedMapId) {
+    return (
+      <div className={styles.overlay} onClick={handleOverlayClick}>
+        <div className={styles.modal}>
+          <div className={styles.header}>
+            <h2 className={styles.title}>Already Published</h2>
+            <button className={styles.closeButton} onClick={onClose}>&times;</button>
+          </div>
+          <div className={styles.body}>
+            <p style={{ margin: '0 0 8px', color: '#475569' }}>
+              <strong>{mapTitle}</strong> is currently published in the library.
+            </p>
+            <p style={{ margin: 0, color: '#64748b', fontSize: '13px' }}>
+              Removing it will take it out of the library. Existing forks by other users will not be affected.
+            </p>
+            {error && <div className={styles.error}>{error}</div>}
+          </div>
+          <div className={styles.footer}>
+            <button className={styles.cancelButton} onClick={onClose}>Close</button>
+            <button className={styles.unpublishButton} onClick={handleUnpublish} disabled={unpublishing}>
+              {unpublishing ? 'Removing...' : 'Unpublish'}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>

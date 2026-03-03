@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Check, Share2, BookOpen, Clock, Users } from 'lucide-react';
 import { useMapTitle } from '../../hooks/useMapTitle';
 import { useAuth } from '../../context/AuthContext';
+import { apiClient } from '../../services/apiClient';
 import { ShareModal } from '../ShareModal/ShareModal';
 import { UpgradeModal } from '../UpgradeModal';
 import { PublishModal } from '../PublishModal';
@@ -35,6 +36,7 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
   const [showShareModal, setShowShareModal] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [showPublishModal, setShowPublishModal] = useState(false);
+  const [publishedMapId, setPublishedMapId] = useState<string | undefined>();
   const [showInviteModal, setShowInviteModal] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -197,7 +199,15 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
 
             <button
               className={styles.shareButton}
-              onClick={() => setShowPublishModal(true)}
+              onClick={async () => {
+                try {
+                  const status = await apiClient.getPublishStatus(mapId);
+                  setPublishedMapId(status.published ? status.publishedMapId : undefined);
+                } catch {
+                  setPublishedMapId(undefined);
+                }
+                setShowPublishModal(true);
+              }}
               title="Publish to Library"
               aria-label="Publish to library"
             >
@@ -240,6 +250,7 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
           mapId={mapId}
           mapTitle={title}
           onClose={() => setShowPublishModal(false)}
+          publishedMapId={publishedMapId}
         />
       )}
 
