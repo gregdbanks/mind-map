@@ -1,11 +1,11 @@
-import { Page, expect } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 /**
  * Navigate to the dashboard, create a new map, and wait for the editor to load.
  * Returns once mind map nodes are visible.
  */
 export async function createMapAndNavigate(page: Page) {
-  await page.goto('http://localhost:3000/dashboard');
+  await page.goto('/dashboard');
 
   // Wait for the dashboard to load
   await page.waitForSelector('button', { timeout: 10000 });

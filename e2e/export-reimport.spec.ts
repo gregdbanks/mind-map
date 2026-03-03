@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import fs from 'fs';
+import * as fs from 'node:fs';
 import { createMapAndNavigate } from './helpers';
 
 test.describe('Export and Reimport', () => {

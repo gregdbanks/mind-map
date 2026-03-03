@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Dashboard Navigation', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:3000/dashboard');
+    await page.goto('/dashboard');
     await page.waitForSelector('button', { timeout: 10000 });
   });
 
@@ -16,7 +16,7 @@ test.describe('Dashboard Navigation', () => {
     await page.waitForSelector('[data-testid="mind-map-node"]', { timeout: 10000 });
 
     // Go back to dashboard (back button goes to /, so navigate directly)
-    await page.goto('http://localhost:3000/dashboard');
+    await page.goto('/dashboard');
     await page.waitForTimeout(1000);
 
     // The new map should appear in the list — look for card title elements
@@ -36,7 +36,7 @@ test.describe('Dashboard Navigation', () => {
     await expect(page.locator('[data-testid="toolbar"]')).toBeVisible();
 
     // Navigate back to dashboard
-    await page.goto('http://localhost:3000/dashboard');
+    await page.goto('/dashboard');
     await page.waitForTimeout(1000);
 
     // Verify we are on dashboard
@@ -51,7 +51,7 @@ test.describe('Dashboard Navigation', () => {
     await page.waitForSelector('[data-testid="mind-map-node"]', { timeout: 10000 });
 
     // Go back to dashboard
-    await page.goto('http://localhost:3000/dashboard');
+    await page.goto('/dashboard');
     await page.waitForTimeout(1000);
 
     // Find the first map card and hover to show action buttons
@@ -85,7 +85,7 @@ test.describe('Dashboard Navigation', () => {
     await page.waitForSelector('[data-testid="mind-map-node"]', { timeout: 10000 });
 
     // Go back
-    await page.goto('http://localhost:3000/dashboard');
+    await page.goto('/dashboard');
     await page.waitForTimeout(1000);
 
     const cardTitles = page.locator('[class*="cardTitle"]');
@@ -121,7 +121,7 @@ test.describe('Dashboard Navigation', () => {
     await page.waitForSelector('[data-testid="mind-map-node"]', { timeout: 10000 });
 
     // Go back to dashboard
-    await page.goto('http://localhost:3000/dashboard');
+    await page.goto('/dashboard');
     await page.waitForTimeout(1000);
 
     // Create second map
@@ -131,7 +131,7 @@ test.describe('Dashboard Navigation', () => {
     await page.waitForSelector('[data-testid="mind-map-node"]', { timeout: 10000 });
 
     // Go back to dashboard
-    await page.goto('http://localhost:3000/dashboard');
+    await page.goto('/dashboard');
     await page.waitForTimeout(1000);
 
     // Verify at least 2 cards

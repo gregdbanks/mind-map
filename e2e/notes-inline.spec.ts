@@ -6,7 +6,11 @@ test.describe('Notes Inline', () => {
     await createMapAndNavigate(page);
   });
 
-  /** Helper: expand inline note on a node by clicking the purple button */
+  /** Helper: expand inline note on a node by clicking the purple button.
+   *  Hovers the target node first so its action buttons become visible,
+   *  then clicks the first visible purple button. Because D3 renders
+   *  action buttons inside the hovered node's <g>, hovering the correct
+   *  node ensures .first() picks the right button. */
   async function expandNote(page: import('@playwright/test').Page, nodeIndex = 0) {
     await page.locator('[data-testid="mind-map-node"]').nth(nodeIndex).hover();
     await page.waitForTimeout(300);
@@ -81,11 +85,8 @@ test.describe('Notes Inline', () => {
     // Expand note on child (last) node — accordion collapses root automatically
     // The click handler in MindMapCanvas collapses other expanded notes
     const lastNodeIndex = (await page.locator('[data-testid="mind-map-node"]').count()) - 1;
-    await page.locator('[data-testid="mind-map-node"]').nth(lastNodeIndex).hover();
-    await page.waitForTimeout(300);
-    // Use force:true because the root note foreignObject may overlap
-    await page.locator('.node-actions circle[fill="#9C27B0"]').first().click({ force: true });
-    await page.waitForTimeout(1500);
+    await expandNote(page, lastNodeIndex);
+    await page.waitForTimeout(500);
 
     // After accordion, only the last node's note should be expanded (1 editor)
     const editorsAfterAccordion = await page.locator('[contenteditable="true"]').count();
