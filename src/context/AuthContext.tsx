@@ -51,6 +51,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const session = await cognitoService.signIn({ username, password });
     const idToken = session.getIdToken().decodePayload();
     setUser({
+      sub: idToken['sub'] || '',
       username: idToken['cognito:username'] || idToken['sub'],
       email: idToken['email'] || '',
     });

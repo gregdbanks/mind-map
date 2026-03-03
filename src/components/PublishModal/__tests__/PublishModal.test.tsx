@@ -334,4 +334,17 @@ describe('PublishModal', () => {
     });
     expect(mockOnClose).toHaveBeenCalled();
   });
+
+  it('shows error when unpublish fails', async () => {
+    mockUnpublishMap.mockRejectedValue(new Error('Server error'));
+    renderModal({ publishedMapId: 'pub-123' });
+
+    fireEvent.click(screen.getByText('Unpublish'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Server error')).toBeInTheDocument();
+    });
+
+    expect(mockOnClose).not.toHaveBeenCalled();
+  });
 });

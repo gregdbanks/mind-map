@@ -11,10 +11,12 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate,
 }));
 
+let mockUserSub = 'current-user-sub';
+
 jest.mock('../../../context/AuthContext', () => ({
   useAuth: () => ({
     isAuthenticated: mockIsAuthenticated,
-    user: mockIsAuthenticated ? { username: 'testuser', email: 'test@test.com' } : null,
+    user: mockIsAuthenticated ? { sub: mockUserSub, username: 'testuser', email: 'test@test.com' } : null,
     isLoading: false,
     signIn: jest.fn(),
     signUp: jest.fn(),
@@ -28,12 +30,14 @@ jest.mock('../../../context/AuthContext', () => ({
 const mockGetLibraryMap = jest.fn();
 const mockForkMap = jest.fn();
 const mockRateMap = jest.fn();
+const mockUnpublishMap = jest.fn();
 
 jest.mock('../../../services/apiClient', () => ({
   apiClient: {
     getLibraryMap: (...args: unknown[]) => mockGetLibraryMap(...args),
     forkMap: (...args: unknown[]) => mockForkMap(...args),
     rateMap: (...args: unknown[]) => mockRateMap(...args),
+    unpublishMap: (...args: unknown[]) => mockUnpublishMap(...args),
     getPlanStatus: jest.fn().mockResolvedValue({ plan: 'free', mapCount: 0, mapLimit: 1 }),
   },
   ApiError: class ApiError extends Error {
@@ -147,7 +151,9 @@ describe('LibraryMapView', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockIsAuthenticated = true;
+    mockUserSub = 'current-user-sub';
     mockGetLibraryMap.mockResolvedValue(mockMapData);
+    mockUnpublishMap.mockResolvedValue(undefined);
   });
 
   it('shows loading state while fetching', () => {
@@ -302,5 +308,58 @@ describe('LibraryMapView', () => {
     await waitFor(() => {
       expect(mockNavigate).toHaveBeenCalledWith('/map/forked-1');
     });
+  });
+
+  it('shows Unpublish button when user is the author', async () => {
+    mockUserSub = 'user-1'; // matches mockMapData.user_id
+    renderView();
+
+    await waitFor(() => {
+      expect(screen.getByText('Unpublish')).toBeInTheDocument();
+    });
+  });
+
+  it('hides Unpublish button when user is not the author', async () => {
+    mockUserSub = 'different-user';
+    renderView();
+
+    await waitFor(() => {
+      expect(screen.getByText('Fork')).toBeInTheDocument();
+    });
+
+    expect(screen.queryByText('Unpublish')).not.toBeInTheDocument();
+  });
+
+  it('hides Unpublish button when not authenticated', async () => {
+    mockIsAuthenticated = false;
+    renderView();
+
+    await waitFor(() => {
+      expect(screen.getByText('Fork')).toBeInTheDocument();
+    });
+
+    expect(screen.queryByText('Unpublish')).not.toBeInTheDocument();
+  });
+
+  it('calls unpublishMap and navigates to /library on click', async () => {
+    mockUserSub = 'user-1';
+    // Mock window.confirm
+    jest.spyOn(window, 'confirm').mockReturnValue(true);
+
+    renderView();
+
+    await waitFor(() => {
+      expect(screen.getByText('Unpublish')).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByText('Unpublish'));
+
+    await waitFor(() => {
+      expect(mockUnpublishMap).toHaveBeenCalledWith('lib-1');
+    });
+
+    expect(mockNavigate).toHaveBeenCalledWith('/library');
+
+    (window.confirm as jest.Mock).mockRestore();
   });
 });

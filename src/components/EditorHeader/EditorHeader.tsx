@@ -37,6 +37,7 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [showPublishModal, setShowPublishModal] = useState(false);
   const [publishedMapId, setPublishedMapId] = useState<string | undefined>();
+  const [checkingPublish, setCheckingPublish] = useState(false);
   const [showInviteModal, setShowInviteModal] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -199,12 +200,17 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ mapId, saveStatus, i
 
             <button
               className={styles.shareButton}
+              disabled={checkingPublish}
               onClick={async () => {
+                if (checkingPublish) return;
+                setCheckingPublish(true);
                 try {
                   const status = await apiClient.getPublishStatus(mapId);
                   setPublishedMapId(status.published ? status.publishedMapId : undefined);
                 } catch {
                   setPublishedMapId(undefined);
+                } finally {
+                  setCheckingPublish(false);
                 }
                 setShowPublishModal(true);
               }}
