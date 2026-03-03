@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import * as d3 from 'd3';
-import { ArrowLeft, GitFork, BookOpen } from 'lucide-react';
+import { ArrowLeft, GitFork, BookOpen, Trash2 } from 'lucide-react';
 import { apiClient, ApiError } from '../../services/apiClient';
 import { pullMapFromCloud } from '../../services/syncService';
 import { useAuth } from '../../context/AuthContext';
@@ -27,7 +27,7 @@ import styles from './LibraryMapView.module.css';
 export const LibraryMapView: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const svgRef = useRef<SVGSVGElement>(null);
   const [mapData, setMapData] = useState<LibraryMapFull | null>(null);
   const [loading, setLoading] = useState(true);
@@ -36,6 +36,7 @@ export const LibraryMapView: React.FC = () => {
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [userRating, setUserRating] = useState<number>(0);
   const [forking, setForking] = useState(false);
+  const [unpublishing, setUnpublishing] = useState(false);
   const [noteModal, setNoteModal] = useState<{ nodeId: string; nodeText: string } | null>(null);
   const [isPro, setIsPro] = useState(false);
   const notesMap = useRef<Map<string, SerializedNote>>(new Map());
@@ -325,6 +326,21 @@ export const LibraryMapView: React.FC = () => {
     }
   };
 
+  const handleUnpublish = async () => {
+    if (!mapData) return;
+    const confirmed = window.confirm('Remove this map from the library? Existing forks will not be affected.');
+    if (!confirmed) return;
+    setUnpublishing(true);
+    try {
+      await apiClient.unpublishMap(mapData.id);
+      navigate('/library');
+    } catch {
+      alert('Failed to unpublish. Please try again.');
+    } finally {
+      setUnpublishing(false);
+    }
+  };
+
   const handleRate = async (rating: number) => {
     if (!id || !isAuthenticated) {
       navigate('/login');
@@ -383,6 +399,12 @@ export const LibraryMapView: React.FC = () => {
             <GitFork size={16} />
             {forking ? 'Forking...' : 'Fork'}
           </button>
+          {isAuthenticated && user && mapData.user_id === user.sub && (
+            <button className={styles.unpublishButton} onClick={handleUnpublish} disabled={unpublishing}>
+              <Trash2 size={16} />
+              {unpublishing ? 'Removing...' : 'Unpublish'}
+            </button>
+          )}
         </div>
       </header>
 

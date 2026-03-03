@@ -1,15 +1,31 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { PublishModal } from '../PublishModal';
+import { ApiError } from '../../../services/apiClient';
 import { LIBRARY_CATEGORIES } from '../../../types/library';
 
 // Mock apiClient
 const mockPublishMap = jest.fn();
+const mockGetMap = jest.fn();
+const mockUnpublishMap = jest.fn();
 
-jest.mock('../../../services/apiClient', () => ({
-  apiClient: {
-    publishMap: (...args: unknown[]) => mockPublishMap(...args),
-  },
-}));
+jest.mock('../../../services/apiClient', () => {
+  class ApiErrorMock extends Error {
+    status: number;
+    constructor(message: string, status: number) {
+      super(message);
+      this.name = 'ApiError';
+      this.status = status;
+    }
+  }
+  return {
+    apiClient: {
+      publishMap: (...args: unknown[]) => mockPublishMap(...args),
+      getMap: (...args: unknown[]) => mockGetMap(...args),
+      unpublishMap: (...args: unknown[]) => mockUnpublishMap(...args),
+    },
+    ApiError: ApiErrorMock,
+  };
+});
 
 // Mock syncService
 const mockPushMapToCloud = jest.fn();
@@ -39,6 +55,8 @@ describe('PublishModal', () => {
     jest.clearAllMocks();
     mockPushMapToCloud.mockResolvedValue(undefined);
     mockPublishMap.mockResolvedValue({});
+    mockGetMap.mockResolvedValue({ id: mapId, data: {} });
+    mockUnpublishMap.mockResolvedValue(undefined);
   });
 
   it('renders "Publish to Library" heading', () => {
@@ -47,10 +65,10 @@ describe('PublishModal', () => {
     expect(screen.getByText('Publish to Library')).toBeInTheDocument();
   });
 
-  it('pre-fills title from mapTitle prop', () => {
+  it('pre-fills title from mapTitle prop', async () => {
     renderModal();
 
-    const titleInput = screen.getByDisplayValue('My Test Map');
+    const titleInput = await screen.findByDisplayValue('My Test Map');
     expect(titleInput).toBeInTheDocument();
   });
 
@@ -58,7 +76,7 @@ describe('PublishModal', () => {
     renderModal();
 
     // Clear the pre-filled title
-    const titleInput = screen.getByDisplayValue('My Test Map');
+    const titleInput = await screen.findByDisplayValue('My Test Map');
     fireEvent.change(titleInput, { target: { value: '' } });
 
     // Click publish
@@ -73,10 +91,10 @@ describe('PublishModal', () => {
     expect(mockPublishMap).not.toHaveBeenCalled();
   });
 
-  it('category dropdown renders all LIBRARY_CATEGORIES options', () => {
+  it('category dropdown renders all LIBRARY_CATEGORIES options', async () => {
     renderModal();
 
-    const select = screen.getByRole('combobox');
+    const select = await screen.findByRole('combobox');
     expect(select).toBeInTheDocument();
 
     LIBRARY_CATEGORIES.forEach((cat) => {
@@ -84,20 +102,20 @@ describe('PublishModal', () => {
     });
   });
 
-  it('tag input: add tag via Enter key', () => {
+  it('tag input: add tag via Enter key', async () => {
     renderModal();
 
-    const tagInput = screen.getByPlaceholderText('Add a tag and press Enter');
+    const tagInput = await screen.findByPlaceholderText('Add a tag and press Enter');
     fireEvent.change(tagInput, { target: { value: 'react' } });
     fireEvent.keyDown(tagInput, { key: 'Enter' });
 
     expect(screen.getByText('react')).toBeInTheDocument();
   });
 
-  it('tag input: add tag via Add button', () => {
+  it('tag input: add tag via Add button', async () => {
     renderModal();
 
-    const tagInput = screen.getByPlaceholderText('Add a tag and press Enter');
+    const tagInput = await screen.findByPlaceholderText('Add a tag and press Enter');
     fireEvent.change(tagInput, { target: { value: 'javascript' } });
 
     const addButton = screen.getByText('Add');
@@ -106,10 +124,10 @@ describe('PublishModal', () => {
     expect(screen.getByText('javascript')).toBeInTheDocument();
   });
 
-  it('tags limited to 10 max', () => {
+  it('tags limited to 10 max', async () => {
     renderModal();
 
-    const tagInput = screen.getByPlaceholderText('Add a tag and press Enter');
+    const tagInput = await screen.findByPlaceholderText('Add a tag and press Enter');
 
     // Add 10 tags
     for (let i = 1; i <= 10; i++) {
@@ -129,10 +147,10 @@ describe('PublishModal', () => {
     expect(screen.queryByText('tag11')).not.toBeInTheDocument();
   });
 
-  it('duplicate tags prevented', () => {
+  it('duplicate tags prevented', async () => {
     renderModal();
 
-    const tagInput = screen.getByPlaceholderText('Add a tag and press Enter');
+    const tagInput = await screen.findByPlaceholderText('Add a tag and press Enter');
 
     fireEvent.change(tagInput, { target: { value: 'react' } });
     fireEvent.keyDown(tagInput, { key: 'Enter' });
@@ -146,10 +164,10 @@ describe('PublishModal', () => {
     expect(reactTags).toHaveLength(1);
   });
 
-  it('remove tag button works', () => {
+  it('remove tag button works', async () => {
     renderModal();
 
-    const tagInput = screen.getByPlaceholderText('Add a tag and press Enter');
+    const tagInput = await screen.findByPlaceholderText('Add a tag and press Enter');
 
     fireEvent.change(tagInput, { target: { value: 'removeme' } });
     fireEvent.keyDown(tagInput, { key: 'Enter' });
@@ -164,11 +182,13 @@ describe('PublishModal', () => {
     expect(screen.queryByText('removeme')).not.toBeInTheDocument();
   });
 
-  it('publish button calls pushMapToCloud then apiClient.publishMap with correct data', async () => {
+  it('publish button calls apiClient.publishMap with correct data', async () => {
     renderModal();
 
+    // Wait for cloud check to resolve
+    const tagInput = await screen.findByPlaceholderText('Add a tag and press Enter');
+
     // Add a tag
-    const tagInput = screen.getByPlaceholderText('Add a tag and press Enter');
     fireEvent.change(tagInput, { target: { value: 'testtag' } });
     fireEvent.keyDown(tagInput, { key: 'Enter' });
 
@@ -179,10 +199,6 @@ describe('PublishModal', () => {
     // Click publish
     const publishButton = screen.getByText('Publish');
     fireEvent.click(publishButton);
-
-    await waitFor(() => {
-      expect(mockPushMapToCloud).toHaveBeenCalledWith(mapId, true);
-    });
 
     await waitFor(() => {
       expect(mockPublishMap).toHaveBeenCalledWith({
@@ -196,12 +212,12 @@ describe('PublishModal', () => {
   });
 
   it('shows "Publishing..." during submission', async () => {
-    // Make pushMapToCloud hang so we can see the publishing state
-    mockPushMapToCloud.mockReturnValue(new Promise(() => {}));
+    // Make publishMap hang so we can see the publishing state
+    mockPublishMap.mockReturnValue(new Promise(() => {}));
 
     renderModal();
 
-    const publishButton = screen.getByText('Publish');
+    const publishButton = await screen.findByText('Publish');
     fireEvent.click(publishButton);
 
     await waitFor(() => {
@@ -212,7 +228,7 @@ describe('PublishModal', () => {
   it('calls onPublished and onClose on success', async () => {
     renderModal();
 
-    const publishButton = screen.getByText('Publish');
+    const publishButton = await screen.findByText('Publish');
     fireEvent.click(publishButton);
 
     await waitFor(() => {
@@ -223,11 +239,11 @@ describe('PublishModal', () => {
   });
 
   it('shows error message on failure', async () => {
-    mockPushMapToCloud.mockRejectedValue(new Error('Network error'));
+    mockPublishMap.mockRejectedValue(new Error('Network error'));
 
     renderModal();
 
-    const publishButton = screen.getByText('Publish');
+    const publishButton = await screen.findByText('Publish');
     fireEvent.click(publishButton);
 
     await waitFor(() => {
@@ -238,8 +254,11 @@ describe('PublishModal', () => {
     expect(mockOnPublished).not.toHaveBeenCalled();
   });
 
-  it('close button and overlay click call onClose', () => {
+  it('close button and overlay click call onClose', async () => {
     renderModal();
+
+    // Wait for cloud check to complete
+    await screen.findByDisplayValue('My Test Map');
 
     // Close button (\u00D7)
     const closeButton = screen.getByText('\u00D7');
@@ -258,8 +277,74 @@ describe('PublishModal', () => {
       />
     );
 
+    // Wait for cloud check
+    await screen.findAllByDisplayValue('My Test Map');
+
     const overlay = container2.firstChild as HTMLElement;
     fireEvent.click(overlay);
     expect(mockOnClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('shows cloud sync prompt when map is not in cloud', async () => {
+    mockGetMap.mockRejectedValue(new ApiError('Not found', 404));
+
+    renderModal();
+
+    await waitFor(() => {
+      expect(screen.getByText(/needs to be saved to the cloud/)).toBeInTheDocument();
+    });
+
+    expect(screen.getByText('Save to Cloud & Continue')).toBeInTheDocument();
+    // Publish form should not be visible
+    expect(screen.queryByPlaceholderText('Add a tag and press Enter')).not.toBeInTheDocument();
+  });
+
+  it('syncs to cloud and shows publish form after successful sync', async () => {
+    mockGetMap.mockRejectedValue(new ApiError('Not found', 404));
+
+    renderModal();
+
+    const syncButton = await screen.findByText('Save to Cloud & Continue');
+    fireEvent.click(syncButton);
+
+    await waitFor(() => {
+      expect(mockPushMapToCloud).toHaveBeenCalledWith(mapId, true);
+    });
+
+    // After sync, publish form should appear
+    await waitFor(() => {
+      expect(screen.getByDisplayValue('My Test Map')).toBeInTheDocument();
+    });
+  });
+
+  it('shows "Already Published" state with unpublish option', async () => {
+    renderModal({ publishedMapId: 'pub-123' });
+
+    expect(screen.getByText('Already Published')).toBeInTheDocument();
+    expect(screen.getByText('Unpublish')).toBeInTheDocument();
+  });
+
+  it('calls unpublishMap when unpublish is clicked', async () => {
+    renderModal({ publishedMapId: 'pub-123' });
+
+    fireEvent.click(screen.getByText('Unpublish'));
+
+    await waitFor(() => {
+      expect(mockUnpublishMap).toHaveBeenCalledWith('pub-123');
+    });
+    expect(mockOnClose).toHaveBeenCalled();
+  });
+
+  it('shows error when unpublish fails', async () => {
+    mockUnpublishMap.mockRejectedValue(new Error('Server error'));
+    renderModal({ publishedMapId: 'pub-123' });
+
+    fireEvent.click(screen.getByText('Unpublish'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Server error')).toBeInTheDocument();
+    });
+
+    expect(mockOnClose).not.toHaveBeenCalled();
   });
 });

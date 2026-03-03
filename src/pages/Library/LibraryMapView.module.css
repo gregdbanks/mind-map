@@ -97,6 +97,32 @@
   cursor: not-allowed;
 }
 
+.unpublishButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.unpublishButton:hover:not(:disabled) {
+  background: #dc2626;
+}
+
+.unpublishButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .descriptionBar {
   padding: 10px 20px;
   background: #fff;
