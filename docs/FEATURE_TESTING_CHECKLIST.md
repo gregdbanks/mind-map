@@ -203,15 +203,18 @@ EditorHeader.test.tsx (25 tests) covers title editing, save status indicators, a
 | 11.1 | Publish button — form with title, description, category, tags | MANUAL | | |
 | 11.2 | Submit publish — map appears in library browse | MANUAL | | |
 | 11.3 | Published map shows author name and dates | MANUAL | | |
-| 11.4 | Map must be cloud-saved before publishing (prompt if not) | MANUAL | | |
-| 11.5 | Publish button in editor checks status — shows "Already Published" if published | MANUAL | | |
-| 11.6 | "Already Published" modal shows Unpublish button and explanation | MANUAL | | |
-| 11.7 | Click Unpublish in modal — map removed from library, modal closes | MANUAL | | |
-| 11.8 | After unpublishing, clicking Publish again shows the publish form (not "Already Published") | MANUAL | | |
-| 11.9 | Library map view — author sees Unpublish button, non-author does not | MANUAL | | |
-| 11.10 | Click Unpublish on library map view — confirmation, map removed, redirected to /library | MANUAL | | |
-| 11.11 | Unpublished map's existing forks remain accessible to forking users | MANUAL | | |
-| 11.12 | Publish status check — API error gracefully handled (modal still opens) | AUTO | | |
+| 11.4 | Local-only map — publish modal prompts "Save to Cloud" before showing form | MANUAL | | |
+| 11.5 | Click "Save to Cloud & Continue" — map syncs, then publish form appears | MANUAL | | |
+| 11.6 | Cloud-synced map — publish form shown immediately (no sync prompt) | MANUAL | | |
+| 11.7 | Publish button in editor checks status — shows "Already Published" if published | MANUAL | | |
+| 11.8 | "Already Published" modal shows Unpublish button and explanation | MANUAL | | |
+| 11.9 | Click Unpublish in modal — map removed from library, modal closes | MANUAL | | |
+| 11.10 | After unpublishing, clicking Publish again shows the publish form (not "Already Published") | MANUAL | | |
+| 11.11 | Library map view — author sees Unpublish button, non-author does not | MANUAL | | |
+| 11.12 | Click Unpublish on library map view — confirmation, map removed, redirected to /library | MANUAL | | |
+| 11.13 | Unpublished map's existing forks remain accessible to forking users | MANUAL | | |
+| 11.14 | Cloud sync prompt — shown when map is local-only, hidden after sync | AUTO | | |
+| 11.15 | Publish status check — API error gracefully handled (modal still opens) | AUTO | | |
 
 ---
 

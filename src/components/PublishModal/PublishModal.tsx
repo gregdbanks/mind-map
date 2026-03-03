@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { apiClient } from '../../services/apiClient';
+import React, { useState, useEffect } from 'react';
+import { apiClient, ApiError } from '../../services/apiClient';
 import { pushMapToCloud } from '../../services/syncService';
 import { LIBRARY_CATEGORIES } from '../../types/library';
 import { analytics } from '../../services/analytics';
@@ -22,6 +22,38 @@ export const PublishModal: React.FC<PublishModalProps> = ({ mapId, mapTitle, onC
   const [publishing, setPublishing] = useState(false);
   const [unpublishing, setUnpublishing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [cloudCheck, setCloudCheck] = useState<'checking' | 'synced' | 'not-synced'>('checking');
+  const [syncing, setSyncing] = useState(false);
+
+  useEffect(() => {
+    if (publishedMapId) {
+      setCloudCheck('synced');
+      return;
+    }
+    let cancelled = false;
+    apiClient.getMap(mapId).then(() => {
+      if (!cancelled) setCloudCheck('synced');
+    }).catch((err) => {
+      if (!cancelled) {
+        setCloudCheck(err instanceof ApiError && err.status === 404 ? 'not-synced' : 'synced');
+      }
+    });
+    return () => { cancelled = true; };
+  }, [mapId, publishedMapId]);
+
+  const handleSyncToCloud = async () => {
+    setSyncing(true);
+    setError(null);
+    try {
+      await pushMapToCloud(mapId, true);
+      setCloudCheck('synced');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to save to cloud';
+      setError(message);
+    } finally {
+      setSyncing(false);
+    }
+  };
 
   const handleAddTag = () => {
     const tag = tagInput.trim().toLowerCase();
@@ -50,8 +82,6 @@ export const PublishModal: React.FC<PublishModalProps> = ({ mapId, mapTitle, onC
     setPublishing(true);
     setError(null);
     try {
-      // Ensure the map exists in the cloud before publishing
-      await pushMapToCloud(mapId, true);
       await apiClient.publishMap({
         mapId,
         title: title.trim(),
@@ -111,6 +141,42 @@ export const PublishModal: React.FC<PublishModalProps> = ({ mapId, mapTitle, onC
             <button className={styles.unpublishButton} onClick={handleUnpublish} disabled={unpublishing}>
               {unpublishing ? 'Removing...' : 'Unpublish'}
             </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (cloudCheck !== 'synced') {
+    return (
+      <div className={styles.overlay} onClick={handleOverlayClick}>
+        <div className={styles.modal}>
+          <div className={styles.header}>
+            <h2 className={styles.title}>Publish to Library</h2>
+            <button className={styles.closeButton} onClick={onClose}>&times;</button>
+          </div>
+          <div className={styles.body}>
+            {cloudCheck === 'checking' ? (
+              <p style={{ margin: 0, color: '#94a3b8', fontSize: '14px' }}>Checking cloud status...</p>
+            ) : (
+              <>
+                <p style={{ margin: '0 0 8px', color: '#e2e8f0', fontSize: '14px' }}>
+                  This map needs to be saved to the cloud before it can be published.
+                </p>
+                <p style={{ margin: 0, color: '#94a3b8', fontSize: '13px' }}>
+                  Publishing shares your map with the community. A cloud copy ensures it stays available even if you clear your browser data.
+                </p>
+                {error && <div className={styles.error}>{error}</div>}
+              </>
+            )}
+          </div>
+          <div className={styles.footer}>
+            <button className={styles.cancelButton} onClick={onClose}>Cancel</button>
+            {cloudCheck === 'not-synced' && (
+              <button className={styles.publishButton} onClick={handleSyncToCloud} disabled={syncing}>
+                {syncing ? 'Saving...' : 'Save to Cloud & Continue'}
+              </button>
+            )}
           </div>
         </div>
       </div>
