@@ -113,4 +113,25 @@ test.describe('Layouts and Backgrounds', () => {
     );
     expect(persistedBg).toBe('dark');
   });
+
+  test('4.5 — Dark background adjusts node text color for contrast', async ({ page }) => {
+    // Get text fill on default (light) background
+    const lightFill = await page.locator('[data-testid="mind-map-node"] text').first().getAttribute('fill');
+
+    // Switch to Dark background
+    await page.locator('button[aria-label="Select canvas background"]').click();
+    await page.waitForTimeout(200);
+    await page.getByRole('button', { name: /^Dark\b/ }).click();
+    await page.waitForTimeout(500);
+
+    // Get text fill on dark background
+    const darkFill = await page.locator('[data-testid="mind-map-node"] text').first().getAttribute('fill');
+
+    // Text color should have changed for contrast
+    expect(darkFill).not.toBe(lightFill);
+
+    // On dark background, text should be light (white or near-white)
+    // #ffffff is the expected output from getAutoTextColor for dark backgrounds
+    expect(darkFill).toMatch(/^#[fF]{6}$|^white$|^rgb\(255/);
+  });
 });

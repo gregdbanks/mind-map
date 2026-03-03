@@ -2,7 +2,7 @@
 
 Use this checklist to verify all user-facing features before launch. Fill in the **Status** column as you test: `PASS`, `FAIL`, or `SKIP`.
 
-**Automated coverage:** 442 unit/component tests + 37 E2E tests (across Chromium, Firefox, WebKit). Run `npm run test:ci` and `npx playwright test` to verify before manual testing.
+**Automated coverage:** 442 unit/component tests + 46 E2E tests (across Chromium, Firefox, WebKit). Run `npm run test:ci` and `npx playwright test` to verify before manual testing.
 
 **Legend:**
 - **AUTO** — Covered by automated tests (unit, component, or E2E). Still worth a quick visual check.
@@ -70,8 +70,8 @@ MindMapNode.test.tsx (15), NodeActions.test.tsx (8), NodeEditor.test.tsx (8), us
 | 3.12 | Redo (Ctrl+Y) — undone action restored | AUTO | | |
 | 3.13 | Collapse/expand node children — toggle works, icon changes | AUTO | | |
 | 3.14 | Canvas renders SVG with zoom behavior initialized | AUTO | | |
-| 3.15 | Change node size (XS/S/M/L/XL) — rect resizes correctly | MANUAL | PASS | |
-| 3.16 | Multi-select (Ctrl+click or marquee drag) — drag group together | MANUAL | PASS | |
+| 3.15 | Change node size (XS/S/M/L/XL) — rect resizes correctly | AUTO | PASS | E2E: node-sizing-multiselect |
+| 3.16 | Multi-select (Ctrl+click or marquee drag) — drag group together | AUTO | PASS | E2E: node-sizing-multiselect |
 | 3.17 | Spread/compress selected nodes (] / [) — spacing changes | MANUAL | PASS | |
 | 3.18 | Zoom in/out (scroll wheel) — canvas scales smoothly | AUTO | PASS | E2E: canvas-interactions |
 | 3.19 | Pan (Space+drag) — canvas pans | AUTO | PASS | E2E: canvas-interactions |
@@ -88,7 +88,7 @@ MindMapNode.test.tsx (15), NodeActions.test.tsx (8), NodeEditor.test.tsx (8), us
 | 4.2 | Layout preference persists across page reload | AUTO | PASS | E2E: layouts-and-backgrounds |
 | 4.3 | Switch to each background (White, Light Gray, Warm Gray, Dark, Dot Grid, Dot Grid Dark, Line Grid) — canvas updates | AUTO | PASS | E2E: layouts-and-backgrounds |
 | 4.4 | Background persists across reload | AUTO | PASS | E2E: layouts-and-backgrounds |
-| 4.5 | Dark backgrounds — node text colors adjust for contrast | MANUAL | PASS | |
+| 4.5 | Dark backgrounds — node text colors adjust for contrast | AUTO | PASS | E2E: layouts-and-backgrounds |
 
 ---
 
@@ -109,8 +109,8 @@ NotesModal.test.tsx (15 tests) covers modal open/close, save, delete, keyboard s
 | 5.9 | Expand note A, then note B — A collapses (accordion) | AUTO | PASS | E2E: notes-inline |
 | 5.10 | Rich text: bold, italic, headings, bulleted/ordered lists | MANUAL | PASS | |
 | 5.11 | Add code block — syntax highlighting appears | MANUAL | PASS | Can't format code blocks |
-| 5.12 | Note indicator (purple dot) shows on nodes with notes | MANUAL | PASS | |
-| 5.13 | Edit button on expanded note — collapses note, opens edit modal | MANUAL | PASS | |
+| 5.12 | Note indicator (purple dot) shows on nodes with notes | AUTO | PASS | E2E: notes-advanced |
+| 5.13 | Edit button on expanded note — collapses note, opens edit modal | AUTO | PASS | E2E: notes-advanced |
 | 5.14 | Hold backspace in code block — no focus loss | MANUAL | PASS | |
 
 ---
@@ -325,10 +325,10 @@ HelpGuideModal.test.tsx (6 tests) covers modal rendering, content sections, keyb
 | 18.6 | Firefox — core features work | AUTO | | E2E: all specs on Firefox |
 | 18.7 | Safari — core features work | AUTO | | E2E: all specs on WebKit |
 | 18.8 | Mobile/tablet — responsive layout, touch interactions | MANUAL | | |
-| 18.9 | Large map (50+ nodes) — no performance degradation | MANUAL | | |
-| 18.10 | Navigate between maps quickly — correct data loads each time | MANUAL | | |
-| 18.11 | Browser back/forward buttons — navigate correctly | MANUAL | | |
-| 18.12 | Rapid clicking — no duplicate nodes or broken state | MANUAL | | |
+| 18.9 | Large map (50+ nodes) — no performance degradation | AUTO | PASS | E2E: edge-cases |
+| 18.10 | Navigate between maps quickly — correct data loads each time | AUTO | PASS | E2E: edge-cases |
+| 18.11 | Browser back/forward buttons — navigate correctly | AUTO | PASS | E2E: edge-cases |
+| 18.12 | Rapid clicking — no duplicate nodes or broken state | AUTO | PASS | E2E: edge-cases |
 
 ---
 
@@ -338,9 +338,9 @@ HelpGuideModal.test.tsx (6 tests) covers modal rendering, content sections, keyb
 |---------|-------|------|--------|
 | 1. Auth Flows | 10 | 2 | 8 |
 | 2. Dashboard & Maps | 10 | 9 | 1 |
-| 3. Canvas & Nodes | 21 | 16 | 5 |
-| 4. Layouts & Backgrounds | 5 | 4 | 1 |
-| 5. Notes | 14 | 9 | 5 |
+| 3. Canvas & Nodes | 21 | 18 | 3 |
+| 4. Layouts & Backgrounds | 5 | 5 | 0 |
+| 5. Notes | 14 | 11 | 3 |
 | 6. Search | 7 | 7 | 0 |
 | 7. Cloud Sync | 7 | 1 | 6 |
 | 8. Editor Header | 8 | 8 | 0 |
@@ -353,8 +353,8 @@ HelpGuideModal.test.tsx (6 tests) covers modal rendering, content sections, keyb
 | 15. Payments | 5 | 1 | 4 |
 | 16. Ads | 3 | 2 | 1 |
 | 17. Help & Onboarding | 4 | 4 | 0 |
-| 18. Cross-Cutting | 12 | 6 | 6 |
-| **TOTAL** | **172** | **82** | **90** |
+| 18. Cross-Cutting | 12 | 10 | 2 |
+| **TOTAL** | **172** | **91** | **81** |
 
 ---
 
