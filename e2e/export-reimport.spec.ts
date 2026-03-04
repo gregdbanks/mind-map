@@ -82,9 +82,13 @@ test.describe('Export and Reimport', () => {
     const nodes = page.locator('[data-testid="mind-map-node"]');
     expect(await nodes.count()).toBeGreaterThanOrEqual(2);
 
-    // Verify the imported text is present
-    // Use page.getByText which checks accessibility tree (works even if SVG text is truncated)
-    await expect(page.getByText('Imported Root')).toBeVisible({ timeout: 5000 });
-    await expect(page.getByText('Imported Child')).toBeVisible({ timeout: 5000 });
+    // Verify the imported text is present via SVG <text> elements
+    // Use evaluate() to read DOM textContent directly (immune to visual truncation)
+    const nodeTexts = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('[data-testid="mind-map-node"] text'))
+        .map(el => el.textContent || '')
+    );
+    expect(nodeTexts).toContain('Imported Root');
+    expect(nodeTexts).toContain('Imported Child');
   });
 });
