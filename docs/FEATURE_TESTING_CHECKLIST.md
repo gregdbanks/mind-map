@@ -2,7 +2,7 @@
 
 Use this checklist to verify all user-facing features before launch. Fill in the **Status** column as you test: `PASS`, `FAIL`, or `SKIP`.
 
-**Automated coverage:** 442 unit/component tests + 46 E2E tests (across Chromium, Firefox, WebKit). Run `npm run test:ci` and `npx playwright test` to verify before manual testing.
+**Automated coverage:** 442 unit/component tests + 45 E2E tests (across Chromium, Firefox, WebKit). Run `npm run test:ci` and `npx playwright test` to verify before manual testing.
 
 **Legend:**
 - **AUTO** — Covered by automated tests (unit, component, or E2E). Still worth a quick visual check.
@@ -39,7 +39,7 @@ Dashboard.test.tsx (12 tests) + MapCard.test.tsx (9 tests) cover rendering, crea
 |---|------|------|--------|-------|
 | 2.1 | "New Map" creates blank map — opens in editor with root node | AUTO | | |
 | 2.2 | "Templates" button opens modal — select template — map pre-populated | AUTO | | |
-| 2.3 | Import JSON file — new map appears in dashboard, opens in editor | AUTO | | |
+| 2.3 | Import JSON file — new map appears in dashboard, opens in editor | MANUAL | | |
 | 2.4 | Delete map from dashboard — two-click confirmation, removed from list | AUTO | | |
 | 2.5 | Map cards show correct node count, dates, sync status badges | AUTO | | |
 | 2.6 | Map card click navigates to editor | AUTO | | |
@@ -337,7 +337,7 @@ HelpGuideModal.test.tsx (6 tests) covers modal rendering, content sections, keyb
 | Section | Total | AUTO | MANUAL |
 |---------|-------|------|--------|
 | 1. Auth Flows | 10 | 2 | 8 |
-| 2. Dashboard & Maps | 10 | 9 | 1 |
+| 2. Dashboard & Maps | 10 | 8 | 2 |
 | 3. Canvas & Nodes | 21 | 18 | 3 |
 | 4. Layouts & Backgrounds | 5 | 5 | 0 |
 | 5. Notes | 14 | 11 | 3 |
@@ -354,7 +354,7 @@ HelpGuideModal.test.tsx (6 tests) covers modal rendering, content sections, keyb
 | 16. Ads | 3 | 2 | 1 |
 | 17. Help & Onboarding | 4 | 4 | 0 |
 | 18. Cross-Cutting | 12 | 10 | 2 |
-| **TOTAL** | **172** | **91** | **81** |
+| **TOTAL** | **172** | **90** | **82** |
 
 ---
 

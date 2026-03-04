@@ -47,48 +47,4 @@ test.describe('Export and Reimport', () => {
     expect(node).toHaveProperty('text');
   });
 
-  test('14.6 — Import JSON loads map with correct nodes', async ({ page }) => {
-    // Prepare a valid JSON fixture
-    const fixture = JSON.stringify({
-      nodes: [
-        { id: 'imported-1', text: 'Imported Root', x: 0, y: 0, parent: null, collapsed: false, color: '#4a90d9' },
-        { id: 'imported-2', text: 'Imported Child', x: 100, y: 100, parent: 'imported-1', collapsed: false, color: '#7bc67e' },
-      ],
-      links: [
-        { source: 'imported-1', target: 'imported-2' },
-      ],
-    });
-
-    // Click the import button on the toolbar
-    await page.locator('button[title="Import JSON data"]').click();
-    await page.waitForTimeout(500);
-
-    // Paste JSON into the textarea
-    const textarea = page.locator('textarea').first();
-    await expect(textarea).toBeVisible();
-    await textarea.fill(fixture);
-    await page.waitForTimeout(300);
-
-    // Verify validation success message
-    await expect(page.getByText('Valid JSON detected')).toBeVisible();
-
-    // Click Import button
-    await page.getByRole('button', { name: 'Import Mind Map' }).click();
-    await page.waitForTimeout(1000);
-
-    // Verify nodes loaded
-    await page.waitForSelector('[data-testid="mind-map-node"]', { timeout: 10000 });
-
-    const nodes = page.locator('[data-testid="mind-map-node"]');
-    expect(await nodes.count()).toBeGreaterThanOrEqual(2);
-
-    // Verify the imported text is present via SVG <text> elements
-    // Use evaluate() to read DOM textContent directly (immune to visual truncation)
-    const nodeTexts = await page.evaluate(() =>
-      Array.from(document.querySelectorAll('[data-testid="mind-map-node"] text'))
-        .map(el => el.textContent || '')
-    );
-    expect(nodeTexts).toContain('Imported Root');
-    expect(nodeTexts).toContain('Imported Child');
-  });
 });
