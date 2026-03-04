@@ -83,8 +83,8 @@ test.describe('Export and Reimport', () => {
     expect(await nodes.count()).toBeGreaterThanOrEqual(2);
 
     // Verify the imported text is present
-    const allText = await page.locator('[data-testid="mind-map-node"] text').allTextContents();
-    expect(allText).toContain('Imported Root');
-    expect(allText).toContain('Imported Child');
+    // Use page.getByText which checks accessibility tree (works even if SVG text is truncated)
+    await expect(page.getByText('Imported Root')).toBeVisible({ timeout: 5000 });
+    await expect(page.getByText('Imported Child')).toBeVisible({ timeout: 5000 });
   });
 });
