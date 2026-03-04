@@ -43,7 +43,7 @@ Dashboard.test.tsx (12 tests) + MapCard.test.tsx (9 tests) cover rendering, crea
 | 2.4 | Delete map from dashboard — two-click confirmation, removed from list | AUTO | | |
 | 2.5 | Map cards show correct node count, dates, sync status badges | AUTO | | |
 | 2.6 | Map card click navigates to editor | AUTO | | |
-| 2.7 | Rename map inline on dashboard — title persists on reload | AUTO | PASS | E2E: dashboard-navigation |
+| 2.7 | Rename map inline on dashboard — title updates immediately | AUTO | PASS | E2E: dashboard-navigation. Reload persistence verified manually |
 | 2.8 | Dashboard merges local + cloud maps correctly | MANUAL | PASS | |
 | 2.9 | "Library" link in header navigates to library page | AUTO | | |
 | 2.10 | Profile dropdown shows when authenticated, sign-in link when not | AUTO | | |
@@ -71,7 +71,7 @@ MindMapNode.test.tsx (15), NodeActions.test.tsx (8), NodeEditor.test.tsx (8), us
 | 3.13 | Collapse/expand node children — toggle works, icon changes | AUTO | | |
 | 3.14 | Canvas renders SVG with zoom behavior initialized | AUTO | | |
 | 3.15 | Change node size (XS/S/M/L/XL) — rect resizes correctly | AUTO | PASS | E2E: node-sizing-multiselect |
-| 3.16 | Multi-select (Ctrl+click or marquee drag) — drag group together | AUTO | PASS | E2E: node-sizing-multiselect |
+| 3.16 | Multi-select (Ctrl/Cmd+click) — selection indicators appear | AUTO | PASS | E2E: node-sizing-multiselect. Marquee drag verified manually |
 | 3.17 | Spread/compress selected nodes (] / [) — spacing changes | MANUAL | PASS | |
 | 3.18 | Zoom in/out (scroll wheel) — canvas scales smoothly | AUTO | PASS | E2E: canvas-interactions |
 | 3.19 | Pan (Space+drag) — canvas pans | AUTO | PASS | E2E: canvas-interactions |
@@ -84,9 +84,9 @@ MindMapNode.test.tsx (15), NodeActions.test.tsx (8), NodeEditor.test.tsx (8), us
 
 | # | Test | Type | Status | Notes |
 |---|------|------|--------|-------|
-| 4.1 | Switch to each layout (Custom, Smart Radial, Tree, Compact Tree, Basic Radial, Force Physics) — nodes rearrange | AUTO | PASS | E2E: layouts-and-backgrounds |
+| 4.1 | Switch layouts (Tree, Smart Radial, Force Physics) — nodes rearrange | AUTO | PASS | E2E: layouts-and-backgrounds. Remaining layouts (Custom, Compact Tree, Basic Radial) verified manually |
 | 4.2 | Layout preference persists across page reload | AUTO | PASS | E2E: layouts-and-backgrounds |
-| 4.3 | Switch to each background (White, Light Gray, Warm Gray, Dark, Dot Grid, Dot Grid Dark, Line Grid) — canvas updates | AUTO | PASS | E2E: layouts-and-backgrounds |
+| 4.3 | Switch background (Dark) — canvas updates, localStorage persists | AUTO | PASS | E2E: layouts-and-backgrounds. Remaining backgrounds verified manually |
 | 4.4 | Background persists across reload | AUTO | PASS | E2E: layouts-and-backgrounds |
 | 4.5 | Dark backgrounds — node text colors adjust for contrast | AUTO | PASS | E2E: layouts-and-backgrounds |
 
@@ -268,7 +268,7 @@ ExportSelector.test.tsx (12 tests) covers dropdown rendering, Pro gating, format
 | 14.2 | JSON export always available (free) — file downloads | AUTO | | |
 | 14.3 | Pro formats show lock icon for free users | AUTO | | |
 | 14.4 | Free user clicks locked format — upgrade modal shown | AUTO | | |
-| 14.5 | Re-import exported JSON — map recreated correctly | AUTO | | E2E: export-reimport |
+| 14.5 | Export JSON — file downloads with correct nodes/links structure | AUTO | | E2E: export-reimport |
 | 14.6 | Export PNG (Pro) — image includes nodes, links, background | MANUAL | | |
 | 14.7 | Export SVG (Pro) — vector file opens correctly | MANUAL | | |
 | 14.8 | Export PDF (Pro) — print-ready document | MANUAL | | |
