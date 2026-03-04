@@ -103,7 +103,7 @@ test.describe('Canvas Interactions', () => {
     await expect(page.locator('[data-testid="mind-map-node"]')).toHaveCount(initialCount);
 
     // Undo the deletion
-    await page.keyboard.press('Control+z');
+    await page.keyboard.press('ControlOrMeta+z');
     await page.waitForTimeout(500);
 
     // Verify node was restored

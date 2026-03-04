@@ -45,7 +45,7 @@ test.describe('Node Sizing and Multi-Select', () => {
 
     // Use Meta key (macOS) for multi-select — the code checks event.ctrlKey || event.metaKey
     // On macOS Playwright, 'Meta' maps to the Command key which sets event.metaKey
-    await page.locator('[data-testid="mind-map-node"]').first().click({ modifiers: ['Meta'] });
+    await page.locator('[data-testid="mind-map-node"]').first().click({ modifiers: ['ControlOrMeta'] });
     await page.waitForTimeout(500);
 
     // Verify multi-select indicator appears (it's an SVG rect element)
@@ -54,7 +54,7 @@ test.describe('Node Sizing and Multi-Select', () => {
     expect(count1).toBeGreaterThanOrEqual(1);
 
     // Meta+click the second node to add it to selection
-    await page.locator('[data-testid="mind-map-node"]').nth(1).click({ modifiers: ['Meta'] });
+    await page.locator('[data-testid="mind-map-node"]').nth(1).click({ modifiers: ['ControlOrMeta'] });
     await page.waitForTimeout(500);
 
     // Should have 2 multi-select indicators
