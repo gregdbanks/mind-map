@@ -21,10 +21,15 @@ function loadAdSenseScript(clientId: string): Promise<void> {
   if (scriptLoaded) return Promise.resolve();
 
   return new Promise((resolve, reject) => {
-    const existing = document.querySelector('script[src*="adsbygoogle"]');
+    const existing = document.querySelector('script[src*="adsbygoogle"]') as HTMLScriptElement | null;
     if (existing) {
-      scriptLoaded = true;
-      resolve();
+      if (window.adsbygoogle !== undefined) {
+        scriptLoaded = true;
+        resolve();
+      } else {
+        existing.addEventListener('load', () => { scriptLoaded = true; resolve(); });
+        existing.addEventListener('error', () => reject(new Error('AdSense script failed to load')));
+      }
       return;
     }
 
